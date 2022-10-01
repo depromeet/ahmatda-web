@@ -1,8 +1,8 @@
 {
-  "name": "team3-web",
+  "name": "12-team3-web",
   "version": "0.0.1",
   "license": "MIT",
-  "author": "team3-web",
+  "author": "12-team3-web",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
