@@ -1,9 +1,9 @@
 import { ReactElement, ReactNode, useState } from 'react';
+import { NextPage } from 'next';
+import type { AppProps } from 'next/app';
 import { ThemeProvider } from '@emotion/react';
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { NextPage } from 'next';
-import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
 
 import GlobalStyles from '@/styles/GlobalStyles';

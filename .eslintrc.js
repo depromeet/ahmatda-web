@@ -75,8 +75,8 @@ module.exports = {
       'error',
       {
         groups: [
-          // Packages. `react` related packages come first.
-          ['^react', '^@?\\w'],
+          // Packages. `react` and 'next' related packages come first.
+          ['^react', '^next', '^@?\\w'],
           // Internal packages.
           ['@pay-stitches', '^(@/?$)(/.*|$)'],
           // Side effect imports.
