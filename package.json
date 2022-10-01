@@ -22,6 +22,7 @@
     "@tanstack/react-query-devtools": "^4.0.10",
     "axios": "^0.27.2",
     "emotion-normalize": "^11.0.1",
+    "framer-motion": "^7.5.1",
     "next": "^12.2.4",
     "next-compose-plugins": "^2.2.1",
     "qs": "^6.11.0",
