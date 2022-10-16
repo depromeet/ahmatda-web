@@ -70,6 +70,7 @@ module.exports = {
     'import/no-unresolved': 'error',
     'react/react-in-jsx-scope': 'off',
     'no-use-before-define': 'off',
+    'no-restricted-exports': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
     'simple-import-sort/imports': [
       'error',
