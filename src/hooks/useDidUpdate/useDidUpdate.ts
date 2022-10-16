@@ -1,6 +1,6 @@
 import { DependencyList, EffectCallback, useEffect, useRef } from 'react';
 
-const useDidUpdate = (callback: EffectCallback, dependencyList: DependencyList) => {
+const useDidUpdate = (effectCallback: EffectCallback, dependencyList: DependencyList) => {
   const didMountRef = useRef<boolean>(false);
 
   useEffect(() => {
@@ -9,7 +9,7 @@ const useDidUpdate = (callback: EffectCallback, dependencyList: DependencyList) 
       return;
     }
 
-    callback();
+    effectCallback();
   }, [...dependencyList]);
 };
 
