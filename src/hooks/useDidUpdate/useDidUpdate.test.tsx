@@ -9,7 +9,7 @@ describe('useDidUpdate', () => {
     expect(useDidUpdate).toBeDefined();
   });
 
-  it('첫 호출시 effectCallback이 실행되면 안된다', () => {
+  it('첫 호출 시 effectCallback이 실행되면 안된다', () => {
     const mockCallback = jest.fn();
     renderHook(() => useDidUpdate(mockCallback, []));
     expect(mockCallback).not.toBeCalled();

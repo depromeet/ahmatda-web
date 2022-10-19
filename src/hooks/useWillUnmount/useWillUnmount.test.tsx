@@ -9,7 +9,7 @@ describe('useWillUnmount', () => {
     expect(useWillUnmount).toBeDefined();
   });
 
-  it('첫 호출시 callback이 실행되면 안된다', () => {
+  it('첫 호출 시 callback이 실행되면 안된다', () => {
     const mockCallback = jest.fn();
     renderHook(() => useWillUnmount(mockCallback));
     expect(mockCallback).not.toBeCalled();
