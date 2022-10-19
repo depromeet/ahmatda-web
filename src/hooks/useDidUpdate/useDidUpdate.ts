@@ -1,6 +1,6 @@
-import { DependencyList, EffectCallback, useEffect, useRef } from 'react';
+import { DependencyList, useEffect, useRef } from 'react';
 
-const useDidUpdate = (effectCallback: EffectCallback, dependencyList: DependencyList) => {
+const useDidUpdate = (callback: VoidFunction, dependencyList: DependencyList) => {
   const didMountRef = useRef<boolean>(false);
 
   useEffect(() => {
@@ -9,7 +9,7 @@ const useDidUpdate = (effectCallback: EffectCallback, dependencyList: Dependency
       return;
     }
 
-    effectCallback();
+    callback();
   }, [...dependencyList]);
 };
 

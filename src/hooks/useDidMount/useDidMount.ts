@@ -1,12 +1,12 @@
-import { EffectCallback, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
-const useDidMount = (effectCallback: EffectCallback) => {
+const useDidMount = (callback: VoidFunction) => {
   const didMountRef = useRef<boolean>(false);
 
   useEffect(() => {
     if (didMountRef.current) return;
     didMountRef.current = true;
-    effectCallback();
+    callback();
   }, []);
 };
 

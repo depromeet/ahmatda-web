@@ -30,6 +30,7 @@ describe('useDidMount', () => {
       const [_, setState] = useState(false);
 
       useDidMount(mockCallback);
+
       return (
         <div>
           <button type="button" onClick={() => setState((prev) => !prev)}>
