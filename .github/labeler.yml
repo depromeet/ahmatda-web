@@ -10,6 +10,7 @@ style
 
 'test: e2e'
 - cypress/e2e/*
+- cypress/e2e/**/*
 
 'test: unit'
 - src/**/*.test.{js,jsx,ts,tsx}
