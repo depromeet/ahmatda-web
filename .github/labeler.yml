@@ -1,22 +1,22 @@
 workflow:
-- .github/workflows/*
+  - .github/workflows/*
 
 ci:
-- .github/workflows/ci.yml
+  - .github/workflows/ci.yml
 
-style
-- src/styles/*
-- src/styles/**/*
+style:
+  - src/styles/*
+  - src/styles/**/*
 
-"test: e2e"
-- cypress/e2e/*
-- cypress/e2e/**/*
+'test: e2e':
+  - cypress/e2e/*
+  - cypress/e2e/**/*
 
-"test: unit"
-- src/**/*.test.{js,jsx,ts,tsx}
-- src/test/*
-- src/test/**/*
+'test: unit':
+  - src/**/*.test.{js,jsx,ts,tsx}
+  - src/test/*
+  - src/test/**/*
 
-docs
-- '*.md'
-- '**/*.md'
+docs:
+  - '*.md'
+  - '**/*.md'
