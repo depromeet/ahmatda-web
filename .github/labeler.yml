@@ -8,11 +8,11 @@ style
 - src/styles/*
 - src/styles/**/*
 
-'test: e2e'
+"test: e2e"
 - cypress/e2e/*
 - cypress/e2e/**/*
 
-'test: unit'
+"test: unit"
 - src/**/*.test.{js,jsx,ts,tsx}
 - src/test/*
 - src/test/**/*
