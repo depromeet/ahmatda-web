@@ -6,6 +6,9 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  experimental: {
+    appDir: false,
+  },
   pageExtensions: ['page.tsx', 'api.ts'],
   swcMinify: true,
   compiler: {
