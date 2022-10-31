@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}' --fix",
     "test:unit": "jest",
+    "test:watch": "jest --watch",
     "test:coverage": "yarn test:unit --coverage",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",

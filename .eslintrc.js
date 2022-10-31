@@ -70,6 +70,7 @@ module.exports = {
     'import/no-unresolved': 'error',
     'react/react-in-jsx-scope': 'off',
     'no-use-before-define': 'off',
+    'no-restricted-exports': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
     'simple-import-sort/imports': [
       'error',
@@ -94,7 +95,10 @@ module.exports = {
     'import/first': 'error',
     'import/newline-after-import': 'error',
     'import/no-duplicates': 'error',
-    '@typescript-eslint/no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { ignoreRestSiblings: true, argsIgnorePattern: '_', varsIgnorePattern: '_' },
+    ],
     'unused-imports/no-unused-imports': 'error',
     'unused-imports/no-unused-vars': [
       'error',
