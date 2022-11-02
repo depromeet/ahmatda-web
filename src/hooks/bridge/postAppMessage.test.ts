@@ -25,7 +25,6 @@ describe('postAppMessage', () => {
 
   it('window가 undefined가 아닐시 postMessage가 호출되어야 한다', () => {
     expect(window).not.toBeUndefined();
-    // TODO: 이후 추가, 삭제되는 상수에 따라 적용
     const obj = { type: 'bar', data: 'dd' } as const;
 
     postAppMessage(obj);
@@ -33,6 +32,7 @@ describe('postAppMessage', () => {
   });
 
   it('postMessage가 호출될 때 상수의 value 값으로, 문자열로 호출되어야 한다', () => {
+    // TODO: 이후 추가, 삭제되는 상수에 따라 적용
     const obj = { type: 'bar', data: 'dd' } as const;
     const correctObject = { type: POST_WEBVIEW_MESSAGE_TYPE.bar, data: 'dd' };
 
