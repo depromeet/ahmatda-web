@@ -7,8 +7,8 @@ import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { RecoilRoot } from 'recoil';
 
-import * as gtag from '../lib/gtag';
-
+import { gaPageview } from '@/lib/gtag';
+import { mixpanelTrack } from '@/lib/mixpanel';
 import GlobalStyles from '@/styles/GlobalStyles';
 import lightTheme from '@/styles/theme';
 
@@ -36,7 +36,8 @@ const MyApp = ({ Component: AppComponent, pageProps }: AppPropsWithLayout) => {
   const router = useRouter();
   useEffect(() => {
     const handleRouteChange = (url: URL) => {
-      gtag.pageview(url);
+      gaPageview(url);
+      mixpanelTrack('Page view', { url });
     };
     router.events.on('routeChangeComplete', handleRouteChange);
     return () => {
