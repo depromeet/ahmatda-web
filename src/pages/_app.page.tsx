@@ -1,14 +1,12 @@
-import { ReactElement, ReactNode, useEffect, useState } from 'react';
+import { ReactElement, ReactNode, useState } from 'react';
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
-import { useRouter } from 'next/router';
 import { ThemeProvider } from '@emotion/react';
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { RecoilRoot } from 'recoil';
 
-import { gaPageview } from '@/lib/gtag';
-import { mixpanelTrack } from '@/lib/mixpanel';
+import useTrackPageView from '@/hooks/analytics/useTrackPageView';
 import GlobalStyles from '@/styles/GlobalStyles';
 import lightTheme from '@/styles/theme';
 
@@ -33,17 +31,7 @@ const MyApp = ({ Component: AppComponent, pageProps }: AppPropsWithLayout) => {
       }),
   );
 
-  const router = useRouter();
-  useEffect(() => {
-    const handleRouteChange = (url: URL) => {
-      gaPageview(url);
-      mixpanelTrack('Page view', { url });
-    };
-    router.events.on('routeChangeComplete', handleRouteChange);
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-    };
-  }, [router.events]);
+  useTrackPageView();
 
   return (
     <QueryClientProvider client={queryClient}>
