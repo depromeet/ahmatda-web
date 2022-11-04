@@ -27,12 +27,12 @@ describe('useListeningAppMessage', () => {
   });
 
   it('마운트 시 addEventListener가 실행되어야 한다', () => {
-    jest.spyOn(document, 'addEventListener').mockImplementation();
-    jest.spyOn(window, 'addEventListener').mockImplementation();
+    const documentAddEventListener = jest.spyOn(document, 'addEventListener');
+    const windowAddEventListener = jest.spyOn(window, 'addEventListener');
     render(<App />);
 
-    expect(document.addEventListener).toBeCalled();
-    expect(window.addEventListener).toBeCalled();
+    expect(documentAddEventListener).toBeCalled();
+    expect(windowAddEventListener).toBeCalled();
   });
 
   it('message 이벤트 발생 시 AFTER_MESSAGE_TEXT가 렌더링되어야 한다', () => {
@@ -47,12 +47,12 @@ describe('useListeningAppMessage', () => {
   });
 
   it('언마운트 시 removeEventListener가 실행되어야 한다', () => {
-    jest.spyOn(document, 'removeEventListener').mockImplementation();
-    jest.spyOn(window, 'removeEventListener').mockImplementation();
+    const documentRemoveEventListener = jest.spyOn(document, 'removeEventListener');
+    const windowRemoveEventListener = jest.spyOn(window, 'removeEventListener');
     const { unmount } = render(<App />);
     unmount();
 
-    expect(document.removeEventListener).toBeCalled();
-    expect(window.removeEventListener).toBeCalled();
+    expect(documentRemoveEventListener).toBeCalled();
+    expect(windowRemoveEventListener).toBeCalled();
   });
 });

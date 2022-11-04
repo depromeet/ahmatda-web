@@ -34,8 +34,8 @@ describe('useAppMessageListener', () => {
   });
 
   it('startListening 시 document와 window에 addEventListenr가 실행되어야 한다', () => {
-    jest.spyOn(document, 'addEventListener').mockImplementation();
-    jest.spyOn(window, 'addEventListener').mockImplementation();
+    const documentAddEventListener = jest.spyOn(document, 'addEventListener');
+    const windowAddEventListener = jest.spyOn(window, 'addEventListener');
 
     const {
       result: {
@@ -45,13 +45,13 @@ describe('useAppMessageListener', () => {
 
     startListening();
 
-    expect(document.addEventListener).toBeCalled();
-    expect(window.addEventListener).toBeCalled();
+    expect(documentAddEventListener).toBeCalled();
+    expect(windowAddEventListener).toBeCalled();
   });
 
   it('stopListening 시 document와 window에 removeEventListener가 실행되어야 한다', () => {
-    jest.spyOn(document, 'removeEventListener').mockImplementation();
-    jest.spyOn(window, 'removeEventListener').mockImplementation();
+    const documentRemoveEventListener = jest.spyOn(document, 'removeEventListener');
+    const windowRemoveEventListener = jest.spyOn(window, 'removeEventListener');
 
     const {
       result: {
@@ -61,8 +61,8 @@ describe('useAppMessageListener', () => {
 
     stopListening();
 
-    expect(document.removeEventListener).toBeCalled();
-    expect(window.removeEventListener).toBeCalled();
+    expect(documentRemoveEventListener).toBeCalled();
+    expect(windowRemoveEventListener).toBeCalled();
   });
 
   it('targetType이 아닌 message 이벤트는 handler가 실행되면 안된다', () => {
