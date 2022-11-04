@@ -1,3 +1,5 @@
+const { withSentryConfig } = require('@sentry/nextjs');
+
 const isProd = process.env.NODE_ENV === 'production';
 
 /** @type {import('next').NextConfig} */
@@ -27,4 +29,8 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+const sentryWebpackPluginOptions = {
+  silent: !!isProd,
+};
+
+module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);
