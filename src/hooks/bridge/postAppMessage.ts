@@ -1,4 +1,3 @@
-import { POST_WEBVIEW_MESSAGE_TYPE } from './constants';
 import { PostAppMessageData } from './type';
 
 /**
@@ -7,8 +6,7 @@ import { PostAppMessageData } from './type';
 const postAppMessage = ({ type, data, ...rest }: PostAppMessageData) => {
   if (!window?.ReactNativeWebView) return;
 
-  const typeValue = POST_WEBVIEW_MESSAGE_TYPE[type];
-  window.ReactNativeWebView.postMessage(JSON.stringify({ type: typeValue, data, ...rest }));
+  window.ReactNativeWebView.postMessage(JSON.stringify({ type, data, ...rest }));
 };
 
 export default postAppMessage;

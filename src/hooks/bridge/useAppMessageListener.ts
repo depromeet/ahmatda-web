@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 
-import { LISTENING_WEBVIEW_MESSAGE_TYPE } from './constants';
 import { ListeningAppMessageData, LISTENLING_WEBVIEW_MESSAGE_KEY } from './type';
 
 interface Props {
@@ -16,7 +15,7 @@ const useAppMessageListener = ({ targetType, handler }: Props) => {
     ({ data: rawData }: MessageEvent) => {
       const { type, data, ...rest } = JSON.parse(rawData) as ListeningAppMessageData;
 
-      if (LISTENING_WEBVIEW_MESSAGE_TYPE[targetType] !== type) return;
+      if (targetType !== type) return;
       handler({ type, data, rest });
     },
     [targetType, handler],

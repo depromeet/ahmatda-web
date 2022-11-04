@@ -1,4 +1,3 @@
-import { POST_WEBVIEW_MESSAGE_TYPE } from './constants';
 import postAppMessage from './postAppMessage';
 
 describe('postAppMessage', () => {
@@ -19,13 +18,14 @@ describe('postAppMessage', () => {
     Object.defineProperty(global, 'window', { value: undefined, writable: true });
     expect(window).toBeUndefined();
 
-    const result = postAppMessage({ type: 'bar', data: 'dd' });
+    const result = postAppMessage({ type: 'baz', data: 'dd' });
     expect(result).toBeUndefined();
   });
 
   it('window가 undefined가 아닐시 postMessage가 호출되어야 한다', () => {
     expect(window).not.toBeUndefined();
-    const obj = { type: 'bar', data: 'dd' } as const;
+    // TODO: 이후 추가, 삭제되는 상수에 따라 적용
+    const obj = { type: 'baz', data: 'test' } as const;
 
     postAppMessage(obj);
     expect(mockPostMessage).toBeCalled();
@@ -33,8 +33,8 @@ describe('postAppMessage', () => {
 
   it('postMessage가 호출될 때 상수의 value 값으로, 문자열로 호출되어야 한다', () => {
     // TODO: 이후 추가, 삭제되는 상수에 따라 적용
-    const obj = { type: 'bar', data: 'dd' } as const;
-    const correctObject = { type: POST_WEBVIEW_MESSAGE_TYPE.bar, data: 'dd' };
+    const obj = { type: 'baz', data: 'test' } as const;
+    const correctObject = { type: 'baz', data: 'test' };
 
     postAppMessage(obj);
     expect(mockPostMessage).toBeCalledWith(JSON.stringify(correctObject));
