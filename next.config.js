@@ -31,6 +31,7 @@ const nextConfig = {
 
 const sentryWebpackPluginOptions = {
   silent: Boolean(!isProd),
+  autoInstrumentServerFunctions: false,
 };
 
 module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);
