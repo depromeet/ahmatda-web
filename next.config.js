@@ -27,11 +27,13 @@ const nextConfig = {
 
     return config;
   },
+  sentry: {
+    autoInstrumentServerFunctions: false,
+  },
 };
 
 const sentryWebpackPluginOptions = {
   silent: Boolean(!isProd),
-  autoInstrumentServerFunctions: false,
 };
 
 module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);
