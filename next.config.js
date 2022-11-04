@@ -30,7 +30,7 @@ const nextConfig = {
 };
 
 const sentryWebpackPluginOptions = {
-  silent: !!isProd,
+  silent: Boolean(!isProd),
 };
 
 module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);
