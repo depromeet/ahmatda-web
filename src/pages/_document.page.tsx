@@ -11,9 +11,10 @@ class MyDocument extends Document {
       <Html lang="ko">
         <Head>
           <meta charSet="utf-8" />
-          <title>team3-web</title>$
+          <title>team3-web</title>
           {isProd(process.env.NODE_ENV) && (
             <>
+              {/* GA */}
               <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
               <script
                 dangerouslySetInnerHTML={{
@@ -27,6 +28,7 @@ class MyDocument extends Document {
                   `,
                 }}
               />
+              {/* Mixpanel */}
               <script
                 dangerouslySetInnerHTML={{
                   __html: `
@@ -37,9 +39,12 @@ class MyDocument extends Document {
                   `,
                 }}
               />
-              <script
-                dangerouslySetInnerHTML={{
-                  __html: `
+            </>
+          )}
+          {/* Hotjar */}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
                   (function(h,o,t,j,a,r){
                       h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
                       h._hjSettings={hjid:${process.env.NEXT_PUBLIC_HOTJAR_SITE_ID},hjsv:${process.env.NEXT_PUBLIC_HOTJAR_SNIPPET_VERSION}};
@@ -49,10 +54,8 @@ class MyDocument extends Document {
                       a.appendChild(r);
                   })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
                     `,
-                }}
-              />
-            </>
-          )}
+            }}
+          />
         </Head>
         <body>
           <Main />
