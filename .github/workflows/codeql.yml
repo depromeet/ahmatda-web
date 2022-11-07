@@ -6,14 +6,6 @@ on:
   pull_request:
     branches: ['*']
 
-paths:
-  - src
-paths-ignore:
-  - '**/*.test.ts'
-  - '**/*.test.tsx'
-  - '**/*.spec.ts'
-  - '**/*.spec.tsx'
-
 jobs:
   analyze:
     name: Analyze
@@ -36,6 +28,7 @@ jobs:
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
+          config-file: ./.github/codeql/codeql-config.yml
 
       - name: Autobuild
         uses: github/codeql-action/autobuild@v2
