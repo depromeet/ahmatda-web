@@ -3994,15 +3994,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["@rushstack/eslint-patch", [\
-        ["npm:1.2.0", {\
-          "packageLocation": "./.yarn/cache/@rushstack-eslint-patch-npm-1.2.0-917f402e4e-faa749faae.zip/node_modules/@rushstack/eslint-patch/",\
-          "packageDependencies": [\
-            ["@rushstack/eslint-patch", "npm:1.2.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["@rollup/plugin-sucrase", [\
         ["npm:4.0.4", {\
           "packageLocation": "./.yarn/cache/@rollup-plugin-sucrase-npm-4.0.4-11cf77c62a-ccb01d7eb3.zip/node_modules/@rollup/plugin-sucrase/",\
@@ -4056,6 +4047,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@rollup/pluginutils", "npm:4.2.1"],\
             ["estree-walker", "npm:2.0.2"],\
             ["picomatch", "npm:2.3.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@rushstack/eslint-patch", [\
+        ["npm:1.2.0", {\
+          "packageLocation": "./.yarn/cache/@rushstack-eslint-patch-npm-1.2.0-917f402e4e-faa749faae.zip/node_modules/@rushstack/eslint-patch/",\
+          "packageDependencies": [\
+            ["@rushstack/eslint-patch", "npm:1.2.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4137,10 +4137,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@sentry/utils", "npm:7.17.4"],\
             ["@sentry/webpack-plugin", "npm:1.20.0"],\
             ["@types/next", null],\
-            ["@types/react", "npm:18.0.14"],\
+            ["@types/react", "npm:18.0.24"],\
             ["@types/webpack", null],\
             ["chalk", "npm:3.0.0"],\
-            ["next", "virtual:f7f52e8dab32e1eac66e2deffa34ca37a0fdf1269a110ed39a44b7bb619c2e4e0c2cf391b26f778358c13a35892fff1d957fc60120d3d4dcf520802050a4232f#npm:12.2.5"],\
+            ["next", "virtual:f7f52e8dab32e1eac66e2deffa34ca37a0fdf1269a110ed39a44b7bb619c2e4e0c2cf391b26f778358c13a35892fff1d957fc60120d3d4dcf520802050a4232f#npm:13.0.2"],\
             ["react", "npm:18.2.0"],\
             ["rollup", "npm:2.78.0"],\
             ["tslib", "npm:1.14.1"],\
@@ -4188,7 +4188,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@sentry/browser", "npm:7.17.4"],\
             ["@sentry/types", "npm:7.17.4"],\
             ["@sentry/utils", "npm:7.17.4"],\
-            ["@types/react", "npm:18.0.14"],\
+            ["@types/react", "npm:18.0.24"],\
             ["hoist-non-react-statics", "npm:3.3.2"],\
             ["react", "npm:18.2.0"],\
             ["tslib", "npm:1.14.1"]\
