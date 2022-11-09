@@ -1,3 +1,5 @@
+const { withSentryConfig } = require('@sentry/nextjs');
+
 const isProd = process.env.NODE_ENV === 'production';
 
 /** @type {import('next').NextConfig} */
@@ -28,6 +30,13 @@ const nextConfig = {
 
     return config;
   },
+  sentry: {
+    autoInstrumentServerFunctions: false,
+  },
 };
 
-module.exports = nextConfig;
+const sentryWebpackPluginOptions = {
+  silent: Boolean(!isProd),
+};
+
+module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);
