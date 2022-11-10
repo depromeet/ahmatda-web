@@ -3,5 +3,6 @@ export declare global {
     ReactNativeWebView: {
       postMessage(msg: string): void;
     };
+    mixpanel: any;
   }
 }

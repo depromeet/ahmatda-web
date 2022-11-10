@@ -10,7 +10,8 @@ env:
   CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/.yarn/unplugged
   CACHED_BUILD_PATHS: ${{ github.workspace }}/.next
   BUILD_CACHE_KEY: ${{ github.sha }}
-  DEFAULT_NODE_VERSION: "16"
+  DEFAULT_NODE_VERSION: '16'
+  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
 jobs:
   job_install_dependencies:
@@ -69,7 +70,10 @@ jobs:
 
       - name: Build
         if: steps.cache_built_packages.outputs.cache-hit == ''
-        run: yarn build
+        run: |
+          SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
+          yarn build
+
     outputs:
       dependency_cache_key: ${{ needs.job_install_dependencies.outputs.dependency_cache_key }}
 

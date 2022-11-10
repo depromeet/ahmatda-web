@@ -1,3 +1,5 @@
+const { withSentryConfig } = require('@sentry/nextjs');
+
 const isProd = process.env.NODE_ENV === 'production';
 
 /** @type {import('next').NextConfig} */
@@ -5,6 +7,9 @@ const nextConfig = {
   reactStrictMode: true,
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  experimental: {
+    appDir: false,
   },
   pageExtensions: ['page.tsx', 'api.ts'],
   swcMinify: true,
@@ -25,6 +30,13 @@ const nextConfig = {
 
     return config;
   },
+  sentry: {
+    autoInstrumentServerFunctions: false,
+  },
 };
 
-module.exports = nextConfig;
+const sentryWebpackPluginOptions = {
+  silent: Boolean(!isProd),
+};
+
+module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);
