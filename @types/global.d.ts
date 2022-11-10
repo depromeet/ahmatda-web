@@ -1,5 +1,8 @@
 export declare global {
   interface Window {
-    mixpanel:any;
+    ReactNativeWebView: {
+      postMessage(msg: string): void;
+    };
+    mixpanel: any;
   }
 }
