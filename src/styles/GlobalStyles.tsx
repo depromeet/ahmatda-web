@@ -20,6 +20,10 @@ export const setGlobalStyles = css`
   :disabled {
     cursor: not-allowed;
   }
+
+  * {
+  font-family: inherit;
+  }
 `;
 
 const GlobalStyles = (): ReactElement => {
