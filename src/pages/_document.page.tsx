@@ -10,11 +10,11 @@ class MyDocument extends Document {
     return (
       <Html lang="ko">
         <Head>
-        <link
-  rel="stylesheet"
-  as="style"
-  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css"
-/>
+          <link
+            rel="stylesheet"
+            as="style"
+            href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css"
+          />
           <meta charSet="utf-8" />
           <title>team3-web</title>
           {isProd(process.env.NODE_ENV) && (

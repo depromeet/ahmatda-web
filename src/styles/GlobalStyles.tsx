@@ -22,7 +22,7 @@ export const setGlobalStyles = css`
   }
 
   * {
-  font-family: inherit;
+    font-family: inherit;
   }
 `;
 
