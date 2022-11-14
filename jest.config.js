@@ -12,10 +12,7 @@ const customJestConfig = {
   testPathIgnorePatterns: ['node_modules', '<rootDir>.*/public', '<rootDir>/.next/', 'cypress'],
   moduleDirectories: ['node_modules', '<rootDir>/'],
   testEnvironment: 'jest-environment-jsdom',
-  coveragePathIgnorePatterns: [
-    // NOTE - 테스트를 위한 wrapper component
-    '<rootDir>/src/test/ReactQueryWrapper.tsx',
-  ],
+  coveragePathIgnorePatterns: ['<rootDir>/src/test/*'],
 };
 
 module.exports = async () => ({
