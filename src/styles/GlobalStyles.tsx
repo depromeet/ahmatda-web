@@ -23,6 +23,7 @@ export const setGlobalStyles = css`
 
   * {
     font-family: inherit;
+    box-sizing: border-box;
   }
 `;
 
