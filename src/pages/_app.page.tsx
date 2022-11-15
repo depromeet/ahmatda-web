@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 import { ThemeProvider } from '@emotion/react';
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { domAnimation, LazyMotion } from 'framer-motion';
 import { RecoilRoot } from 'recoil';
 
 import useTrackPageView from '@/hooks/analytics/useTrackPageView';
@@ -38,8 +39,10 @@ const MyApp = ({ Component: AppComponent, pageProps }: AppPropsWithLayout) => {
       <Hydrate state={pageProps.dehydratedState}>
         <RecoilRoot>
           <ThemeProvider theme={lightTheme}>
-            <GlobalStyles />
-            <AppComponent {...pageProps} />
+            <LazyMotion strict features={domAnimation}>
+              <GlobalStyles />
+              <AppComponent {...pageProps} />
+            </LazyMotion>
           </ThemeProvider>
         </RecoilRoot>
         <ReactQueryDevtools initialIsOpen={false} />
