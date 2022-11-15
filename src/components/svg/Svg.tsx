@@ -46,7 +46,7 @@ const Svg = ({
   color,
   isUsingFill = false,
   children,
-  viewBox,
+  viewBox = '0 0 24 24',
   ...rest
 }: PropsWithChildren<Props>) => {
   return (
@@ -55,7 +55,7 @@ const Svg = ({
       width={width ?? size ?? 24}
       height={height ?? size ?? 24}
       fill={isUsingFill ? color ?? 'currentColor' : 'none'}
-      viewBox={viewBox ?? '0 0 24 24'}
+      viewBox={viewBox}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...rest}
     >
