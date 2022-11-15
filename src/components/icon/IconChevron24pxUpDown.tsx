@@ -7,6 +7,9 @@ type Direction = 'up' | 'down';
 const DIRECTION_DEGREE: { [K in Direction]: number } = { up: 0, down: 180 };
 
 interface Props extends SvgProps {
+  /**
+   * @default `up`
+   */
   direction?: Direction;
 }
 
