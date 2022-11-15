@@ -31,6 +31,10 @@ const StyledLabelButton = styled(Button)<StyledLabelButtonProps>`
   background-color: inherit;
   color: ${({ theme }) => theme.colors.gray3};
 
+  &:active {
+    background-color: inherit;
+  }
+
   &:disabled {
     background-color: inherit;
     color: ${({ theme }) => theme.colors.gray5};

@@ -23,6 +23,11 @@ const StyledButton = styled.button`
   padding: 12px;
   font-size: 1rem;
   text-align: center;
+  transition: background-color 0.2s;
+
+  &:active {
+    background-color: ${({ theme }) => theme.colors.gray5};
+  }
 
   &:disabled {
     background-color: ${({ theme }) => theme.colors.gray3};
