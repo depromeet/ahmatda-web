@@ -118,5 +118,6 @@ module.exports = {
     ],
     'react/jsx-props-no-spreading': ['warn', { exceptions: ['Button', 'AppComponent'] }],
     'import/order': 'off',
+    'consistent-return': 'off',
   },
 };
