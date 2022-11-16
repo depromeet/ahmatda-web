@@ -116,7 +116,10 @@ module.exports = {
         namedComponents: 'arrow-function',
       },
     ],
-    'react/jsx-props-no-spreading': ['warn', { exceptions: ['Button', 'AppComponent'] }],
+    'react/jsx-props-no-spreading': [
+      'warn',
+      { html: 'ignore', exceptions: ['Button', 'AppComponent', 'Input', 'Svg'] },
+    ],
     'import/order': 'off',
   },
 };

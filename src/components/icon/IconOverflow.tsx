@@ -1,7 +1,6 @@
 import Svg, { Props } from '../svg/Svg';
 
 const IconOverflow = ({ ...rest }: Props) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
   <Svg {...rest}>
     <path
       d="M5 13.75C5.9665 13.75 6.75 12.9665 6.75 12C6.75 11.0335 5.9665 10.25 5 10.25C4.0335 10.25 3.25 11.0335 3.25 12C3.25 12.9665 4.0335 13.75 5 13.75Z"

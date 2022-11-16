@@ -56,7 +56,6 @@ const Svg = ({
       height={height ?? size ?? 24}
       fill={isUsingFill ? color ?? 'currentColor' : 'none'}
       viewBox={viewBox}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...rest}
     >
       {children}
