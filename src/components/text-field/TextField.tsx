@@ -13,7 +13,7 @@ const TextField: FC<Props> = ({ error, ...rest }) => {
 
   return (
     <div>
-      <InputWrapper error={!!error} data-testid="input-wrapper">
+      <InputWrapper data-testid="input-wrapper">
         <Input {...rest} />
       </InputWrapper>
       {!!error && (
@@ -28,7 +28,7 @@ const TextField: FC<Props> = ({ error, ...rest }) => {
 
 export default TextField;
 
-const InputWrapper = styled.div<{ error: boolean }>(
+const InputWrapper = styled.div(
   {
     padding: '12px 16px',
     display: 'flex',
