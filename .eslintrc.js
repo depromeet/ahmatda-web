@@ -118,5 +118,14 @@ module.exports = {
     ],
     'react/jsx-props-no-spreading': ['warn', { exceptions: ['Button', 'AppComponent'] }],
     'import/order': 'off',
+    'jsx-a11y/label-has-associated-control': [
+      2,
+      {
+        labelComponents: ['label'],
+        labelAttributes: ['label'],
+        controlComponents: ['StyledHiddenInput'],
+        depth: 1,
+      },
+    ],
   },
 };
