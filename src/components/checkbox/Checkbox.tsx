@@ -11,7 +11,13 @@ const Checkbox = ({ onCheck, checked }: Props) => {
   const id = useId();
   return (
     <StyledLabel htmlFor={`checkbox-${id}`}>
-      <StyledHiddenInput type="checkbox" checked={checked} onChange={onCheck} id={`checkbox-${id}`} />
+      <StyledHiddenInput
+        type="checkbox"
+        checked={checked}
+        onChange={onCheck}
+        id={`checkbox-${id}`}
+        data-testid="checkbox"
+      />
       <IconCheckbox isChecked={checked} />
     </StyledLabel>
   );
