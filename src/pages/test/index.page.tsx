@@ -1,8 +1,12 @@
+import { useState } from 'react';
+
 import Button from '@/components/button/Button';
 import ContainedButton from '@/components/button/ContainedButton';
 import LabelButton from '@/components/button/LabelButton';
+import Checkbox from '@/components/checkbox/Checkbox';
 
 const Test = () => {
+  const [isChecked, setIsChecked] = useState<boolean>(false);
   return (
     <div>
       <Button>테스트 버튼</Button>
@@ -23,6 +27,15 @@ const Test = () => {
       <LabelButton size="large" disabled>
         라벨 버튼 large
       </LabelButton>
+
+      <div>
+        <Checkbox
+          onCheck={() => {
+            setIsChecked(!isChecked);
+          }}
+          checked={isChecked}
+        />
+      </div>
     </div>
   );
 };

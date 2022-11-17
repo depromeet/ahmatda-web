@@ -1,10 +1,10 @@
-import React, { InputHTMLAttributes, useId } from 'react';
+import React, { ChangeEvent, InputHTMLAttributes, useId } from 'react';
 import styled from '@emotion/styled';
 
 import IconCheckbox from '../icon/IconCheckbox';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  onCheck: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onCheck: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Checkbox = ({ onCheck, checked }: Props) => {
