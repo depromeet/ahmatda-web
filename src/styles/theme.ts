@@ -11,6 +11,10 @@ const theme = {
     primary: '#FF6C3E',
     secondary: '#FF916F',
   },
+  size: {
+    maxWidth: '480px',
+    layoutPadding: '0 20px',
+  },
 };
 
 export default theme;

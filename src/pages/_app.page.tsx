@@ -1,7 +1,8 @@
-import { ReactElement, ReactNode, useState } from 'react';
+import { PropsWithChildren, ReactElement, ReactNode, useState } from 'react';
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from '@emotion/react';
+import styled from '@emotion/styled';
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { domAnimation, LazyMotion } from 'framer-motion';
@@ -40,8 +41,10 @@ const MyApp = ({ Component: AppComponent, pageProps }: AppPropsWithLayout) => {
         <RecoilRoot>
           <ThemeProvider theme={lightTheme}>
             <LazyMotion strict features={domAnimation}>
-              <GlobalStyles />
-              <AppComponent {...pageProps} />
+              <DefaultLayout>
+                <GlobalStyles />
+                <AppComponent {...pageProps} />
+              </DefaultLayout>
             </LazyMotion>
           </ThemeProvider>
         </RecoilRoot>
@@ -52,3 +55,15 @@ const MyApp = ({ Component: AppComponent, pageProps }: AppPropsWithLayout) => {
 };
 
 export default MyApp;
+
+const DefaultLayout = ({ children }: PropsWithChildren) => {
+  return <LayoutWrapper>{children}</LayoutWrapper>;
+};
+
+const LayoutWrapper = styled.div`
+  max-width: ${({ theme }) => theme.size.maxWidth};
+  width: 100%;
+  min-height: 100vh;
+  padding: ${({ theme }) => theme.size.layoutPadding};
+  margin: 0 auto;
+`;
