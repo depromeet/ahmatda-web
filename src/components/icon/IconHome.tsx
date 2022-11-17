@@ -16,7 +16,6 @@ const HOME_COLOR = (isAct: boolean): HomeColor =>
   isAct ? { rect: '#212121', path: '#ffffff' } : { rect: '#E9E9EE', path: '#C7C7D0' };
 
 const IconHome = ({ isAct = false, ...rest }: Props) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
   <Svg {...rest}>
     <rect x="1.5" y="1.5" width="21" height="21" rx="5" fill={HOME_COLOR(isAct).rect} />
     <path
