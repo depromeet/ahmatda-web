@@ -4,9 +4,9 @@ interface Props extends SvgProps {
   isChecked?: boolean;
 }
 
-const IconCheckbox = ({ isChecked = false }: Props) => {
+const IconCheckbox = ({ isChecked = false, ...rest }: Props) => {
   return (
-    <Svg>
+    <Svg {...rest}>
       {isChecked ? (
         <>
           <g clipPath="url(#clip0_1245_54761)">
