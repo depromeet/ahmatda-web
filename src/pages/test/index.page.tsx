@@ -1,12 +1,9 @@
-import { useState } from 'react';
-
 import Button from '@/components/button/Button';
 import ContainedButton from '@/components/button/ContainedButton';
 import LabelButton from '@/components/button/LabelButton';
 import Checkbox from '@/components/checkbox/Checkbox';
 
 const Test = () => {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
   return (
     <div>
       <Button>테스트 버튼</Button>
@@ -31,9 +28,11 @@ const Test = () => {
       <div>
         <Checkbox
           onCheck={() => {
-            setIsChecked(!isChecked);
+            // 체크박스 체크 시 실행할 내용 작성
           }}
-          checked={isChecked}
+          onUncheck={() => {
+            // 체크박스 체크 해제 시 실행할 내용 작성
+          }}
         />
       </div>
     </div>
