@@ -1,6 +1,7 @@
 import Button from '@/components/button/Button';
 import ContainedButton from '@/components/button/ContainedButton';
 import LabelButton from '@/components/button/LabelButton';
+import ToggleSwitch from '@/components/toggle/ToggleSwitch';
 
 const Test = () => {
   return (
@@ -23,6 +24,8 @@ const Test = () => {
       <LabelButton size="large" disabled>
         라벨 버튼 large
       </LabelButton>
+
+      <ToggleSwitch />
     </div>
   );
 };
