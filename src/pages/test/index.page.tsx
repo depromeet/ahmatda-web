@@ -1,6 +1,7 @@
 import Button from '@/components/button/Button';
 import ContainedButton from '@/components/button/ContainedButton';
 import LabelButton from '@/components/button/LabelButton';
+import Checkbox from '@/components/checkbox/Checkbox';
 
 const Test = () => {
   return (
@@ -23,6 +24,17 @@ const Test = () => {
       <LabelButton size="large" disabled>
         라벨 버튼 large
       </LabelButton>
+
+      <div>
+        <Checkbox
+          onCheck={() => {
+            // 체크박스 체크 시 실행할 내용 작성
+          }}
+          onUncheck={() => {
+            // 체크박스 체크 해제 시 실행할 내용 작성
+          }}
+        />
+      </div>
     </div>
   );
 };

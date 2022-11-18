@@ -121,5 +121,14 @@ module.exports = {
       { html: 'ignore', exceptions: ['Button', 'AppComponent', 'Input', 'Svg'] },
     ],
     'import/order': 'off',
+    'jsx-a11y/label-has-associated-control': [
+      'error',
+      {
+        labelComponents: ['label'],
+        labelAttributes: ['label'],
+        controlComponents: ['StyledHiddenInput'],
+        depth: 1,
+      },
+    ],
   },
 };
