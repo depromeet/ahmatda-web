@@ -5,8 +5,21 @@ import styled from '@emotion/styled';
 import IconChevron24pxRightLeft from '../icon/IconChevron24pxRightLeft';
 
 interface Props {
+  /**
+   * 가운데에 표시될 텍스트
+   */
   title?: string;
+  /**
+   * @type `ReactElement`
+   *
+   * 우측에 표시될 element
+   */
   rightElement?: ReactElement;
+  /**
+   * 좌측 `chevron` 아이콘을 클릭 시 실행될 `VoidFunction`
+   *
+   * 값을 주입하지 않을 시 `router.back()`이 실행됩니다
+   */
   onClickBackButton?: VoidFunction;
 }
 
