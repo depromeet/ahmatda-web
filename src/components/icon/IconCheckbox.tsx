@@ -8,8 +8,6 @@ const IconCheckbox = ({ isChecked = false }: Props) => {
   return (
     <Svg>
       {isChecked ? (
-        <rect width="24" height="24" rx="6" fill="#C7C7D0" />
-      ) : (
         <>
           <g clipPath="url(#clip0_1245_54761)">
             <path
@@ -25,6 +23,8 @@ const IconCheckbox = ({ isChecked = false }: Props) => {
             </clipPath>
           </defs>
         </>
+      ) : (
+        <rect width="24" height="24" rx="6" fill="#C7C7D0" />
       )}
     </Svg>
   );
