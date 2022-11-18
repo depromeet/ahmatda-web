@@ -1,6 +1,8 @@
 import Button from '@/components/button/Button';
 import ContainedButton from '@/components/button/ContainedButton';
+import IconButton from '@/components/button/IconButton';
 import LabelButton from '@/components/button/LabelButton';
+import IconOverflow from '@/components/icon/IconOverflow';
 
 const Test = () => {
   return (
@@ -23,6 +25,10 @@ const Test = () => {
       <LabelButton size="large" disabled>
         라벨 버튼 large
       </LabelButton>
+
+      <IconButton>
+        <IconOverflow />
+      </IconButton>
     </div>
   );
 };
