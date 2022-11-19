@@ -121,6 +121,7 @@ module.exports = {
       { html: 'ignore', exceptions: ['Button', 'AppComponent', 'Input', 'Svg'] },
     ],
     'import/order': 'off',
+    'consistent-return': 'off',
     'jsx-a11y/label-has-associated-control': [
       'error',
       {
