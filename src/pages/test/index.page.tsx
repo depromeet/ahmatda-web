@@ -6,6 +6,21 @@ import Button from '@/components/button/Button';
 import ContainedButton from '@/components/button/ContainedButton';
 import LabelButton from '@/components/button/LabelButton';
 import Checkbox from '@/components/checkbox/Checkbox';
+import Chip from '@/components/chip/Chip';
+import IconAdd from '@/components/icon/IconAdd';
+import IconCancel from '@/components/icon/IconCancel';
+import IconCancelSmall from '@/components/icon/IconCancelSmall';
+import IconCheckbox from '@/components/icon/IconCheckbox';
+import IconChevron20pxUpDown from '@/components/icon/IconChevron20pxUpDown';
+import IconChevron24pxRightLeft from '@/components/icon/IconChevron24pxRightLeft';
+import IconChevron24pxUpDown from '@/components/icon/IconChevron24pxUpDown';
+import IconHome from '@/components/icon/IconHome';
+import IconInfo from '@/components/icon/IconInfo';
+import IconMenu from '@/components/icon/IconMenu';
+import IconMovable from '@/components/icon/IconMovable';
+import IconOverflow from '@/components/icon/IconOverflow';
+import IconPin from '@/components/icon/IconPin';
+import IconSearch from '@/components/icon/IconSearch';
 
 const BottomSheet = dynamic(() => import('@/components/portal/BottomSheet'));
 
@@ -34,7 +49,6 @@ const Test = () => {
         라벨 버튼 large
       </LabelButton>
 
-
       <Heading>bottom sheet</Heading>
 
       <Button onClick={() => setIsOpen((prev) => !prev)}>bottom sheet 열기</Button>
@@ -51,6 +65,27 @@ const Test = () => {
             // 체크박스 체크 해제 시 실행할 내용 작성
           }}
         />
+      </div>
+      <div>
+        <IconAdd />
+        <IconCancel />
+        <IconCancelSmall />
+        <IconCheckbox />
+        <IconChevron20pxUpDown />
+        <IconChevron24pxRightLeft />
+        <IconChevron24pxUpDown />
+        <IconHome />
+        <IconMenu />
+        <IconMovable />
+        <IconOverflow />
+        <IconPin />
+        <IconSearch />
+        <IconInfo />
+      </div>
+      <div>
+        <Chip color="black" label="디프만 준비물" />
+        <Chip label="default" />
+        <Chip color="black" icon={<IconAdd />} label="text" />
       </div>
     </div>
   );
