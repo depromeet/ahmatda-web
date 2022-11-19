@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import Button from '@/components/button/Button';
 import ContainedButton from '@/components/button/ContainedButton';
 import LabelButton from '@/components/button/LabelButton';
+import Checkbox from '@/components/checkbox/Checkbox';
 
 const BottomSheet = dynamic(() => import('@/components/portal/BottomSheet'));
 
@@ -33,12 +34,24 @@ const Test = () => {
         라벨 버튼 large
       </LabelButton>
 
+
       <Heading>bottom sheet</Heading>
 
       <Button onClick={() => setIsOpen((prev) => !prev)}>bottom sheet 열기</Button>
       <BottomSheet setToClose={() => setIsOpen(false)} isShowing={isOpen}>
         <div>어쩌구저쩌구</div>
       </BottomSheet>
+
+      <div>
+        <Checkbox
+          onCheck={() => {
+            // 체크박스 체크 시 실행할 내용 작성
+          }}
+          onUncheck={() => {
+            // 체크박스 체크 해제 시 실행할 내용 작성
+          }}
+        />
+      </div>
     </div>
   );
 };

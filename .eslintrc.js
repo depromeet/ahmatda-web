@@ -116,8 +116,20 @@ module.exports = {
         namedComponents: 'arrow-function',
       },
     ],
-    'react/jsx-props-no-spreading': ['warn', { exceptions: ['Button', 'AppComponent'] }],
+    'react/jsx-props-no-spreading': [
+      'warn',
+      { html: 'ignore', exceptions: ['Button', 'AppComponent', 'Input', 'Svg'] },
+    ],
     'import/order': 'off',
     'consistent-return': 'off',
+    'jsx-a11y/label-has-associated-control': [
+      'error',
+      {
+        labelComponents: ['label'],
+        labelAttributes: ['label'],
+        controlComponents: ['StyledHiddenInput'],
+        depth: 1,
+      },
+    ],
   },
 };

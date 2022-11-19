@@ -16,7 +16,6 @@ const SEARCH_COLOR = (isAct: boolean): SearchColor =>
   isAct ? { rect: '#212121', circle: '#212121' } : { rect: '#C7C7D0', circle: '#E9E9EE' };
 
 const IconSearch = ({ isAct = false, ...rest }: Props) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
   <Svg {...rest}>
     <rect
       width="2"

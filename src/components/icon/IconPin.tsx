@@ -16,7 +16,6 @@ const PIN_COLOR = (isOn: boolean): PinColor =>
   isOn ? { rect: '#C7C7D0', path: '#E9E9EE' } : { rect: '#9090A0', path: '#9090A0' };
 
 const IconPin = ({ isOff = false, ...rest }: Props) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
   <Svg {...rest}>
     <rect
       x="8.30493"
