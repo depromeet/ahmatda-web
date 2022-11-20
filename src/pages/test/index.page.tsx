@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
 
 import Button from '@/components/button/Button';
 import ContainedButton from '@/components/button/ContainedButton';
 import LabelButton from '@/components/button/LabelButton';
+import Carousel from '@/components/carousel/Carousel';
+import Indicator from '@/components/carousel/Indicator';
 import Checkbox from '@/components/checkbox/Checkbox';
 import Chip from '@/components/chip/Chip';
 import IconAdd from '@/components/icon/IconAdd';
@@ -26,6 +28,7 @@ const BottomSheet = dynamic(() => import('@/components/portal/BottomSheet'));
 
 const Test = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const carouselWrapperRef = useRef<HTMLDivElement>(null);
 
   return (
     <div>
@@ -56,6 +59,8 @@ const Test = () => {
         <div>어쩌구저쩌구</div>
       </BottomSheet>
 
+      <Heading>checkbox</Heading>
+
       <div>
         <Checkbox
           onCheck={() => {
@@ -66,6 +71,9 @@ const Test = () => {
           }}
         />
       </div>
+
+      <Heading>icon</Heading>
+
       <div>
         <IconAdd />
         <IconCancel />
@@ -82,11 +90,29 @@ const Test = () => {
         <IconSearch />
         <IconInfo />
       </div>
+
+      <Heading>chip</Heading>
+
       <div>
         <Chip color="black" label="디프만 준비물" />
         <Chip label="default" />
         <Chip color="black" icon={<IconAdd />} label="text" />
       </div>
+
+      <Heading>carousel</Heading>
+
+      <Carousel.Wrapper ref={carouselWrapperRef}>
+        <Carousel.Item>
+          <TestDiv>a</TestDiv>
+        </Carousel.Item>
+        <Carousel.Item>
+          <TestDiv>b</TestDiv>
+        </Carousel.Item>
+        <Carousel.Item>
+          <TestDiv>c</TestDiv>
+        </Carousel.Item>
+      </Carousel.Wrapper>
+      <Indicator carouselWrapperRef={carouselWrapperRef} />
     </div>
   );
 };
@@ -95,4 +121,10 @@ export default Test;
 
 const Heading = styled.h2`
   border-top: solid 1px black;
+`;
+
+const TestDiv = styled.div`
+  width: 100%;
+  height: 300px;
+  background-color: green;
 `;
