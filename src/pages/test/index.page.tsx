@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 
 import Button from '@/components/button/Button';
 import ContainedButton from '@/components/button/ContainedButton';
+import IconButton from '@/components/button/IconButton';
 import LabelButton from '@/components/button/LabelButton';
 import Checkbox from '@/components/checkbox/Checkbox';
 import Chip from '@/components/chip/Chip';
@@ -22,6 +23,7 @@ import IconOverflow from '@/components/icon/IconOverflow';
 import IconPin from '@/components/icon/IconPin';
 import IconSearch from '@/components/icon/IconSearch';
 import SegmentedControl from '@/components/segmented-control/SegmentedControl';
+import ToggleSwitch from '@/components/toggle/ToggleSwitch';
 
 const BottomSheet = dynamic(() => import('@/components/portal/BottomSheet'));
 
@@ -50,6 +52,11 @@ const Test = () => {
         라벨 버튼 large
       </LabelButton>
 
+      <IconButton>
+        <IconOverflow />
+      </IconButton>
+
+      <ToggleSwitch />
       <Heading>bottom sheet</Heading>
 
       <Button onClick={() => setIsOpen((prev) => !prev)}>bottom sheet 열기</Button>
