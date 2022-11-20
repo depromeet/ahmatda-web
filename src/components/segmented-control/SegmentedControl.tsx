@@ -1,10 +1,9 @@
-import React, { ChangeEvent, InputHTMLAttributes, useId, useState } from 'react';
+import React, { InputHTMLAttributes, useId, useState } from 'react';
 import styled from '@emotion/styled';
 import { LayoutGroup, m } from 'framer-motion';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   options: string[];
-  onChange?: (e: ChangeEvent) => void;
 }
 
 const SegmentedControl = ({ options, onChange }: Props) => {
@@ -17,8 +16,7 @@ const SegmentedControl = ({ options, onChange }: Props) => {
           const id = useId();
           const isSelected = idx === selectedOption;
           return (
-            // eslint-disable-next-line react/no-array-index-key
-            <OptionWrapper key={idx} whileTap={isSelected ? { scale: 0.95 } : { opacity: 0.6 }}>
+            <OptionWrapper key={option} whileTap={isSelected ? { scale: 0.95 } : { opacity: 0.6 }}>
               {isSelected && <ActivatedBackground layoutId="SegmentedControlActive" />}
               <StyledHiddenInput
                 value={option}
