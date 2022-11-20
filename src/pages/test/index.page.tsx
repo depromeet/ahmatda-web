@@ -5,6 +5,8 @@ import styled from '@emotion/styled';
 import Button from '@/components/button/Button';
 import ContainedButton from '@/components/button/ContainedButton';
 import LabelButton from '@/components/button/LabelButton';
+
+import ToggleSwitch from '@/components/toggle/ToggleSwitch';
 import Checkbox from '@/components/checkbox/Checkbox';
 import Chip from '@/components/chip/Chip';
 import IconAdd from '@/components/icon/IconAdd';
@@ -49,6 +51,7 @@ const Test = () => {
         라벨 버튼 large
       </LabelButton>
 
+      <ToggleSwitch />
       <Heading>bottom sheet</Heading>
 
       <Button onClick={() => setIsOpen((prev) => !prev)}>bottom sheet 열기</Button>
