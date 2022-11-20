@@ -21,6 +21,7 @@ import IconMovable from '@/components/icon/IconMovable';
 import IconOverflow from '@/components/icon/IconOverflow';
 import IconPin from '@/components/icon/IconPin';
 import IconSearch from '@/components/icon/IconSearch';
+import SegmentedControl from '@/components/segmented-control/SegmentedControl';
 
 const BottomSheet = dynamic(() => import('@/components/portal/BottomSheet'));
 
@@ -57,14 +58,7 @@ const Test = () => {
       </BottomSheet>
 
       <div>
-        <Checkbox
-          onCheck={() => {
-            // 체크박스 체크 시 실행할 내용 작성
-          }}
-          onUncheck={() => {
-            // 체크박스 체크 해제 시 실행할 내용 작성
-          }}
-        />
+        <Checkbox />
       </div>
       <div>
         <IconAdd />
@@ -86,6 +80,9 @@ const Test = () => {
         <Chip color="black" label="디프만 준비물" />
         <Chip label="default" />
         <Chip color="black" icon={<IconAdd />} label="text" />
+      </div>
+      <div>
+        <SegmentedControl options={['요일별', '날짜별']} />
       </div>
     </div>
   );
