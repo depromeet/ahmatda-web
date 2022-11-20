@@ -14,8 +14,6 @@ export default IconButton;
 
 const StyledButton = styled(Button)(
   {
-    // !: #39 merge 이후 정리
-    boxSizing: 'border-box',
     borderRadius: '20px',
     display: 'flex',
     justifyContent: 'center',
