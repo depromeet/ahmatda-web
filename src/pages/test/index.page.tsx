@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
 
@@ -6,6 +6,8 @@ import Button from '@/components/button/Button';
 import ContainedButton from '@/components/button/ContainedButton';
 import IconButton from '@/components/button/IconButton';
 import LabelButton from '@/components/button/LabelButton';
+import Carousel from '@/components/carousel/Carousel';
+import Indicator from '@/components/carousel/Indicator';
 import Checkbox from '@/components/checkbox/Checkbox';
 import Chip from '@/components/chip/Chip';
 import IconAdd from '@/components/icon/IconAdd';
@@ -30,6 +32,7 @@ const BottomSheet = dynamic(() => import('@/components/portal/BottomSheet'));
 
 const Test = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const carouselWrapperRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
@@ -65,7 +68,7 @@ const Test = () => {
         <Heading>Toggle</Heading>
         <ToggleSwitch />
       </div>
-
+      
       <div>
         <Heading>bottom sheet</Heading>
 
@@ -106,6 +109,23 @@ const Test = () => {
       </div>
 
       <div>
+        <Heading>carousel</Heading>
+
+        <Carousel.Wrapper ref={carouselWrapperRef}>
+          <Carousel.Item>
+            <TestDiv>a</TestDiv>
+          </Carousel.Item>
+          <Carousel.Item>
+            <TestDiv>b</TestDiv>
+          </Carousel.Item>
+          <Carousel.Item>
+            <TestDiv>c</TestDiv>
+          </Carousel.Item>
+        </Carousel.Wrapper>
+        <Indicator carouselWrapperRef={carouselWrapperRef} />
+      </div>
+      
+      <div>
         <Heading>segment control</Heading>
         <SegmentedControl options={['요일별', '날짜별']} />
       </div>
@@ -117,4 +137,10 @@ export default Test;
 
 const Heading = styled.h2`
   border-top: solid 1px black;
+`;
+
+const TestDiv = styled.div`
+  width: 100%;
+  height: 300px;
+  background-color: green;
 `;

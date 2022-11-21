@@ -23,6 +23,12 @@ export const setGlobalStyles = css`
   * {
     font-family: inherit;
     box-sizing: border-box;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    ::-webkit-scrollbar {
+      display: none !important;
+    }
   }
 `;
 
