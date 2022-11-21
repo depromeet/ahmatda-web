@@ -1,7 +1,9 @@
-import React, { ChangeEvent, InputHTMLAttributes, useId, useState } from 'react';
+import React, { ChangeEvent, InputHTMLAttributes, useId } from 'react';
 import styled from '@emotion/styled';
 
 import IconCheckbox from '../icon/IconCheckbox';
+
+import useToggle from '@/hooks/common/useToggle';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   onToggle?: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -9,7 +11,8 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Checkbox = ({ onToggle, defaultChecked = false }: Props) => {
-  const [checked, setChecked] = useState<boolean>(defaultChecked);
+  const [checked, _, toggle] = useToggle(defaultChecked);
+
   const id = useId();
 
   return (
@@ -17,7 +20,7 @@ const Checkbox = ({ onToggle, defaultChecked = false }: Props) => {
       <StyledInput
         type="checkbox"
         onChange={(e) => {
-          setChecked(!checked);
+          toggle();
           if (onToggle) {
             onToggle(e);
           }
