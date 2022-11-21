@@ -9,6 +9,7 @@ import LabelButton from '@/components/button/LabelButton';
 import Carousel from '@/components/carousel/Carousel';
 import Indicator from '@/components/carousel/Indicator';
 import Checkbox from '@/components/checkbox/Checkbox';
+import CheckboxWithText from '@/components/checkbox/CheckboxWithText';
 import Chip from '@/components/chip/Chip';
 import IconAdd from '@/components/icon/IconAdd';
 import IconCancel from '@/components/icon/IconCancel';
@@ -68,7 +69,7 @@ const Test = () => {
         <Heading>Toggle</Heading>
         <ToggleSwitch />
       </div>
-      
+
       <div>
         <Heading>bottom sheet</Heading>
 
@@ -81,6 +82,7 @@ const Test = () => {
       <div>
         <Heading>checkbox</Heading>
         <Checkbox />
+        <CheckboxWithText>이름표</CheckboxWithText>
       </div>
 
       <div>
@@ -124,7 +126,7 @@ const Test = () => {
         </Carousel.Wrapper>
         <Indicator carouselWrapperRef={carouselWrapperRef} />
       </div>
-      
+
       <div>
         <Heading>segment control</Heading>
         <SegmentedControl options={['요일별', '날짜별']} />
