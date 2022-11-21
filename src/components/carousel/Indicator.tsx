@@ -42,7 +42,7 @@ const Dot = styled.span<{ isSelected: boolean }>(
 export default Indicator;
 
 const useIndicator = ({ carouselWrapper }: Pick<Props, 'carouselWrapper'>) => {
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [currentIndex, setCurrentIndex] = useState<number | null>(null);
 
   const throttledOnScroll = useMemo(
     () =>
@@ -57,13 +57,13 @@ const useIndicator = ({ carouselWrapper }: Pick<Props, 'carouselWrapper'>) => {
 
   useEffect(() => {
     if (!carouselWrapper) return;
-
+    throttledOnScroll();
     carouselWrapper.addEventListener('scroll', throttledOnScroll);
 
     return () => {
       carouselWrapper.removeEventListener('scroll', throttledOnScroll);
     };
-  }, []);
+  }, [throttledOnScroll]);
 
   return { currentIndex };
 };
