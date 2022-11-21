@@ -62,7 +62,7 @@ const Wrapper = styled.section(
     left: 0,
     display: 'flex',
   },
-  ({ theme }) => ({ backgroundColor: theme.colors.white }),
+  ({ theme }) => ({ backgroundColor: theme.colors.white, borderTop: `1px solid ${theme.colors.gray1}` }),
 );
 
 const Anchor = styled(NextLink)({
