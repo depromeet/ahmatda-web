@@ -33,6 +33,7 @@ const Indicator = ({ carouselWrapper }: Props) => {
 
 const Wrapper = styled.div({
   height: '6px',
+  margin: '8px 0',
   display: 'flex',
   gap: '4px',
   justifyContent: 'center',
