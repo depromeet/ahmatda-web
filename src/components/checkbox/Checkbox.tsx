@@ -8,9 +8,10 @@ import useToggle from '@/hooks/common/useToggle';
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   onToggle?: (e: ChangeEvent<HTMLInputElement>) => void;
   defaultChecked?: boolean;
+  textLabel?: string;
 }
 
-const Checkbox = ({ onToggle, defaultChecked = false }: Props) => {
+const Checkbox = ({ onToggle, defaultChecked = false, textLabel }: Props) => {
   const [checked, _, toggle] = useToggle(defaultChecked);
 
   const id = useId();
@@ -29,11 +30,12 @@ const Checkbox = ({ onToggle, defaultChecked = false }: Props) => {
         checked={checked}
         data-testid="checkbox"
       />
-      <label htmlFor={id}>
+      <StyledLabel htmlFor={id}>
+        {textLabel && <TextLabel>{textLabel}</TextLabel>}
         <IconWrapper>
           <IconCheckbox isChecked={checked} />
         </IconWrapper>
-      </label>
+      </StyledLabel>
     </CheckboxWrapper>
   );
 };
@@ -51,6 +53,17 @@ const StyledInput = styled.input`
   height: 1px;
   margin: -1px;
   clip-path: polygon(0 0, 0 0, 0 0);
+`;
+
+const StyledLabel = styled.label`
+  display: flex;
+  align-items: center;
+`;
+
+const TextLabel = styled.span`
+  ${({ theme }) => ({ ...theme.typographies.caption2 })};
+  color: ${({ theme }) => theme.colors.gray5};
+  padding: 8px;
 `;
 
 const IconWrapper = styled.div`
