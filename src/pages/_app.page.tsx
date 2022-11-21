@@ -12,7 +12,7 @@ import useTrackPageView from '@/hooks/analytics/useTrackPageView';
 import GlobalStyles from '@/styles/GlobalStyles';
 import lightTheme from '@/styles/theme';
 
-type NextPageWithLayout = NextPage & {
+export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
 
@@ -21,6 +21,8 @@ type AppPropsWithLayout = AppProps & {
 };
 
 const MyApp = ({ Component: AppComponent, pageProps }: AppPropsWithLayout) => {
+  const getLayout = AppComponent.getLayout ?? ((page) => page);
+
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -43,7 +45,7 @@ const MyApp = ({ Component: AppComponent, pageProps }: AppPropsWithLayout) => {
             <LazyMotion features={domMax}>
               <DefaultLayout>
                 <GlobalStyles />
-                <AppComponent {...pageProps} />
+                {getLayout(<AppComponent {...pageProps} />)}
               </DefaultLayout>
             </LazyMotion>
           </ThemeProvider>
