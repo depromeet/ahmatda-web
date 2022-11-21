@@ -83,6 +83,7 @@ const Test = () => {
         <Heading>checkbox</Heading>
         <Checkbox />
         <CheckboxWithText>이름표</CheckboxWithText>
+        <Checkbox textLabel="전체 선택" />
       </div>
 
       <div>

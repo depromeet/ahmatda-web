@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import Checkbox from './Checkbox';
 
-type Props = ComponentProps<typeof Checkbox>;
+type Props = Omit<ComponentProps<typeof Checkbox>, 'textLabel'>;
 
 const CheckboxWithText = ({ children, ...rest }: Props) => {
   return (
