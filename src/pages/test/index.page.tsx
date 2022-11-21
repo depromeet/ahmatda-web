@@ -6,7 +6,6 @@ import Button from '@/components/button/Button';
 import ContainedButton from '@/components/button/ContainedButton';
 import IconButton from '@/components/button/IconButton';
 import LabelButton from '@/components/button/LabelButton';
-import AppBar from '@/components/navigation/AppBar';
 import Checkbox from '@/components/checkbox/Checkbox';
 import Chip from '@/components/chip/Chip';
 import IconAdd from '@/components/icon/IconAdd';
@@ -23,6 +22,7 @@ import IconMovable from '@/components/icon/IconMovable';
 import IconOverflow from '@/components/icon/IconOverflow';
 import IconPin from '@/components/icon/IconPin';
 import IconSearch from '@/components/icon/IconSearch';
+import AppBar from '@/components/navigation/AppBar';
 import SegmentedControl from '@/components/segmented-control/SegmentedControl';
 import ToggleSwitch from '@/components/toggle/ToggleSwitch';
 
@@ -59,21 +59,29 @@ const Test = () => {
         <IconButton>
           <IconOverflow />
         </IconButton>
-
       </div>
 
-      <ToggleSwitch />
-      <Heading>bottom sheet</Heading>
-
-      <Button onClick={() => setIsOpen((prev) => !prev)}>bottom sheet 열기</Button>
-      <BottomSheet setToClose={() => setIsOpen(false)} isShowing={isOpen}>
-        <div>어쩌구저쩌구</div>
-      </BottomSheet>
+      <div>
+        <Heading>Toggle</Heading>
+        <ToggleSwitch />
+      </div>
 
       <div>
+        <Heading>bottom sheet</Heading>
+
+        <Button onClick={() => setIsOpen((prev) => !prev)}>bottom sheet 열기</Button>
+        <BottomSheet setToClose={() => setIsOpen(false)} isShowing={isOpen}>
+          <div>어쩌구저쩌구</div>
+        </BottomSheet>
+      </div>
+
+      <div>
+        <Heading>checkbox</Heading>
         <Checkbox />
       </div>
+
       <div>
+        <Heading>icon</Heading>
         <IconAdd />
         <IconCancel />
         <IconCancelSmall />
@@ -89,15 +97,19 @@ const Test = () => {
         <IconSearch />
         <IconInfo />
       </div>
+
       <div>
+        <Heading>chip</Heading>
         <Chip color="black" label="디프만 준비물" />
         <Chip label="default" />
         <Chip color="black" icon={<IconAdd />} label="text" />
       </div>
+
       <div>
+        <Heading>segment control</Heading>
         <SegmentedControl options={['요일별', '날짜별']} />
       </div>
-    </div>
+    </>
   );
 };
 
