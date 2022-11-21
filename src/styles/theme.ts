@@ -33,6 +33,16 @@ const theme = {
       fontSize: '1.125rem',
       lineHeight: '1.75rem',
     },
+    caption1: {
+      fontWeight: 500,
+      fontSize: '1rem',
+      fontHeight: '1.5rem',
+    },
+    caption2: {
+      fontWeight: 500,
+      fontSize: '0.75rem',
+      fontHeight: '1.125rem',
+    },
   },
   size: {
     maxWidth: '480px',
