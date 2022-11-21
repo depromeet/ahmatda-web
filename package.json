@@ -5,6 +5,7 @@
   "author": "depromeet-12th-ahmatda-team",
   "scripts": {
     "dev": "next dev",
+    "dev:https": "node httpsServer.js",
     "dev:turbo": "next dev --turbo",
     "build": "next build",
     "start": "next start",

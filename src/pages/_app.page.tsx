@@ -5,14 +5,14 @@ import { ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { domAnimation, LazyMotion } from 'framer-motion';
+import { domMax, LazyMotion } from 'framer-motion';
 import { RecoilRoot } from 'recoil';
 
 import useTrackPageView from '@/hooks/analytics/useTrackPageView';
 import GlobalStyles from '@/styles/GlobalStyles';
 import lightTheme from '@/styles/theme';
 
-type NextPageWithLayout = NextPage & {
+export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
 
@@ -21,6 +21,8 @@ type AppPropsWithLayout = AppProps & {
 };
 
 const MyApp = ({ Component: AppComponent, pageProps }: AppPropsWithLayout) => {
+  const getLayout = AppComponent.getLayout ?? ((page) => page);
+
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -40,10 +42,10 @@ const MyApp = ({ Component: AppComponent, pageProps }: AppPropsWithLayout) => {
       <Hydrate state={pageProps.dehydratedState}>
         <RecoilRoot>
           <ThemeProvider theme={lightTheme}>
-            <LazyMotion strict features={domAnimation}>
+            <LazyMotion features={domMax}>
               <DefaultLayout>
                 <GlobalStyles />
-                <AppComponent {...pageProps} />
+                {getLayout(<AppComponent {...pageProps} />)}
               </DefaultLayout>
             </LazyMotion>
           </ThemeProvider>

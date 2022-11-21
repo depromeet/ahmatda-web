@@ -23,6 +23,7 @@ const IconSearch = ({ isAct = false, ...rest }: Props) => (
       rx="1"
       transform="matrix(-0.707107 0.707107 0.707107 0.707107 12.75 11.3398)"
       fill={SEARCH_COLOR(isAct).rect}
+      style={{ transition: 'fill .3s' }}
     />
     <circle
       cx="10.1622"
@@ -32,6 +33,7 @@ const IconSearch = ({ isAct = false, ...rest }: Props) => (
       fill={SEARCH_COLOR(isAct).circle}
       stroke="white"
       strokeWidth="1.5"
+      style={{ transition: 'fill .3s' }}
     />
   </Svg>
 );
