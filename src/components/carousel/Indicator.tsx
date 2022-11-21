@@ -3,6 +3,16 @@ import styled from '@emotion/styled';
 import throttle from 'lodash/throttle';
 
 interface Props {
+  /**
+   * @example
+   * ```tsx
+   * const [wrapper, setWrapper] = useState<HTMLDivElement | null>(null);
+   *
+   * <Carousel.Wrapper ref={setWrapper}>
+   * </Carousel.Wrapper>
+   * <Indicator carouselWrapper={wrapper} />
+   * ```
+   */
   carouselWrapper: HTMLDivElement | null;
 }
 
