@@ -28,11 +28,16 @@ const theme = {
       fontSize: '0.75rem',
       lineHeight: '1rem',
     },
+    subTitle: {
+      fontWeight: 500,
+      fontSize: '1.125rem',
+      lineHeight: '1.75rem',
+    },
   },
   size: {
     maxWidth: '480px',
     layoutPadding: '0 20px',
   },
-};
+} as const;
 
 export default theme;
