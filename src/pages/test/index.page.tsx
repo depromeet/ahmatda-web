@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
 
@@ -32,7 +32,7 @@ const BottomSheet = dynamic(() => import('@/components/portal/BottomSheet'));
 
 const Test = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const carouselWrapperRef = useRef<HTMLDivElement>(null);
+  const [carouselWrapper, setCarouselWrapper] = useState<HTMLDivElement | null>(null);
 
   return (
     <>
@@ -68,7 +68,7 @@ const Test = () => {
         <Heading>Toggle</Heading>
         <ToggleSwitch />
       </div>
-      
+
       <div>
         <Heading>bottom sheet</Heading>
 
@@ -111,7 +111,7 @@ const Test = () => {
       <div>
         <Heading>carousel</Heading>
 
-        <Carousel.Wrapper ref={carouselWrapperRef}>
+        <Carousel.Wrapper ref={setCarouselWrapper}>
           <Carousel.Item>
             <TestDiv>a</TestDiv>
           </Carousel.Item>
@@ -122,9 +122,9 @@ const Test = () => {
             <TestDiv>c</TestDiv>
           </Carousel.Item>
         </Carousel.Wrapper>
-        <Indicator carouselWrapperRef={carouselWrapperRef} />
+        <Indicator carouselWrapper={carouselWrapper} />
       </div>
-      
+
       <div>
         <Heading>segment control</Heading>
         <SegmentedControl options={['요일별', '날짜별']} />

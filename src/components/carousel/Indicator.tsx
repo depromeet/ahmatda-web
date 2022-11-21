@@ -1,13 +1,12 @@
-import { RefObject, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import throttle from 'lodash/throttle';
 
 interface Props {
-  carouselWrapperRef: RefObject<HTMLDivElement>;
+  carouselWrapper: HTMLDivElement | null;
 }
 
-const Indicator = ({ carouselWrapperRef }: Props) => {
-  const { current: carouselWrapper } = carouselWrapperRef;
+const Indicator = ({ carouselWrapper }: Props) => {
   const childrenLength = carouselWrapper ? carouselWrapper.childNodes.length : 0;
   const childrenIds = useMemo(() => Array.from(Array(childrenLength).keys()), [childrenLength]);
 
@@ -42,11 +41,7 @@ const Dot = styled.span<{ isSelected: boolean }>(
 
 export default Indicator;
 
-interface UseIndicatorProps {
-  carouselWrapper: HTMLDivElement | null;
-}
-
-const useIndicator = ({ carouselWrapper }: UseIndicatorProps) => {
+const useIndicator = ({ carouselWrapper }: Pick<Props, 'carouselWrapper'>) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const throttledOnScroll = useMemo(
