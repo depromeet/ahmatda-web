@@ -1,40 +1,60 @@
-import React, { InputHTMLAttributes, useState } from 'react';
+import React, { ChangeEvent, InputHTMLAttributes, useId } from 'react';
 import styled from '@emotion/styled';
 
 import IconCheckbox from '../icon/IconCheckbox';
 
+import useToggle from '@/hooks/common/useToggle';
+
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  onCheck?: () => void;
-  onUncheck?: () => void;
+  onToggle?: (e: ChangeEvent<HTMLInputElement>) => void;
   defaultChecked?: boolean;
 }
 
-const Checkbox = ({ onCheck, onUncheck, defaultChecked = false }: Props) => {
-  const [checked, setChecked] = useState<boolean>(defaultChecked);
+const Checkbox = ({ onToggle, defaultChecked = false }: Props) => {
+  const [checked, _, toggle] = useToggle(defaultChecked);
 
-  const onToggle = () => {
-    setChecked((prev) => !prev);
-    if (!checked && onCheck) {
-      onCheck();
-      return;
-    }
-    if (onUncheck) {
-      onUncheck();
-    }
-  };
+  const id = useId();
 
   return (
-    <CheckboxWrapper onClick={onToggle} role="checkbox" aria-checked={checked}>
-      <IconCheckbox isChecked={checked} />
+    <CheckboxWrapper>
+      <StyledInput
+        type="checkbox"
+        onChange={(e) => {
+          toggle();
+          if (onToggle) {
+            onToggle(e);
+          }
+        }}
+        id={id}
+        checked={checked}
+        data-testid="checkbox"
+      />
+      <label htmlFor={id}>
+        <IconWrapper>
+          <IconCheckbox isChecked={checked} />
+        </IconWrapper>
+      </label>
     </CheckboxWrapper>
   );
 };
 
 export default Checkbox;
 
-const CheckboxWrapper = styled.label`
+const CheckboxWrapper = styled.div`
   display: inline-block;
+`;
+
+const StyledInput = styled.input`
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  clip-path: polygon(0 0, 0 0, 0 0);
+`;
+
+const IconWrapper = styled.div`
+  width: 40px;
+  height: 40px;
   padding: 8px;
-  width: 24px;
-  height: 24px;
 `;
