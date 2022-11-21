@@ -68,7 +68,7 @@ const Test = () => {
         <Heading>Toggle</Heading>
         <ToggleSwitch />
       </div>
-      
+
       <div>
         <Heading>bottom sheet</Heading>
 
@@ -124,7 +124,7 @@ const Test = () => {
         </Carousel.Wrapper>
         <Indicator carouselWrapperRef={carouselWrapperRef} />
       </div>
-      
+
       <div>
         <Heading>segment control</Heading>
         <SegmentedControl options={['요일별', '날짜별']} />
