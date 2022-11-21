@@ -9,13 +9,13 @@ interface Props {
 const Indicator = ({ carouselWrapperRef }: Props) => {
   const { current: carouselWrapper } = carouselWrapperRef;
   const childrenLength = carouselWrapper ? carouselWrapper.childNodes.length : 0;
-  const childrenIdArray = useMemo(() => Array.from(Array(childrenLength).keys()), [childrenLength]);
+  const childrenIds = useMemo(() => Array.from(Array(childrenLength).keys()), [childrenLength]);
 
   const { currentIndex } = useIndicator({ carouselWrapper });
 
   return (
     <Wrapper>
-      {childrenIdArray.map((eachIndex) => (
+      {childrenIds.map((eachIndex) => (
         <Dot key={eachIndex} isSelected={currentIndex === eachIndex} />
       ))}
     </Wrapper>

@@ -27,4 +27,6 @@ const Item = styled.article({
   width: '100%',
 });
 
-export default { Wrapper: CarouselWrapper, Item: CarouselItem };
+const Carousel = { Wrapper: CarouselWrapper, Item: CarouselItem };
+
+export default Carousel;
