@@ -33,6 +33,7 @@ const BottomSheet = dynamic(() => import('@/components/portal/BottomSheet'));
 
 const Test = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isChecked, setIsChecked] = useState<boolean>(false);
   const carouselWrapperRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -81,7 +82,12 @@ const Test = () => {
 
       <div>
         <Heading>checkbox</Heading>
-        <Checkbox />
+        <Checkbox
+          checked={isChecked}
+          onToggle={() => {
+            setIsChecked((prev) => !prev);
+          }}
+        />
         <CheckboxWithText>이름표</CheckboxWithText>
         <Checkbox textLabel="전체 선택" />
       </div>
