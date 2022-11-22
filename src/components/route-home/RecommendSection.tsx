@@ -1,21 +1,30 @@
 import styled from '@emotion/styled';
-import { AnimatePresence, m, Variants } from 'framer-motion';
+import { AnimatePresence, DragHandlers, m, Variants } from 'framer-motion';
 
 import { defaultEasing } from '@/constants/motions';
 import useToggle from '@/hooks/common/useToggle';
 
+// TODO: 디자인 나올 시 적용
+const HIDE_BOTTOM_POS = 80;
+
 const RecommendSection = () => {
-  const [isVisible, _, toggleVisible] = useToggle(true);
+  const { isVisible, toggleVisible, onDragEnd } = useSectionVisible();
 
   return (
     <AnimatePresence mode="wait">
-      {isVisible && (
-        <Wrapper drag variants={RecommentSectionVariants} initial="initial" animate="animate" exit="exit">
-          <TestButton type="button" onClick={toggleVisible} />
+      <Wrapper
+        variants={RecommentSectionVariants}
+        initial="show"
+        animate={isVisible ? 'show' : 'hide'}
+        drag="y"
+        dragElastic={0}
+        dragConstraints={{ top: 0, bottom: HIDE_BOTTOM_POS }}
+        onDragEnd={onDragEnd}
+      >
+        <TestButton type="button" onClick={toggleVisible} />
 
-          <SuggestionText>날씨가 부쩍 추워졌어요. 이런 건 어때요?</SuggestionText>
-        </Wrapper>
-      )}
+        <SuggestionText>날씨가 부쩍 추워졌어요. 이런 건 어때요?</SuggestionText>
+      </Wrapper>
     </AnimatePresence>
   );
 };
@@ -41,6 +50,7 @@ const Wrapper = styled(m.section)(
   }),
 );
 
+// TODO: 디자인 나올 시 적용
 const TestButton = styled.button({
   all: 'unset',
   width: '20px',
@@ -54,19 +64,29 @@ const TestButton = styled.button({
 const SuggestionText = styled.p(({ theme }) => ({ ...theme.typographies.caption2, color: theme.colors.gray4 }));
 
 const RecommentSectionVariants: Variants = {
-  initial: {
-    y: '100%',
+  hide: {
+    y: HIDE_BOTTOM_POS,
     transition: { duration: 0.5, ease: defaultEasing },
     willChange: 'transform',
   },
-  animate: {
+  show: {
     y: '0',
     transition: { duration: 0.5, ease: defaultEasing },
     willChange: 'transform',
   },
-  exit: {
-    y: '100%',
-    transition: { duration: 0.5, ease: defaultEasing },
-    willChange: 'transform',
-  },
+};
+
+const useSectionVisible = () => {
+  const [isVisible, setIsVisible, toggleVisible] = useToggle(true);
+
+  const onDragEnd: DragHandlers['onDragEnd'] = (_, info) => {
+    const shouldClose = info.velocity.y > 20 && info.offset.y > 0;
+    if (shouldClose) {
+      setIsVisible(false);
+    } else {
+      setIsVisible(true);
+    }
+  };
+
+  return { isVisible, toggleVisible, onDragEnd };
 };
