@@ -18,6 +18,7 @@ const RecommendSection = () => {
         animate={isVisible ? 'show' : 'hide'}
         drag="y"
         dragElastic={0}
+        dragMomentum={false}
         dragConstraints={{ top: 0, bottom: HIDE_BOTTOM_POS }}
         onDragEnd={onDragEnd}
       >
