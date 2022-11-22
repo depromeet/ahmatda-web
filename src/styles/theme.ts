@@ -28,6 +28,11 @@ const theme = {
       fontSize: '0.75rem',
       lineHeight: '1rem',
     },
+    title2: {
+      fontWeight: 500,
+      fontSize: '1.25rem',
+      lineHeight: '1.875rem',
+    },
     subTitle: {
       fontWeight: 500,
       fontSize: '1.125rem',
