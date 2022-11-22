@@ -9,6 +9,7 @@ import LabelButton from '@/components/button/LabelButton';
 import Carousel from '@/components/carousel/Carousel';
 import Indicator from '@/components/carousel/Indicator';
 import Checkbox from '@/components/checkbox/Checkbox';
+import CheckboxWithText from '@/components/checkbox/CheckboxWithText';
 import Chip from '@/components/chip/Chip';
 import IconAdd from '@/components/icon/IconAdd';
 import IconCancel from '@/components/icon/IconCancel';
@@ -81,6 +82,8 @@ const Test = () => {
       <div>
         <Heading>checkbox</Heading>
         <Checkbox />
+        <CheckboxWithText>이름표</CheckboxWithText>
+        <Checkbox textLabel="전체 선택" />
       </div>
 
       <div>
