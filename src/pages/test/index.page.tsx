@@ -6,7 +6,6 @@ import Button from '@/components/button/Button';
 import ContainedButton from '@/components/button/ContainedButton';
 import IconButton from '@/components/button/IconButton';
 import LabelButton from '@/components/button/LabelButton';
-import SearchCard from '@/components/card/SearchCard';
 import Carousel from '@/components/carousel/Carousel';
 import Indicator from '@/components/carousel/Indicator';
 import Checkbox from '@/components/checkbox/Checkbox';
@@ -27,6 +26,7 @@ import IconOverflow from '@/components/icon/IconOverflow';
 import IconPin from '@/components/icon/IconPin';
 import IconSearch from '@/components/icon/IconSearch';
 import AppBar from '@/components/navigation/AppBar';
+import SearchCard from '@/components/route-search/SearchCard';
 import SegmentedControl from '@/components/segmented-control/SegmentedControl';
 import ToggleSwitch from '@/components/toggle/ToggleSwitch';
 
