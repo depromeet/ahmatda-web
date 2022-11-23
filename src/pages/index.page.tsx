@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { NextPageWithLayout } from './_app.page';
 
 import BottomNavigation from '@/components/navigation/BottomNavigation';
+import DefaultAppBar from '@/components/navigation/DefaultAppBar';
 import RecommendSection from '@/components/route-home/RecommendSection';
 
 const HomePage: NextPageWithLayout = () => {
@@ -18,6 +19,7 @@ const HomePage: NextPageWithLayout = () => {
 HomePage.getLayout = function getLayout(page: ReactElement) {
   return (
     <>
+      <DefaultAppBar />
       {page}
       <BottomNavigation />
     </>
