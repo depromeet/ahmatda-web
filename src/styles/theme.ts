@@ -46,7 +46,7 @@ const theme = {
     caption2: {
       fontWeight: 500,
       fontSize: '0.75rem',
-      lineHeight: '1.125rem',
+      fontHeight: '1.125rem',
     },
   },
   size: {
