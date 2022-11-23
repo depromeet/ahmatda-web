@@ -6,6 +6,7 @@ import Button from '@/components/button/Button';
 import ContainedButton from '@/components/button/ContainedButton';
 import IconButton from '@/components/button/IconButton';
 import LabelButton from '@/components/button/LabelButton';
+import SearchCard from '@/components/card/SearchCard';
 import Carousel from '@/components/carousel/Carousel';
 import Indicator from '@/components/carousel/Indicator';
 import Checkbox from '@/components/checkbox/Checkbox';
@@ -138,6 +139,11 @@ const Test = () => {
         <Heading>segment control</Heading>
         <SegmentedControl options={['요일별', '날짜별']} />
       </div>
+
+      <CardBackground>
+        <Heading>cards</Heading>
+        <SearchCard title={SEARCH_CARD_DUMMY_TITLE} options={SEARCH_CARD_DUMMY_DATA} />
+      </CardBackground>
     </>
   );
 };
@@ -153,3 +159,21 @@ const TestDiv = styled.div`
   height: 300px;
   background-color: green;
 `;
+
+const CardBackground = styled.div`
+  background-color: lightgray;
+`;
+
+const SEARCH_CARD_DUMMY_TITLE = '디프만 UT 준비물';
+const SEARCH_CARD_DUMMY_DATA = [
+  { name: '구민규', id: '1' },
+  { name: '김민걸', id: '2' },
+  { name: '명수찬', id: '3' },
+  { name: '박한솔', id: '4' },
+  { name: '오혜성', id: '5' },
+  { name: '윤가빈', id: '6' },
+  { name: '이영희', id: '7' },
+  { name: '이은지', id: '8' },
+  { name: '이종원', id: '9' },
+  { name: '조성민', id: '10' },
+];
