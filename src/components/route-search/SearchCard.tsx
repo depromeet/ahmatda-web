@@ -4,9 +4,7 @@ import styled from '@emotion/styled';
 import ContainedButton from '../button/ContainedButton';
 import CheckboxGroup from '../checkbox/CheckboxGroup';
 
-interface Props extends ComponentProps<typeof CheckboxGroup> {
-  [key: string]: unknown;
-}
+type Props = ComponentProps<typeof CheckboxGroup>;
 
 const SearchCard = ({ title, options }: Props) => {
   return (

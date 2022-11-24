@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 
-import { mockCheckboxGroupOptions, mockCheckboxGroupTitle } from '../../mocks/checkboxGroup.mock';
+import { mockCheckboxGroupOptions, mockCheckboxGroupTitle } from '../../fixtures/checkboxGroup.mock';
 
 import Checkbox from './Checkbox';
 import CheckboxGroup from './CheckboxGroup';

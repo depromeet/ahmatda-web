@@ -23,11 +23,7 @@ const CheckboxGroup = ({ title, options }: CheckboxGroupProps) => {
   };
 
   const toggleCheckAllBtn = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      setCheckStatus((prev) => [...prev.fill(true)]);
-      return;
-    }
-    setCheckStatus((prev) => [...prev.fill(false)]);
+    setCheckStatus((prev) => [...prev.fill(e.target.checked)]);
   };
 
   return (
