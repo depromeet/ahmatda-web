@@ -1,5 +1,7 @@
 import Svg, { Props as SvgProps } from '../svg/Svg';
 
+import theme from '@/styles/theme';
+
 interface Props extends SvgProps {
   /**
    * @default `false`
@@ -13,7 +15,9 @@ interface SearchColor {
 }
 
 const SEARCH_COLOR = (isAct: boolean): SearchColor =>
-  isAct ? { rect: '#212121', circle: '#212121' } : { rect: '#C7C7D0', circle: '#E9E9EE' };
+  isAct
+    ? { rect: theme.colors.black, circle: theme.colors.black }
+    : { rect: theme.colors.gray2, circle: theme.colors.gray2 };
 
 const IconSearch = ({ isAct = false, ...rest }: Props) => (
   <Svg {...rest}>
