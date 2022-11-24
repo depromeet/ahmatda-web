@@ -34,7 +34,12 @@ const CheckboxGroup = ({ title, options }: CheckboxGroupProps) => {
     <>
       <StyledHeader>
         <Title>{title}</Title>
-        <Checkbox textLabel="전체 선택" onToggle={toggleCheckAllBtn} checked={checkStatus.every((item) => !!item)} />
+        <Checkbox
+          textLabel="전체 선택"
+          onToggle={toggleCheckAllBtn}
+          checked={checkStatus.every((item) => !!item)}
+          testId="check-all-btn"
+        />
       </StyledHeader>
       <Counter>{`${checkStatus.filter((item) => item === true).length}/${options.length}`}</Counter>
       <CheckboxList>
@@ -45,6 +50,7 @@ const CheckboxGroup = ({ title, options }: CheckboxGroupProps) => {
             onToggle={() => {
               toggleSingleCheckbox(idx);
             }}
+            testId="single-check-btn"
           >
             {name}
           </CheckboxWithText>

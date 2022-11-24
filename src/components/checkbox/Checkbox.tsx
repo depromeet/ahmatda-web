@@ -6,9 +6,10 @@ import IconCheckbox from '../icon/IconCheckbox';
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   onToggle?: (e: ChangeEvent<HTMLInputElement>) => void;
   textLabel?: string;
+  testId?: string;
 }
 
-const Checkbox = ({ onToggle, checked, textLabel }: Props) => {
+const Checkbox = ({ onToggle, checked, textLabel, testId }: Props) => {
   const id = useId();
   return (
     <CheckboxWrapper>
@@ -19,7 +20,7 @@ const Checkbox = ({ onToggle, checked, textLabel }: Props) => {
         }}
         id={id}
         checked={checked}
-        data-testid="checkbox"
+        data-testid={testId ?? 'checkbox'}
       />
       <StyledLabel htmlFor={id}>
         {textLabel && <TextLabel>{textLabel}</TextLabel>}
