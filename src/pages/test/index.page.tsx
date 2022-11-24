@@ -12,6 +12,8 @@ import Checkbox from '@/components/checkbox/Checkbox';
 import CheckboxWithText from '@/components/checkbox/CheckboxWithText';
 import Chip from '@/components/chip/Chip';
 import IconAdd from '@/components/icon/IconAdd';
+import IconAlarm from '@/components/icon/IconAlarm';
+import IconAlarmAdd from '@/components/icon/IconAlarmAdd';
 import IconCancel from '@/components/icon/IconCancel';
 import IconCancelSmall from '@/components/icon/IconCancelSmall';
 import IconCheckbox from '@/components/icon/IconCheckbox';
@@ -25,6 +27,7 @@ import IconMovable from '@/components/icon/IconMovable';
 import IconOverflow from '@/components/icon/IconOverflow';
 import IconPin from '@/components/icon/IconPin';
 import IconSearch from '@/components/icon/IconSearch';
+import IconSetting from '@/components/icon/IconSetting';
 import AppBar from '@/components/navigation/AppBar';
 import SegmentedControl from '@/components/segmented-control/SegmentedControl';
 import ToggleSwitch from '@/components/toggle/ToggleSwitch';
@@ -102,6 +105,12 @@ const Test = () => {
         <IconPin />
         <IconSearch />
         <IconInfo />
+        <IconAlarm />
+        <IconAlarm isNew />
+        <IconAlarmAdd />
+        <IconPin />
+        <IconPin isOff />
+        <IconSetting />
       </div>
 
       <div>
