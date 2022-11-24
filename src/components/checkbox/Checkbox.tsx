@@ -15,9 +15,7 @@ const Checkbox = ({ onToggle, checked, textLabel }: Props) => {
       <StyledInput
         type="checkbox"
         onChange={(e) => {
-          if (onToggle) {
-            onToggle(e);
-          }
+          onToggle?.(e);
         }}
         id={id}
         checked={checked}

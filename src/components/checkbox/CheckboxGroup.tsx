@@ -4,16 +4,16 @@ import styled from '@emotion/styled';
 import Checkbox from './Checkbox';
 import CheckboxWithText from './CheckboxWithText';
 
-type Option = {
+interface Option {
   name: string;
   id: string;
   [key: string]: unknown;
-};
+}
 
-export type CheckboxGroupProps = {
+export interface CheckboxGroupProps {
   title: string;
   options: Option[];
-};
+}
 
 const CheckboxGroup = ({ title, options }: CheckboxGroupProps) => {
   const [checkStatus, setCheckStatus] = useState<boolean[]>(new Array(options.length).fill(false));
@@ -34,11 +34,7 @@ const CheckboxGroup = ({ title, options }: CheckboxGroupProps) => {
     <>
       <StyledHeader>
         <Title>{title}</Title>
-        <Checkbox
-          textLabel="전체 선택"
-          onToggle={toggleCheckAllBtn}
-          checked={checkStatus.filter((item) => item === true).length === options.length}
-        />
+        <Checkbox textLabel="전체 선택" onToggle={toggleCheckAllBtn} checked={checkStatus.every((item) => !!item)} />
       </StyledHeader>
       <Counter>{`${checkStatus.filter((item) => item === true).length}/${options.length}`}</Counter>
       <CheckboxList>
