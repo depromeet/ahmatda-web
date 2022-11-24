@@ -44,7 +44,6 @@ export default SegmentedControl;
 
 const Wrapper = styled.div`
   display: flex;
-  width: 335px;
   padding: 4px;
   border-radius: 100px;
   background-color: ${({ theme }) => theme.colors.gray1};

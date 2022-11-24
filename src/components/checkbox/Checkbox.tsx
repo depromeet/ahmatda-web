@@ -3,32 +3,24 @@ import styled from '@emotion/styled';
 
 import IconCheckbox from '../icon/IconCheckbox';
 
-import useToggle from '@/hooks/common/useToggle';
-
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   onToggle?: (e: ChangeEvent<HTMLInputElement>) => void;
-  defaultChecked?: boolean;
   textLabel?: string;
+  testId?: string;
 }
 
-const Checkbox = ({ onToggle, defaultChecked = false, textLabel }: Props) => {
-  const [checked, _, toggle] = useToggle(defaultChecked);
-
+const Checkbox = ({ onToggle, checked, textLabel, testId }: Props) => {
   const id = useId();
-
   return (
     <CheckboxWrapper>
       <StyledInput
         type="checkbox"
         onChange={(e) => {
-          toggle();
-          if (onToggle) {
-            onToggle(e);
-          }
+          onToggle?.(e);
         }}
         id={id}
         checked={checked}
-        data-testid="checkbox"
+        data-testid={testId ?? 'checkbox'}
       />
       <StyledLabel htmlFor={id}>
         {textLabel && <TextLabel>{textLabel}</TextLabel>}
