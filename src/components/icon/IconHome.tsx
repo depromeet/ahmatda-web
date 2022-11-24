@@ -1,5 +1,7 @@
 import Svg, { Props as SvgProps } from '../svg/Svg';
 
+import theme from '@/styles/theme';
+
 interface Props extends SvgProps {
   /**
    * @default `false`
@@ -13,7 +15,9 @@ interface HomeColor {
 }
 
 const HOME_COLOR = (isAct: boolean): HomeColor =>
-  isAct ? { rect: '#212121', path: '#ffffff' } : { rect: '#E9E9EE', path: '#C7C7D0' };
+  isAct
+    ? { rect: theme.colors.black, path: theme.colors.white }
+    : { rect: theme.colors.gray2, path: theme.colors.white };
 
 const IconHome = ({ isAct = false, ...rest }: Props) => (
   <Svg {...rest}>

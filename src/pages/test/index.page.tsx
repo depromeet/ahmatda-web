@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
 
@@ -12,6 +12,8 @@ import Checkbox from '@/components/checkbox/Checkbox';
 import CheckboxWithText from '@/components/checkbox/CheckboxWithText';
 import Chip from '@/components/chip/Chip';
 import IconAdd from '@/components/icon/IconAdd';
+import IconAlarm from '@/components/icon/IconAlarm';
+import IconAlarmAdd from '@/components/icon/IconAlarmAdd';
 import IconCancel from '@/components/icon/IconCancel';
 import IconCancelSmall from '@/components/icon/IconCancelSmall';
 import IconCheckbox from '@/components/icon/IconCheckbox';
@@ -25,6 +27,7 @@ import IconMovable from '@/components/icon/IconMovable';
 import IconOverflow from '@/components/icon/IconOverflow';
 import IconPin from '@/components/icon/IconPin';
 import IconSearch from '@/components/icon/IconSearch';
+import IconSetting from '@/components/icon/IconSetting';
 import AppBar from '@/components/navigation/AppBar';
 import SearchCard from '@/components/route-search/SearchCard';
 import SegmentedControl from '@/components/segmented-control/SegmentedControl';
@@ -35,7 +38,7 @@ const BottomSheet = dynamic(() => import('@/components/portal/BottomSheet'));
 const Test = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState<boolean>(false);
-  const carouselWrapperRef = useRef<HTMLDivElement>(null);
+  const [carouselWrapper, setCarouselWrapper] = useState<HTMLDivElement | null>(null);
 
   return (
     <>
@@ -109,6 +112,12 @@ const Test = () => {
         <IconPin />
         <IconSearch />
         <IconInfo />
+        <IconAlarm />
+        <IconAlarm isNew />
+        <IconAlarmAdd />
+        <IconPin />
+        <IconPin isOff />
+        <IconSetting />
       </div>
 
       <div>
@@ -121,7 +130,7 @@ const Test = () => {
       <div>
         <Heading>carousel</Heading>
 
-        <Carousel.Wrapper ref={carouselWrapperRef}>
+        <Carousel.Wrapper ref={setCarouselWrapper}>
           <Carousel.Item>
             <TestDiv>a</TestDiv>
           </Carousel.Item>
@@ -132,7 +141,7 @@ const Test = () => {
             <TestDiv>c</TestDiv>
           </Carousel.Item>
         </Carousel.Wrapper>
-        <Indicator carouselWrapperRef={carouselWrapperRef} />
+        <Indicator carouselWrapper={carouselWrapper} />
       </div>
 
       <div>

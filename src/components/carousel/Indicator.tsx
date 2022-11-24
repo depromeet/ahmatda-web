@@ -1,13 +1,22 @@
-import { RefObject, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import throttle from 'lodash/throttle';
 
 interface Props {
-  carouselWrapperRef: RefObject<HTMLDivElement>;
+  /**
+   * @example
+   * ```tsx
+   * const [wrapper, setWrapper] = useState<HTMLDivElement | null>(null);
+   *
+   * <Carousel.Wrapper ref={setWrapper}>
+   * </Carousel.Wrapper>
+   * <Indicator carouselWrapper={wrapper} />
+   * ```
+   */
+  carouselWrapper: HTMLDivElement | null;
 }
 
-const Indicator = ({ carouselWrapperRef }: Props) => {
-  const { current: carouselWrapper } = carouselWrapperRef;
+const Indicator = ({ carouselWrapper }: Props) => {
   const childrenLength = carouselWrapper ? carouselWrapper.childNodes.length : 0;
   const childrenIds = useMemo(() => Array.from(Array(childrenLength).keys()), [childrenLength]);
 
@@ -24,6 +33,7 @@ const Indicator = ({ carouselWrapperRef }: Props) => {
 
 const Wrapper = styled.div({
   height: '6px',
+  margin: '8px 0',
   display: 'flex',
   gap: '4px',
   justifyContent: 'center',
@@ -42,12 +52,8 @@ const Dot = styled.span<{ isSelected: boolean }>(
 
 export default Indicator;
 
-interface UseIndicatorProps {
-  carouselWrapper: HTMLDivElement | null;
-}
-
-const useIndicator = ({ carouselWrapper }: UseIndicatorProps) => {
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+const useIndicator = ({ carouselWrapper }: Pick<Props, 'carouselWrapper'>) => {
+  const [currentIndex, setCurrentIndex] = useState<number | null>(null);
 
   const throttledOnScroll = useMemo(
     () =>
@@ -62,13 +68,13 @@ const useIndicator = ({ carouselWrapper }: UseIndicatorProps) => {
 
   useEffect(() => {
     if (!carouselWrapper) return;
-
+    throttledOnScroll();
     carouselWrapper.addEventListener('scroll', throttledOnScroll);
 
     return () => {
       carouselWrapper.removeEventListener('scroll', throttledOnScroll);
     };
-  }, []);
+  }, [throttledOnScroll]);
 
   return { currentIndex };
 };
