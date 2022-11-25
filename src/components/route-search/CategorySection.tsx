@@ -6,7 +6,7 @@ function CategorySection() {
   return (
     <Wrapper>
       {CATEGORY_DUMMY.map((name) => (
-        <Chip label={name} />
+        <Chip label={name} key={name} />
       ))}
     </Wrapper>
   );
