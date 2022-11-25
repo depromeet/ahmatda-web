@@ -17,6 +17,8 @@ export default CategorySection;
 const CATEGORY_DUMMY = ['물놀이', '디프만', '호캉스', '일상', '운동', '유럽여행'];
 
 const Wrapper = styled.div`
-  overflow: auto;
+  display: flex;
+  column-gap: 4px;
+  overflow-x: auto;
   white-space: nowrap;
 `;

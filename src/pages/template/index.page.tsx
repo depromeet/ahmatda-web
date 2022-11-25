@@ -51,8 +51,8 @@ const Title = styled.p`
 `;
 
 const CardsWrapper = styled.div`
-  & > div {
-    margin-top: 16px;
-  }
-  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  margin: 16px 0 24px 0;
 `;
