@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import { AnimatePresence, DragHandlers, m, Variants } from 'framer-motion';
 
+import Tag from '../tag/Tag';
+
 import { defaultEasing } from '@/constants/motions';
 import useToggle from '@/hooks/common/useToggle';
 
@@ -9,6 +11,11 @@ const HIDE_BOTTOM_POS = 80;
 
 const RecommendSection = () => {
   const { isVisible, toggleVisible, onDragEnd } = useSectionVisible();
+
+  const testFn = () => {
+    // eslint-disable-next-line no-console
+    console.log('clicked');
+  };
 
   return (
     <AnimatePresence mode="wait">
@@ -25,6 +32,11 @@ const RecommendSection = () => {
         <TestButton type="button" onClick={toggleVisible} />
 
         <SuggestionText>날씨가 부쩍 추워졌어요. 이런 건 어때요?</SuggestionText>
+
+        <ItemWrapper>
+          <Tag value="핫팩" onClickCancel={testFn} />
+          <Tag value="겉옷" onClickCancel={testFn} />
+        </ItemWrapper>
       </Wrapper>
     </AnimatePresence>
   );
@@ -54,6 +66,7 @@ const Wrapper = styled(m.section)(
 // TODO: 디자인 나올 시 적용
 const TestButton = styled.button({
   all: 'unset',
+  flexShrink: 0,
   width: '20px',
   height: '4px',
   backgroundColor: 'gray',
@@ -62,7 +75,12 @@ const TestButton = styled.button({
   marginBottom: '8px',
 });
 
-const SuggestionText = styled.p(({ theme }) => ({ ...theme.typographies.caption2, color: theme.colors.gray4 }));
+const SuggestionText = styled.p({ marginBottom: '8px' }, ({ theme }) => ({
+  ...theme.typographies.caption2,
+  color: theme.colors.gray4,
+}));
+
+const ItemWrapper = styled.div({ display: 'flex', gap: '8px', marginBottom: '22px' });
 
 const RecommentSectionVariants: Variants = {
   hide: {
