@@ -28,6 +28,7 @@ import IconOverflow from '@/components/icon/IconOverflow';
 import IconPin from '@/components/icon/IconPin';
 import IconSearch from '@/components/icon/IconSearch';
 import IconSetting from '@/components/icon/IconSetting';
+import Item from '@/components/item/Item';
 import AppBar from '@/components/navigation/AppBar';
 import SearchCard from '@/components/route-search/SearchCard';
 import SegmentedControl from '@/components/segmented-control/SegmentedControl';
@@ -153,6 +154,24 @@ const Test = () => {
         <Heading>cards</Heading>
         <SearchCard title={SEARCH_CARD_DUMMY_TITLE} options={SEARCH_CARD_DUMMY_DATA} />
       </CardBackground>
+
+      <ItemBackground>
+        <Heading>item</Heading>
+
+        <LargeDiv>
+          <Item type="radio" name="category" label="일상" emjCode="&#x1F4BC;" labelSize="large" defaultChecked />
+          <Item type="radio" name="category" label="운동" emjCode="&#x1F4AA;" labelSize="large" />
+          <Item type="radio" name="category" label="여행" emjCode="&#x2708;" labelSize="large" />
+        </LargeDiv>
+        <SmallDiv>
+          <Item type="checkbox" name="category" label="이어폰" emjCode="&#x1F3A7;" labelSize="small" />
+          <Item type="checkbox" name="category" label="노트북" emjCode="&#x1F4BB;" labelSize="small" />
+          <Item type="checkbox" name="category" label="충전기" emjCode="&#x1F50C;" labelSize="small" />
+          <Item type="checkbox" name="category" label="보조배터리" emjCode="&#x1F50B;" labelSize="small" />
+          <Item type="checkbox" name="category" label="시계" emjCode="&#x231A;" labelSize="small" />
+          <Item type="checkbox" name="category" label="이모지없는" labelSize="small" />
+        </SmallDiv>
+      </ItemBackground>
     </>
   );
 };
@@ -186,3 +205,17 @@ const SEARCH_CARD_DUMMY_DATA = [
   { name: '이종원', id: '9' },
   { name: '조성민', id: '10' },
 ];
+
+const ItemBackground = styled.div`
+  background-color: lightgray;
+`;
+
+const LargeDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const SmallDiv = styled.div`
+  display: inline-flex;
+  flex-wrap: wrap;
+`;
