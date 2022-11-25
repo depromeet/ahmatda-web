@@ -37,7 +37,7 @@ const CheckboxGroup = ({ title, options }: CheckboxGroupProps) => {
           testId="check-all-btn"
         />
       </StyledHeader>
-      <Counter>{`${checkStatus.filter((item) => item === true).length}/${options.length}`}</Counter>
+      <Counter>{`${checkStatus.filter((item) => item === true).length}/${options.length}`}개</Counter>
       <CheckboxList>
         {options.map(({ name, id }, idx) => (
           <CheckboxWithText
