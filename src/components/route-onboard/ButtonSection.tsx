@@ -1,9 +1,14 @@
-import { ComponentProps } from 'react';
+import { ComponentProps, useEffect } from 'react';
 import styled from '@emotion/styled';
 
 import ContainedButton from '@/components/button/ContainedButton';
 
 const ButtonSection = ({ children }: ComponentProps<typeof ContainedButton>) => {
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    document.body.style.backgroundColor = '#fff';
+  }, []);
+
   return (
     <>
       <Wrapper>{children}</Wrapper>
