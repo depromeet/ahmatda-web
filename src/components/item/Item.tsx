@@ -4,15 +4,15 @@ interface ItemProps extends React.HTMLAttributes<HTMLInputElement> {
   type?: 'radio' | 'checkbox';
   name?: string;
   label?: string;
-  emjCode?: string | undefined;
+  emjCode?: string;
   labelSize?: 'small' | 'large';
 }
 
-const Item = ({ label, emjCode, labelSize = 'small', ...rest }: ItemProps) => {
+const Item = ({ type, label, emjCode, labelSize = 'small', ...rest }: ItemProps) => {
   return (
     <>
-      <ItemInput id={label} emjCode={emjCode} {...rest} data-testid="item-input" />
-      <ItemLabel htmlFor={label} emjCode={emjCode} labelSize={labelSize} data-testid="item-label">
+      <ItemInput type={type} id={label} emjCode={emjCode} {...rest} data-testid="item-input" />
+      <ItemLabel htmlFor={label} labelSize={labelSize} data-testid="item-label">
         {emjCode && <span data-testid="item-emoji">{emjCode}</span>}
         <LabelText>{label}</LabelText>
       </ItemLabel>
