@@ -8,7 +8,7 @@ interface ItemProps extends React.HTMLAttributes<HTMLInputElement> {
   labelSize?: 'small' | 'large';
 }
 
-const Item = ({ type, label, emjCode, labelSize = 'small', ...rest }: ItemProps) => {
+const Item = ({ type = 'checkbox', label, emjCode, labelSize = 'small', ...rest }: ItemProps) => {
   return (
     <>
       <ItemInput type={type} id={label} emjCode={emjCode} {...rest} data-testid="item-input" />
