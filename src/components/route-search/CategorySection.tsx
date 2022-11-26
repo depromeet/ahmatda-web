@@ -1,8 +1,9 @@
 import React from 'react';
-import Chip from '../chip/Chip';
 import styled from '@emotion/styled';
 
-function CategorySection() {
+import Chip from '../chip/Chip';
+
+const CategorySection = () => {
   return (
     <Wrapper>
       {CATEGORY_DUMMY.map((name) => (
@@ -10,7 +11,7 @@ function CategorySection() {
       ))}
     </Wrapper>
   );
-}
+};
 
 export default CategorySection;
 
