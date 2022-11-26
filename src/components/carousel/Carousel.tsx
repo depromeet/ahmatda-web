@@ -1,6 +1,8 @@
 import { forwardRef, PropsWithChildren, Ref } from 'react';
 import styled from '@emotion/styled';
 
+import Indicator from './Indicator';
+
 const CarouselWrapper = forwardRef(function CarouselWrapper(
   { children }: PropsWithChildren,
   forwardedRef: Ref<HTMLDivElement>,
@@ -27,6 +29,6 @@ const Item = styled.article({
   width: '100%',
 });
 
-const Carousel = { Wrapper: CarouselWrapper, Item: CarouselItem };
+const Carousel = { Wrapper: CarouselWrapper, Item: CarouselItem, Indicator };
 
 export default Carousel;

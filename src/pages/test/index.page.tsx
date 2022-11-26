@@ -7,7 +7,6 @@ import ContainedButton from '@/components/button/ContainedButton';
 import IconButton from '@/components/button/IconButton';
 import LabelButton from '@/components/button/LabelButton';
 import Carousel from '@/components/carousel/Carousel';
-import Indicator from '@/components/carousel/Indicator';
 import Checkbox from '@/components/checkbox/Checkbox';
 import CheckboxWithText from '@/components/checkbox/CheckboxWithText';
 import Chip from '@/components/chip/Chip';
@@ -141,7 +140,7 @@ const Test = () => {
             <TestDiv>c</TestDiv>
           </Carousel.Item>
         </Carousel.Wrapper>
-        <Indicator carouselWrapper={carouselWrapper} />
+        <Carousel.Indicator carouselWrapper={carouselWrapper} />
       </div>
 
       <div>
