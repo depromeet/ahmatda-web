@@ -3,9 +3,8 @@ import { m } from 'framer-motion';
 
 import { defaultFadeInVariants } from '@/constants/motions';
 
-interface ItemProps extends React.HTMLAttributes<HTMLInputElement> {
+interface ItemProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: 'radio' | 'checkbox';
-  name?: string;
   label?: string;
   emjCode?: string;
   labelSize?: 'small' | 'large';
