@@ -1,12 +1,13 @@
 import { ReactElement } from 'react';
 import styled from '@emotion/styled';
+
 import { NextPageWithLayout } from '../_app.page';
 
 import BottomNavigation from '@/components/navigation/BottomNavigation';
 import DefaultAppBar from '@/components/navigation/DefaultAppBar';
 import CategorySection from '@/components/route-search/CategorySection';
-import SearchCard from '@/components/route-search/SearchCard';
 import ListRequestSection from '@/components/route-search/ListRequestSection';
+import SearchCard from '@/components/route-search/SearchCard';
 import { mockCheckboxGroupOptions, mockCheckboxGroupTitle } from '@/fixtures/checkboxGroup.mock';
 
 const Template: NextPageWithLayout = () => {
