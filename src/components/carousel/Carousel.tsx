@@ -29,6 +29,21 @@ const Item = styled.article({
   width: '100%',
 });
 
+/**
+ * Carousel에 필요한 컴포넌트들을 사용할 수 있어요
+ *
+ * @example
+ * ```tsx
+ * <Carousel.Wrapper ref={setCarouselWrapper}>
+    <Carousel.Item>
+      first
+    </Carousel.Item>
+    // ...
+  </Carousel.Wrapper>
+  <Carousel.Indicator carouselWrapper={carouselWrapper} />
+ * ```
+ *
+ */
 const Carousel = { Wrapper: CarouselWrapper, Item: CarouselItem, Indicator };
 
 export default Carousel;

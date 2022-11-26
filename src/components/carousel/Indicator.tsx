@@ -4,13 +4,16 @@ import throttle from 'lodash/throttle';
 
 interface Props {
   /**
+   * # 이 컴포넌트는 단독으로 사용하지 못해요
+   * `Carousel`의 자식으로써 사용하는 것을 권장해요
+   *
    * @example
    * ```tsx
    * const [wrapper, setWrapper] = useState<HTMLDivElement | null>(null);
    *
    * <Carousel.Wrapper ref={setWrapper}>
    * </Carousel.Wrapper>
-   * <Indicator carouselWrapper={wrapper} />
+   * <Carousel.Indicator carouselWrapper={wrapper} />
    * ```
    */
   carouselWrapper: HTMLDivElement | null;
