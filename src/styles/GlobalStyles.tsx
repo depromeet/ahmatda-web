@@ -26,7 +26,7 @@ export const setGlobalStyles = css`
 
   * {
     font-family: inherit;
-    box-sizing: border-box;
+    box-sizing: border-box !important;
     margin: 0;
     padding: 0;
 
