@@ -35,6 +35,9 @@ export const setGlobalStyles = css`
     ::-webkit-scrollbar {
       display: none !important;
     }
+
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-touch-callout: none !important;
   }
 `;
 
