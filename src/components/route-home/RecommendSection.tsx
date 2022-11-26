@@ -1,17 +1,19 @@
+import { useRef } from 'react';
 import styled from '@emotion/styled';
-import { AnimatePresence, DragHandlers, m, Variants } from 'framer-motion';
+import { AnimatePresence, DragHandlers, m, useAnimationControls } from 'framer-motion';
 
 import Tag from '../tag/Tag';
 
 import { defaultEasing } from '@/constants/motions';
 import useToggle from '@/hooks/common/useToggle';
+import useDidUpdate from '@/hooks/life-cycle/useDidUpdate';
 
-// TODO: 디자인 나올 시 적용
-const HIDE_BOTTOM_POS = 80;
+const HIDE_BOTTOM_POS = 84;
 
 const RecommendSection = () => {
-  const { isVisible, toggleVisible, onDragEnd } = useSectionVisible();
+  const { onDragStart, onDragEnd, onMouseUp, onClickToggleButton, animationControls } = useSectionVisible();
 
+  // TODO: API 부착 이후 대응
   const testFn = () => {
     // eslint-disable-next-line no-console
     console.log('clicked');
@@ -20,16 +22,18 @@ const RecommendSection = () => {
   return (
     <AnimatePresence mode="wait">
       <Wrapper
-        variants={RecommentSectionVariants}
-        initial="show"
-        animate={isVisible ? 'show' : 'hide'}
+        animate={animationControls}
         drag="y"
         dragElastic={0}
         dragMomentum={false}
         dragConstraints={{ top: 0, bottom: HIDE_BOTTOM_POS }}
+        onDragStart={onDragStart}
         onDragEnd={onDragEnd}
+        onMouseUp={onMouseUp}
       >
-        <TestButton type="button" onClick={toggleVisible} />
+        <DragHandlerButton type="button" onClick={onClickToggleButton}>
+          <DragHandlerSpan />
+        </DragHandlerButton>
 
         <SuggestionText>날씨가 부쩍 추워졌어요. 이런 건 어때요?</SuggestionText>
 
@@ -58,22 +62,33 @@ const Wrapper = styled(m.section)(
   ({ theme }) => ({
     backgroundColor: theme.colors.white,
     padding: theme.size.layoutPadding,
-    paddingTop: '12px',
+    paddingTop: '28px',
     paddingBottom: '20px',
   }),
 );
 
-// TODO: 디자인 나올 시 적용
-const TestButton = styled.button({
+const DragHandlerButton = styled.button({
   all: 'unset',
-  flexShrink: 0,
-  width: '20px',
-  height: '4px',
-  backgroundColor: 'gray',
-  borderRadius: '8px',
-  alignSelf: 'center',
-  marginBottom: '8px',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '20px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 });
+
+const DragHandlerSpan = styled.span(
+  {
+    width: '2.125rem',
+    height: '4px',
+    borderRadius: '10px',
+  },
+  ({ theme }) => ({
+    backgroundColor: theme.colors.gray2,
+  }),
+);
 
 const SuggestionText = styled.p({ marginBottom: '8px' }, ({ theme }) => ({
   ...theme.typographies.caption2,
@@ -82,30 +97,48 @@ const SuggestionText = styled.p({ marginBottom: '8px' }, ({ theme }) => ({
 
 const ItemWrapper = styled.div({ display: 'flex', gap: '8px', marginBottom: '22px' });
 
-const RecommentSectionVariants: Variants = {
-  hide: {
-    y: HIDE_BOTTOM_POS,
-    transition: { duration: 0.5, ease: defaultEasing },
-    willChange: 'transform',
-  },
-  show: {
-    y: '0',
-    transition: { duration: 0.5, ease: defaultEasing },
-    willChange: 'transform',
-  },
-};
-
 const useSectionVisible = () => {
+  const animationControls = useAnimationControls();
   const [isVisible, setIsVisible, toggleVisible] = useToggle(true);
+  const isDragRef = useRef<boolean>(false);
 
-  const onDragEnd: DragHandlers['onDragEnd'] = (_, info) => {
-    const shouldClose = info.velocity.y > 20 && info.offset.y > 0;
-    if (shouldClose) {
-      setIsVisible(false);
-    } else {
-      setIsVisible(true);
-    }
+  const onDragStart = () => {
+    isDragRef.current = true;
   };
 
-  return { isVisible, toggleVisible, onDragEnd };
+  const onDragEnd: DragHandlers['onDragEnd'] = (_, info) => {
+    const shouldVisible = info.velocity.y < -50 && info.offset.y < 0;
+    setIsVisible(shouldVisible);
+  };
+
+  const onMouseUp = () => {
+    setTimeout(() => {
+      isDragRef.current = false;
+    }, 0);
+  };
+
+  const onClickToggleButton = () => {
+    if (isDragRef.current) return;
+    toggleVisible();
+  };
+
+  useDidUpdate(() => {
+    if (isVisible) {
+      animationControls.start(visibleMotion);
+    } else {
+      animationControls.start(hideMotion);
+    }
+  }, [isVisible]);
+
+  return { onDragStart, onDragEnd, onMouseUp, onClickToggleButton, animationControls };
+};
+
+const visibleMotion = {
+  y: 0,
+  transition: { duration: 0.5, ease: defaultEasing },
+};
+
+const hideMotion = {
+  y: HIDE_BOTTOM_POS,
+  transition: { duration: 0.5, ease: defaultEasing },
 };
