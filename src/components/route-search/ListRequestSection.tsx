@@ -1,8 +1,9 @@
-import styled from '@emotion/styled';
 import React from 'react';
+import styled from '@emotion/styled';
+
 import Button from '../button/Button';
 
-function ListRequestSection() {
+const ListRequestSection = () => {
   return (
     <div>
       <MainTitle>찾으시는 리스트가 없나요?</MainTitle>
@@ -10,7 +11,7 @@ function ListRequestSection() {
       <Button>리스트 요청하기</Button>
     </div>
   );
-}
+};
 
 export default ListRequestSection;
 
