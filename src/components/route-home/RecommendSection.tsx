@@ -11,7 +11,7 @@ import useDidUpdate from '@/hooks/life-cycle/useDidUpdate';
 const HIDE_BOTTOM_POS = 84;
 
 const RecommendSection = () => {
-  const { onDragStart, onDragEnd, onMouseUp, onClickToggleButton, animationControls } = useSectionVisible();
+  const { onDragStart, onDragEnd, onClickToggleButton, animationControls } = useSectionVisible();
 
   // TODO: API 부착 이후 대응
   const testFn = () => {
@@ -29,7 +29,6 @@ const RecommendSection = () => {
         dragConstraints={{ top: 0, bottom: HIDE_BOTTOM_POS }}
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
-        onMouseUp={onMouseUp}
       >
         <DragHandlerButton type="button" onClick={onClickToggleButton}>
           <DragHandlerSpan />
@@ -102,16 +101,24 @@ const useSectionVisible = () => {
   const [isVisible, setIsVisible, toggleVisible] = useToggle(true);
   const isDragRef = useRef<boolean>(false);
 
+  const startAnimationDependsOnIsVisble = () => {
+    if (isVisible) {
+      animationControls.start(visibleMotion);
+    } else {
+      animationControls.start(hideMotion);
+    }
+  };
+
   const onDragStart = () => {
     isDragRef.current = true;
   };
 
   const onDragEnd: DragHandlers['onDragEnd'] = (_, info) => {
     const shouldVisible = info.velocity.y < -50 && info.offset.y < 0;
-    setIsVisible(shouldVisible);
-  };
 
-  const onMouseUp = () => {
+    setIsVisible(shouldVisible);
+    startAnimationDependsOnIsVisble();
+
     setTimeout(() => {
       isDragRef.current = false;
     }, 0);
@@ -123,14 +130,10 @@ const useSectionVisible = () => {
   };
 
   useDidUpdate(() => {
-    if (isVisible) {
-      animationControls.start(visibleMotion);
-    } else {
-      animationControls.start(hideMotion);
-    }
+    startAnimationDependsOnIsVisble();
   }, [isVisible]);
 
-  return { onDragStart, onDragEnd, onMouseUp, onClickToggleButton, animationControls };
+  return { onDragStart, onDragEnd, onClickToggleButton, animationControls };
 };
 
 const visibleMotion = {
