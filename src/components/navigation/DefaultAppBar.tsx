@@ -1,16 +1,14 @@
 import styled from '@emotion/styled';
 
+import IconAlarm from '../icon/IconAlarm';
 import IconMenu from '../icon/IconMenu';
-import IconPin from '../icon/IconPin';
 
 const DefaultAppBar = () => {
   return (
     <Wrapper>
-      <span>Logo</span>
-
       <ButtonWrapper>
         <Button>
-          <IconPin />
+          <IconAlarm />
         </Button>
 
         <Button>
@@ -31,7 +29,7 @@ const Wrapper = styled.section(
     width: '100%',
     height: '48px',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
   ({ theme }) => ({ backgroundColor: theme.colors.gray1 }),
