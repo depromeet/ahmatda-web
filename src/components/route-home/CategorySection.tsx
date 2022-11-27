@@ -1,12 +1,13 @@
+import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
 
 import IconButton from '../button/IconButton';
 import Chip from '../chip/Chip';
 import IconOverflow from '../icon/IconOverflow';
 
-import CategorySettingBottomSheet from './CategorySettingBottomSheet';
-
 import useToggle from '@/hooks/common/useToggle';
+
+const CategorySettingBottomSheet = dynamic(() => import('./CategorySettingBottomSheet'));
 
 const CategorySection = () => {
   const [isCategorySettingShowing, setCategorySettingShowing, toggleCategorySettingShowing] = useToggle(false);
