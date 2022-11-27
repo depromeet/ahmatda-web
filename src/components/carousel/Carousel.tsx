@@ -1,6 +1,8 @@
 import { forwardRef, PropsWithChildren, Ref } from 'react';
 import styled from '@emotion/styled';
 
+import Indicator from './Indicator';
+
 const CarouselWrapper = forwardRef(function CarouselWrapper(
   { children }: PropsWithChildren,
   forwardedRef: Ref<HTMLDivElement>,
@@ -27,6 +29,21 @@ const Item = styled.article({
   width: '100%',
 });
 
-const Carousel = { Wrapper: CarouselWrapper, Item: CarouselItem };
+/**
+ * Carousel에 필요한 컴포넌트들을 사용할 수 있어요
+ *
+ * @example
+ * ```tsx
+ * <Carousel.Wrapper ref={setCarouselWrapper}>
+    <Carousel.Item>
+      first
+    </Carousel.Item>
+    // ...
+  </Carousel.Wrapper>
+  <Carousel.Indicator carouselWrapper={carouselWrapper} />
+ * ```
+ *
+ */
+const Carousel = { Wrapper: CarouselWrapper, Item: CarouselItem, Indicator };
 
 export default Carousel;
