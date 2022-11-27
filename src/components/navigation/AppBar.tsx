@@ -1,5 +1,6 @@
 import { FC, ReactElement } from 'react';
 import { useRouter } from 'next/router';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import IconChevron24pxRightLeft from '../icon/IconChevron24pxRightLeft';
@@ -21,9 +22,15 @@ interface Props {
    * 값을 주입하지 않을 시 `router.back()`이 실행됩니다
    */
   onClickBackButton?: VoidFunction;
+  /**
+   * `BottomSheet`등에서 layout에 구애받지 않고 사용될 때 사용합니다
+   *
+   * `position`이 `absolute`가 되며, `ScrollableDiv`를 렌더링합니다
+   */
+  isAbsolute?: boolean;
 }
 
-const AppBar: FC<Props> = ({ title, rightElement, onClickBackButton }) => {
+const AppBar: FC<Props> = ({ title, rightElement, onClickBackButton, isAbsolute = false }) => {
   const router = useRouter();
 
   const handleBackButton = () => {
@@ -35,13 +42,16 @@ const AppBar: FC<Props> = ({ title, rightElement, onClickBackButton }) => {
   };
 
   return (
-    <Wrapper>
-      <BackButton onClick={handleBackButton}>
-        <IconChevron24pxRightLeft direction="left" />
-      </BackButton>
-      {title && <Title>{title}</Title>}
-      {rightElement && rightElement}
-    </Wrapper>
+    <>
+      <Wrapper isAbsolute={isAbsolute}>
+        <BackButton onClick={handleBackButton}>
+          <IconChevron24pxRightLeft direction="left" />
+        </BackButton>
+        {title && <Title>{title}</Title>}
+        {rightElement && rightElement}
+      </Wrapper>
+      {isAbsolute && <ScrollableDiv />}
+    </>
   );
 };
 
@@ -49,7 +59,7 @@ export default AppBar;
 
 const APP_BAR_HEIGHT = '48px';
 
-const Wrapper = styled.section(
+const Wrapper = styled.section<{ isAbsolute: boolean }>(
   {
     position: 'sticky',
     left: 0,
@@ -63,7 +73,15 @@ const Wrapper = styled.section(
     zIndex: '900',
   },
   ({ theme }) => ({ backgroundColor: theme.colors.white }),
+  ({ isAbsolute }) => isAbsolute && AbsoluteCss,
 );
+
+const AbsoluteCss = css({
+  position: 'absolute',
+  top: '0',
+  left: '0',
+  marginTop: '16px',
+});
 
 const BackButton = styled.button({
   all: 'unset',
@@ -88,37 +106,5 @@ const Title = styled.h2(
     color: theme.colors.gray6,
   }),
 );
-
-export const BottomSheetAppBar: FC<Props> = ({ title, rightElement, onClickBackButton }) => {
-  const router = useRouter();
-
-  const handleBackButton = () => {
-    if (onClickBackButton) {
-      onClickBackButton();
-      return;
-    }
-    router.back();
-  };
-
-  return (
-    <>
-      <BottomSheetWrapper>
-        <BackButton onClick={handleBackButton}>
-          <IconChevron24pxRightLeft direction="left" />
-        </BackButton>
-        {title && <Title>{title}</Title>}
-        {rightElement && rightElement}
-      </BottomSheetWrapper>
-      <ScrollableDiv />
-    </>
-  );
-};
-
-const BottomSheetWrapper = styled(Wrapper)({
-  position: 'absolute',
-  top: '0',
-  left: '0',
-  marginTop: '16px',
-});
 
 const ScrollableDiv = styled.div({ height: APP_BAR_HEIGHT });
