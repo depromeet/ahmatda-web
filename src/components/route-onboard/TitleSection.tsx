@@ -12,7 +12,7 @@ const TitleSection = ({ title, subTitle }: OnboardTitleProps) => {
   return (
     <m.div variants={staggerOne} initial="initial" animate="animate" exit="exit">
       <MainTitle dangerouslySetInnerHTML={{ __html: title }} variants={defaultFadeInVariants} />
-      <SubTitle variants={defaultFadeInVariants}>{subTitle}</SubTitle>
+      <SubTitle dangerouslySetInnerHTML={{ __html: subTitle }} variants={defaultFadeInVariants} />
     </m.div>
   );
 };
