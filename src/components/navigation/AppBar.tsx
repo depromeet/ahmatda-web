@@ -47,12 +47,15 @@ const AppBar: FC<Props> = ({ title, rightElement, onClickBackButton }) => {
 
 export default AppBar;
 
+const APP_BAR_HEIGHT = '48px';
+
 const Wrapper = styled.section(
   {
     position: 'sticky',
+    left: 0,
     top: '0',
     width: '100%',
-    height: '48px',
+    height: APP_BAR_HEIGHT,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -82,5 +85,40 @@ const Title = styled.h2(
   },
   ({ theme }) => ({
     ...theme.typographies.subTitle,
+    color: theme.colors.gray6,
   }),
 );
+
+export const BottomSheetAppBar: FC<Props> = ({ title, rightElement, onClickBackButton }) => {
+  const router = useRouter();
+
+  const handleBackButton = () => {
+    if (onClickBackButton) {
+      onClickBackButton();
+      return;
+    }
+    router.back();
+  };
+
+  return (
+    <>
+      <BottomSheetWrapper>
+        <BackButton onClick={handleBackButton}>
+          <IconChevron24pxRightLeft direction="left" />
+        </BackButton>
+        {title && <Title>{title}</Title>}
+        {rightElement && rightElement}
+      </BottomSheetWrapper>
+      <ScrollableDiv />
+    </>
+  );
+};
+
+const BottomSheetWrapper = styled(Wrapper)({
+  position: 'absolute',
+  top: '0',
+  left: '0',
+  marginTop: '16px',
+});
+
+const ScrollableDiv = styled.div({ height: APP_BAR_HEIGHT });
