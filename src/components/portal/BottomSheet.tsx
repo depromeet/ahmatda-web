@@ -42,14 +42,13 @@ const StyledMotionContent = styled(m.div)`
   top: 100%;
   width: 100%;
   min-height: 420px;
-
+  max-height: 95%;
   padding-top: 16px;
   padding-left: 20px;
   padding-right: 20px;
-
   background-color: ${({ theme }) => theme.colors.white};
-
   border-radius: 20px 20px 0 0;
+  overflow: hidden;
   z-index: 1000;
 `;
 

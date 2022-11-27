@@ -4,22 +4,35 @@ import IconButton from '../button/IconButton';
 import Chip from '../chip/Chip';
 import IconOverflow from '../icon/IconOverflow';
 
-const CategorySection = () => {
-  return (
-    <Section>
-      <ChipWrapper>
-        <Chip label="일상" color="black" />
-        <Chip label="일상" />
-        <Chip label="일상" />
-        <Chip label="일상" />
-      </ChipWrapper>
+import CategorySettingBottomSheet from './CategorySettingBottomSheet';
 
-      <OverflowWrapper>
-        <IconButton>
-          <IconOverflow />
-        </IconButton>
-      </OverflowWrapper>
-    </Section>
+import useToggle from '@/hooks/common/useToggle';
+
+const CategorySection = () => {
+  const [isCategorySettingShowing, setCategorySettingShowing, toggleCategorySettingShowing] = useToggle(false);
+
+  return (
+    <>
+      <Section>
+        <ChipWrapper>
+          <Chip label="일상" color="black" />
+          <Chip label="일상" />
+          <Chip label="일상" />
+          <Chip label="일상" />
+        </ChipWrapper>
+
+        <OverflowWrapper>
+          <IconButton onClick={toggleCategorySettingShowing}>
+            <IconOverflow />
+          </IconButton>
+        </OverflowWrapper>
+      </Section>
+
+      <CategorySettingBottomSheet
+        isShowing={isCategorySettingShowing}
+        setToClose={() => setCategorySettingShowing(false)}
+      />
+    </>
   );
 };
 
