@@ -18,6 +18,11 @@ const theme = {
       fontSize: '1rem',
       lineHeight: '1.5rem',
     },
+    button1: {
+      fontWeight: 500,
+      fontSize: '1.25rem',
+      lineHeight: '1.875rem',
+    },
     button2: {
       fontWeight: 500,
       fontSize: '1rem',
