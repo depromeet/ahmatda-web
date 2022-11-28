@@ -1,5 +1,5 @@
 import { ChangeEvent, Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 
 interface DebounceOption {
   useDebounce?: boolean;
