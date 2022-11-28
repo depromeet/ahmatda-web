@@ -8,6 +8,7 @@ const Notice = () => {
   return (
     <>
       <WhiteBackgroundGlobalStyles />
+      {/* TODO: #106 이후 패딩 대응 */}
       <AppBar title="알림" />
       <Main>
         <NoticeItem icon="&#127911;" title="아맞다! 이어폰은 꼭 챙기셔야 해요!" time="1초 전" />
