@@ -29,6 +29,8 @@ export const setGlobalStyles = css`
     box-sizing: border-box !important;
     margin: 0;
     padding: 0;
+    word-break: keep-all;
+    word-wrap: break-word;
 
     -ms-overflow-style: none;
     scrollbar-width: none;
