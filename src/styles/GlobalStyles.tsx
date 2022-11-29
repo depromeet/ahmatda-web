@@ -20,6 +20,11 @@ export const setGlobalStyles = css`
     text-decoration: none;
   }
 
+  fieldset,
+  legend {
+    all: unset;
+  }
+
   :disabled {
     cursor: not-allowed;
   }
