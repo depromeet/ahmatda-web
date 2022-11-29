@@ -13,6 +13,7 @@ import GraphicSchool from '../graphic/GraphicSchool';
 import GraphicSwim from '../graphic/GraphicSwim';
 import GraphicTube from '../graphic/GraphicTube';
 import GraphicWork from '../graphic/GraphicWork';
+import type { GraphicProps } from '../graphic/type';
 
 interface Graphic {
   value: string;
@@ -52,7 +53,7 @@ const IconRadioGroup: FC<Props> = ({ currentValue, setCurrentValue }) => {
         <Fragment key={value}>
           <HidedInput type="radio" id={`${value}-${id}`} value={value} onClick={onClick} />
           <GraphicLabel htmlFor={`${value}-${id}`}>
-            {cloneElement(reactElement, { isAct: value === currentValue })}
+            {cloneElement<GraphicProps>(reactElement, { isAct: value === currentValue })}
           </GraphicLabel>
         </Fragment>
       ))}
