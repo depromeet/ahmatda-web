@@ -1,3 +1,4 @@
+import NextLink from 'next/link';
 import styled from '@emotion/styled';
 
 import IconAlarm from '../icon/IconAlarm';
@@ -7,9 +8,9 @@ const DefaultAppBar = () => {
   return (
     <Wrapper>
       <ButtonWrapper>
-        <Button>
+        <StyledLink href="/notice">
           <IconAlarm />
-        </Button>
+        </StyledLink>
 
         <Button>
           <IconMenu />
@@ -40,6 +41,7 @@ const ButtonWrapper = styled.div({
   top: '0',
   right: '-12px',
   height: '100%',
+  display: 'flex',
 });
 
 const Button = styled.button({
@@ -48,4 +50,12 @@ const Button = styled.button({
   width: '48px',
   height: '48px',
   textAlign: 'center',
+});
+
+const StyledLink = styled(NextLink)({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '48px',
+  height: '48px',
 });

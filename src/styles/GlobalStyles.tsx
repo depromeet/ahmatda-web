@@ -29,6 +29,8 @@ export const setGlobalStyles = css`
     box-sizing: border-box !important;
     margin: 0;
     padding: 0;
+    word-break: keep-all;
+    word-wrap: break-word;
 
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -46,3 +48,16 @@ const GlobalStyles = (): ReactElement => {
 };
 
 export default GlobalStyles;
+
+const whiteBackgroundCss = css`
+  body {
+    background-color: ${theme.colors.white};
+  }
+`;
+
+/**
+ * 배경색이 흰색인 route에서 사용되는 GlobalStyles 입니다
+ */
+export const WhiteBackgroundGlobalStyles = () => {
+  return <Global styles={whiteBackgroundCss} />;
+};
