@@ -1,25 +1,39 @@
+import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
 
 import IconButton from '../button/IconButton';
 import Chip from '../chip/Chip';
 import IconOverflow from '../icon/IconOverflow';
 
-const CategorySection = () => {
-  return (
-    <Section>
-      <ChipWrapper>
-        <Chip label="일상" color="black" />
-        <Chip label="일상" />
-        <Chip label="일상" />
-        <Chip label="일상" />
-      </ChipWrapper>
+import useToggle from '@/hooks/common/useToggle';
 
-      <OverflowWrapper>
-        <IconButton>
-          <IconOverflow />
-        </IconButton>
-      </OverflowWrapper>
-    </Section>
+const CategorySettingBottomSheet = dynamic(() => import('./CategorySettingBottomSheet'));
+
+const CategorySection = () => {
+  const [isCategorySettingShowing, setCategorySettingShowing, toggleCategorySettingShowing] = useToggle(false);
+
+  return (
+    <>
+      <Section>
+        <ChipWrapper>
+          <Chip label="일상" color="black" />
+          <Chip label="일상" />
+          <Chip label="일상" />
+          <Chip label="일상" />
+        </ChipWrapper>
+
+        <OverflowWrapper>
+          <IconButton onClick={toggleCategorySettingShowing}>
+            <IconOverflow />
+          </IconButton>
+        </OverflowWrapper>
+      </Section>
+
+      <CategorySettingBottomSheet
+        isShowing={isCategorySettingShowing}
+        setToClose={() => setCategorySettingShowing(false)}
+      />
+    </>
   );
 };
 

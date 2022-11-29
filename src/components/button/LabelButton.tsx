@@ -30,6 +30,8 @@ const StyledLabelButton = styled(Button)<StyledLabelButtonProps>`
   padding: 8px;
   background-color: inherit;
   color: ${({ theme }) => theme.colors.gray3};
+  display: flex;
+  align-items: center;
 
   &:active {
     background-color: inherit;
