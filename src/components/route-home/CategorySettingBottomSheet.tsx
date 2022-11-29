@@ -7,9 +7,15 @@ import IconChevron24pxRightLeft from '../icon/IconChevron24pxRightLeft';
 import AppBar from '../navigation/AppBar';
 import BottomSheet from '../portal/BottomSheet';
 
+import CategoryAppendBottomSheet from './CategoryAppendBottomSheet';
+
+import useToggle from '@/hooks/common/useToggle';
+
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
 const CategorySettingBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
+  const [isCategoryAppendShowing, setIsCategoryAppendShowing, toggleIsCategoryAppendShowing] = useToggle(false);
+
   const testFn = () => {
     // TODO: 이후 대응
     // eslint-disable-next-line no-console
@@ -17,19 +23,26 @@ const CategorySettingBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
   };
 
   return (
-    <BottomSheet isShowing={isShowing} setToClose={setToClose}>
-      <Wrapper>
-        <AppBar title="카테고리 설정" onClickBackButton={setToClose} isAbsolute />
+    <>
+      <BottomSheet isShowing={isShowing} setToClose={setToClose}>
+        <Wrapper>
+          <AppBar title="카테고리 설정" onClickBackButton={setToClose} isAbsolute />
 
-        <CategoryItem icon={<IconAdd />} label="일상" onClick={testFn} />
-        <CategoryItem icon={<IconAdd />} label="여행" onClick={testFn} />
+          <CategoryItem icon={<IconAdd />} label="일상" onClick={testFn} />
+          <CategoryItem icon={<IconAdd />} label="여행" onClick={testFn} />
 
-        <PadlessLabelButton size="large">
-          <IconAdd />
-          추가하기
-        </PadlessLabelButton>
-      </Wrapper>
-    </BottomSheet>
+          <PadlessLabelButton size="large" onClick={toggleIsCategoryAppendShowing}>
+            <IconAdd />
+            추가하기
+          </PadlessLabelButton>
+        </Wrapper>
+      </BottomSheet>
+
+      <CategoryAppendBottomSheet
+        isShowing={isCategoryAppendShowing}
+        setToClose={() => setIsCategoryAppendShowing(false)}
+      />
+    </>
   );
 };
 
