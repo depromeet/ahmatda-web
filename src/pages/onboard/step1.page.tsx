@@ -15,8 +15,16 @@ const Step1 = () => {
   return (
     <Wrapper>
       <TitleSection
-        title="만나서 반가워요.<br/>어떤 상황에서 소지품을<br/>관리 받고 싶으신가요?"
-        subTitle="소지품 관리가 가장 필요한 상황을 1개 골라 주세요."
+        title={
+          <>
+            만나서 반가워요.
+            <br />
+            어떤 상황에서 소지품을
+            <br />
+            관리 받고 싶으신가요?
+          </>
+        }
+        subTitle={<>소지품 관리가 가장 필요한 상황을 1개 골라 주세요.</>}
       />
       <form onSubmit={onSubmit}>
         <SelectSection variants={staggerOne} initial="initial" animate="animate" exit="exit">
