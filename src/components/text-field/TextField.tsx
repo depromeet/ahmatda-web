@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 import IconCancelSmall from '../icon/IconCancelSmall';
 
-interface Props extends React.HTMLAttributes<HTMLInputElement> {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: string;
 }
 
