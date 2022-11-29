@@ -10,6 +10,18 @@ import Carousel from '@/components/carousel/Carousel';
 import Checkbox from '@/components/checkbox/Checkbox';
 import CheckboxWithText from '@/components/checkbox/CheckboxWithText';
 import Chip from '@/components/chip/Chip';
+import GraphicBowling from '@/components/graphic/GraphicBowling';
+import GraphicBus from '@/components/graphic/GraphicBus';
+import GraphicCamera from '@/components/graphic/GraphicCamera';
+import GraphicEtc from '@/components/graphic/GraphicEtc';
+import GraphicFriends from '@/components/graphic/GraphicFriends';
+import GraphicGym from '@/components/graphic/GraphicGym';
+import GraphicPlane from '@/components/graphic/GraphicPlane';
+import GraphicRun from '@/components/graphic/GraphicRun';
+import GraphicSchool from '@/components/graphic/GraphicSchool';
+import GraphicSwim from '@/components/graphic/GraphicSwim';
+import GraphicTube from '@/components/graphic/GraphicTube';
+import GraphicWork from '@/components/graphic/GraphicWork';
 import IconAdd from '@/components/icon/IconAdd';
 import IconAlarm from '@/components/icon/IconAlarm';
 import IconAlarmAdd from '@/components/icon/IconAlarmAdd';
@@ -121,6 +133,34 @@ const Test = () => {
       </div>
 
       <div>
+        <Heading>Graphic</Heading>
+        <GraphicWork />
+        <GraphicWork isAct />
+        <GraphicBowling />
+        <GraphicBowling isAct />
+        <GraphicBus />
+        <GraphicBus isAct />
+        <GraphicCamera />
+        <GraphicCamera isAct />
+        <GraphicEtc />
+        <GraphicEtc isAct />
+        <GraphicFriends />
+        <GraphicFriends isAct />
+        <GraphicGym />
+        <GraphicGym isAct />
+        <GraphicPlane />
+        <GraphicPlane isAct />
+        <GraphicRun />
+        <GraphicRun isAct />
+        <GraphicSchool />
+        <GraphicSchool isAct />
+        <GraphicSwim />
+        <GraphicSwim isAct />
+        <GraphicTube />
+        <GraphicTube isAct />
+      </div>
+
+      <div>
         <Heading>chip</Heading>
         <Chip color="black" label="디프만 준비물" />
         <Chip label="default" />
@@ -179,6 +219,7 @@ export default Test;
 
 const Heading = styled.h2`
   border-top: solid 1px black;
+  margin: 32px 0;
 `;
 
 const TestDiv = styled.div`
