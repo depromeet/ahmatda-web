@@ -47,7 +47,6 @@ const CategoryAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
               완료
             </LabelButton>
           }
-          isAbsolute
         />
         <Form>
           <TextField value={categoryName} onChange={onChangeCategoryName} placeholder="카테고리 입력" />
