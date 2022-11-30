@@ -67,6 +67,7 @@ const Wrapper = styled.section(
 const BackButton = styled.button({
   all: 'unset',
   position: 'absolute',
+  // NOTE: - wapper padding + design padding
   left: 'calc(-20px + 8px)',
   cursor: 'pointer',
   width: '3rem',
@@ -83,5 +84,6 @@ const Title = styled.h2(({ theme }) => ({
 
 const RightElementWrapper = styled.div({
   position: 'absolute',
+  // NOTE: - wapper padding + design padding
   right: 'calc(-20px + 8px)',
 });
