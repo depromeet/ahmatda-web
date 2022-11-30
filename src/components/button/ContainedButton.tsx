@@ -28,7 +28,7 @@ type StyledContainedButtonProps = Required<Pick<Props, 'size'>>;
 
 const StyledContainedButton = styled(Button)<StyledContainedButtonProps>`
   width: 100%;
-
+  ${({ theme }) => ({ ...theme.typographies.button2 })}
   ${({ size }) => size === 'medium' && mediumCss}
   ${({ size }) => size === 'large' && largeCss}
 `;
