@@ -24,6 +24,7 @@ export default EmptyCard;
 const Wrapper = styled.div({
   width: '100%',
   minHeight: '410px',
+  height: '100%',
   borderRadius: '16px',
   overflow: 'hidden',
   backgroundColor: 'white',
