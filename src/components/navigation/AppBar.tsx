@@ -2,9 +2,11 @@ import { FC, ReactElement } from 'react';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 
+import IconCancel from '../icon/IconCancel';
 import IconChevron24pxRightLeft from '../icon/IconChevron24pxRightLeft';
 
 interface Props {
+  backButtonType?: 'chevron' | 'cancel';
   /**
    * 가운데에 표시될 텍스트
    */
@@ -23,7 +25,7 @@ interface Props {
   onClickBackButton?: VoidFunction;
 }
 
-const AppBar: FC<Props> = ({ title, rightElement, onClickBackButton }) => {
+const AppBar: FC<Props> = ({ backButtonType = 'chevron', title, rightElement, onClickBackButton }) => {
   const router = useRouter();
 
   const handleBackButton = () => {
@@ -37,7 +39,7 @@ const AppBar: FC<Props> = ({ title, rightElement, onClickBackButton }) => {
   return (
     <Wrapper>
       <BackButton onClick={handleBackButton}>
-        <IconChevron24pxRightLeft direction="left" />
+        {backButtonType === 'chevron' ? <IconChevron24pxRightLeft direction="left" /> : <IconCancel />}
       </BackButton>
       {title && <Title>{title}</Title>}
       {rightElement && <RightElementWrapper>{rightElement}</RightElementWrapper>}

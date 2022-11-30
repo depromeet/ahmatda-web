@@ -40,6 +40,7 @@ const CategoryAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
     <BottomSheet isShowing={isShowing} setToClose={setToClose}>
       <Wrapper>
         <AppBar
+          backButtonType="cancel"
           title="카테고리 추가"
           onClickBackButton={setToClose}
           rightElement={

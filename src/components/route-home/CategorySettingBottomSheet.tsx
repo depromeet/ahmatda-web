@@ -26,7 +26,7 @@ const CategorySettingBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
     <>
       <BottomSheet isShowing={isShowing} setToClose={setToClose}>
         <Wrapper>
-          <AppBar title="카테고리 설정" onClickBackButton={setToClose} />
+          <AppBar backButtonType="cancel" title="카테고리 설정" onClickBackButton={setToClose} />
 
           <CategoryItem icon={<IconAdd />} label="일상" onClick={testFn} />
           <CategoryItem icon={<IconAdd />} label="여행" onClick={testFn} />
