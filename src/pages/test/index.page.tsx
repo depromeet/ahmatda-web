@@ -41,7 +41,6 @@ import IconSearch from '@/components/icon/IconSearch';
 import IconSetting from '@/components/icon/IconSetting';
 import Item from '@/components/item/Item';
 import AppBar from '@/components/navigation/AppBar';
-import SearchCard from '@/components/route-search/SearchCard';
 import SegmentedControl from '@/components/segmented-control/SegmentedControl';
 import ToggleSwitch from '@/components/toggle/ToggleSwitch';
 
