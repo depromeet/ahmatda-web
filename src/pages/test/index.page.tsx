@@ -150,7 +150,7 @@ const Test = () => {
 
       <CardBackground>
         <Heading>cards</Heading>
-        <SearchCard title={SEARCH_CARD_DUMMY_TITLE} options={SEARCH_CARD_DUMMY_DATA} />
+        <SearchCard title={SEARCH_CARD_DUMMY_TITLE} options={SEARCH_CARD_DUMMY_DATA} onSubmit={() => {}} />
       </CardBackground>
     </>
   );
