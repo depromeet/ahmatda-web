@@ -1,16 +1,24 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import styled from '@emotion/styled';
 
 import { NextPageWithLayout } from '../_app.page';
 
 import BottomNavigation from '@/components/navigation/BottomNavigation';
 import DefaultAppBar from '@/components/navigation/DefaultAppBar';
+import BottomSheet from '@/components/portal/BottomSheet';
+import AddTemplateSection from '@/components/route-search/AddTemplateSection';
 import CategorySection from '@/components/route-search/CategorySection';
 import ListRequestSection from '@/components/route-search/ListRequestSection';
 import SearchCard from '@/components/route-search/SearchCard';
 import { mockCheckboxGroupOptions, mockCheckboxGroupTitle } from '@/fixtures/checkboxGroup.mock';
 
 const Template: NextPageWithLayout = () => {
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+
+  const addTemplate = () => {
+    setIsBottomSheetOpen(false);
+  };
+
   return (
     <Wrapper>
       <Title>
@@ -20,11 +28,23 @@ const Template: NextPageWithLayout = () => {
       </Title>
       <CategorySection />
       <CardsWrapper>
-        <SearchCard title={mockCheckboxGroupTitle} options={mockCheckboxGroupOptions} />
-        <SearchCard title={mockCheckboxGroupTitle} options={mockCheckboxGroupOptions} />
-        <SearchCard title={mockCheckboxGroupTitle} options={mockCheckboxGroupOptions} />
+        <SearchCard
+          title={mockCheckboxGroupTitle}
+          options={mockCheckboxGroupOptions}
+          onSubmit={() => {
+            setIsBottomSheetOpen(true);
+          }}
+        />
       </CardsWrapper>
       <ListRequestSection />
+      <BottomSheet
+        isShowing={isBottomSheetOpen}
+        setToClose={() => {
+          setIsBottomSheetOpen(false);
+        }}
+      >
+        <AddTemplateSection onComplete={addTemplate} />
+      </BottomSheet>
     </Wrapper>
   );
 };

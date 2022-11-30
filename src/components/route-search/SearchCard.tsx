@@ -4,13 +4,15 @@ import styled from '@emotion/styled';
 import ContainedButton from '../button/ContainedButton';
 import CheckboxGroup from '../checkbox/CheckboxGroup';
 
-type Props = ComponentProps<typeof CheckboxGroup>;
+interface Props extends ComponentProps<typeof CheckboxGroup> {
+  onSubmit: VoidFunction;
+}
 
-const SearchCard = ({ title, options }: Props) => {
+const SearchCard = ({ title, options, onSubmit }: Props) => {
   return (
     <Wrapper>
       <CheckboxGroup title={title} options={options} />
-      <ContainedButton>내 리스트에 추가하기</ContainedButton>
+      <ContainedButton onClick={onSubmit}>내 리스트에 추가하기</ContainedButton>
     </Wrapper>
   );
 };
