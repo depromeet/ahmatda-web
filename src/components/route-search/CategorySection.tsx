@@ -3,11 +3,15 @@ import styled from '@emotion/styled';
 
 import Chip from '../chip/Chip';
 
-const CategorySection = () => {
+interface Props {
+  defaultColor?: 'gray';
+}
+
+const CategorySection = ({ defaultColor }: Props) => {
   return (
     <Wrapper>
       {CATEGORY_DUMMY.map((name) => (
-        <Chip label={name} key={name} />
+        <Chip label={name} key={name} color={defaultColor} />
       ))}
     </Wrapper>
   );

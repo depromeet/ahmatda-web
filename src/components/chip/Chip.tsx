@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import IconInfo from '../icon/IconInfo';
 
-type Color = 'default' | 'black';
+type Color = 'default' | 'black' | 'gray';
 
 interface Props {
   label: string;
@@ -43,6 +43,10 @@ const Wrapper = styled.span<{ color: Color }>(
     ...(color === 'black' && {
       backgroundColor: theme.colors.black,
       color: theme.colors.white,
+    }),
+    ...(color === 'gray' && {
+      backgroundColor: theme.colors.gray1,
+      color: theme.colors.gray4,
     }),
   }),
 );
