@@ -25,7 +25,7 @@ const AddTemplateSection = ({ onComplete }: Props) => {
       <List>
         <ListItem>기존 리스트 1</ListItem>
         <ListItem>기존 리스트 2</ListItem>
-        <ListItem new selected>
+        <ListItem newItem selected>
           <IconAdd />
           디프만 UT 준비물로 리스트 추가
         </ListItem>
@@ -53,7 +53,7 @@ const List = styled.ul`
 `;
 
 interface ListItemProps {
-  new?: boolean;
+  newItem?: boolean;
   selected?: boolean;
 }
 
@@ -70,7 +70,7 @@ const ListItem = styled('li')<ListItemProps>(
     borderBottom: `1px solid ${theme.colors.gray1}`,
     color: `${theme.colors.gray6}`,
   }),
-  (props) => props.new && { color: props.theme.colors.gray3, borderBottom: 'none' },
+  (props) => props.newItem && { color: props.theme.colors.gray3, borderBottom: 'none' },
   (props) =>
     props.selected && {
       backgroundColor: props.theme.colors.gray1,
