@@ -101,7 +101,6 @@ const RadioItem: FC<RadioItemProps> = ({ value, ...rest }) => {
 const HidedInput = styled.input(
   {
     position: 'absolute',
-    appearance: 'none',
     clipPath: 'polygon(0 0, 0 0, 0 0)',
   },
   ({ theme }) => ({
