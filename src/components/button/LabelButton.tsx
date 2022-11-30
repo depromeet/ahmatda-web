@@ -29,7 +29,7 @@ type StyledLabelButtonProps = Required<Pick<Props, 'size'>>;
 const StyledLabelButton = styled(Button)<StyledLabelButtonProps>`
   padding: 8px;
   background-color: inherit;
-  color: ${({ theme }) => theme.colors.gray3};
+  color: ${({ theme }) => theme.colors.gray5};
 
   &:active {
     background-color: inherit;
@@ -37,7 +37,7 @@ const StyledLabelButton = styled(Button)<StyledLabelButtonProps>`
 
   &:disabled {
     background-color: inherit;
-    color: ${({ theme }) => theme.colors.gray5};
+    color: ${({ theme }) => theme.colors.gray3};
   }
 
   ${({ size }) => size === 'small' && smallCss}
