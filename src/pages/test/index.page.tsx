@@ -189,11 +189,6 @@ const Test = () => {
         <SegmentedControl options={['요일별', '날짜별']} />
       </div>
 
-      <CardBackground>
-        <Heading>cards</Heading>
-        <SearchCard title={SEARCH_CARD_DUMMY_TITLE} options={SEARCH_CARD_DUMMY_DATA} onSubmit={() => {}} />
-      </CardBackground>
-
       <ItemBackground>
         <Heading>item</Heading>
 
