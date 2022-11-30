@@ -40,6 +40,7 @@ const CategoryAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
     <BottomSheet isShowing={isShowing} setToClose={setToClose}>
       <Wrapper>
         <AppBar
+          backButtonType="cancel"
           title="카테고리 추가"
           onClickBackButton={setToClose}
           rightElement={
@@ -47,7 +48,6 @@ const CategoryAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
               완료
             </LabelButton>
           }
-          isAbsolute
         />
         <Form>
           <TextField value={categoryName} onChange={onChangeCategoryName} placeholder="카테고리 입력" />

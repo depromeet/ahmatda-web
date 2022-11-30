@@ -1,11 +1,12 @@
 import { FC, ReactElement } from 'react';
 import { useRouter } from 'next/router';
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import IconCancel from '../icon/IconCancel';
 import IconChevron24pxRightLeft from '../icon/IconChevron24pxRightLeft';
 
 interface Props {
+  backButtonType?: 'chevron' | 'cancel';
   /**
    * 가운데에 표시될 텍스트
    */
@@ -22,15 +23,9 @@ interface Props {
    * 값을 주입하지 않을 시 `router.back()`이 실행됩니다
    */
   onClickBackButton?: VoidFunction;
-  /**
-   * `BottomSheet`등에서 layout에 구애받지 않고 사용될 때 사용합니다
-   *
-   * `position`이 `absolute`가 되며, `ScrollableDiv`를 렌더링합니다
-   */
-  isAbsolute?: boolean;
 }
 
-const AppBar: FC<Props> = ({ title, rightElement, onClickBackButton, isAbsolute = false }) => {
+const AppBar: FC<Props> = ({ backButtonType = 'chevron', title, rightElement, onClickBackButton }) => {
   const router = useRouter();
 
   const handleBackButton = () => {
@@ -42,16 +37,13 @@ const AppBar: FC<Props> = ({ title, rightElement, onClickBackButton, isAbsolute 
   };
 
   return (
-    <>
-      <Wrapper isAbsolute={isAbsolute}>
-        <BackButton onClick={handleBackButton}>
-          <IconChevron24pxRightLeft direction="left" />
-        </BackButton>
-        {title && <Title>{title}</Title>}
-        {rightElement && rightElement}
-      </Wrapper>
-      {isAbsolute && <ScrollableDiv />}
-    </>
+    <Wrapper>
+      <BackButton onClick={handleBackButton}>
+        {backButtonType === 'chevron' ? <IconChevron24pxRightLeft direction="left" /> : <IconCancel />}
+      </BackButton>
+      {title && <Title>{title}</Title>}
+      {rightElement && <RightElementWrapper>{rightElement}</RightElementWrapper>}
+    </Wrapper>
   );
 };
 
@@ -59,7 +51,7 @@ export default AppBar;
 
 const APP_BAR_HEIGHT = '48px';
 
-const Wrapper = styled.section<{ isAbsolute: boolean }>(
+const Wrapper = styled.section(
   {
     position: 'sticky',
     left: 0,
@@ -67,24 +59,18 @@ const Wrapper = styled.section<{ isAbsolute: boolean }>(
     width: '100%',
     height: APP_BAR_HEIGHT,
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
-    padding: '0 4px',
     zIndex: '900',
   },
   ({ theme }) => ({ backgroundColor: theme.colors.white }),
-  ({ isAbsolute }) => isAbsolute && AbsoluteCss,
 );
-
-const AbsoluteCss = css({
-  position: 'absolute',
-  top: '0',
-  left: '0',
-  marginTop: '16px',
-});
 
 const BackButton = styled.button({
   all: 'unset',
+  position: 'absolute',
+  // NOTE: - wapper padding + design padding
+  left: 'calc(-20px + 8px)',
   cursor: 'pointer',
   width: '3rem',
   height: '3rem',
@@ -93,18 +79,13 @@ const BackButton = styled.button({
   alignItems: 'center',
 });
 
-const Title = styled.h2(
-  {
-    margin: 0,
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-  },
-  ({ theme }) => ({
-    ...theme.typographies.subTitle,
-    color: theme.colors.gray6,
-  }),
-);
+const Title = styled.h2(({ theme }) => ({
+  ...theme.typographies.subTitle,
+  color: theme.colors.gray6,
+}));
 
-const ScrollableDiv = styled.div({ height: APP_BAR_HEIGHT });
+const RightElementWrapper = styled.div({
+  position: 'absolute',
+  // NOTE: - wapper padding + design padding
+  right: 'calc(-20px + 8px)',
+});
