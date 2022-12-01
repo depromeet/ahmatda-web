@@ -11,7 +11,7 @@ interface Props {
 }
 
 const CategoryRadioFieldset: FC<Props> = ({ currentCategory, setCurrentCategory }) => {
-  const onClickCategory = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     if (value === '일상' || value === '여행' || value === '운동') {
       setCurrentCategory(value);
@@ -27,7 +27,7 @@ const CategoryRadioFieldset: FC<Props> = ({ currentCategory, setCurrentCategory 
             key={category}
             name={RADIO_CATEGORY_NAME}
             value={category}
-            onChange={onClickCategory}
+            onChange={onChange}
             checked={currentCategory === category}
           />
         ))}
