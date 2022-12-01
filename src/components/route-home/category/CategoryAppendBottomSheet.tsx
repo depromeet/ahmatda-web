@@ -6,8 +6,8 @@ import AppBar from '../../navigation/AppBar';
 import BottomSheet from '../../portal/BottomSheet';
 import TextField from '../../text-field/TextField';
 
+import CategoryIconRadioFieldset from './CategoryIconRadioFieldset';
 import CategoryRadioFieldset from './CategoryRadioFieldset';
-import IconRadioFieldset from './IconRadioFieldset';
 import { categories, CategoryType } from './type';
 
 import useInput from '@/hooks/common/useInput';
@@ -49,7 +49,7 @@ const CategoryAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
           <TextField value={categoryName} onChange={onChangeCategoryName} placeholder="카테고리 입력" />
 
           <CategoryRadioFieldset currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} />
-          <IconRadioFieldset currentValue={currentIcon} setCurrentValue={setCurrentIcon} />
+          <CategoryIconRadioFieldset currentValue={currentIcon} setCurrentValue={setCurrentIcon} />
         </Form>
       </Wrapper>
     </BottomSheet>

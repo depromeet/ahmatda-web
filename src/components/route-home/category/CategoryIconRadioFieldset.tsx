@@ -40,7 +40,7 @@ interface Props {
   setCurrentValue: Dispatch<SetStateAction<string | null>>;
 }
 
-const IconRadioGroup: FC<Props> = ({ currentValue, setCurrentValue }) => {
+const CategoryIconRadioGroup: FC<Props> = ({ currentValue, setCurrentValue }) => {
   const id = useId();
 
   const onClick = (e: MouseEvent<HTMLInputElement>) => {
@@ -64,7 +64,7 @@ const IconRadioGroup: FC<Props> = ({ currentValue, setCurrentValue }) => {
   );
 };
 
-export default IconRadioGroup;
+export default CategoryIconRadioGroup;
 
 const Legend = styled.legend(({ theme }) => ({ ...theme.typographies.caption1, color: theme.colors.gray6 }));
 

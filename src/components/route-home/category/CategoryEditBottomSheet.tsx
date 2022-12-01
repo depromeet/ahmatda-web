@@ -1,8 +1,8 @@
 import { ComponentProps, FC, useState } from 'react';
 import styled from '@emotion/styled';
 
+import CategoryIconRadioFieldset from './CategoryIconRadioFieldset';
 import CategoryRadioFieldset from './CategoryRadioFieldset';
-import IconRadioFieldset from './IconRadioFieldset';
 import { CategoryType } from './type';
 
 import LabelButton from '@/components/button/LabelButton';
@@ -60,7 +60,7 @@ const CategoryEditBottomSheet: FC<Props> = ({ isShowing, setToClose, name, categ
             <TextField value={categoryName} onChange={onChangeCategoryName} placeholder="카테고리 입력" />
 
             <CategoryRadioFieldset currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} />
-            <IconRadioFieldset currentValue={currentIcon} setCurrentValue={setCurrentIcon} />
+            <CategoryIconRadioFieldset currentValue={currentIcon} setCurrentValue={setCurrentIcon} />
           </Form>
 
           <DeleteButton onClick={toggleIsShowingDeleteDialog}>카테고리 삭제하기</DeleteButton>
