@@ -63,6 +63,9 @@ const theme = {
     maxWidth: '480px',
     layoutPadding: '0 20px',
   },
+  divider: {
+    borderBottom: '1px solid #F5F5F9',
+  },
 } as const;
 
 export default theme;
