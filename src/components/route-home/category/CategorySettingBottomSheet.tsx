@@ -1,14 +1,13 @@
 import { ComponentProps, FC, ReactElement } from 'react';
 import styled from '@emotion/styled';
 
-import LabelButton from '../button/LabelButton';
-import IconAdd from '../icon/IconAdd';
-import IconChevron24pxRightLeft from '../icon/IconChevron24pxRightLeft';
-import AppBar from '../navigation/AppBar';
-import BottomSheet from '../portal/BottomSheet';
-
 import CategoryAppendBottomSheet from './CategoryAppendBottomSheet';
 
+import LabelButton from '@/components/button/LabelButton';
+import IconAdd from '@/components/icon/IconAdd';
+import IconChevron24pxRightLeft from '@/components/icon/IconChevron24pxRightLeft';
+import AppBar from '@/components/navigation/AppBar';
+import BottomSheet from '@/components/portal/BottomSheet';
 import useToggle from '@/hooks/common/useToggle';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
