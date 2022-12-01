@@ -5,7 +5,7 @@ import { NextPageWithLayout } from './_app.page';
 import Carousel from '@/components/carousel/Carousel';
 import BottomNavigation from '@/components/navigation/BottomNavigation';
 import DefaultAppBar from '@/components/navigation/DefaultAppBar';
-import CategorySection from '@/components/route-home/CategorySection';
+import CategorySection from '@/components/route-home/category/CategorySection';
 import EmptyCard from '@/components/route-home/EmptyCard';
 import RecommendSection from '@/components/route-home/RecommendSection';
 

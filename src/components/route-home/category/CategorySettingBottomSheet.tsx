@@ -2,24 +2,28 @@ import { ComponentProps, FC, ReactElement } from 'react';
 import styled from '@emotion/styled';
 
 import CategoryAppendBottomSheet from './CategoryAppendBottomSheet';
+import CategoryEditBottomSheet from './CategoryEditBottomSheet';
+import { CategoryType } from './type';
 
 import LabelButton from '@/components/button/LabelButton';
+import GraphicBus from '@/components/graphic/GraphicBus';
 import IconAdd from '@/components/icon/IconAdd';
 import IconChevron24pxRightLeft from '@/components/icon/IconChevron24pxRightLeft';
 import AppBar from '@/components/navigation/AppBar';
 import BottomSheet from '@/components/portal/BottomSheet';
 import useToggle from '@/hooks/common/useToggle';
 
+const MOCK_CATEGORIES: { id: string; name: string; category: CategoryType; icon: string }[] = [
+  { id: '0', name: '일상', category: '일상', icon: 'bus' },
+  { id: '1', name: '하이 여행', category: '여행', icon: 'bus' },
+];
+
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
 const CategorySettingBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
-  const [isCategoryAppendShowing, setIsCategoryAppendShowing, toggleIsCategoryAppendShowing] = useToggle(false);
+  const [isCategoryAppendShowing, _, toggleIsCategoryAppendShowing] = useToggle(false);
 
-  const testFn = () => {
-    // TODO: 이후 대응
-    // eslint-disable-next-line no-console
-    console.log('d');
-  };
+  const { isCategoryEditShowing, toggleIsCategoryEditShowing } = useCategoryEdit();
 
   return (
     <>
@@ -27,8 +31,15 @@ const CategorySettingBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
         <Wrapper>
           <AppBar backButtonType="cancel" title="카테고리 설정" onClickBackButton={setToClose} />
 
-          <CategoryItem icon={<IconAdd />} label="일상" onClick={testFn} />
-          <CategoryItem icon={<IconAdd />} label="여행" onClick={testFn} />
+          {MOCK_CATEGORIES.map((category) => (
+            <CategoryItem
+              key={category.id}
+              // TODO: icon이 이름으로 저장될 것 같은데, 이름에 따라 반환하도록 작업해야할듯
+              icon={<GraphicBus />}
+              name={category.name}
+              onClick={toggleIsCategoryEditShowing}
+            />
+          ))}
 
           <PadlessLabelButton size="large" onClick={toggleIsCategoryAppendShowing}>
             <IconAdd />
@@ -37,10 +48,15 @@ const CategorySettingBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
         </Wrapper>
       </BottomSheet>
 
-      <CategoryAppendBottomSheet
-        isShowing={isCategoryAppendShowing}
-        setToClose={() => setIsCategoryAppendShowing(false)}
+      <CategoryEditBottomSheet
+        isShowing={isCategoryEditShowing}
+        setToClose={toggleIsCategoryEditShowing}
+        name="asd"
+        category="여행"
+        icon="bus"
       />
+
+      <CategoryAppendBottomSheet isShowing={isCategoryAppendShowing} setToClose={toggleIsCategoryAppendShowing} />
     </>
   );
 };
@@ -59,16 +75,16 @@ export default CategorySettingBottomSheet;
 
 interface CategoryItemProps {
   icon: ReactElement;
-  label: string;
+  name: string;
   onClick: VoidFunction;
 }
 
-const CategoryItem: FC<CategoryItemProps> = ({ icon, label, onClick }) => {
+const CategoryItem: FC<CategoryItemProps> = ({ icon, name, onClick }) => {
   return (
     <WrapperButton type="button" onClick={onClick}>
       <LeftWrapper>
         {icon}
-        <span>{label}</span>
+        <span>{name}</span>
       </LeftWrapper>
       <IconChevron24pxRightLeft direction="right" />
     </WrapperButton>
@@ -98,3 +114,29 @@ const LeftWrapper = styled.div({
   alignItems: 'center',
   gap: '8px',
 });
+
+const useCategoryEdit = () => {
+  const [isCategoryEditShowing, _, toggleIsCategoryEditShowing] = useToggle(false);
+
+  // TODO: 누른 카테고리 아이템 저장
+  // ?: 클릭 시 ID만 넘기고 조회를 할지, 아니면 전부 state로 넘길지?
+  // const [editCategoryName] = useState<string | null>(null);
+  // const [editCategory] = useState<CategoryType | null>(null);
+  // const [editCategoryIcon] = useState<ReactElement | null>(null);
+
+  // const onClickCategory = ({
+  //   id,
+  //   name,
+  //   category,
+  //   icon,
+  // }: {
+  //   id: string;
+  //   name: string;
+  //   category: CategoryType;
+  //   icon: ReactElement;
+  // }) => {
+  //   setIsCategoryEditShowing(true);
+  // };
+
+  return { isCategoryEditShowing, toggleIsCategoryEditShowing };
+};
