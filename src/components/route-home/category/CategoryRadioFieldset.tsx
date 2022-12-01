@@ -1,4 +1,4 @@
-import { Dispatch, FC, InputHTMLAttributes, MouseEvent, SetStateAction, useId } from 'react';
+import { ChangeEvent, Dispatch, FC, InputHTMLAttributes, SetStateAction, useId } from 'react';
 import styled from '@emotion/styled';
 
 import { categories, CategoryType } from './type';
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const CategoryRadioFieldset: FC<Props> = ({ currentCategory, setCurrentCategory }) => {
-  const onClickCategory = (e: MouseEvent<HTMLInputElement>) => {
+  const onClickCategory = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     if (value === '일상' || value === '여행' || value === '운동') {
       setCurrentCategory(value);
@@ -27,7 +27,7 @@ const CategoryRadioFieldset: FC<Props> = ({ currentCategory, setCurrentCategory 
             key={category}
             name={RADIO_CATEGORY_NAME}
             value={category}
-            onClick={onClickCategory}
+            onChange={onClickCategory}
             checked={currentCategory === category}
           />
         ))}
