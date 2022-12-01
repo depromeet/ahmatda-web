@@ -2,6 +2,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
 
+import AlarmBottomSheet from '@/components/alarm/AlarmBottomSheet';
 import Button from '@/components/button/Button';
 import ContainedButton from '@/components/button/ContainedButton';
 import IconButton from '@/components/button/IconButton';
@@ -205,6 +206,15 @@ const Test = () => {
           <Item type="checkbox" name="category" label="이모지없는" labelSize="small" />
         </SmallDiv>
       </ItemBackground>
+
+      <div>
+        <Heading>알림</Heading>
+        <Button onClick={() => setIsOpen((prev) => !prev)}>알림</Button>
+        <AlarmBottomSheet setToClose={() => setIsOpen(false)} isShowing={isOpen} />
+        <br />
+        <br />
+        <br />
+      </div>
     </>
   );
 };

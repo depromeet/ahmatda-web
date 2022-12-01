@@ -22,7 +22,6 @@ const CheckBoxLabel = styled.label`
   width: 48px;
   height: 24px;
   background-color: ${({ theme }) => theme.colors.gray3};
-  border: 1px solid #000;
   border-radius: 12px;
   transition: background-color 0.2s;
 
