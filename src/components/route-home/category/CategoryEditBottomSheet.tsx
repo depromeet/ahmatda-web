@@ -12,7 +12,6 @@ import Dialog from '@/components/portal/Dialog';
 import TextField from '@/components/text-field/TextField';
 import useInput from '@/hooks/common/useInput';
 import useToggle from '@/hooks/common/useToggle';
-import useDidUpdate from '@/hooks/life-cycle/useDidUpdate';
 
 interface Props extends Omit<ComponentProps<typeof BottomSheet>, 'children'> {
   // TODO: 카테고리 아이템 인터페이스
@@ -32,11 +31,7 @@ const CategoryEditBottomSheet: FC<Props> = ({ isShowing, setToClose, name, categ
 
   const [currentIcon, setCurrentIcon] = useState<string | null>(icon);
 
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(false);
-  useDidUpdate(() => {
-    const isDisabled = debouncedCategoryName.length === 0 || currentIcon === null;
-    setIsSubmitDisabled(isDisabled);
-  }, [debouncedCategoryName, currentIcon]);
+  const isSubmitDisabled = debouncedCategoryName.length === 0 || currentIcon === null;
 
   const { isShowingDeleteDialog, toggleIsShowingDeleteDialog, onCategoryDelete } = useDeleteDialog({
     setToCloseBottomSheet: setToClose,

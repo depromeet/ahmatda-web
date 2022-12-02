@@ -11,7 +11,6 @@ import CategoryRadioFieldset from './CategoryRadioFieldset';
 import { categories, CategoryType } from './type';
 
 import useInput from '@/hooks/common/useInput';
-import useDidUpdate from '@/hooks/life-cycle/useDidUpdate';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
@@ -26,11 +25,7 @@ const CategoryAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
 
   const [currentIcon, setCurrentIcon] = useState<string | null>(null);
 
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(false);
-  useDidUpdate(() => {
-    const isDisabled = debouncedCategoryName.length === 0 || currentIcon === null;
-    setIsSubmitDisabled(isDisabled);
-  }, [debouncedCategoryName, currentIcon]);
+  const isSubmitDisabled = debouncedCategoryName.length === 0 || currentIcon === null;
 
   return (
     <BottomSheet isShowing={isShowing} setToClose={setToClose}>
