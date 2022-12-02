@@ -9,7 +9,6 @@ import TextField from '../text-field/TextField';
 import ToggleSwitch from '../toggle/ToggleSwitch';
 
 import useInput from '@/hooks/common/useInput';
-import useDidUpdate from '@/hooks/life-cycle/useDidUpdate';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
@@ -20,12 +19,8 @@ const ListSettingBottomSheet = ({ isShowing, setToClose }: Props) => {
     debouncedValue: debouncedListName,
   } = useInput({ initialValue: '', useDebounce: true });
   const [isDialogShowing, setIsDialogShowing] = useState(false);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(false);
 
-  useDidUpdate(() => {
-    const isDisabled = debouncedListName.length === 0;
-    setIsSubmitDisabled(isDisabled);
-  }, [debouncedListName]);
+  const isSubmitDisabled = debouncedListName.length === 0;
 
   const handleListSettingComplete = () => {
     // TODO: 리스트 설정 완료 시 실행할 로직 추가

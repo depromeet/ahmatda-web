@@ -9,7 +9,6 @@ import TextField from '../text-field/TextField';
 import ToggleSwitch from '../toggle/ToggleSwitch';
 
 import useInput from '@/hooks/common/useInput';
-import useDidUpdate from '@/hooks/life-cycle/useDidUpdate';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
@@ -20,12 +19,8 @@ const TemplateItemSettingBottomSheet = ({ isShowing, setToClose }: Props) => {
     debouncedValue: debouncedItemName,
   } = useInput({ initialValue: '', useDebounce: true });
   const [isDialogShowing, setIsDialogShowing] = useState(false);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(false);
 
-  useDidUpdate(() => {
-    const isDisabled = debouncedItemName.length === 0;
-    setIsSubmitDisabled(isDisabled);
-  }, [debouncedItemName]);
+  const isSubmitDisabled = debouncedItemName.length === 0 || debouncedItemName.length >= 30;
 
   const handleTemplateItemSettingComplete = () => {
     // TODO: 소지품 설정 완료 시 실행할 로직 추가
