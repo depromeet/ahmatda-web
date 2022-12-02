@@ -12,18 +12,18 @@ import useInput from '@/hooks/common/useInput';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
-const ListSettingBottomSheet = ({ isShowing, setToClose }: Props) => {
+const TemplateItemSettingBottomSheet = ({ isShowing, setToClose }: Props) => {
   const {
-    value: listName,
-    onChange: onChangeListName,
-    debouncedValue: debouncedListName,
+    value: itemName,
+    onChange: onChangeItemName,
+    debouncedValue: debouncedItemName,
   } = useInput({ initialValue: '', useDebounce: true });
   const [isDialogShowing, setIsDialogShowing] = useState(false);
 
-  const isSubmitDisabled = debouncedListName.length === 0;
+  const isSubmitDisabled = debouncedItemName.length === 0 || debouncedItemName.length >= 30;
 
-  const handleListSettingComplete = () => {
-    // TODO: 리스트 설정 완료 시 실행할 로직 추가
+  const handleTemplateItemSettingComplete = () => {
+    // TODO: 소지품 설정 완료 시 실행할 로직 추가
     setToClose();
   };
 
@@ -31,20 +31,24 @@ const ListSettingBottomSheet = ({ isShowing, setToClose }: Props) => {
     <BottomSheet isShowing={isShowing} setToClose={setToClose}>
       <AppBar
         backButtonType="cancel"
-        title="리스트 설정"
+        title="소지품 설정"
         rightElement={
-          <LabelButton disabled={isSubmitDisabled} onClick={handleListSettingComplete} size="large">
+          <LabelButton disabled={isSubmitDisabled} onClick={handleTemplateItemSettingComplete} size="large">
             완료
           </LabelButton>
         }
         onClickBackButton={setToClose}
       />
       <div style={{ marginTop: 8 }}>
-        <TextField value={listName} onChange={onChangeListName} />
+        <TextField
+          value={itemName}
+          onChange={onChangeItemName}
+          error={debouncedItemName.length >= 30 ? '최대 n자까지 입력 가능합니다.' : undefined}
+        />
       </div>
       <SettingOptionList>
         <Option>
-          <span>매일 반복</span>
+          <span>중요 소지품</span>
           <ToggleSwitch />
         </Option>
         <Option
@@ -53,7 +57,7 @@ const ListSettingBottomSheet = ({ isShowing, setToClose }: Props) => {
             setIsDialogShowing(true);
           }}
         >
-          리스트 삭제하기
+          소지품 삭제하기
         </Option>
       </SettingOptionList>
       <Dialog
@@ -77,7 +81,7 @@ const ListSettingBottomSheet = ({ isShowing, setToClose }: Props) => {
   );
 };
 
-export default ListSettingBottomSheet;
+export default TemplateItemSettingBottomSheet;
 
 const SettingOptionList = styled.ul`
   margin-top: 16px;
@@ -103,7 +107,7 @@ const Option = styled('li')<OptionProps>(
 
 const DialogContent = (
   <>
-    <Dialog.ContentTitle>리스트를 삭제할까요?</Dialog.ContentTitle>
-    <Dialog.ContentBody>리스트 안의 소지품까지 모두 사라져요.</Dialog.ContentBody>
+    <Dialog.ContentTitle>소지품을 삭제할까요?</Dialog.ContentTitle>
+    <Dialog.ContentBody>삭제 후에는 복구가 어려워요.</Dialog.ContentBody>
   </>
 );
