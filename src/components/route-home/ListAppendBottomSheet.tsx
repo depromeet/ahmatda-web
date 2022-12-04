@@ -102,7 +102,6 @@ const Legend = styled.legend({ height: '52px', display: 'flex', alignItems: 'cen
 const ItemWrapper = styled.div({
   width: '100%',
   display: 'flex',
-
   gap: '8px',
   overflowY: 'scroll',
   '& *': {
