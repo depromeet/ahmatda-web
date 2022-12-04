@@ -1,19 +1,19 @@
 import { cloneElement, Dispatch, FC, Fragment, MouseEvent, ReactElement, SetStateAction, useId } from 'react';
 import styled from '@emotion/styled';
 
-import GraphicBowling from '../graphic/GraphicBowling';
-import GraphicBus from '../graphic/GraphicBus';
-import GraphicCamera from '../graphic/GraphicCamera';
-import GraphicEtc from '../graphic/GraphicEtc';
-import GraphicFriends from '../graphic/GraphicFriends';
-import GraphicGym from '../graphic/GraphicGym';
-import GraphicPlane from '../graphic/GraphicPlane';
-import GraphicRun from '../graphic/GraphicRun';
-import GraphicSchool from '../graphic/GraphicSchool';
-import GraphicSwim from '../graphic/GraphicSwim';
-import GraphicTube from '../graphic/GraphicTube';
-import GraphicWork from '../graphic/GraphicWork';
-import type { GraphicProps } from '../graphic/type';
+import GraphicBowling from '../../graphic/GraphicBowling';
+import GraphicBus from '../../graphic/GraphicBus';
+import GraphicCamera from '../../graphic/GraphicCamera';
+import GraphicEtc from '../../graphic/GraphicEtc';
+import GraphicFriends from '../../graphic/GraphicFriends';
+import GraphicGym from '../../graphic/GraphicGym';
+import GraphicPlane from '../../graphic/GraphicPlane';
+import GraphicRun from '../../graphic/GraphicRun';
+import GraphicSchool from '../../graphic/GraphicSchool';
+import GraphicSwim from '../../graphic/GraphicSwim';
+import GraphicTube from '../../graphic/GraphicTube';
+import GraphicWork from '../../graphic/GraphicWork';
+import type { GraphicProps } from '../../graphic/type';
 
 interface Graphic {
   value: string;
@@ -40,7 +40,7 @@ interface Props {
   setCurrentValue: Dispatch<SetStateAction<string | null>>;
 }
 
-const IconRadioGroup: FC<Props> = ({ currentValue, setCurrentValue }) => {
+const CategoryIconRadioGroup: FC<Props> = ({ currentValue, setCurrentValue }) => {
   const id = useId();
 
   const onClick = (e: MouseEvent<HTMLInputElement>) => {
@@ -48,20 +48,25 @@ const IconRadioGroup: FC<Props> = ({ currentValue, setCurrentValue }) => {
   };
 
   return (
-    <Wrapper>
-      {GRAPHICS.map(({ value, reactElement }) => (
-        <Fragment key={value}>
-          <HidedInput type="radio" id={`${value}-${id}`} value={value} onClick={onClick} />
-          <GraphicLabel htmlFor={`${value}-${id}`}>
-            {cloneElement<GraphicProps>(reactElement, { isAct: value === currentValue })}
-          </GraphicLabel>
-        </Fragment>
-      ))}
-    </Wrapper>
+    <fieldset>
+      <Legend>아이콘 *</Legend>
+      <Wrapper>
+        {GRAPHICS.map(({ value, reactElement }) => (
+          <Fragment key={value}>
+            <HidedInput type="radio" id={`${value}-${id}`} value={value} onClick={onClick} />
+            <GraphicLabel htmlFor={`${value}-${id}`}>
+              {cloneElement<GraphicProps>(reactElement, { isAct: value === currentValue })}
+            </GraphicLabel>
+          </Fragment>
+        ))}
+      </Wrapper>
+    </fieldset>
   );
 };
 
-export default IconRadioGroup;
+export default CategoryIconRadioGroup;
+
+const Legend = styled.legend(({ theme }) => ({ ...theme.typographies.caption1, color: theme.colors.gray6 }));
 
 const Wrapper = styled.div({
   display: 'flex',
