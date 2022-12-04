@@ -1,4 +1,4 @@
-import { checkEmpty, checkNull, checkNumNull, convertToNumber, emptyAThenB, isProd } from './utils';
+import { checkEmpty, checkNull, checkNumNull, convertToNumber, emptyAThenB, isIn, isProd } from './utils';
 
 describe('checkNull', () => {
   context('value가 null일 경우', () => {
@@ -116,6 +116,24 @@ describe('isProd', () => {
   context('production 환경이 아닌 경우', () => {
     it('false를 반환해야만 한다', () => {
       const result = isProd('development');
+
+      expect(result).toBeFalsy();
+    });
+  });
+});
+
+describe('isIn', () => {
+  context('포함되어 있는 경우', () => {
+    it('true를 반환해야만 한다', () => {
+      const result = isIn([1, 2, 3], 1);
+
+      expect(result).toBeTruthy();
+    });
+  });
+
+  context('포함되지 않은 경우', () => {
+    it('false를 반환해야만 한다', () => {
+      const result = isIn(['a', 'b', 'c'], 'z');
 
       expect(result).toBeFalsy();
     });
