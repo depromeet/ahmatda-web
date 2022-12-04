@@ -39,6 +39,7 @@ const Step3 = () => {
   const router = useRouter();
 
   const [checkStatus, setCheckStatus] = useState<boolean[]>(new Array(LIST_CARD.daily.length).fill(false));
+  const isCheckAny = checkStatus.indexOf(true) !== -1;
 
   const toggleSingleCheckbox = (clikedIdx: number) => {
     setCheckStatus((prev) => prev.map((checked, idx) => checkedOneOrNot(checked, clikedIdx, idx)));
@@ -88,7 +89,7 @@ const Step3 = () => {
             ))}
           </CardsWrapper>
           <ButtonSection>
-            {checkStatus.indexOf(true) !== -1 ? (
+            {isCheckAny ? (
               <ContainedButton type="submit" size="large">
                 다음
               </ContainedButton>
@@ -102,7 +103,7 @@ const Step3 = () => {
   );
 };
 
-export default Step3;
+export default React.memo(Step3);
 
 const Wrapper = styled(m.div)`
   display: flex;

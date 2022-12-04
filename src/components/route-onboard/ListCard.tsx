@@ -7,10 +7,10 @@ type Option = {
   name: string;
 };
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+type CheckboxPropsWithoutSomething = Omit<React.ComponentProps<typeof Checkbox>, 'something'>;
+interface Props extends CheckboxPropsWithoutSomething {
   title: string;
   options: Option[];
-  onToggle?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const ListCard = ({ title, options, ...rest }: Props) => {
