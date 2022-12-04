@@ -40,7 +40,6 @@ export const checkEmpty = <T>(value?: T[]): T[] => {
 
 export const isProd = (env: string): boolean => env === 'production';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const isIn = <T>(values: readonly T[], x: any): x is T => {
-  return values.includes(x);
+export const isIn = <T>(values: ReadonlyArray<T>, x: unknown): x is T => {
+  return values.includes(x as T);
 };
