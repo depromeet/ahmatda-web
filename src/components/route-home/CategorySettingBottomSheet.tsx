@@ -31,7 +31,7 @@ const CategorySettingBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
           <CategoryItem icon={<IconAdd />} label="일상" onClick={testFn} />
           <CategoryItem icon={<IconAdd />} label="여행" onClick={testFn} />
 
-          <PadlessLabelButton size="large" onClick={toggleIsCategoryAppendShowing}>
+          <PadlessLabelButton size="large" onClick={toggleIsCategoryAppendShowing} withIcon>
             <IconAdd />
             추가하기
           </PadlessLabelButton>

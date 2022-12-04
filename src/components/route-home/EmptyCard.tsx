@@ -11,7 +11,7 @@ const EmptyCard = () => {
         <GraphicEmptyCard />
       </GraphicWrapper>
       <ButtonWrapper>
-        <LabelButton>
+        <LabelButton withIcon>
           <IconAdd /> 추가하기
         </LabelButton>
       </ButtonWrapper>
