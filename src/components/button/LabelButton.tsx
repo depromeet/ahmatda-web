@@ -1,22 +1,31 @@
 import { ComponentProps } from 'react';
-import { css } from '@emotion/react';
+import { css, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import Button from './Button';
 
+type Size = 'small' | 'large';
 interface Props extends ComponentProps<typeof Button> {
   /**
    * @type 'small' | 'large'
    *
    * @default 'small'
    */
-  size?: 'small' | 'large';
+  size?: Size;
+  /**
+   * icon과 함께 사용할 경우를 뜻합니다
+   *
+   * 색상이 `gray3`이 됩니다
+   *
+   * @default `false`
+   */
+  withIcon?: boolean;
 }
 
-const LabelButton = ({ children, size = 'small', ...rest }: Props) => {
+const LabelButton = ({ children, size = 'small', withIcon = false, ...rest }: Props) => {
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
-    <StyledLabelButton size={size} {...rest}>
+    <StyledLabelButton size={size} withIcon={withIcon} {...rest}>
       {children}
     </StyledLabelButton>
   );
@@ -24,7 +33,10 @@ const LabelButton = ({ children, size = 'small', ...rest }: Props) => {
 
 export default LabelButton;
 
-type StyledLabelButtonProps = Required<Pick<Props, 'size'>>;
+interface StyledLabelButtonProps {
+  size: Size;
+  withIcon: boolean;
+}
 
 const StyledLabelButton = styled(Button)<StyledLabelButtonProps>`
   padding: 8px;
@@ -43,11 +55,13 @@ const StyledLabelButton = styled(Button)<StyledLabelButtonProps>`
   }
 
   ${({ size }) => size === 'small' && smallCss}
-  ${({ size }) => size === 'large' && largeCss}
+  ${({ theme, withIcon }) => withIcon && withIconCss(theme)}
 `;
 
 const smallCss = css`
   font-size: 12px;
 `;
 
-const largeCss = css``;
+const withIconCss = (theme: Theme) => css`
+  color: ${theme.colors.gray3};
+`;

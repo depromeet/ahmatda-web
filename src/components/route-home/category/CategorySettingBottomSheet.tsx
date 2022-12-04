@@ -41,7 +41,7 @@ const CategorySettingBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
             />
           ))}
 
-          <PadlessLabelButton size="large" onClick={toggleIsCategoryAppendShowing}>
+          <PadlessLabelButton size="large" onClick={toggleIsCategoryAppendShowing} withIcon>
             <IconAdd />
             추가하기
           </PadlessLabelButton>
