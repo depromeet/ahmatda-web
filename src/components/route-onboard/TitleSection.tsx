@@ -4,26 +4,27 @@ import { m } from 'framer-motion';
 import { defaultFadeInVariants, staggerOne } from '@/constants/motions';
 
 interface OnboardTitleProps {
-  title: string;
-  subTitle: string;
+  title: React.ReactNode;
+  subTitle: React.ReactNode;
 }
 
 const TitleSection = ({ title, subTitle }: OnboardTitleProps) => {
   return (
     <m.div variants={staggerOne} initial="initial" animate="animate" exit="exit">
-      <MainTitle dangerouslySetInnerHTML={{ __html: title }} variants={defaultFadeInVariants} />
-      <SubTitle dangerouslySetInnerHTML={{ __html: subTitle }} variants={defaultFadeInVariants} />
+      <MainTitle variants={defaultFadeInVariants}>{title}</MainTitle>
+      <SubTitle variants={defaultFadeInVariants}>{subTitle}</SubTitle>
     </m.div>
   );
 };
 
 export default TitleSection;
 
-const MainTitle = styled(m.h1)`
+const MainTitle = styled(m.p)`
   ${({ theme }) => ({ ...theme.typographies.text1 })};
   color: ${({ theme }) => theme.colors.gray6};
+  padding-bottom: 16px;
 `;
-const SubTitle = styled(m.h2)`
+const SubTitle = styled(m.p)`
   ${({ theme }) => ({ ...theme.typographies.caption1 })};
   color: ${({ theme }) => theme.colors.gray4};
 `;

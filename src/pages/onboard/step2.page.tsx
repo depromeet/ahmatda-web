@@ -7,12 +7,24 @@ import ButtonSection from '@/components/route-onboard/ButtonSection';
 import TitleSection from '@/components/route-onboard/TitleSection';
 import { staggerOne } from '@/constants/motions';
 
-const MOCK_TITLE = {
+const TITLE = {
   daily: {
-    title: '&#x1F4BC; 일상 속에서 챙기고 싶은<br/> 소지품이 있나요?',
-    subTitle: '이것만은 꼭 챙겼으면 하는 소지품을 알려 주세요.<br/>리스트에 추가되어 알림을 받아 볼 수 있어요.',
+    title: (
+      <>
+        &#x1F4BC; 일상 속에서 챙기고 싶은
+        <br /> 소지품이 있나요?
+      </>
+    ),
+    subTitle: (
+      <>
+        이것만은 꼭 챙겼으면 하는 소지품을 알려 주세요.
+        <br />
+        리스트에 추가되어 알림을 받아 볼 수 있어요.
+      </>
+    ),
   },
 };
+
 const Step2 = () => {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,7 +32,7 @@ const Step2 = () => {
 
   return (
     <Wrapper>
-      <TitleSection title={MOCK_TITLE.daily.title} subTitle={MOCK_TITLE.daily.subTitle} />
+      <TitleSection title={TITLE.daily.title} subTitle={TITLE.daily.subTitle} />
       <form onSubmit={onSubmit}>
         <SelectSection variants={staggerOne} initial="initial" animate="animate" exit="exit">
           <Item name="item" label="이어폰" emjCode="&#x1F3A7;" labelSize="small" />
