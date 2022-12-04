@@ -3,6 +3,8 @@ import styled from '@emotion/styled';
 
 import { categories, CategoryType } from './type';
 
+import { isIn } from '@/utils/utils';
+
 const RADIO_CATEGORY_NAME = 'category';
 
 interface Props {
@@ -13,7 +15,8 @@ interface Props {
 const CategoryRadioFieldset: FC<Props> = ({ currentCategory, setCurrentCategory }) => {
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
-    if (value === '일상' || value === '여행' || value === '운동') {
+
+    if (isIn(categories, value)) {
       setCurrentCategory(value);
     }
   };
