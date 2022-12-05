@@ -1,10 +1,9 @@
 import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
 
-import IconButton from '../button/IconButton';
-import Chip from '../chip/Chip';
-import IconOverflow from '../icon/IconOverflow';
-
+import IconButton from '@/components/button/IconButton';
+import Chip from '@/components/chip/Chip';
+import IconOverflow from '@/components/icon/IconOverflow';
 import useToggle from '@/hooks/common/useToggle';
 
 const CategorySettingBottomSheet = dynamic(() => import('./CategorySettingBottomSheet'));

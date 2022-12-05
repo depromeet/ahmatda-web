@@ -12,20 +12,17 @@ const ListAppendBottomSheet = dynamic(() => import('./ListAppendBottomSheet'));
 const EmptyCard = () => {
   const [isShowingListAppend, _, toggleIsShowingListAppend] = useToggle(false);
 
-  return (
-    <>
-      <Wrapper>
-        <GraphicWrapper>
-          <GraphicEmptyCard />
-        </GraphicWrapper>
-        <ButtonWrapper>
-          <LabelButton onClick={toggleIsShowingListAppend}>
-            <IconAdd /> 추가하기
-          </LabelButton>
-        </ButtonWrapper>
-      </Wrapper>
-      <ListAppendBottomSheet isShowing={isShowingListAppend} setToClose={toggleIsShowingListAppend} />
-    </>
+  return (  
+    <Wrapper>
+      <GraphicWrapper>
+        <GraphicEmptyCard />
+      </GraphicWrapper>
+      <ButtonWrapper>
+        <LabelButton withIcon>
+          <IconAdd /> 추가하기
+        </LabelButton>
+      </ButtonWrapper>
+    </Wrapper>
   );
 };
 

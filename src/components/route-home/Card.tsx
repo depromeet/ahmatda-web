@@ -33,7 +33,7 @@ const Card = ({ title, alarmCycle, items }: Props) => {
       </PinButton>
 
       <ItemWrapper>
-        <LabelButton size="large">
+        <LabelButton size="large" withIcon>
           <IconAdd />
           추가하기
         </LabelButton>

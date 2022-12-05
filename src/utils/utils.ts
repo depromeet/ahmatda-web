@@ -39,3 +39,7 @@ export const checkEmpty = <T>(value?: T[]): T[] => {
 };
 
 export const isProd = (env: string): boolean => env === 'production';
+
+export const isIn = <T>(values: ReadonlyArray<T>, x: unknown): x is T => {
+  return values.includes(x as T);
+};
