@@ -86,7 +86,6 @@ export default EditableTag;
 const Form = styled.form<{ isEditing: boolean; isShowingIconCancel: boolean }>(
   {
     minWidth: '2.375rem',
-    // width: 'min-content',
     width: 'fit-content',
     maxWidth: '100%',
     height: '38px',
