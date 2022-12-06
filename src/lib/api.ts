@@ -2,9 +2,9 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 
 import { isProd } from '@/utils/utils';
 
-// TODO: API URL 대응
-const PRODUCTION_API_URL = '';
-const DEVELOPMENT_API_URL = '';
+// TODO: 이중화 이후 대응
+const PRODUCTION_API_URL = 'https://ahmatda.com/api/';
+const DEVELOPMENT_API_URL = 'https://ahmatda.com/api/';
 
 const instance = axios.create({
   baseURL: isProd(process.env.NODE_ENV) ? PRODUCTION_API_URL : DEVELOPMENT_API_URL,
