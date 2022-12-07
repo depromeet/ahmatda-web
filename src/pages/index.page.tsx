@@ -6,11 +6,11 @@ import Carousel from '@/components/carousel/Carousel';
 import BottomNavigation from '@/components/navigation/BottomNavigation';
 import DefaultAppBar from '@/components/navigation/DefaultAppBar';
 import Card, { Props as CardType } from '@/components/route-home/Card';
+import CategorySection from '@/components/route-home/category/CategorySection';
 import EmptyCard from '@/components/route-home/EmptyCard';
 import ListSettingBottomSheet from '@/components/route-home/ListSettingBottomSheet';
 import RecommendSection from '@/components/route-home/RecommendSection';
 import TemplateItemSettingBottomSheet from '@/components/route-home/TemplateItemSettingBottomSheet';
-import CategorySection from '@/components/route-search/CategorySection';
 
 const MOCK_CARDS: CardType[] = [
   {
