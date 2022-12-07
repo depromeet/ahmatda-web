@@ -2,7 +2,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
 
-import AlarmBottomSheet from '@/components/alarm/AlarmBottomSheet';
+import AlarmBottomSheet from '@/components/alarm/bottom-sheet/AlarmBottomSheet';
 import Button from '@/components/button/Button';
 import ContainedButton from '@/components/button/ContainedButton';
 import IconButton from '@/components/button/IconButton';
