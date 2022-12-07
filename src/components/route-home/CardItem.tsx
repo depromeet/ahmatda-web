@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 import useToggle from '@/hooks/common/useToggle';
 
-const TemplateItemSettingBottomSheet = dynamic(() => import('./TemplateItemSettingBottomSheet'));
+const CardItemSettingBottomSheet = dynamic(() => import('./CardItemSettingBottomSheet'));
 
 // TODO: interface 선언 위치 변경 후 대응
 interface Props {
@@ -28,10 +28,7 @@ const CardItem = ({ isChecked, isImportant, name }: Props) => {
         </NameButton>
       </Wrapper>
 
-      <TemplateItemSettingBottomSheet
-        setToClose={toggleIsCardItemSettingShowing}
-        isShowing={isCardItemSettingShowing}
-      />
+      <CardItemSettingBottomSheet setToClose={toggleIsCardItemSettingShowing} isShowing={isCardItemSettingShowing} />
     </>
   );
 };
