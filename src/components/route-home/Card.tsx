@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
 
 import LabelButton from '../button/LabelButton';
@@ -7,6 +8,10 @@ import IconPin from '../icon/IconPin';
 import IconSetting from '../icon/IconSetting';
 
 import CardItem from './CardItem';
+
+import useToggle from '@/hooks/common/useToggle';
+
+const ListSettingBottomSheet = dynamic(() => import('./ListSettingBottomSheet'));
 
 // TODO: API 부착 이후 변경 (요소 및 선언 위치)
 export interface Item {
@@ -24,34 +29,40 @@ export interface Props {
 }
 
 const Card = ({ title, alarmCycle, items }: Props) => {
+  const [isListSettingShowing, _, toggleListSettingShowing] = useToggle(false);
+
   return (
-    <Wrapper>
-      <TitleHeading>{title}</TitleHeading>
-      <AlarmCycleSpan>{alarmCycle}</AlarmCycleSpan>
-      <PinButton type="button">
-        <IconPin />
-      </PinButton>
+    <>
+      <Wrapper>
+        <TitleHeading>{title}</TitleHeading>
+        <AlarmCycleSpan>{alarmCycle}</AlarmCycleSpan>
+        <PinButton type="button">
+          <IconPin />
+        </PinButton>
 
-      <ItemWrapper>
-        <LabelButton size="large" withIcon>
-          <IconAdd />
-          추가하기
-        </LabelButton>
+        <ItemWrapper>
+          <LabelButton size="large" withIcon>
+            <IconAdd />
+            추가하기
+          </LabelButton>
 
-        {items.map(({ id, isChecked, isImportant, name }) => (
-          <CardItem key={id} id={id} isChecked={isChecked} isImportant={isImportant} name={name} />
-        ))}
-      </ItemWrapper>
+          {items.map(({ id, isChecked, isImportant, name }) => (
+            <CardItem key={id} id={id} isChecked={isChecked} isImportant={isImportant} name={name} />
+          ))}
+        </ItemWrapper>
 
-      <BottomButtonWrapper>
-        <BottomButton type="button">
-          <IconAlarmAdd /> 알림
-        </BottomButton>
-        <BottomButton type="button">
-          <IconSetting /> 설정
-        </BottomButton>
-      </BottomButtonWrapper>
-    </Wrapper>
+        <BottomButtonWrapper>
+          <BottomButton type="button">
+            <IconAlarmAdd /> 알림
+          </BottomButton>
+          <BottomButton type="button" onClick={toggleListSettingShowing}>
+            <IconSetting /> 설정
+          </BottomButton>
+        </BottomButtonWrapper>
+      </Wrapper>
+
+      <ListSettingBottomSheet setToClose={toggleListSettingShowing} isShowing={isListSettingShowing} />
+    </>
   );
 };
 
