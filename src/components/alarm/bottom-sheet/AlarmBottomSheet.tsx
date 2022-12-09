@@ -40,7 +40,7 @@ const AlarmBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
         <Form>
           <Row spaceBetween>
             <div>알림</div>
-            <ToggleSwitch />
+            <ToggleSwitch name="alarm" />
           </Row>
           <SegmentedControl options={alarmTypeOptions} initialValue={alarmTypeValue} onChange={handleChangeAlarmType} />
           {alarmType === 'Day' ? <AlarmDayController /> : <AlarmDateController />}

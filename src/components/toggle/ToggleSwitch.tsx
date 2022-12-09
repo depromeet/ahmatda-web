@@ -1,12 +1,15 @@
+import { FC, InputHTMLAttributes } from 'react';
 import styled from '@emotion/styled';
 
-type Props = React.HTMLAttributes<HTMLInputElement>;
+type Props = InputHTMLAttributes<HTMLInputElement>;
 
-const ToggleSwitch = ({ ...rest }: Props) => {
+const ToggleSwitch: FC<Props> = ({ name, ...rest }) => {
+  const id = name ? `${name}-toggle` : 'toggle';
+
   return (
     <>
-      <ToggleCheckbox id="toggle" type="checkbox" {...rest} />
-      <CheckBoxLabel htmlFor="toggle" />
+      <ToggleCheckbox id={id} name={name} type="checkbox" {...rest} />
+      <CheckBoxLabel htmlFor={id} />
     </>
   );
 };
