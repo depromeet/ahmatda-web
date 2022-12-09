@@ -1,5 +1,10 @@
+import dynamic from 'next/dynamic';
 import { css, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
+
+import useToggle from '@/hooks/common/useToggle';
+
+const CardItemSettingBottomSheet = dynamic(() => import('./CardItemSettingBottomSheet'));
 
 // TODO: interface 선언 위치 변경 후 대응
 interface Props {
@@ -11,12 +16,20 @@ interface Props {
 }
 
 const CardItem = ({ isChecked, isImportant, name }: Props) => {
+  const [isCardItemSettingShowing, _, toggleIsCardItemSettingShowing] = useToggle(false);
+
   return (
-    <Wrapper isChecked={isChecked} isImportant={isImportant}>
-      {/* TODO: checkbox 디자인 확정시 적용 */}
-      <input type="checkbox" defaultChecked={isChecked} />
-      <NameButton type="button">{name}</NameButton>
-    </Wrapper>
+    <>
+      <Wrapper isChecked={isChecked} isImportant={isImportant}>
+        {/* TODO: checkbox 디자인 확정시 적용 */}
+        <input type="checkbox" defaultChecked={isChecked} />
+        <NameButton type="button" onClick={toggleIsCardItemSettingShowing}>
+          {name}
+        </NameButton>
+      </Wrapper>
+
+      <CardItemSettingBottomSheet setToClose={toggleIsCardItemSettingShowing} isShowing={isCardItemSettingShowing} />
+    </>
   );
 };
 
