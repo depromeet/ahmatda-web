@@ -10,7 +10,7 @@ interface Props {
   onClick?: () => void;
 }
 
-const Dropdown: FC<Props> = ({ text, onClick, active = false }) => {
+const Picker: FC<Props> = ({ text, onClick, active = false }) => {
   const theme = useTheme();
 
   return (
@@ -24,7 +24,7 @@ const Dropdown: FC<Props> = ({ text, onClick, active = false }) => {
   );
 };
 
-export default Dropdown;
+export default Picker;
 
 const Wrapper = styled.div<{ active: boolean }>(
   {

@@ -1,6 +1,6 @@
 import { Pair } from '.';
 
-export type AlarmInterval = 'ByDay' | 'ByDate';
+export type AlarmType = 'Day' | 'Date';
 
 export type Weekday = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
 export type Day = 'everyday' | 'weekdays' | 'weekends';
@@ -37,4 +37,8 @@ export const minutesAgoPairs: Pair<MinutesAgo, string>[] = [
 export const alarmRepeatPairs: Pair<AlarmRepeat, string>[] = [
   { key: 'ThisWeek', value: '이번 주' },
   { key: 'EveryWeek', value: '매주' },
+];
+export const alarmTypePairs: Pair<AlarmType, string>[] = [
+  { key: 'Day', value: '요일별' },
+  { key: 'Date', value: '날짜별' },
 ];

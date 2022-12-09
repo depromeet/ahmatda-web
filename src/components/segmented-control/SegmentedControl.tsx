@@ -1,14 +1,15 @@
-import React, { InputHTMLAttributes, useId, useState } from 'react';
+import React, { FC, InputHTMLAttributes, useId, useState } from 'react';
 import styled from '@emotion/styled';
 import { LayoutGroup, m } from 'framer-motion';
 
 interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   options: string[];
+  initialValue?: string;
   onChange?: (option: string) => void;
 }
 
-const SegmentedControl = ({ options, onChange }: Props) => {
-  const [selectedOption, setSelectedOption] = useState(options[0]);
+const SegmentedControl: FC<Props> = ({ options, initialValue, onChange }) => {
+  const [selectedOption, setSelectedOption] = useState(initialValue ?? options[0]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = event.target;

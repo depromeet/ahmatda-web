@@ -1,21 +1,33 @@
-import { ComponentProps, FC } from 'react';
+import { ComponentProps, FC, useState } from 'react';
 import styled from '@emotion/styled';
 
 import LabelButton from '../../button/LabelButton';
 import AppBar from '../../navigation/AppBar';
 import BottomSheet from '../../portal/BottomSheet';
-import SegmentedControl from '../../segmented-control/SegmentedControl';
-import ToggleSwitch from '../../toggle/ToggleSwitch';
 
-import Dropdown from './Dropdown';
-import SelectItem from './SelectItem';
-import TimePicker from './TimePicker';
+import AlarmDateController from './AlarmDateController';
+import AlarmDayController from './AlarmDayController';
 
-import { dayPairs, weekdayPairs } from '@/models/alarm';
+import SegmentedControl from '@/components/segmented-control/SegmentedControl';
+import ToggleSwitch from '@/components/toggle/ToggleSwitch';
+import { AlarmType, alarmTypePairs } from '@/models/alarm';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
 const AlarmBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
+  const [alarmType, setAlarmType] = useState<AlarmType>('Day');
+
+  const alarmTypeOptions = alarmTypePairs.map((pair) => pair.value);
+  const alarmTypeValue = alarmTypePairs.find((pair) => pair.key === alarmType)?.value;
+
+  const handleChangeAlarmType = (option: string) => {
+    const alarmTypeKey = alarmTypePairs.find(({ value }) => option === value)?.key;
+
+    if (!alarmTypeKey) return;
+
+    setAlarmType(alarmTypeKey);
+  };
+
   return (
     <BottomSheet isShowing={isShowing} setToClose={setToClose}>
       <AppBar
@@ -30,34 +42,8 @@ const AlarmBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
             <div>알림</div>
             <ToggleSwitch />
           </Row>
-          <SegmentedControl options={['요일별', '날짜별']} />
-          <Row>
-            <Dropdown text="평일" active />
-            <Dropdown text="오전 8:00" />
-          </Row>
-          <Row>
-            <Dropdown text="정시" />
-            <span>에</span>
-            <Dropdown text="매주" />
-            <span>챙겨드릴께요!</span>
-          </Row>
-          <Divider />
-          <div>알림</div>
-
-          <Row>
-            {weekdayPairs.map((dayPair) => (
-              <SelectItem text={dayPair.value} key={dayPair.key} />
-            ))}
-          </Row>
-          <Row>
-            {dayPairs.map((dayPair) => (
-              <SelectItem text={dayPair.value} key={dayPair.key} />
-            ))}
-          </Row>
-          <div>외출 시간</div>
-          <Row>
-            <TimePicker />
-          </Row>
+          <SegmentedControl options={alarmTypeOptions} initialValue={alarmTypeValue} onChange={handleChangeAlarmType} />
+          {alarmType === 'Day' ? <AlarmDayController /> : <AlarmDateController />}
         </Form>
       </Wrapper>
     </BottomSheet>
@@ -96,15 +82,4 @@ const Row = styled.div<{ spaceBetween?: boolean }>(
     gap: '8px',
   },
   ({ spaceBetween }) => spaceBetween && { justifyContent: 'space-between' },
-);
-
-const Divider = styled.hr(
-  {
-    border: 'none',
-    height: '1px',
-    width: '100%',
-  },
-  ({ theme }) => ({
-    backgroundColor: theme.colors.gray2,
-  }),
 );

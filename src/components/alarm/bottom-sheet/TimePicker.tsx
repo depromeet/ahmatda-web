@@ -1,8 +1,15 @@
-import React, { useEffect, useRef } from 'react';
+/* eslint-disable @typescript-eslint/no-shadow */
+import React, { useEffect, useRef, useState } from 'react';
 import Slider from 'react-slick';
 import styled from '@emotion/styled';
 
 const TimePicker = () => {
+  const [time, setTime] = useState({
+    hours: 0,
+    minutes: 0,
+    ampm: 'AM',
+  });
+
   const slider1 = useRef(null);
   const slider2 = useRef(null);
   const slider3 = useRef(null);
@@ -10,29 +17,41 @@ const TimePicker = () => {
   const hours = Array.from({ length: 12 }, (_, i) => i + 1);
   const minutes = Array.from({ length: 60 }, (_, i) => i);
 
-  function slide1(y) {
+  function slide1(y: WheelEvent) {
     if (!slider1.current) return;
-    if (y.target.closest('.slider1')) {
-      y.wheelDelta > 0 ? slider1.current.slickNext?.() : slider1.current.slickPrev?.();
+
+    const slider = slider1.current as Slider;
+
+    if ((y.target as HTMLDivElement).closest('.slider1')) {
+      // eslint-disable-next-line no-unused-expressions
+      y.deltaY > 0 ? slider.slickNext() : slider.slickPrev();
     }
   }
 
-  function slide2(y) {
+  function slide2(y: WheelEvent) {
     if (!slider2.current) return;
-    if (y.target.closest('.slider2')) {
-      y.wheelDelta > 0 ? slider2.current.slickNext?.() : slider2.current.slickPrev?.();
+
+    const slider = slider2.current as Slider;
+
+    if ((y.target as HTMLDivElement).closest('.slider2')) {
+      // eslint-disable-next-line no-unused-expressions
+      y.deltaY > 0 ? slider.slickNext() : slider.slickPrev();
     }
   }
 
-  function slide3(y) {
+  function slide3(y: WheelEvent) {
     if (!slider3.current) return;
-    if (y.target.closest('.slider3')) {
-      y.wheelDelta > 0 ? slider3.current.slickNext?.() : slider3.current.slickPrev?.();
+
+    const slider = slider3.current as Slider;
+
+    if ((y.target as HTMLDivElement).closest('.slider3')) {
+      // eslint-disable-next-line no-unused-expressions
+      y.deltaY > 0 ? slider.slickNext() : slider.slickPrev();
     }
   }
 
   useEffect(() => {
-    function wheelHandler(e) {
+    function wheelHandler(e: WheelEvent) {
       if (slider1) {
         slide1(e);
       }
@@ -51,35 +70,57 @@ const TimePicker = () => {
 
   const settings = {
     centerMode: true,
+    centerPadding: '0px',
     infinite: true,
-    slidesToShow: 1,
+    slidesToShow: 3,
     speed: 100,
-    slidesToScroll: 3,
+    slidesToScroll: 1,
     vertical: true,
     verticalSwiping: true,
-    swipeToSlide: true,
+    // swipeToSlide: true,
     arrows: false,
-    adaptiveHeight: false,
-    afterChange: (e) => {},
+    touchMode: true,
+    adaptiveHeight: true,
   };
 
   return (
-    <Container>
-      <Slider {...settings} className="slider-entity hours slider1" ref={slider1}>
-        {hours.map((hour) => (
-          <div key={hour}>{hour}</div>
-        ))}
-      </Slider>
-      <Slider {...settings} className="slider-entity minutes slider2" ref={slider2}>
-        {minutes.map((minutes) => (
-          <div key={minutes}>{minutes}</div>
-        ))}
-      </Slider>
-      <Slider {...settings} infinite={false} className="slider-entity ampm slider3" ref={slider3}>
-        <div>AM</div>
-        <div>PM</div>
-      </Slider>
-    </Container>
+    <div>
+      <div>{JSON.stringify(time)}</div>
+      <Container>
+        <StyledSlider
+          {...settings}
+          className="hours slider1"
+          ref={slider1}
+          afterChange={(i) => setTime((prev) => ({ ...prev, hours: i }))}
+        >
+          {hours.map((hour) => (
+            <div key={hour}>{hour}</div>
+          ))}
+        </StyledSlider>
+        <StyledSlider
+          {...settings}
+          className="minutes slider2"
+          ref={slider2}
+          afterChange={(i) => setTime((prev) => ({ ...prev, minutes: i }))}
+        >
+          {minutes.map((minutes) => (
+            <div key={minutes}>{minutes}</div>
+          ))}
+        </StyledSlider>
+        <StyledSlider
+          {...settings}
+          className="ampm slider3"
+          ref={slider3}
+          infinite
+          afterChange={(i) => setTime((prev) => ({ ...prev, ampm: i } as any))}
+        >
+          <div>AM</div>
+          <div>PM</div>
+          <div>AM</div>
+          <div>PM</div>
+        </StyledSlider>
+      </Container>
+    </div>
   );
 };
 
@@ -88,59 +129,40 @@ export default TimePicker;
 const Container = styled.div`
   margin: 0 auto;
   display: flex;
-  width: 300px;
-  height: 150px;
+  align-items: center;
+  border: 1px solid black;
+  height: 100px;
   overflow: hidden;
-  position: relative;
+`;
+
+const StyledSlider = styled(Slider)`
+  .slick-list {
+    display: flex;
+    width: 100px;
+    background-color: lightGrey;
+  }
 
   .slick-slide {
     opacity: 0.1;
-    font-size: 20px;
-    text-align: center;
-    background: transparent;
-    outline: none;
-  }
-
-  .slick-slide {
     transition: opacity 0.3s, font-size: 0.3s;
-  }
-  .slick-slide div {
-    outline: none;
-    padding: 5px 0 10px;
-    margin: 0 10px 0 0;
-  }
-
-  .slick-active {
-    opacity: 1;
-    font-size: 30px;
-    background: transparent;
-  }
-
-  .mask {
-    position: absolute;
-    width: 100%;
-    height: 60px;
-    top: 10%;
-    /* margin: 0 15px; */
-    pointer-events: none;
-    display: flex;
-  }
-
-  .mask .mask-item {
-    width: 100px;
-    height: 60px;
+    font-size: 15px;
     text-align: center;
-    border-top: 1px solid black !important;
-    border-bottom: 1px solid black !important;
-    position: relative;
-    margin: 0 15px;
   }
 
-  .mask .mask-item span {
-    position: absolute;
-    bottom: 0;
-    left: 25%;
-    color: grey;
-    font-size: 12px;
+  .slick-slide.slick-active,
+  .slick-slide.slick-center {
+    opacity: 0.5;
+  }
+  .slick-slide.slick-current {
+    display: block;
+    opacity: 1;
+    font-weight: bold;
+    font-size: 20px;
   }
 `;
+
+// default class: slick-slide slick-cloned
+// active class: slick-slide slick-active
+// center class: slick-slide slick-active slick-center slick-current
+
+// slick-slider > slick-list > slick-track > slick-slide
