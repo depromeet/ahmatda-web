@@ -8,8 +8,9 @@ const ToggleSwitch: FC<Props> = ({ name, ...rest }) => {
 
   return (
     <>
-      <ToggleCheckbox id={id} name={name} type="checkbox" {...rest} />
-      <CheckBoxLabel htmlFor={id} />
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+      <ToggleCheckbox id="toggle" type="checkbox" {...rest} />
+      <CheckBoxLabel htmlFor="toggle" />
     </>
   );
 };
@@ -43,6 +44,7 @@ const CheckBoxLabel = styled.label`
 `;
 
 const ToggleCheckbox = styled.input`
+  position: absolute;
   height: 0;
   width: 0;
   visibility: hidden;

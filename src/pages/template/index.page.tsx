@@ -5,20 +5,14 @@ import { NextPageWithLayout } from '../_app.page';
 
 import BottomNavigation from '@/components/navigation/BottomNavigation';
 import DefaultAppBar from '@/components/navigation/DefaultAppBar';
-import BottomSheet from '@/components/portal/BottomSheet';
-import AddTemplateSection from '@/components/route-search/AddTemplateSection';
 import CategorySection from '@/components/route-search/CategorySection';
 import ListRequestSection from '@/components/route-search/ListRequestSection';
 import SearchCard from '@/components/route-search/SearchCard';
+import TemplateAppendBottomSheet from '@/components/route-search/TemplateAppendBottomSheet';
 import { mockCheckboxGroupOptions, mockCheckboxGroupTitle } from '@/fixtures/checkboxGroup.mock';
 
 const Template: NextPageWithLayout = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-
-  const addTemplate = () => {
-    setIsBottomSheetOpen(false);
-  };
-
   return (
     <Wrapper>
       <Title>
@@ -37,14 +31,12 @@ const Template: NextPageWithLayout = () => {
         />
       </CardsWrapper>
       <ListRequestSection />
-      <BottomSheet
+      <TemplateAppendBottomSheet
         isShowing={isBottomSheetOpen}
         setToClose={() => {
           setIsBottomSheetOpen(false);
         }}
-      >
-        <AddTemplateSection onComplete={addTemplate} />
-      </BottomSheet>
+      />
     </Wrapper>
   );
 };

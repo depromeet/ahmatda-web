@@ -42,8 +42,10 @@ import IconSearch from '@/components/icon/IconSearch';
 import IconSetting from '@/components/icon/IconSetting';
 import Item from '@/components/item/Item';
 import AppBar from '@/components/navigation/AppBar';
+import SideMenu from '@/components/portal/SideMenu';
 import SegmentedControl from '@/components/segmented-control/SegmentedControl';
 import ToggleSwitch from '@/components/toggle/ToggleSwitch';
+import useToggle from '@/hooks/common/useToggle';
 
 const BottomSheet = dynamic(() => import('@/components/portal/BottomSheet'));
 
@@ -51,6 +53,7 @@ const Test = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [carouselWrapper, setCarouselWrapper] = useState<HTMLDivElement | null>(null);
+  const [isSideMenuShowing, _, toggleSideMenuShowing] = useToggle(false);
 
   return (
     <>
@@ -187,6 +190,16 @@ const Test = () => {
       <div>
         <Heading>segment control</Heading>
         <SegmentedControl options={['요일별', '날짜별']} />
+      </div>
+
+      <div>
+        <Heading>side menu</Heading>
+        <button type="button" onClick={toggleSideMenuShowing}>
+          toggle sidemenu
+        </button>
+        <SideMenu isShowing={isSideMenuShowing} setToClose={toggleSideMenuShowing}>
+          test side menu
+        </SideMenu>
       </div>
 
       <ItemBackground>

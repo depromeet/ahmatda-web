@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, FormEvent, useRef, useState } from 'react';
+import { ChangeEventHandler, FC, FormEvent, useRef, useState } from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
@@ -6,31 +6,36 @@ import IconCancelSmall from '../icon/IconCancelSmall';
 
 interface EditableProps {
   editable: true;
-  defaultValue?: string;
+  value?: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   placeholder?: string;
   onClickCancel?: VoidFunction;
+  onChangedEmpty?: VoidFunction;
 }
 
 interface NonEditableProps {
   editable?: false;
-  defaultValue: string;
+  value: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   placeholder?: string;
   onClickCancel?: VoidFunction;
+  onChangedEmpty?: VoidFunction;
 }
 
 type Props = EditableProps | NonEditableProps;
 
-const EditableTag: FC<Props> = ({ editable = false, defaultValue = '', placeholder, onClickCancel }) => {
-  const isInitialEditing = editable && defaultValue === '';
+const EditableTag: FC<Props> = ({
+  editable = false,
+  value = '',
+  onChange,
+  placeholder,
+  onClickCancel,
+  onChangedEmpty,
+}) => {
+  const isInitialEditing = editable && value === '';
   const [isEditing, setIsEditing] = useState<boolean>(isInitialEditing);
   const inputRef = useRef<HTMLInputElement>(null);
   const isShowingIconCancel = Boolean(!isEditing && onClickCancel);
-
-  // TODO: debounced input hook 개발 후 대체
-  const [value, setValue] = useState<string>(defaultValue);
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  };
 
   const onClickTextButton = () => {
     setIsEditing(true);
@@ -39,13 +44,15 @@ const EditableTag: FC<Props> = ({ editable = false, defaultValue = '', placehold
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    endEditing();
+  };
 
-    if (value.length === 0) {
-      // TODO: 이후 dialog로 대체
-      // eslint-disable-next-line no-alert
-      alert('!!');
+  const endEditing = () => {
+    if (value.trim().length === 0 && onChangedEmpty) {
+      onChangedEmpty();
       return;
     }
+
     setIsEditing(false);
   };
 
@@ -56,6 +63,7 @@ const EditableTag: FC<Props> = ({ editable = false, defaultValue = '', placehold
         ref={inputRef}
         value={value}
         onChange={onChange}
+        onBlur={endEditing}
         placeholder={placeholder}
         isEditing={isEditing}
         style={{ width: `${(value.length + 1) / 2}rem` }}
@@ -78,7 +86,7 @@ export default EditableTag;
 const Form = styled.form<{ isEditing: boolean; isShowingIconCancel: boolean }>(
   {
     minWidth: '2.375rem',
-    width: 'min-content',
+    width: 'fit-content',
     maxWidth: '100%',
     height: '38px',
     display: 'flex',
