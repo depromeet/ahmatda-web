@@ -23,7 +23,13 @@ const CardItem = ({ isChecked, isImportant, name }: Props) => {
       <Wrapper isChecked={isChecked} isImportant={isImportant}>
         {/* TODO: checkbox 디자인 확정시 적용 */}
         <input type="checkbox" defaultChecked={isChecked} />
-        <NameButton type="button" onClick={toggleIsCardItemSettingShowing}>
+
+        <NameButton
+          type="button"
+          onClick={toggleIsCardItemSettingShowing}
+          isChecked={isChecked}
+          isImportant={isImportant}
+        >
           {name}
         </NameButton>
       </Wrapper>
@@ -48,15 +54,17 @@ const Wrapper = styled.div<{ isImportant: boolean; isChecked: boolean }>(
     borderRadius: '8px',
   },
   ({ theme }) => ({ backgroundColor: theme.colors.gray1 }),
-  ({ isImportant, theme }) => isImportant && importantCss(theme),
-  ({ isChecked }) => isChecked && checkedCss,
+  ({ isImportant, theme }) => isImportant && importantWrapperCss(theme),
+  ({ isImportant, isChecked }) => isImportant && isChecked && checkedWhenImportantWrapperCss,
 );
 
-const importantCss = (theme: Theme) => css({ backgroundColor: theme.colors.secondary });
+const importantWrapperCss = (theme: Theme) => css({ backgroundColor: theme.colors.secondary });
 
-const checkedCss = css({ opacity: 0.5 });
+const checkedWhenImportantWrapperCss = css({
+  backgroundColor: '#FFD3C5',
+});
 
-const NameButton = styled.button(
+const NameButton = styled.button<{ isImportant: boolean; isChecked: boolean }>(
   {
     all: 'unset',
     cursor: 'pointer',
@@ -69,4 +77,10 @@ const NameButton = styled.button(
   ({ theme }) => ({
     ...theme.typographies.button2,
   }),
+  ({ isChecked, theme }) => isChecked && checkedButtonCss(theme),
+  ({ isImportant, isChecked }) => isImportant && isChecked && checkedWhenImportantButtonCss,
 );
+
+const checkedButtonCss = (theme: Theme) => css({ color: theme.colors.gray3 });
+
+const checkedWhenImportantButtonCss = css({ color: '#C7A79C' });
