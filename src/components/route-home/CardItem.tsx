@@ -1,6 +1,9 @@
+import { useId } from 'react';
 import dynamic from 'next/dynamic';
 import { css, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
+
+import IconCardItemCheck from './IconCardItemCheck';
 
 import useToggle from '@/hooks/common/useToggle';
 
@@ -16,18 +19,24 @@ interface Props {
 }
 
 const CardItem = ({ isChecked, isImportant, name }: Props) => {
-  const [isCardItemSettingShowing, _, toggleIsCardItemSettingShowing] = useToggle(false);
+  const id = useId();
+  // TODO: API 대응
+  const [isCurrentChecked, _, toggleCurrentChecked] = useToggle(isChecked);
+
+  const [isCardItemSettingShowing, __, toggleIsCardItemSettingShowing] = useToggle(false);
 
   return (
     <>
-      <Wrapper isChecked={isChecked} isImportant={isImportant}>
-        {/* TODO: checkbox 디자인 확정시 적용 */}
-        <input type="checkbox" defaultChecked={isChecked} />
+      <Wrapper isChecked={isCurrentChecked} isImportant={isImportant}>
+        <HidedInput id={id} type="checkbox" checked={isCurrentChecked} onChange={toggleCurrentChecked} />
+        <IconLabel htmlFor={id}>
+          <IconCardItemCheck isChecked={isCurrentChecked} isImportant={isImportant} />
+        </IconLabel>
 
         <NameButton
           type="button"
           onClick={toggleIsCardItemSettingShowing}
-          isChecked={isChecked}
+          isChecked={isCurrentChecked}
           isImportant={isImportant}
         >
           {name}
@@ -43,6 +52,7 @@ export default CardItem;
 
 const Wrapper = styled.div<{ isImportant: boolean; isChecked: boolean }>(
   {
+    position: 'relative',
     display: 'flex',
     gap: '8px',
     width: 'fit-content',
@@ -52,6 +62,7 @@ const Wrapper = styled.div<{ isImportant: boolean; isChecked: boolean }>(
     paddingLeft: '8px',
     paddingRight: '10px',
     borderRadius: '8px',
+    transition: 'background-color 0.3s',
   },
   ({ theme }) => ({ backgroundColor: theme.colors.gray1 }),
   ({ isImportant, theme }) => isImportant && importantWrapperCss(theme),
@@ -64,6 +75,20 @@ const checkedWhenImportantWrapperCss = css({
   backgroundColor: '#FFD3C5',
 });
 
+const HidedInput = styled.input({
+  position: 'absolute',
+  clipPath: 'polygon(0 0, 0 0, 0 0)',
+});
+
+const IconLabel = styled.label({
+  cursor: 'pointer',
+  width: '24px',
+  height: '24px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
 const NameButton = styled.button<{ isImportant: boolean; isChecked: boolean }>(
   {
     all: 'unset',
@@ -73,6 +98,7 @@ const NameButton = styled.button<{ isImportant: boolean; isChecked: boolean }>(
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
+    transition: 'color 0.3s',
   },
   ({ theme }) => ({
     ...theme.typographies.button2,
