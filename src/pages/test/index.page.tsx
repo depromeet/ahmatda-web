@@ -45,6 +45,7 @@ import SideMenu from '@/components/portal/SideMenu';
 import SegmentedControl from '@/components/segmented-control/SegmentedControl';
 import ToggleSwitch from '@/components/toggle/ToggleSwitch';
 import useToggle from '@/hooks/common/useToggle';
+import useToast from '@/store/toast/useToast';
 
 const BottomSheet = dynamic(() => import('@/components/portal/BottomSheet'));
 
@@ -53,6 +54,7 @@ const Test = () => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [carouselWrapper, setCarouselWrapper] = useState<HTMLDivElement | null>(null);
   const [isSideMenuShowing, _, toggleSideMenuShowing] = useToggle(false);
+  const { fireToast } = useToast();
 
   return (
     <>
@@ -218,6 +220,17 @@ const Test = () => {
           <Item type="checkbox" name="category" label="이모지없는" labelSize="small" />
         </SmallDiv>
       </ItemBackground>
+
+      <div>
+        <Heading>토스트 메세지</Heading>
+
+        <button type="button" onClick={() => fireToast({ content: '토스트 메세지 입니다' })}>
+          토스트 발사
+        </button>
+        <button type="button" onClick={() => fireToast({ content: '다른토스트 메세지 입니다' })}>
+          다른 토스트 발사
+        </button>
+      </div>
     </>
   );
 };
