@@ -1,22 +1,33 @@
+import dynamic from 'next/dynamic';
 import NextLink from 'next/link';
 import styled from '@emotion/styled';
 
 import IconAlarm from '../icon/IconAlarm';
 import IconMenu from '../icon/IconMenu';
 
-const DefaultAppBar = () => {
-  return (
-    <Wrapper>
-      <ButtonWrapper>
-        <StyledLink href="/notice">
-          <IconAlarm />
-        </StyledLink>
+import useToggle from '@/hooks/common/useToggle';
 
-        <Button>
-          <IconMenu />
-        </Button>
-      </ButtonWrapper>
-    </Wrapper>
+const Drawer = dynamic(() => import('../portal/Drawer'));
+
+const DefaultAppBar = () => {
+  const [isDrawerShowing, _, toggleDrawerShowing] = useToggle(false);
+
+  return (
+    <>
+      <Wrapper>
+        <ButtonWrapper>
+          <StyledLink href="/notice">
+            <IconAlarm />
+          </StyledLink>
+
+          <Button onClick={toggleDrawerShowing}>
+            <IconMenu />
+          </Button>
+        </ButtonWrapper>
+      </Wrapper>
+
+      <Drawer isShowing={isDrawerShowing} setToClose={toggleDrawerShowing} />
+    </>
   );
 };
 
