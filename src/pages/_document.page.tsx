@@ -16,7 +16,7 @@ class MyDocument extends Document {
             href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css"
           />
           <meta charSet="utf-8" />
-          <title>team3-web</title>
+
           {isProd(process.env.NODE_ENV) && (
             <>
               {/* GA */}
