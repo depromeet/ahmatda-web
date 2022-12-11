@@ -57,6 +57,7 @@ const HomePage: NextPageWithLayout = () => {
 
   return (
     <>
+      <a href="https://www.naver.com">asdf</a>
       <CategorySection />
 
       <Carousel.Wrapper ref={setCarouselWrapper}>
