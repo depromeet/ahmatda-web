@@ -3,11 +3,11 @@ import styled from '@emotion/styled';
 
 import { NextPageWithLayout } from '../_app.page';
 
+import CheckboxGroup from '@/components/checkbox/CheckboxGroup';
 import BottomNavigation from '@/components/navigation/BottomNavigation';
 import DefaultAppBar from '@/components/navigation/DefaultAppBar';
 import CategorySection from '@/components/route-search/CategorySection';
 import ListRequestSection from '@/components/route-search/ListRequestSection';
-import SearchCard from '@/components/route-search/SearchCard';
 import TemplateAppendBottomSheet from '@/components/route-search/TemplateAppendBottomSheet';
 import { mockCheckboxGroupOptions, mockCheckboxGroupTitle } from '@/fixtures/checkboxGroup.mock';
 
@@ -22,9 +22,10 @@ const Template: NextPageWithLayout = () => {
       </Title>
       <CategorySection />
       <CardsWrapper>
-        <SearchCard
+        <CheckboxGroup
           title={mockCheckboxGroupTitle}
           options={mockCheckboxGroupOptions}
+          submitBtnTitle="내 리스트에 추가하기"
           onSubmit={() => {
             setIsBottomSheetOpen(true);
           }}
