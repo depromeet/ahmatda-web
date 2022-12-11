@@ -9,8 +9,8 @@ const ToggleSwitch: FC<Props> = ({ name, ...rest }) => {
   return (
     <>
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      <ToggleCheckbox id="toggle" type="checkbox" {...rest} />
-      <CheckBoxLabel htmlFor="toggle" />
+      <ToggleCheckbox id={id} type="checkbox" {...rest} />
+      <CheckBoxLabel htmlFor={id} />
     </>
   );
 };
