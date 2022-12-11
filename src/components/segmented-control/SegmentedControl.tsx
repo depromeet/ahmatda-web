@@ -1,34 +1,38 @@
-import React, { InputHTMLAttributes, useId, useState } from 'react';
+import React, { FC, InputHTMLAttributes, useId, useState } from 'react';
 import styled from '@emotion/styled';
 import { LayoutGroup, m } from 'framer-motion';
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   options: string[];
+  initialValue?: string;
+  onChange?: (option: string) => void;
 }
 
-const SegmentedControl = ({ options, onChange }: Props) => {
-  const [selectedOption, setSelectedOption] = useState(0);
+const SegmentedControl: FC<Props> = ({ options, initialValue, onChange }) => {
+  const [selectedOption, setSelectedOption] = useState(initialValue ?? options[0]);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name } = event.target;
+
+    setSelectedOption(name);
+    onChange?.(name);
+  };
 
   return (
     <Wrapper>
       <LayoutGroup>
-        {options.map((option, idx) => {
+        {options.map((option) => {
           const id = useId();
-          const isSelected = idx === selectedOption;
+          const isSelected = option === selectedOption;
           return (
             <OptionWrapper key={option} whileTap={isSelected ? { scale: 0.95 } : { opacity: 0.6 }}>
               {isSelected && <ActivatedBackground layoutId="SegmentedControlActive" />}
               <StyledHiddenInput
                 value={option}
-                onChange={(e) => {
-                  setSelectedOption(idx);
-                  if (onChange) {
-                    onChange(e);
-                  }
-                }}
+                onChange={handleChange}
                 checked={isSelected}
                 type="radio"
-                name="selectedControl"
+                name={option}
                 id={`segmented-control-${id}`}
               />
               <StyledLabel htmlFor={`segmented-control-${id}`}>{option}</StyledLabel>

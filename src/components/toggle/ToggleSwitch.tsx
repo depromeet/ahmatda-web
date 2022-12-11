@@ -1,13 +1,16 @@
+import { FC, InputHTMLAttributes } from 'react';
 import styled from '@emotion/styled';
 
-type Props = React.HTMLAttributes<HTMLInputElement>;
+type Props = InputHTMLAttributes<HTMLInputElement>;
 
-const ToggleSwitch = ({ ...rest }: Props) => {
+const ToggleSwitch: FC<Props> = ({ name, ...rest }) => {
+  const id = name ? `${name}-toggle` : 'toggle';
+
   return (
     <>
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      <ToggleCheckbox id="toggle" type="checkbox" {...rest} />
-      <CheckBoxLabel htmlFor="toggle" />
+      <ToggleCheckbox id={id} type="checkbox" {...rest} />
+      <CheckBoxLabel htmlFor={id} />
     </>
   );
 };
@@ -23,7 +26,6 @@ const CheckBoxLabel = styled.label`
   width: 48px;
   height: 24px;
   background-color: ${({ theme }) => theme.colors.gray3};
-  border: 1px solid #000;
   border-radius: 12px;
   transition: background-color 0.2s;
 
