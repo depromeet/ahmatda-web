@@ -1,6 +1,7 @@
 import { PropsWithChildren, ReactElement, ReactNode, useState } from 'react';
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
+import NextHead from 'next/head';
 import { ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -45,6 +46,7 @@ const MyApp = ({ Component: AppComponent, pageProps }: AppPropsWithLayout) => {
           <ThemeProvider theme={lightTheme}>
             <LazyMotion features={domMax}>
               <DefaultLayout>
+                <Head />
                 <GlobalStyles />
                 {getLayout(<AppComponent {...pageProps} />)}
                 <ToastWrapper />
@@ -71,3 +73,15 @@ const LayoutWrapper = styled.div`
   padding: ${({ theme }) => theme.size.layoutPadding};
   margin: 0 auto;
 `;
+
+const Head = () => {
+  return (
+    <NextHead>
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0 viewport-fit=cover"
+      />
+      <title>아맞다</title>
+    </NextHead>
+  );
+};

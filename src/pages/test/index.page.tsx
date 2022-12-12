@@ -2,6 +2,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
 
+import AlarmBottomSheet from '@/components/alarm/bottom-sheet/AlarmBottomSheet';
 import Button from '@/components/button/Button';
 import ContainedButton from '@/components/button/ContainedButton';
 import IconButton from '@/components/button/IconButton';
@@ -230,6 +231,15 @@ const Test = () => {
         <button type="button" onClick={() => fireToast({ content: '다른토스트 메세지 입니다' })}>
           다른 토스트 발사
         </button>
+      </div>
+
+      <div>
+        <Heading>알림</Heading>
+        <Button onClick={() => setIsOpen((prev) => !prev)}>알림</Button>
+        <AlarmBottomSheet setToClose={() => setIsOpen(false)} isShowing={isOpen} />
+        <br />
+        <br />
+        <br />
       </div>
     </>
   );
