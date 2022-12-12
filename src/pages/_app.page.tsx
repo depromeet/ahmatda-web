@@ -9,6 +9,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { domMax, LazyMotion } from 'framer-motion';
 import { RecoilRoot } from 'recoil';
 
+import ToastWrapper from '@/components/portal/ToastWrapper';
 import useTrackPageView from '@/hooks/analytics/useTrackPageView';
 import GlobalStyles from '@/styles/GlobalStyles';
 import lightTheme from '@/styles/theme';
@@ -48,6 +49,7 @@ const MyApp = ({ Component: AppComponent, pageProps }: AppPropsWithLayout) => {
                 <Head />
                 <GlobalStyles />
                 {getLayout(<AppComponent {...pageProps} />)}
+                <ToastWrapper />
               </DefaultLayout>
             </LazyMotion>
           </ThemeProvider>
