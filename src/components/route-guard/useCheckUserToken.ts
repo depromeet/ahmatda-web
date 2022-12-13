@@ -11,17 +11,26 @@ interface UserTokenResponse {
   error: string | null;
 }
 
+/**
+ * `userTokenState`를 기준으로
+ *
+ * @returns `{ isTokenRegistered, isLoading }`
+ * 로딩 중인 상태와 등록된 토큰인 지 반환합니다
+ */
 const useCheckUserToken = () => {
   const userToken = useRecoilValue(userTokenState);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isTokenRegistered, setIsTokenRegistered] = useState<boolean>(false);
 
   useEffect(() => {
     const whenUnregistered = () => {
       setIsTokenRegistered(false);
+      setIsLoading(false);
     };
 
     const whenRegistered = () => {
       setIsTokenRegistered(true);
+      setIsLoading(false);
     };
 
     const getUserTokenStatus = async () => {
@@ -36,7 +45,6 @@ const useCheckUserToken = () => {
       }
 
       const status = await getUserTokenStatus();
-
       if (status === 'REGISTERED') {
         whenRegistered();
       } else {
@@ -47,7 +55,7 @@ const useCheckUserToken = () => {
     checkUserTokenStatus();
   }, [userToken]);
 
-  return { isTokenRegistered };
+  return { isTokenRegistered, isLoading };
 };
 
 export default useCheckUserToken;
