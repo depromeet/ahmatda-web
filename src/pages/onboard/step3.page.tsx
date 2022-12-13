@@ -9,6 +9,7 @@ import ButtonSection from '@/components/route-onboard/ButtonSection';
 import ListCard from '@/components/route-onboard/ListCard';
 import TitleSection from '@/components/route-onboard/TitleSection';
 import { mockCheckboxGroupOptions } from '@/fixtures/checkboxGroup.mock';
+import { WhiteBackgroundGlobalStyles } from '@/styles/GlobalStyles';
 
 const LIST_CARD = {
   daily: [
@@ -57,6 +58,7 @@ const Step3 = () => {
 
   return (
     <>
+      <WhiteBackgroundGlobalStyles />
       <AppBar onClickBackButton={() => router.push('/onboard/step2')} />
       <Wrapper>
         <TitleSection
