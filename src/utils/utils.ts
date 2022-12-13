@@ -43,3 +43,5 @@ export const isProd = (env: string): boolean => env === 'production';
 export const isIn = <T>(values: ReadonlyArray<T>, x: unknown): x is T => {
   return values.includes(x as T);
 };
+
+export const isServerSide = () => typeof window === 'undefined';
