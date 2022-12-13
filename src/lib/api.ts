@@ -6,6 +6,10 @@ const instance = axios.create({
   baseURL: isProd(process.env.NODE_ENV) ? process.env.NEXT_PUBLIC_API_HOST : '',
 });
 
+export const replaceUserTokenToInstance = (userToken: string) => {
+  instance.defaults.headers.common['ahmatda-user-token'] = userToken;
+};
+
 const interceptorResponseFulfilled = (response: AxiosResponse) => {
   if (response.status >= 200 && response.status < 300) {
     return response.data;

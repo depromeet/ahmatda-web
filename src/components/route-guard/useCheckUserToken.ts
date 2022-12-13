@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
-import { get } from '@/lib/api';
+import { get, replaceUserTokenToInstance } from '@/lib/api';
 import userTokenState from '@/store/localStorage/userToken';
 
 type UserTokenStatus = 'REGISTERED' | 'UNREGISTERED';
@@ -31,6 +31,7 @@ const useCheckUserToken = () => {
     const whenRegistered = () => {
       setIsTokenRegistered(true);
       setIsLoading(false);
+      if (userToken) replaceUserTokenToInstance(userToken);
     };
 
     const getUserTokenStatus = async () => {
