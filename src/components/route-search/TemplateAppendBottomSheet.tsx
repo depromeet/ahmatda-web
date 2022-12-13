@@ -1,4 +1,4 @@
-import { ComponentProps } from 'react';
+import { ComponentProps, useState } from 'react';
 import styled from '@emotion/styled';
 
 import LabelButton from '../button/LabelButton';
@@ -8,11 +8,32 @@ import BottomSheet from '../portal/BottomSheet';
 
 import CategorySection from './CategorySection';
 
+import { CategoryType } from '@/types';
+
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
 const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
+  const initialState = {
+    categories: MOCK_USER_CATEGORIES.result[0],
+    templateId: null,
+  };
+
+  const [selectedUserCategory, setSelectedUserCategory] = useState<CategoryType>(initialState.categories);
+  const [selectedUserTemplateId, setSelectedUserTemplateId] = useState<number | null>(initialState.templateId);
+
+  const resetState = () => {
+    setSelectedUserCategory(initialState.categories);
+    setSelectedUserTemplateId(initialState.templateId);
+  };
+
   return (
-    <BottomSheet isShowing={isShowing} setToClose={setToClose}>
+    <BottomSheet
+      isShowing={isShowing}
+      setToClose={() => {
+        setToClose();
+        resetState();
+      }}
+    >
       <AppBar
         backButtonType="cancel"
         title="추가하기"
@@ -20,12 +41,28 @@ const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
         onClickBackButton={setToClose}
       />
       <div style={{ marginTop: 8 }}>
-        <CategorySection defaultColor="gray" />
+        <CategorySection
+          defaultColor="gray"
+          options={MOCK_USER_CATEGORIES.result}
+          selectedCategory={selectedUserCategory}
+          onCategoryClick={(clickedCategory) => {
+            setSelectedUserCategory(clickedCategory);
+          }}
+        />
       </div>
       <List>
-        <ListItem>기존 리스트 1</ListItem>
-        <ListItem>기존 리스트 2</ListItem>
-        <ListItem newItem selected>
+        {MOCK_USER_TEMPLATES.result.map((item) => (
+          <ListItem
+            key={item.id}
+            onClick={() => {
+              setSelectedUserTemplateId(item.id);
+            }}
+            selected={selectedUserTemplateId === item.id}
+          >
+            {item.templateName}
+          </ListItem>
+        ))}
+        <ListItem newItem>
           <IconAdd />
           디프만 UT 준비물로 리스트 추가
         </ListItem>
@@ -63,6 +100,41 @@ const ListItem = styled('li')<ListItemProps>(
   (props) =>
     props.selected && {
       backgroundColor: props.theme.colors.gray1,
-      boxShadow: '0px 4px 4px 0px #00000040',
     },
 );
+
+const MOCK_USER_CATEGORIES = {
+  result: [
+    {
+      id: 1,
+      name: '일상',
+      type: 'DAILY',
+      emoji: 'PLANE',
+    },
+    {
+      id: 2,
+      name: '운동',
+      type: 'HEALTH',
+      emoji: 'GYM',
+    },
+  ],
+  error: null,
+};
+
+const MOCK_USER_TEMPLATES = {
+  result: [
+    {
+      id: 100,
+      userToken: 'FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F0',
+      templateName: '일상에서 중요한거',
+      categoryId: 1,
+    },
+    {
+      id: 101,
+      userToken: 'FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F0',
+      templateName: '운동에서 중요한거',
+      categoryId: 1,
+    },
+  ],
+  error: null,
+};

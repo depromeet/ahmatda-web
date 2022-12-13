@@ -10,9 +10,12 @@ import CategorySection from '@/components/route-search/CategorySection';
 import ListRequestSection from '@/components/route-search/ListRequestSection';
 import TemplateAppendBottomSheet from '@/components/route-search/TemplateAppendBottomSheet';
 import { mockCheckboxGroupOptions, mockCheckboxGroupTitle } from '@/fixtures/checkboxGroup.mock';
+import { CategoryType } from '@/types';
 
 const Template: NextPageWithLayout = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<CategoryType>(MOCK_DATA.result[0]);
+
   return (
     <Wrapper>
       <Title>
@@ -20,7 +23,13 @@ const Template: NextPageWithLayout = () => {
         <br />
         소지품을 추천해 드릴게요
       </Title>
-      <CategorySection />
+      <CategorySection
+        options={MOCK_DATA.result}
+        selectedCategory={selectedCategory}
+        onCategoryClick={(clickedCategory) => {
+          setSelectedCategory(clickedCategory);
+        }}
+      />
       <CardsWrapper>
         <CheckboxGroup
           title={mockCheckboxGroupTitle}
@@ -70,3 +79,21 @@ const CardsWrapper = styled.div`
   row-gap: 16px;
   margin: 16px 0 24px 0;
 `;
+
+const MOCK_DATA = {
+  result: [
+    {
+      id: 1,
+      name: '일상',
+      type: 'DAILY',
+      emoji: 'AIRPLANE',
+    },
+    {
+      id: 2,
+      name: '운동',
+      type: 'HEALTH',
+      emoji: 'GYM',
+    },
+  ],
+  error: null,
+};
