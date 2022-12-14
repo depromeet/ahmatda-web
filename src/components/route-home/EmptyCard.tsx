@@ -19,7 +19,7 @@ const EmptyCard = () => {
           <GraphicEmptyCard />
         </GraphicWrapper>
         <ButtonWrapper>
-          <LabelButton withIcon>
+          <LabelButton withIcon onClick={toggleIsShowingListAppend}>
             <IconAdd /> 추가하기
           </LabelButton>
         </ButtonWrapper>
