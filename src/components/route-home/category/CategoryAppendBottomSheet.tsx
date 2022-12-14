@@ -11,6 +11,7 @@ import CategoryRadioFieldset from './CategoryRadioFieldset';
 
 import { Graphic } from '@/components/graphic/type';
 import { CategoryKind } from '@/hooks/api/category/type';
+import useUserCategoryMutation from '@/hooks/api/category/useUserCategoryMutation';
 import useInput from '@/hooks/common/useInput';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
@@ -18,6 +19,7 @@ type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 const CategoryAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
   const {
     value: categoryName,
+    setValue: setCategoryName,
     onChange: onChangeCategoryName,
     debouncedValue: debouncedCategoryName,
   } = useInput({ initialValue: '', useDebounce: true });
@@ -28,6 +30,28 @@ const CategoryAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
 
   const isSubmitDisabled = debouncedCategoryName.length === 0 || currentIcon === null;
 
+  const { createUserCategoryMutation } = useUserCategoryMutation();
+
+  const clearInputs = () => {
+    setCategoryName('');
+    setCurrentCategory('DAILY');
+    setCurrentIcon(null);
+  };
+
+  const onClickSubmit = () => {
+    if (!currentIcon) return;
+
+    createUserCategoryMutation.mutate(
+      { name: categoryName, type: currentCategory, emoji: currentIcon },
+      {
+        onSuccess: () => {
+          setToClose();
+          clearInputs();
+        },
+      },
+    );
+  };
+
   return (
     <BottomSheet isShowing={isShowing} setToClose={setToClose}>
       <Wrapper>
@@ -36,7 +60,7 @@ const CategoryAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
           title="카테고리 추가"
           onClickBackButton={setToClose}
           rightElement={
-            <LabelButton size="large" disabled={isSubmitDisabled}>
+            <LabelButton size="large" disabled={isSubmitDisabled} onClick={onClickSubmit}>
               완료
             </LabelButton>
           }

@@ -19,7 +19,7 @@ type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 const CategorySettingBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
   const [isCategoryAppendShowing, _, toggleIsCategoryAppendShowing] = useToggle(false);
 
-  const { selectedCategory, onClickCategory, isCategoryEditShowing, toggleIsCategoryEditShowing } = useCategoryEdit();
+  const { selectedCategory, onClickCategory, isCategoryEditShowing, clearBottomSheetAndState } = useCategoryEdit();
 
   const { data } = useGetUserCategories();
 
@@ -45,13 +45,16 @@ const CategorySettingBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
         </Wrapper>
       </BottomSheet>
 
-      <CategoryEditBottomSheet
-        isShowing={isCategoryEditShowing}
-        setToClose={toggleIsCategoryEditShowing}
-        name={selectedCategory?.name ?? ''}
-        category={selectedCategory?.type ?? 'DAILY'}
-        icon={selectedCategory?.emoji ?? 'BOWLING'}
-      />
+      {selectedCategory && (
+        <CategoryEditBottomSheet
+          isShowing={isCategoryEditShowing}
+          setToClose={clearBottomSheetAndState}
+          id={selectedCategory.id}
+          name={selectedCategory.name}
+          category={selectedCategory.type}
+          icon={selectedCategory.emoji}
+        />
+      )}
 
       <CategoryAppendBottomSheet isShowing={isCategoryAppendShowing} setToClose={toggleIsCategoryAppendShowing} />
     </>
@@ -113,7 +116,7 @@ const LeftWrapper = styled.div({
 });
 
 const useCategoryEdit = () => {
-  const [isCategoryEditShowing, setIsCategoryEditShowing, toggleIsCategoryEditShowing] = useToggle(false);
+  const [isCategoryEditShowing, setIsCategoryEditShowing] = useToggle(false);
 
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
 
@@ -122,5 +125,11 @@ const useCategoryEdit = () => {
     setIsCategoryEditShowing(true);
   };
 
-  return { selectedCategory, onClickCategory, isCategoryEditShowing, toggleIsCategoryEditShowing };
+  const clearBottomSheetAndState = () => {
+    setIsCategoryEditShowing(false);
+    // bottom sheet close 애니메이션 이후 초기화
+    setTimeout(() => setSelectedCategory(null), 280);
+  };
+
+  return { selectedCategory, onClickCategory, isCategoryEditShowing, clearBottomSheetAndState };
 };

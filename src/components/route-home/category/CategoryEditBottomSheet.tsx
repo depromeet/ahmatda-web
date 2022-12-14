@@ -11,17 +11,18 @@ import BottomSheet from '@/components/portal/BottomSheet';
 import Dialog from '@/components/portal/Dialog';
 import TextField from '@/components/text-field/TextField';
 import { CategoryKind } from '@/hooks/api/category/type';
+import useUserCategoryMutation from '@/hooks/api/category/useUserCategoryMutation';
 import useInput from '@/hooks/common/useInput';
 import useToggle from '@/hooks/common/useToggle';
 
 interface Props extends Omit<ComponentProps<typeof BottomSheet>, 'children'> {
-  // TODO: 카테고리 아이템 인터페이스
+  id: number;
   name: string;
   category: CategoryKind;
   icon: Graphic;
 }
 
-const CategoryEditBottomSheet: FC<Props> = ({ isShowing, setToClose, name, category, icon }) => {
+const CategoryEditBottomSheet: FC<Props> = ({ isShowing, setToClose, id, name, category, icon }) => {
   const {
     value: categoryName,
     onChange: onChangeCategoryName,
@@ -36,7 +37,14 @@ const CategoryEditBottomSheet: FC<Props> = ({ isShowing, setToClose, name, categ
 
   const { isShowingDeleteDialog, toggleIsShowingDeleteDialog, onCategoryDelete } = useDeleteDialog({
     setToCloseBottomSheet: setToClose,
+    categoryId: id,
   });
+
+  const { editUserCategoryMutation } = useUserCategoryMutation();
+
+  const onClickSubmit = () => {
+    editUserCategoryMutation.mutate({ id, name: debouncedCategoryName, type: currentCategory, emoji: currentIcon });
+  };
 
   return (
     <>
@@ -47,7 +55,7 @@ const CategoryEditBottomSheet: FC<Props> = ({ isShowing, setToClose, name, categ
             title="카테고리 설정"
             onClickBackButton={setToClose}
             rightElement={
-              <LabelButton size="large" disabled={isSubmitDisabled}>
+              <LabelButton size="large" disabled={isSubmitDisabled} onClick={onClickSubmit}>
                 완료
               </LabelButton>
             }
@@ -104,15 +112,22 @@ const DeleteButton = styled.button(
   ({ theme }) => ({ ...theme.typographies.body1, color: theme.colors.danger }),
 );
 
-const useDeleteDialog = ({ setToCloseBottomSheet }: { setToCloseBottomSheet: VoidFunction }) => {
+interface DeleteDialogProps {
+  categoryId: number;
+  setToCloseBottomSheet: VoidFunction;
+}
+
+const useDeleteDialog = ({ categoryId, setToCloseBottomSheet }: DeleteDialogProps) => {
   const [isShowingDeleteDialog, _, toggleIsShowingDeleteDialog] = useToggle(false);
+  const { deleteUserCategoryMutation } = useUserCategoryMutation();
 
   const onCategoryDelete = () => {
-    // TODO: API Mutate
-    // eslint-disable-next-line no-console
-    console.log('delete category');
-    toggleIsShowingDeleteDialog();
-    setToCloseBottomSheet();
+    deleteUserCategoryMutation.mutate(categoryId, {
+      onSuccess: () => {
+        toggleIsShowingDeleteDialog();
+        setToCloseBottomSheet();
+      },
+    });
   };
 
   return { isShowingDeleteDialog, toggleIsShowingDeleteDialog, onCategoryDelete };
