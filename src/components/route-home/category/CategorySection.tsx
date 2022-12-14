@@ -1,24 +1,38 @@
+import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
+import { useRecoilState } from 'recoil';
 
 import IconButton from '@/components/button/IconButton';
 import Chip from '@/components/chip/Chip';
+import Graphic from '@/components/graphic/Graphic';
 import IconOverflow from '@/components/icon/IconOverflow';
+import useGetCategories from '@/hooks/api/category/useGetCategories';
 import useToggle from '@/hooks/common/useToggle';
+import currentCategoryState from '@/store/route-home/currentCategory';
 
 const CategorySettingBottomSheet = dynamic(() => import('./CategorySettingBottomSheet'));
 
 const CategorySection = () => {
   const [isCategorySettingShowing, setCategorySettingShowing, toggleCategorySettingShowing] = useToggle(false);
+  const { data, currentCategory } = useCategories();
 
   return (
     <>
       <Section>
         <ChipWrapper>
-          <Chip label="일상" color="black" />
-          <Chip label="일상" />
-          <Chip label="일상" />
-          <Chip label="일상" />
+          {data?.map(({ id, name, emoji }) => {
+            const isCurrentCategory = id === currentCategory?.id;
+
+            return (
+              <Chip
+                key={id}
+                label={name}
+                color={isCurrentCategory ? 'black' : 'default'}
+                icon={<Graphic type={emoji} isAct={isCurrentCategory} />}
+              />
+            );
+          })}
         </ChipWrapper>
 
         <OverflowWrapper>
@@ -71,3 +85,17 @@ const OverflowWrapper = styled.div({ position: 'relative' }, ({ theme }) => ({
     background: `linear-gradient(to right, rgba(0, 0, 0, 0), ${theme.colors.gray1} 90%)`,
   },
 }));
+
+const useCategories = () => {
+  const query = useGetCategories();
+  const [currentCategory, setCurrentCategory] = useRecoilState(currentCategoryState);
+
+  useEffect(() => {
+    if (!query.data) return;
+    if (currentCategory !== null) return;
+
+    setCurrentCategory(query.data[0]);
+  }, [query.data]);
+
+  return { ...query, currentCategory };
+};
