@@ -7,7 +7,7 @@ import IconButton from '@/components/button/IconButton';
 import Chip from '@/components/chip/Chip';
 import Graphic from '@/components/graphic/Graphic';
 import IconOverflow from '@/components/icon/IconOverflow';
-import useGetCategories from '@/hooks/api/category/useGetCategories';
+import useGetUserCategories from '@/hooks/api/category/useGetUserCategories';
 import useToggle from '@/hooks/common/useToggle';
 import currentCategoryState from '@/store/route-home/currentCategory';
 
@@ -87,7 +87,7 @@ const OverflowWrapper = styled.div({ position: 'relative' }, ({ theme }) => ({
 }));
 
 const useCategories = () => {
-  const query = useGetCategories();
+  const query = useGetUserCategories();
   const [currentCategory, setCurrentCategory] = useRecoilState(currentCategoryState);
 
   useEffect(() => {
