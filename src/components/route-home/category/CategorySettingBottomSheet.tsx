@@ -1,29 +1,27 @@
-import { ComponentProps, FC, ReactElement } from 'react';
+import { ComponentProps, FC, ReactElement, useState } from 'react';
 import styled from '@emotion/styled';
 
 import CategoryAppendBottomSheet from './CategoryAppendBottomSheet';
 import CategoryEditBottomSheet from './CategoryEditBottomSheet';
-import { CategoryType } from './type';
 
 import LabelButton from '@/components/button/LabelButton';
-import GraphicBus from '@/components/graphic/GraphicBus';
+import Graphic from '@/components/graphic/Graphic';
 import IconAdd from '@/components/icon/IconAdd';
 import IconChevron24pxRightLeft from '@/components/icon/IconChevron24pxRightLeft';
 import AppBar from '@/components/navigation/AppBar';
 import BottomSheet from '@/components/portal/BottomSheet';
+import { Category } from '@/hooks/api/category/type';
+import useGetUserCategories from '@/hooks/api/category/useGetUserCategories';
 import useToggle from '@/hooks/common/useToggle';
-
-const MOCK_CATEGORIES: { id: string; name: string; category: CategoryType; icon: string }[] = [
-  { id: '0', name: '일상', category: '일상', icon: 'bus' },
-  { id: '1', name: '하이 여행', category: '여행', icon: 'bus' },
-];
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
 const CategorySettingBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
   const [isCategoryAppendShowing, _, toggleIsCategoryAppendShowing] = useToggle(false);
 
-  const { isCategoryEditShowing, toggleIsCategoryEditShowing } = useCategoryEdit();
+  const { selectedCategory, onClickCategory, isCategoryEditShowing, toggleIsCategoryEditShowing } = useCategoryEdit();
+
+  const { data } = useGetUserCategories();
 
   return (
     <>
@@ -31,13 +29,12 @@ const CategorySettingBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
         <Wrapper>
           <AppBar backButtonType="cancel" title="카테고리 설정" onClickBackButton={setToClose} />
 
-          {MOCK_CATEGORIES.map((category) => (
+          {data?.map(({ id, name, emoji, type }) => (
             <CategoryItem
-              key={category.id}
-              // TODO: icon이 이름으로 저장될 것 같은데, 이름에 따라 반환하도록 작업해야할듯
-              icon={<GraphicBus />}
-              name={category.name}
-              onClick={toggleIsCategoryEditShowing}
+              key={id}
+              icon={<Graphic type={emoji} />}
+              name={name}
+              onClick={() => onClickCategory({ id, name, emoji, type })}
             />
           ))}
 
@@ -51,9 +48,9 @@ const CategorySettingBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
       <CategoryEditBottomSheet
         isShowing={isCategoryEditShowing}
         setToClose={toggleIsCategoryEditShowing}
-        name="asd"
-        category="여행"
-        icon="bus"
+        name={selectedCategory?.name ?? ''}
+        category={selectedCategory?.type ?? 'DAILY'}
+        icon={selectedCategory?.emoji ?? 'BOWLING'}
       />
 
       <CategoryAppendBottomSheet isShowing={isCategoryAppendShowing} setToClose={toggleIsCategoryAppendShowing} />
@@ -116,27 +113,14 @@ const LeftWrapper = styled.div({
 });
 
 const useCategoryEdit = () => {
-  const [isCategoryEditShowing, _, toggleIsCategoryEditShowing] = useToggle(false);
+  const [isCategoryEditShowing, setIsCategoryEditShowing, toggleIsCategoryEditShowing] = useToggle(false);
 
-  // TODO: 누른 카테고리 아이템 저장
-  // ?: 클릭 시 ID만 넘기고 조회를 할지, 아니면 전부 state로 넘길지?
-  // const [editCategoryName] = useState<string | null>(null);
-  // const [editCategory] = useState<CategoryType | null>(null);
-  // const [editCategoryIcon] = useState<ReactElement | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
 
-  // const onClickCategory = ({
-  //   id,
-  //   name,
-  //   category,
-  //   icon,
-  // }: {
-  //   id: string;
-  //   name: string;
-  //   category: CategoryType;
-  //   icon: ReactElement;
-  // }) => {
-  //   setIsCategoryEditShowing(true);
-  // };
+  const onClickCategory = (category: Category) => {
+    setSelectedCategory(category);
+    setIsCategoryEditShowing(true);
+  };
 
-  return { isCategoryEditShowing, toggleIsCategoryEditShowing };
+  return { selectedCategory, onClickCategory, isCategoryEditShowing, toggleIsCategoryEditShowing };
 };

@@ -8,8 +8,8 @@ import TextField from '../../text-field/TextField';
 
 import CategoryIconRadioFieldset from './CategoryIconRadioFieldset';
 import CategoryRadioFieldset from './CategoryRadioFieldset';
-import { categories, CategoryType } from './type';
 
+import { CategoryKind } from '@/hooks/api/category/type';
 import useInput from '@/hooks/common/useInput';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
@@ -21,7 +21,7 @@ const CategoryAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
     debouncedValue: debouncedCategoryName,
   } = useInput({ initialValue: '', useDebounce: true });
 
-  const [currentCategory, setCurrentCategory] = useState<CategoryType>(categories[0]);
+  const [currentCategory, setCurrentCategory] = useState<CategoryKind>('DAILY');
 
   const [currentIcon, setCurrentIcon] = useState<string | null>(null);
 

@@ -3,21 +3,22 @@ import styled from '@emotion/styled';
 
 import CategoryIconRadioFieldset from './CategoryIconRadioFieldset';
 import CategoryRadioFieldset from './CategoryRadioFieldset';
-import { CategoryType } from './type';
 
 import LabelButton from '@/components/button/LabelButton';
+import { Graphic } from '@/components/graphic/type';
 import AppBar from '@/components/navigation/AppBar';
 import BottomSheet from '@/components/portal/BottomSheet';
 import Dialog from '@/components/portal/Dialog';
 import TextField from '@/components/text-field/TextField';
+import { CategoryKind } from '@/hooks/api/category/type';
 import useInput from '@/hooks/common/useInput';
 import useToggle from '@/hooks/common/useToggle';
 
 interface Props extends Omit<ComponentProps<typeof BottomSheet>, 'children'> {
   // TODO: 카테고리 아이템 인터페이스
   name: string;
-  category: CategoryType;
-  icon: string;
+  category: CategoryKind;
+  icon: Graphic;
 }
 
 const CategoryEditBottomSheet: FC<Props> = ({ isShowing, setToClose, name, category, icon }) => {
@@ -27,7 +28,7 @@ const CategoryEditBottomSheet: FC<Props> = ({ isShowing, setToClose, name, categ
     debouncedValue: debouncedCategoryName,
   } = useInput({ initialValue: name, useDebounce: true });
 
-  const [currentCategory, setCurrentCategory] = useState<CategoryType>(category);
+  const [currentCategory, setCurrentCategory] = useState<CategoryKind>(category);
 
   const [currentIcon, setCurrentIcon] = useState<string | null>(icon);
 

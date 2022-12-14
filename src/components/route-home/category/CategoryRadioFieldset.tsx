@@ -1,22 +1,21 @@
 import { ChangeEvent, Dispatch, FC, InputHTMLAttributes, SetStateAction, useId } from 'react';
 import styled from '@emotion/styled';
 
-import { categories, CategoryType } from './type';
-
-import { isIn } from '@/utils/utils';
+import { CATEGORY_KIND, CategoryKind } from '@/hooks/api/category/type';
+import { isIn, objectKeys } from '@/utils/utils';
 
 const RADIO_CATEGORY_NAME = 'category';
 
 interface Props {
-  currentCategory: CategoryType;
-  setCurrentCategory: Dispatch<SetStateAction<CategoryType>>;
+  currentCategory: CategoryKind;
+  setCurrentCategory: Dispatch<SetStateAction<CategoryKind>>;
 }
 
 const CategoryRadioFieldset: FC<Props> = ({ currentCategory, setCurrentCategory }) => {
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
 
-    if (isIn(categories, value)) {
+    if (isIn(objectKeys(CATEGORY_KIND), value)) {
       setCurrentCategory(value);
     }
   };
@@ -25,10 +24,11 @@ const CategoryRadioFieldset: FC<Props> = ({ currentCategory, setCurrentCategory 
     <fieldset>
       <Legend>아이콘 *</Legend>
       <div style={{ width: '100%', display: 'flex', gap: '8px' }}>
-        {categories.map((category) => (
+        {objectKeys(CATEGORY_KIND).map((category) => (
           <RadioItem
             key={category}
             name={RADIO_CATEGORY_NAME}
+            text={CATEGORY_KIND[category]}
             value={category}
             onChange={onChange}
             checked={currentCategory === category}
@@ -43,16 +43,18 @@ export default CategoryRadioFieldset;
 
 const Legend = styled.legend(({ theme }) => ({ ...theme.typographies.caption1, color: theme.colors.gray6 }));
 
-type RadioItemProps = InputHTMLAttributes<HTMLInputElement>;
+interface RadioItemProps extends InputHTMLAttributes<HTMLInputElement> {
+  text: string;
+}
 
-const RadioItem: FC<RadioItemProps> = ({ value, ...rest }) => {
+const RadioItem: FC<RadioItemProps> = ({ text, value, ...rest }) => {
   const id = useId();
 
   return (
     <>
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <HidedInput type="radio" id={id} value={value} {...rest} />
-      <ItemLabel htmlFor={id}>{value}</ItemLabel>
+      <ItemLabel htmlFor={id}>{text}</ItemLabel>
     </>
   );
 };
