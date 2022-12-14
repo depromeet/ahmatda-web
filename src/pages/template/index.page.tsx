@@ -1,18 +1,23 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import { useRecoilState } from 'recoil';
 
 import { NextPageWithLayout } from '../_app.page';
 
+import CheckboxGroup from '@/components/checkbox/CheckboxGroup';
 import BottomNavigation from '@/components/navigation/BottomNavigation';
 import DefaultAppBar from '@/components/navigation/DefaultAppBar';
 import CategorySection from '@/components/route-search/CategorySection';
 import ListRequestSection from '@/components/route-search/ListRequestSection';
-import SearchCard from '@/components/route-search/SearchCard';
 import TemplateAppendBottomSheet from '@/components/route-search/TemplateAppendBottomSheet';
 import { mockCheckboxGroupOptions, mockCheckboxGroupTitle } from '@/fixtures/checkboxGroup.mock';
+import useGetRecCategories from '@/hooks/api/category/useGetRecCategories';
+import selectedRecCategoryState from '@/store/route-search/selectedRecCategory';
 
 const Template: NextPageWithLayout = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const { data: categories, selectedRecCategory, setSelectedRecCategory } = useRecCategories();
+
   return (
     <Wrapper>
       <Title>
@@ -20,11 +25,18 @@ const Template: NextPageWithLayout = () => {
         <br />
         소지품을 추천해 드릴게요
       </Title>
-      <CategorySection />
+      <CategorySection
+        options={categories}
+        selectedCategory={selectedRecCategory}
+        onCategoryClick={(clickedCategory) => {
+          setSelectedRecCategory(clickedCategory);
+        }}
+      />
       <CardsWrapper>
-        <SearchCard
+        <CheckboxGroup
           title={mockCheckboxGroupTitle}
           options={mockCheckboxGroupOptions}
+          submitBtnTitle="내 리스트에 추가하기"
           onSubmit={() => {
             setIsBottomSheetOpen(true);
           }}
@@ -69,3 +81,14 @@ const CardsWrapper = styled.div`
   row-gap: 16px;
   margin: 16px 0 24px 0;
 `;
+
+const useRecCategories = () => {
+  const [selectedRecCategory, setSelectedRecCategory] = useRecoilState(selectedRecCategoryState);
+  const query = useGetRecCategories();
+
+  useEffect(() => {
+    setSelectedRecCategory(query.data[0]);
+  }, [query.data]);
+
+  return { ...query, selectedRecCategory, setSelectedRecCategory };
+};
