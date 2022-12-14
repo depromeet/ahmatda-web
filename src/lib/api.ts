@@ -1,8 +1,14 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
+import { isProd } from '@/utils/utils';
+
 const instance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_HOST,
+  baseURL: isProd(process.env.NODE_ENV) ? process.env.NEXT_PUBLIC_API_HOST : '',
 });
+
+export const replaceUserTokenToInstance = (userToken: string) => {
+  instance.defaults.headers.common['ahmatda-user-token'] = userToken;
+};
 
 const interceptorResponseFulfilled = (response: AxiosResponse) => {
   if (response.status >= 200 && response.status < 300) {
@@ -13,7 +19,7 @@ const interceptorResponseFulfilled = (response: AxiosResponse) => {
 };
 
 const interceptorResponseRejected = (error: AxiosError<{ error: string }>) => {
-  return Promise.reject(new Error(error.response?.data.error));
+  return Promise.reject(new Error(error.response?.data?.error ?? error.name));
 };
 
 instance.interceptors.response.use(interceptorResponseFulfilled, interceptorResponseRejected);
