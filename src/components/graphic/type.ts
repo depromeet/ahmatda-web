@@ -7,17 +7,19 @@ export interface GraphicProps extends Props {
   isAct?: boolean;
 }
 
-export type Graphic =
-  | 'BOWLING'
-  | 'BUS'
-  | 'CAMERA'
-  | 'EMPTYCARD'
-  | 'ETC'
-  | 'FRIENDS'
-  | 'GYM'
-  | 'PLANE'
-  | 'RUN'
-  | 'SCHOOL'
-  | 'SWIM'
-  | 'TUBE'
-  | 'WORK';
+export const graphics = [
+  'BOWLING',
+  'BUS',
+  'CAMERA',
+  'ETC',
+  'FRIENDS',
+  'GYM',
+  'PLANE',
+  'RUN',
+  'SCHOOL',
+  'SWIM',
+  'TUBE',
+  'WORK',
+] as const;
+
+export type Graphic = typeof graphics[number];

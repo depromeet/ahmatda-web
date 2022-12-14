@@ -30,7 +30,7 @@ const CategoryEditBottomSheet: FC<Props> = ({ isShowing, setToClose, name, categ
 
   const [currentCategory, setCurrentCategory] = useState<CategoryKind>(category);
 
-  const [currentIcon, setCurrentIcon] = useState<string | null>(icon);
+  const [currentIcon, setCurrentIcon] = useState<Graphic>(icon);
 
   const isSubmitDisabled = debouncedCategoryName.length === 0 || currentIcon === null;
 
@@ -53,7 +53,12 @@ const CategoryEditBottomSheet: FC<Props> = ({ isShowing, setToClose, name, categ
             }
           />
           <Form>
-            <TextField value={categoryName} onChange={onChangeCategoryName} placeholder="카테고리 입력" />
+            <TextField
+              defaultValue={name}
+              value={categoryName}
+              onChange={onChangeCategoryName}
+              placeholder="카테고리 입력"
+            />
 
             <CategoryRadioFieldset currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} />
             <CategoryIconRadioFieldset currentValue={currentIcon} setCurrentValue={setCurrentIcon} />

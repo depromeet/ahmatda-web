@@ -9,6 +9,7 @@ import TextField from '../../text-field/TextField';
 import CategoryIconRadioFieldset from './CategoryIconRadioFieldset';
 import CategoryRadioFieldset from './CategoryRadioFieldset';
 
+import { Graphic } from '@/components/graphic/type';
 import { CategoryKind } from '@/hooks/api/category/type';
 import useInput from '@/hooks/common/useInput';
 
@@ -23,7 +24,7 @@ const CategoryAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
 
   const [currentCategory, setCurrentCategory] = useState<CategoryKind>('DAILY');
 
-  const [currentIcon, setCurrentIcon] = useState<string | null>(null);
+  const [currentIcon, setCurrentIcon] = useState<Graphic | null>(null);
 
   const isSubmitDisabled = debouncedCategoryName.length === 0 || currentIcon === null;
 
