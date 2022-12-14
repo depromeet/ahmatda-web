@@ -8,7 +8,7 @@ import BottomSheet from '../portal/BottomSheet';
 
 import CategorySection from './CategorySection';
 
-import { CategoryType } from '@/types';
+import { Category } from '@/hooks/api/category/type';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
@@ -18,7 +18,7 @@ const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
     templateId: null,
   };
 
-  const [selectedUserCategory, setSelectedUserCategory] = useState<CategoryType>(initialState.categories);
+  const [selectedUserCategory, setSelectedUserCategory] = useState<Category>(initialState.categories);
   const [selectedUserTemplateId, setSelectedUserTemplateId] = useState<number | null>(initialState.templateId);
 
   const resetState = () => {
@@ -109,13 +109,13 @@ const MOCK_USER_CATEGORIES = {
       id: 1,
       name: '일상',
       type: 'DAILY',
-      emoji: 'PLANE',
+      emoji: 'PLANE' as const,
     },
     {
       id: 2,
       name: '운동',
       type: 'HEALTH',
-      emoji: 'GYM',
+      emoji: 'GYM' as const,
     },
   ],
   error: null,

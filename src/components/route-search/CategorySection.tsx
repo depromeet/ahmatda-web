@@ -2,14 +2,15 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import Chip from '../chip/Chip';
+import Graphic from '../graphic/Graphic';
 
-import { CategoryType } from '@/types';
+import { Category } from '@/hooks/api/category/type';
 
 interface Props {
   defaultColor?: 'gray';
-  options: CategoryType[];
-  selectedCategory: CategoryType;
-  onCategoryClick: (selectedCategory: CategoryType) => void;
+  options: Category[];
+  selectedCategory: Category | null;
+  onCategoryClick: (selectedCategory: Category) => void;
 }
 
 const CategorySection = ({ options, defaultColor, selectedCategory, onCategoryClick }: Props) => {
@@ -22,7 +23,8 @@ const CategorySection = ({ options, defaultColor, selectedCategory, onCategoryCl
           onClick={() => {
             onCategoryClick(item);
           }}
-          color={selectedCategory.id === item.id ? 'black' : defaultColor}
+          color={selectedCategory?.id === item.id ? 'black' : defaultColor}
+          icon={<Graphic type={item.emoji} />}
         />
       ))}
     </Wrapper>
