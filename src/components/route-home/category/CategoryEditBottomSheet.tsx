@@ -43,7 +43,7 @@ const CategoryEditBottomSheet: FC<Props> = ({ isShowing, setToClose, name, categ
         <Wrapper>
           <AppBar
             backButtonType="cancel"
-            title="카테고리 추가"
+            title="카테고리 설정"
             onClickBackButton={setToClose}
             rightElement={
               <LabelButton size="large" disabled={isSubmitDisabled}>
