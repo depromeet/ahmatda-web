@@ -6,3 +6,18 @@ export interface GraphicProps extends Props {
    */
   isAct?: boolean;
 }
+
+export type Graphic =
+  | 'BOWLING'
+  | 'BUS'
+  | 'CAMERA'
+  | 'EMPTYCARD'
+  | 'ETC'
+  | 'FRIENDS'
+  | 'GYM'
+  | 'PLANE'
+  | 'RUN'
+  | 'SCHOOL'
+  | 'SWIM'
+  | 'TUBE'
+  | 'WORK';
