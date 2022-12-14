@@ -1,15 +1,34 @@
+import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import { m } from 'framer-motion';
+import { useSetRecoilState } from 'recoil';
 
 import ContainedButton from '@/components/button/ContainedButton';
 import Item from '@/components/item/Item';
 import ButtonSection from '@/components/route-onboard/ButtonSection';
 import TitleSection from '@/components/route-onboard/TitleSection';
 import { staggerOne } from '@/constants/motions';
+import { post } from '@/lib/api';
+import userTokenState from '@/store/localStorage/userToken';
 
 const Step1 = () => {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+  };
+
+  // TODO: 온보딩 마지막 로직 개발 이후에 삭제 필요
+  const router = useRouter();
+  const setUserToken = useSetRecoilState(userTokenState);
+  const testTokenAndSave = async () => {
+    const res = await post<{ result: string }>('/user', {
+      onboardingRequest: {
+        category: 'DAILY',
+        templateName: 'Tomorrow Checklists',
+        items: ['MacBook', 'Airpods'],
+      },
+    });
+    setUserToken(res.result);
+    router.push('/');
   };
 
   return (
@@ -26,6 +45,11 @@ const Step1 = () => {
         }
         subTitle={<>소지품 관리가 가장 필요한 상황을 1개 골라 주세요.</>}
       />
+
+      <button type="button" onClick={testTokenAndSave}>
+        테스트 토큰 발급 및 저장
+      </button>
+
       <form onSubmit={onSubmit}>
         <SelectSection variants={staggerOne} initial="initial" animate="animate" exit="exit">
           <Item
