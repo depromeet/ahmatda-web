@@ -54,9 +54,10 @@ const APP_BAR_HEIGHT = '48px';
 const Wrapper = styled.section(
   {
     position: 'sticky',
-    left: 0,
+    left: '0',
     top: '0',
-    width: '100%',
+    width: 'calc(100% + 20px * 2)',
+    marginLeft: '-20px',
     height: APP_BAR_HEIGHT,
     display: 'flex',
     justifyContent: 'center',
@@ -69,8 +70,7 @@ const Wrapper = styled.section(
 const BackButton = styled.button({
   all: 'unset',
   position: 'absolute',
-  // NOTE: - wapper padding + design padding
-  left: 'calc(-20px + 8px)',
+  left: '4px',
   cursor: 'pointer',
   width: '3rem',
   height: '3rem',
@@ -86,6 +86,5 @@ const Title = styled.h2(({ theme }) => ({
 
 const RightElementWrapper = styled.div({
   position: 'absolute',
-  // NOTE: - wapper padding + design padding
-  right: 'calc(-20px + 8px)',
+  right: '8px',
 });
