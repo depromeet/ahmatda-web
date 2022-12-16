@@ -16,14 +16,14 @@ const ScrollBox: FC<Props> = ({ items, onChange, align = 'center' }) => {
     onChange(selectedItem);
   }, [selectedItem]);
 
-  const getIndexByOffset = (offsetY) => {
+  const getIndexByOffsetY = (offsetY: number) => {
     const index = Math.round(offsetY / BUTTON_HEIGHT);
 
     return index;
   };
 
   const handleScroll: UIEventHandler = (e) => {
-    const index = getIndexByOffset((e.target as HTMLDivElement).scrollTop);
+    const index = getIndexByOffsetY((e.target as HTMLDivElement).scrollTop);
 
     setSelectedItem(items[index]);
   };
