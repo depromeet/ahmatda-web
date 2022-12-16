@@ -10,7 +10,7 @@ export interface Category {
 export const CATEGORY_KIND = {
   DAILY: '일상',
   EXERCISE: '운동',
-  TRIP: '여행',
+  TRAVEL: '여행',
 } as const;
 
 export type CategoryKind = keyof typeof CATEGORY_KIND;
