@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 
 import Picker from './Picker';
 import SelectItem from './SelectItem';
-import TimePicker from './TimePicker';
 
+import TimePicker from '@/components/scrollable-date-time-picker/TimePicker';
 import { dayPairs, weekdayPairs } from '@/models/alarm';
 
 const AlarmDayController = () => {
