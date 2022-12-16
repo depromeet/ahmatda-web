@@ -4,11 +4,11 @@ import { useRecoilState } from 'recoil';
 
 import { NextPageWithLayout } from '../_app.page';
 
-import CheckboxGroup from '@/components/checkbox/CheckboxGroup';
 import BottomNavigation from '@/components/navigation/BottomNavigation';
 import DefaultAppBar from '@/components/navigation/DefaultAppBar';
 import CategorySection from '@/components/route-search/CategorySection';
 import ListRequestSection from '@/components/route-search/ListRequestSection';
+import RecommendationTemplateCard from '@/components/route-search/RecommendationTemplateCard';
 import TemplateAppendBottomSheet from '@/components/route-search/TemplateAppendBottomSheet';
 import useGetRecCategories from '@/hooks/api/category/useGetRecCategories';
 import useGetRecTemplates from '@/hooks/api/template/useGetRecTemplates';
@@ -35,7 +35,7 @@ const Template: NextPageWithLayout = () => {
       />
       <CardsWrapper>
         {templates.map((templateInfo) => (
-          <CheckboxGroup
+          <RecommendationTemplateCard
             key={`rec-template-${templateInfo.id}`}
             data={templateInfo}
             submitBtnTitle="내 리스트에 추가하기"

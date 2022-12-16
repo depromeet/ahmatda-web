@@ -2,19 +2,18 @@ import { ChangeEvent, useState } from 'react';
 import styled from '@emotion/styled';
 
 import ContainedButton from '../button/ContainedButton';
-
-import Checkbox from './Checkbox';
-import CheckboxWithText from './CheckboxWithText';
+import Checkbox from '../checkbox/Checkbox';
+import CheckboxWithText from '../checkbox/CheckboxWithText';
 
 import { RecTemplate } from '@/hooks/api/template/type';
 
-export interface CheckboxGroupProps {
+export interface Props {
   data: RecTemplate;
   submitBtnTitle?: string;
   onSubmit?: VoidFunction;
 }
 
-const CheckboxGroup = ({ data, submitBtnTitle, onSubmit }: CheckboxGroupProps) => {
+const RecommendationTemplateCard = ({ data, submitBtnTitle, onSubmit }: Props) => {
   const { id: templateId, templateName, items } = data;
   const [checkStatus, setCheckStatus] = useState<boolean[]>(new Array(items.length).fill(false));
 
@@ -29,12 +28,7 @@ const CheckboxGroup = ({ data, submitBtnTitle, onSubmit }: CheckboxGroupProps) =
     <Wrapper>
       <StyledHeader>
         <Title>{templateName}</Title>
-        <Checkbox
-          textLabel="전체 선택"
-          onToggle={toggleCheckAllBtn}
-          checked={checkStatus.every((item) => !!item)}
-          testId="check-all-btn"
-        />
+        <Checkbox textLabel="전체 선택" onToggle={toggleCheckAllBtn} checked={checkStatus.every((item) => !!item)} />
       </StyledHeader>
       <Counter>{`${checkStatus.filter((item) => item === true).length}/${items.length}`}개</Counter>
       <CheckboxList>
@@ -45,7 +39,6 @@ const CheckboxGroup = ({ data, submitBtnTitle, onSubmit }: CheckboxGroupProps) =
             onToggle={() => {
               toggleSingleCheckbox(idx);
             }}
-            testId="single-check-btn"
           >
             {name}
           </CheckboxWithText>
@@ -56,7 +49,7 @@ const CheckboxGroup = ({ data, submitBtnTitle, onSubmit }: CheckboxGroupProps) =
   );
 };
 
-export default CheckboxGroup;
+export default RecommendationTemplateCard;
 
 const Wrapper = styled.div`
   border-radius: 16px;
