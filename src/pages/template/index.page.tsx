@@ -10,13 +10,14 @@ import DefaultAppBar from '@/components/navigation/DefaultAppBar';
 import CategorySection from '@/components/route-search/CategorySection';
 import ListRequestSection from '@/components/route-search/ListRequestSection';
 import TemplateAppendBottomSheet from '@/components/route-search/TemplateAppendBottomSheet';
-import { mockCheckboxGroupOptions, mockCheckboxGroupTitle } from '@/fixtures/checkboxGroup.mock';
 import useGetRecCategories from '@/hooks/api/category/useGetRecCategories';
-import selectedRecCategoryState from '@/store/route-search/selectedRecCategory';
+import useGetRecTemplates from '@/hooks/api/template/useGetRecTemplates';
+import currentRecCategoryState from '@/store/route-search/currentRecCategory';
 
 const Template: NextPageWithLayout = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-  const { data: categories, selectedRecCategory, setSelectedRecCategory } = useRecCategories();
+  const { data: categories, currentRecCategory, setCurrentRecCategory } = useRecCategories();
+  const { data: templates } = useGetRecTemplates();
 
   return (
     <Wrapper>
@@ -27,20 +28,22 @@ const Template: NextPageWithLayout = () => {
       </Title>
       <CategorySection
         options={categories}
-        selectedCategory={selectedRecCategory}
+        selectedCategory={currentRecCategory}
         onCategoryClick={(clickedCategory) => {
-          setSelectedRecCategory(clickedCategory);
+          setCurrentRecCategory(clickedCategory);
         }}
       />
       <CardsWrapper>
-        <CheckboxGroup
-          title={mockCheckboxGroupTitle}
-          options={mockCheckboxGroupOptions}
-          submitBtnTitle="내 리스트에 추가하기"
-          onSubmit={() => {
-            setIsBottomSheetOpen(true);
-          }}
-        />
+        {templates.map((templateInfo) => (
+          <CheckboxGroup
+            key={`rec-template-${templateInfo.id}`}
+            data={templateInfo}
+            submitBtnTitle="내 리스트에 추가하기"
+            onSubmit={() => {
+              setIsBottomSheetOpen(true);
+            }}
+          />
+        ))}
       </CardsWrapper>
       <ListRequestSection />
       <TemplateAppendBottomSheet
@@ -83,12 +86,12 @@ const CardsWrapper = styled.div`
 `;
 
 const useRecCategories = () => {
-  const [selectedRecCategory, setSelectedRecCategory] = useRecoilState(selectedRecCategoryState);
+  const [currentRecCategory, setCurrentRecCategory] = useRecoilState(currentRecCategoryState);
   const query = useGetRecCategories();
 
   useEffect(() => {
-    setSelectedRecCategory(query.data[0]);
+    setCurrentRecCategory(query.data[0]);
   }, [query.data]);
 
-  return { ...query, selectedRecCategory, setSelectedRecCategory };
+  return { ...query, currentRecCategory, setCurrentRecCategory };
 };

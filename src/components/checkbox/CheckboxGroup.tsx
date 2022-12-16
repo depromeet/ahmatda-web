@@ -6,21 +6,17 @@ import ContainedButton from '../button/ContainedButton';
 import Checkbox from './Checkbox';
 import CheckboxWithText from './CheckboxWithText';
 
-interface Option {
-  name: string;
-  id: string;
-  [key: string]: unknown;
-}
+import { RecTemplate } from '@/hooks/api/template/type';
 
 export interface CheckboxGroupProps {
-  title: string;
-  options: Option[];
+  data: RecTemplate;
   submitBtnTitle?: string;
   onSubmit?: VoidFunction;
 }
 
-const CheckboxGroup = ({ title, options, submitBtnTitle, onSubmit }: CheckboxGroupProps) => {
-  const [checkStatus, setCheckStatus] = useState<boolean[]>(new Array(options.length).fill(false));
+const CheckboxGroup = ({ data, submitBtnTitle, onSubmit }: CheckboxGroupProps) => {
+  const { id: templateId, templateName, items } = data;
+  const [checkStatus, setCheckStatus] = useState<boolean[]>(new Array(items.length).fill(false));
 
   const toggleSingleCheckbox = (clikedIdx: number) => {
     setCheckStatus((prev) => prev.map((item, i) => (i === clikedIdx ? !item : item)));
@@ -29,11 +25,10 @@ const CheckboxGroup = ({ title, options, submitBtnTitle, onSubmit }: CheckboxGro
   const toggleCheckAllBtn = (e: ChangeEvent<HTMLInputElement>) => {
     setCheckStatus((prev) => [...prev.fill(e.target.checked)]);
   };
-
   return (
     <Wrapper>
       <StyledHeader>
-        <Title>{title}</Title>
+        <Title>{templateName}</Title>
         <Checkbox
           textLabel="전체 선택"
           onToggle={toggleCheckAllBtn}
@@ -41,11 +36,11 @@ const CheckboxGroup = ({ title, options, submitBtnTitle, onSubmit }: CheckboxGro
           testId="check-all-btn"
         />
       </StyledHeader>
-      <Counter>{`${checkStatus.filter((item) => item === true).length}/${options.length}`}개</Counter>
+      <Counter>{`${checkStatus.filter((item) => item === true).length}/${items.length}`}개</Counter>
       <CheckboxList>
-        {options.map(({ name, id }, idx) => (
+        {items.map(({ name, id }, idx) => (
           <CheckboxWithText
-            key={id}
+            key={`rec-item-${templateId}-${id}`}
             checked={checkStatus[idx]}
             onToggle={() => {
               toggleSingleCheckbox(idx);
