@@ -43,7 +43,14 @@ const CategoryEditBottomSheet: FC<Props> = ({ isShowing, setToClose, id, name, c
   const { editUserCategoryMutation } = useUserCategoryMutation();
 
   const onClickSubmit = () => {
-    editUserCategoryMutation.mutate({ id, name: debouncedCategoryName, type: currentCategory, emoji: currentIcon });
+    editUserCategoryMutation.mutate(
+      { id, name: debouncedCategoryName, type: currentCategory, emoji: currentIcon },
+      {
+        onSuccess: () => {
+          setToClose();
+        },
+      },
+    );
   };
 
   return (
