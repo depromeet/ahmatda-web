@@ -13,6 +13,7 @@ import { UserItem } from '@/hooks/api/template/type';
 import useToggle from '@/hooks/common/useToggle';
 
 const ListSettingBottomSheet = dynamic(() => import('./ListSettingBottomSheet'));
+const CardItemAppendBottomSheet = dynamic(() => import('./CardItemAppendBottomSheet'));
 
 export interface Props {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -24,6 +25,7 @@ export interface Props {
 
 const Card = ({ title, alarmCycle, items }: Props) => {
   const [isListSettingShowing, _, toggleListSettingShowing] = useToggle(false);
+  const [isCardItemAppendShowing, __, toggleCardItemAppendShowing] = useToggle(false);
 
   return (
     <>
@@ -35,7 +37,7 @@ const Card = ({ title, alarmCycle, items }: Props) => {
         </PinButton>
 
         <ItemWrapper>
-          <LabelButton size="large" withIcon>
+          <LabelButton size="large" withIcon onClick={toggleCardItemAppendShowing}>
             <IconAdd />
             추가하기
           </LabelButton>
@@ -56,6 +58,7 @@ const Card = ({ title, alarmCycle, items }: Props) => {
       </Wrapper>
 
       <ListSettingBottomSheet setToClose={toggleListSettingShowing} isShowing={isListSettingShowing} />
+      <CardItemAppendBottomSheet setToClose={toggleCardItemAppendShowing} isShowing={isCardItemAppendShowing} />
     </>
   );
 };
