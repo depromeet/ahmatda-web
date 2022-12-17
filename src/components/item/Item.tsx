@@ -15,7 +15,7 @@ const Item = ({ type = 'checkbox', label, emjCode, labelSize = 'small', ...rest 
     <m.div variants={defaultFadeInUpVariants}>
       <ItemInput type={type} id={label} emjCode={emjCode} {...rest} data-testid="item-input" />
       <ItemLabel htmlFor={label} labelSize={labelSize} data-testid="item-label">
-        {emjCode && <span data-testid="item-emoji">{emjCode}</span>}
+        {emjCode && emjCode}
         <LabelText>{label}</LabelText>
       </ItemLabel>
     </m.div>
@@ -26,7 +26,8 @@ export default Item;
 
 const ItemLabel = styled.label<ItemProps>(
   {
-    display: 'inline-block',
+    display: 'inline-flex',
+    alignItems: 'center',
     padding: '8px 16px',
     borderRadius: '8px',
   },
