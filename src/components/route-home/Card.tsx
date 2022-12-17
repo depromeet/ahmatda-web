@@ -9,23 +9,17 @@ import IconSetting from '../icon/IconSetting';
 
 import CardItem from './CardItem';
 
+import { UserItem } from '@/hooks/api/template/type';
 import useToggle from '@/hooks/common/useToggle';
 
 const ListSettingBottomSheet = dynamic(() => import('./ListSettingBottomSheet'));
 
-// TODO: API 부착 이후 변경 (요소 및 선언 위치)
-export interface Item {
-  id: string;
-  isChecked: boolean;
-  name: string;
-  isImportant: boolean;
-}
 export interface Props {
   // eslint-disable-next-line react/no-unused-prop-types
-  id: string;
+  id: number;
   title: string;
   alarmCycle: string;
-  items: Item[];
+  items: UserItem[];
 }
 
 const Card = ({ title, alarmCycle, items }: Props) => {
@@ -46,8 +40,8 @@ const Card = ({ title, alarmCycle, items }: Props) => {
             추가하기
           </LabelButton>
 
-          {items.map(({ id, isChecked, isImportant, name }) => (
-            <CardItem key={id} id={id} isChecked={isChecked} isImportant={isImportant} name={name} />
+          {items.map(({ id, take, important, name }) => (
+            <CardItem key={id} id={id} take={take} important={important} name={name} />
           ))}
         </ItemWrapper>
 

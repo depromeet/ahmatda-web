@@ -5,64 +5,26 @@ import { NextPageWithLayout } from './_app.page';
 import Carousel from '@/components/carousel/Carousel';
 import BottomNavigation from '@/components/navigation/BottomNavigation';
 import DefaultAppBar from '@/components/navigation/DefaultAppBar';
-import Card, { Props as CardType } from '@/components/route-home/Card';
+import Card from '@/components/route-home/Card';
 import CategorySection from '@/components/route-home/category/CategorySection';
 import EmptyCard from '@/components/route-home/EmptyCard';
 import RecommendSection from '@/components/route-home/RecommendSection';
-
-const MOCK_CARDS: CardType[] = [
-  {
-    title: '출근할 때 필수템',
-    alarmCycle: '매주 월 오후 6:00',
-    id: '0',
-    items: [
-      { id: '0', isChecked: false, name: '중요 소지품', isImportant: true },
-      { id: '1', isChecked: false, name: '비중요 소지품', isImportant: false },
-      { id: '2', isChecked: true, name: '체크 + 중요 소지품', isImportant: true },
-      { id: '3', isChecked: true, name: '체크 + 비중요 소지품', isImportant: false },
-      {
-        id: '4',
-        isChecked: false,
-        name: '엄청 긴 소지품소지품소지품소지품소지품소지품소지품소지품소지품소지품',
-        isImportant: false,
-      },
-      { id: '5', isChecked: false, name: '스크롤을 위한 소지품', isImportant: false },
-      { id: '6', isChecked: false, name: '스크롤을 위한 소지품', isImportant: false },
-      { id: '7', isChecked: false, name: '스크롤을 위한 소지품', isImportant: false },
-      { id: '8', isChecked: false, name: '스크롤을 위한 소지품', isImportant: false },
-      { id: '9', isChecked: false, name: '스크롤을 위한 소지품', isImportant: false },
-      { id: '10', isChecked: false, name: '스크롤을 위한 소지품', isImportant: false },
-      { id: '11', isChecked: false, name: '스크롤을 위한 소지품', isImportant: false },
-      { id: '12', isChecked: false, name: '스크롤을 위한 소지품', isImportant: false },
-      { id: '13', isChecked: false, name: '스크롤을 위한 소지품', isImportant: false },
-      { id: '14', isChecked: false, name: '스크롤을 위한 소지품', isImportant: false },
-      { id: '15', isChecked: false, name: '스크롤을 위한 소지품', isImportant: false },
-    ],
-  },
-  {
-    title: '혹한기에서 살아남기',
-    alarmCycle: '매주 화 오후 6:00',
-    id: '1',
-    items: [
-      { id: '16', isChecked: false, name: '중요 소지품', isImportant: true },
-      { id: '17', isChecked: false, name: '비중요 소지품', isImportant: false },
-      { id: '18', isChecked: true, name: '체크 + 중요 소지품', isImportant: true },
-      { id: '19', isChecked: true, name: '체크 + 비중요 소지품', isImportant: false },
-    ],
-  },
-];
+import useGetUserTemplate from '@/hooks/api/template/useGetUserTemplate';
 
 const HomePage: NextPageWithLayout = () => {
   const [carouselWrapper, setCarouselWrapper] = useState<HTMLDivElement | null>(null);
+
+  const { data } = useGetUserTemplate();
 
   return (
     <>
       <CategorySection />
 
       <Carousel.Wrapper ref={setCarouselWrapper}>
-        {MOCK_CARDS.map(({ id, title, alarmCycle, items }) => (
+        {data?.map(({ id, templateName, items }) => (
           <Carousel.Item key={id}>
-            <Card id={id} title={title} alarmCycle={alarmCycle} items={items} />
+            {/* TODO: 알림 관련 API 수정 이후 대응 */}
+            <Card id={id} title={templateName} alarmCycle="매주 화 오후 6:00" items={items} />
           </Carousel.Item>
         ))}
 

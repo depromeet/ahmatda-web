@@ -5,39 +5,34 @@ import styled from '@emotion/styled';
 
 import IconCardItemCheck from './IconCardItemCheck';
 
+import { UserItem } from '@/hooks/api/template/type';
 import useToggle from '@/hooks/common/useToggle';
 
 const CardItemSettingBottomSheet = dynamic(() => import('./CardItemSettingBottomSheet'));
 
 // TODO: interface 선언 위치 변경 후 대응
-interface Props {
-  // eslint-disable-next-line react/no-unused-prop-types
-  id: string;
-  isChecked: boolean;
-  name: string;
-  isImportant: boolean;
-}
+type Props = Pick<UserItem, 'id' | 'name' | 'take' | 'important'>;
 
-const CardItem = ({ isChecked, isImportant, name }: Props) => {
+const CardItem = ({ name, take, important }: Props) => {
   const id = useId();
   // TODO: API 대응
-  const [isCurrentChecked, _, toggleCurrentChecked] = useToggle(isChecked);
+  const [isCurrentChecked, _, toggleCurrentChecked] = useToggle(take);
 
   const [isCardItemSettingShowing, __, toggleIsCardItemSettingShowing] = useToggle(false);
 
   return (
     <>
-      <Wrapper isChecked={isCurrentChecked} isImportant={isImportant}>
+      <Wrapper isChecked={isCurrentChecked} isImportant={important}>
         <HidedInput id={id} type="checkbox" checked={isCurrentChecked} onChange={toggleCurrentChecked} />
         <IconLabel htmlFor={id}>
-          <IconCardItemCheck isChecked={isCurrentChecked} isImportant={isImportant} />
+          <IconCardItemCheck isChecked={isCurrentChecked} isImportant={important} />
         </IconLabel>
 
         <NameButton
           type="button"
           onClick={toggleIsCardItemSettingShowing}
           isChecked={isCurrentChecked}
-          isImportant={isImportant}
+          isImportant={important}
         >
           {name}
         </NameButton>
