@@ -3,6 +3,7 @@ import { ReactElement, useState } from 'react';
 import { NextPageWithLayout } from './_app.page';
 
 import Carousel from '@/components/carousel/Carousel';
+import LoadingHandler from '@/components/loading/LoadingHandler';
 import BottomNavigation from '@/components/navigation/BottomNavigation';
 import DefaultAppBar from '@/components/navigation/DefaultAppBar';
 import Card from '@/components/route-home/Card';
@@ -14,26 +15,28 @@ import useGetUserTemplate from '@/hooks/api/template/useGetUserTemplate';
 const HomePage: NextPageWithLayout = () => {
   const [carouselWrapper, setCarouselWrapper] = useState<HTMLDivElement | null>(null);
 
-  const { data } = useGetUserTemplate();
+  const { data, isLoading } = useGetUserTemplate();
 
   return (
     <>
       <CategorySection />
 
-      <Carousel.Wrapper ref={setCarouselWrapper}>
-        {data?.map(({ id, templateName, items }) => (
-          <Carousel.Item key={id}>
-            {/* TODO: 알림 관련 API 수정 이후 대응 */}
-            <Card id={id} title={templateName} alarmCycle="매주 화 오후 6:00" items={items} />
+      <LoadingHandler fallback={<>loading...</>} isLoading={isLoading}>
+        <Carousel.Wrapper ref={setCarouselWrapper}>
+          {data?.map(({ id, templateName, items }) => (
+            <Carousel.Item key={id}>
+              {/* TODO: 알림 관련 API 수정 이후 대응 */}
+              <Card id={id} title={templateName} alarmCycle="매주 화 오후 6:00" items={items} />
+            </Carousel.Item>
+          ))}
+
+          <Carousel.Item>
+            <EmptyCard />
           </Carousel.Item>
-        ))}
+        </Carousel.Wrapper>
 
-        <Carousel.Item>
-          <EmptyCard />
-        </Carousel.Item>
-      </Carousel.Wrapper>
-
-      <Carousel.Indicator carouselWrapper={carouselWrapper} />
+        <Carousel.Indicator carouselWrapper={carouselWrapper} />
+      </LoadingHandler>
 
       <RecommendSection />
     </>
