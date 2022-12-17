@@ -8,23 +8,47 @@ import Dialog from '../portal/Dialog';
 import TextField from '../text-field/TextField';
 import ToggleSwitch from '../toggle/ToggleSwitch';
 
+import { UserTemplate } from '@/hooks/api/template/type';
+import useUserTemplateMutation from '@/hooks/api/template/useUserTemplateMutation';
 import useInput from '@/hooks/common/useInput';
 
-type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
+type BottomSheetProps = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
-const ListSettingBottomSheet = ({ isShowing, setToClose }: Props) => {
+interface Props extends BottomSheetProps {
+  id: UserTemplate['id'];
+  templateName: UserTemplate['templateName'];
+  pin: UserTemplate['pin'];
+}
+
+const ListSettingBottomSheet = ({ id, templateName, pin, isShowing, setToClose }: Props) => {
   const {
     value: listName,
     onChange: onChangeListName,
     debouncedValue: debouncedListName,
-  } = useInput({ initialValue: '', useDebounce: true });
+  } = useInput({ initialValue: templateName, useDebounce: true });
   const [isDialogShowing, setIsDialogShowing] = useState(false);
 
   const isSubmitDisabled = debouncedListName.length === 0;
 
+  const { editUserTemplateMutation, deleteUserTemplateMutation } = useUserTemplateMutation();
+
   const handleListSettingComplete = () => {
-    // TODO: 리스트 설정 완료 시 실행할 로직 추가
-    setToClose();
+    editUserTemplateMutation.mutate(
+      { templateId: id, templateName: debouncedListName, pin },
+      {
+        onSuccess: () => {
+          setToClose();
+        },
+      },
+    );
+  };
+
+  const onClickDelete = () => {
+    deleteUserTemplateMutation.mutate(id, {
+      onSuccess: () => {
+        setToClose();
+      },
+    });
   };
 
   return (
@@ -71,7 +95,7 @@ const ListSettingBottomSheet = ({ isShowing, setToClose }: Props) => {
             아니요
           </Dialog.Button>
         }
-        rightButton={<Dialog.WarningButton>삭제하기</Dialog.WarningButton>}
+        rightButton={<Dialog.WarningButton onClick={onClickDelete}>삭제하기</Dialog.WarningButton>}
       />
     </BottomSheet>
   );
