@@ -15,30 +15,45 @@ export interface Props {
 
 const RecommendationTemplateCard = ({ data, submitBtnTitle, onSubmit }: Props) => {
   const { id: templateId, templateName, items } = data;
-  const [checkStatus, setCheckStatus] = useState<boolean[]>(new Array(items.length).fill(false));
+  const [checkedId, setCheckedId] = useState(new Set());
 
-  const toggleSingleCheckbox = (clikedIdx: number) => {
-    setCheckStatus((prev) => prev.map((item, i) => (i === clikedIdx ? !item : item)));
+  const numCheckedItems = checkedId.size;
+
+  const toggleSingleCheckbox = (clickedId: number) => {
+    const updatedCheckedId = new Set(checkedId);
+    if (updatedCheckedId.has(clickedId)) {
+      updatedCheckedId.delete(clickedId);
+    } else {
+      updatedCheckedId.add(clickedId);
+    }
+
+    setCheckedId(updatedCheckedId);
   };
 
   const toggleCheckAllBtn = (e: ChangeEvent<HTMLInputElement>) => {
-    setCheckStatus((prev) => [...prev.fill(e.target.checked)]);
+    if (e.target.checked) {
+      setCheckedId(new Set(items.map((item) => item.id)));
+      return;
+    }
+    setCheckedId(new Set());
   };
+
   return (
     <Wrapper>
       <StyledHeader>
         <Title>{templateName}</Title>
-        <Checkbox textLabel="전체 선택" onToggle={toggleCheckAllBtn} checked={checkStatus.every((item) => !!item)} />
+        <Checkbox textLabel="전체 선택" onToggle={toggleCheckAllBtn} checked={numCheckedItems === items.length} />
       </StyledHeader>
-      <Counter>{`${checkStatus.filter((item) => item === true).length}/${items.length}`}개</Counter>
+      <Counter>{`${numCheckedItems}/${items.length}`}개</Counter>
       <CheckboxList>
-        {items.map(({ name, id }, idx) => (
+        {items.map(({ name, id }) => (
           <CheckboxWithText
             key={`rec-item-${templateId}-${id}`}
-            checked={checkStatus[idx]}
+            checked={checkedId.has(id)}
             onToggle={() => {
-              toggleSingleCheckbox(idx);
+              toggleSingleCheckbox(id);
             }}
+            testId="single-check-btn"
           >
             {name}
           </CheckboxWithText>
@@ -81,7 +96,7 @@ const CheckboxList = styled.div`
   & > div {
     margin-top: 4px;
   }
-  & > div:first-child {
+  & > div:first-of-type {
     margin-top: 0;
   }
 `;
