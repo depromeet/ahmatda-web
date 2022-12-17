@@ -1,11 +1,14 @@
 import { ChangeEvent, useState } from 'react';
 import styled from '@emotion/styled';
+import { useSetRecoilState } from 'recoil';
 
 import ContainedButton from '../button/ContainedButton';
 import Checkbox from '../checkbox/Checkbox';
 import CheckboxWithText from '../checkbox/CheckboxWithText';
 
 import { RecTemplate } from '@/hooks/api/template/type';
+import selectedRecItemsState from '@/store/route-search/selectedRecItems';
+import selectedRecTemplateState from '@/store/route-search/selectedRecTemplate';
 
 export interface Props {
   data: RecTemplate;
@@ -38,6 +41,22 @@ const RecommendationTemplateCard = ({ data, submitBtnTitle, onSubmit }: Props) =
     setCheckedId(new Set());
   };
 
+  const computeCheckedItemsNames = () => {
+    return items.filter(({ id }) => checkedId.has(id)).map(({ name }) => name);
+  };
+
+  const setSelectedTemplate = useSetRecoilState(selectedRecTemplateState);
+  const setSelectedItems = useSetRecoilState(selectedRecItemsState);
+
+  const onSubmitBtnClick = () => {
+    onSubmit?.();
+
+    setSelectedTemplate(data);
+
+    const checkedItemsNames = computeCheckedItemsNames();
+    setSelectedItems(checkedItemsNames);
+  };
+
   return (
     <Wrapper>
       <StyledHeader>
@@ -59,7 +78,7 @@ const RecommendationTemplateCard = ({ data, submitBtnTitle, onSubmit }: Props) =
           </CheckboxWithText>
         ))}
       </CheckboxList>
-      {onSubmit && submitBtnTitle && <ContainedButton onClick={onSubmit}>{submitBtnTitle}</ContainedButton>}
+      {onSubmit && submitBtnTitle && <ContainedButton onClick={onSubmitBtnClick}>{submitBtnTitle}</ContainedButton>}
     </Wrapper>
   );
 };
