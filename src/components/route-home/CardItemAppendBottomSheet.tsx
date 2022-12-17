@@ -7,7 +7,9 @@ import BottomSheet from '../portal/BottomSheet';
 import TextField from '../text-field/TextField';
 import ToggleSwitch from '../toggle/ToggleSwitch';
 
+import useCardItemMutation from '@/hooks/api/template/useCardItemMutation';
 import useInput from '@/hooks/common/useInput';
+import useToggle from '@/hooks/common/useToggle';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
@@ -18,7 +20,15 @@ const CardItemAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
     debouncedValue: debouncedItemName,
   } = useInput({ initialValue: '', useDebounce: true });
 
+  const [isImportant, _, toggleIsImportant] = useToggle(false);
+
   const isSubmitDisabled = debouncedItemName.length === 0 || debouncedItemName.length >= 30;
+
+  const { createCardItemMutation } = useCardItemMutation();
+
+  const onSubmit = () => {
+    createCardItemMutation.mutate({ itemName: debouncedItemName, important: isImportant });
+  };
 
   return (
     <BottomSheet isShowing={isShowing} setToClose={setToClose}>
@@ -26,7 +36,7 @@ const CardItemAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
         backButtonType="cancel"
         title="소지품 추가"
         rightElement={
-          <LabelButton disabled={isSubmitDisabled} size="large">
+          <LabelButton disabled={isSubmitDisabled} size="large" onClick={onSubmit}>
             완료
           </LabelButton>
         }
@@ -44,7 +54,7 @@ const CardItemAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
       <SettingOptionList>
         <Option>
           <span>중요 소지품</span>
-          <ToggleSwitch />
+          <ToggleSwitch checked={isImportant} onChange={toggleIsImportant} />
         </Option>
       </SettingOptionList>
     </BottomSheet>
