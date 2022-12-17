@@ -14,7 +14,7 @@ interface Response {
 
 const getUserTemplate = (categoryId: number) => get<Response>(`/template/user?category=${categoryId}`);
 
-const USER_TEMPLATE_QUERY_KEY = 'user_template';
+export const USER_TEMPLATE_QUERY_KEY = 'user_template';
 
 const useGetUserTemplate = () => {
   const currentCategory = useRecoilValue(currentCategoryState);

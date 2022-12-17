@@ -9,6 +9,7 @@ import EditableTag from '../tag/EditableTag';
 import TextField from '../text-field/TextField';
 import ToggleSwitch from '../toggle/ToggleSwitch';
 
+import useUserTemplateMutation from '@/hooks/api/template/useUserTemplateMutation';
 import useInput from '@/hooks/common/useInput';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
@@ -24,6 +25,19 @@ const ListAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
 
   const { items, onChangeItem, appendEmptyItem, deleteWithIndex } = useItemList();
 
+  const { createUserTemplateMutation } = useUserTemplateMutation();
+
+  const onSubmit = () => {
+    createUserTemplateMutation.mutate(
+      { templateName: debouncedListName, items },
+      {
+        onSuccess: () => {
+          setToClose();
+        },
+      },
+    );
+  };
+
   return (
     <BottomSheet isShowing={isShowing} setToClose={setToClose}>
       <AppBar
@@ -31,7 +45,7 @@ const ListAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
         onClickBackButton={setToClose}
         title="리스트 추가"
         rightElement={
-          <LabelButton size="large" disabled={isSubmitDisabled}>
+          <LabelButton size="large" disabled={isSubmitDisabled} onClick={onSubmit}>
             완료
           </LabelButton>
         }
