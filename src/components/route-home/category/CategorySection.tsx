@@ -15,21 +15,22 @@ const CategorySettingBottomSheet = dynamic(() => import('./CategorySettingBottom
 
 const CategorySection = () => {
   const [isCategorySettingShowing, setCategorySettingShowing, toggleCategorySettingShowing] = useToggle(false);
-  const { data, currentCategory } = useCategories();
+  const { data, currentCategory, setCurrentCategory } = useCategories();
 
   return (
     <>
       <Section>
         <ChipWrapper>
-          {data?.map(({ id, name, emoji }) => {
-            const isCurrentCategory = id === currentCategory?.id;
+          {data?.map((eachCategory) => {
+            const isCurrentCategory = eachCategory.id === currentCategory?.id;
 
             return (
               <Chip
-                key={id}
-                label={name}
+                key={eachCategory.id}
+                label={eachCategory.name}
                 color={isCurrentCategory ? 'black' : 'default'}
-                icon={<Graphic type={emoji} isAct={isCurrentCategory} />}
+                onClick={() => setCurrentCategory(eachCategory)}
+                icon={<Graphic type={eachCategory.emoji} isAct={isCurrentCategory} />}
               />
             );
           })}
@@ -97,5 +98,5 @@ const useCategories = () => {
     setCurrentCategory(query.data[0]);
   }, [query.data]);
 
-  return { ...query, currentCategory };
+  return { ...query, currentCategory, setCurrentCategory };
 };
