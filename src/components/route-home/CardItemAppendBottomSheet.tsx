@@ -73,9 +73,6 @@ const Option = styled.li(
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    '&:last-child': {
-      border: 0,
-    },
   },
   ({ theme }) => ({ ...theme.typographies.body1, color: theme.colors.gray6 }),
 );
