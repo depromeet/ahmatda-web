@@ -20,19 +20,22 @@ const useGetRecCategories = () => {
 
 export default useGetRecCategories;
 
-const MOCK = {
+const MOCK: {
+  result: Category[];
+  error: null;
+} = {
   result: [
     {
       id: 1,
       name: '일상',
       type: 'DAILY',
-      emoji: 'GYM' as const,
+      emoji: 'GYM',
     },
     {
       id: 2,
       name: '운동',
       type: 'TRAVEL',
-      emoji: 'PLANE' as const,
+      emoji: 'PLANE',
     },
   ],
   error: null,

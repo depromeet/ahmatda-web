@@ -10,10 +10,10 @@ interface Response {
 
 const getCategories = () => get<Response>('/category/user');
 
-const CATEGORY_QUERY_KEY = 'user_category';
+export const USER_CATEGORY_QUERY_KEY = 'user_category';
 
 const useGetUserCategories = () => {
-  const query = useQuery({ queryKey: [CATEGORY_QUERY_KEY], queryFn: getCategories });
+  const query = useQuery({ queryKey: [USER_CATEGORY_QUERY_KEY], queryFn: getCategories });
 
   return { ...query, data: query.data?.result };
 };

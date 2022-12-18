@@ -103,19 +103,22 @@ const ListItem = styled('li')<ListItemProps>(
     },
 );
 
-const MOCK_USER_CATEGORIES = {
+const MOCK_USER_CATEGORIES: {
+  result: Category[];
+  error: null;
+} = {
   result: [
     {
       id: 1,
       name: '일상',
       type: 'DAILY',
-      emoji: 'PLANE' as const,
+      emoji: 'PLANE',
     },
     {
       id: 2,
       name: '운동',
-      type: 'HEALTH',
-      emoji: 'GYM' as const,
+      type: 'EXERCISE',
+      emoji: 'GYM',
     },
   ],
   error: null,
