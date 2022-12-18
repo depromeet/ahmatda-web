@@ -25,8 +25,8 @@ const Step2 = () => {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>, item: ItemType) => {
     let updateSelectedList = [...selectedItems];
-    if (e.target.checked) updateSelectedList = [...selectedItems, item];
-    else updateSelectedList.splice(selectedItems.indexOf(item), 1);
+    if (e.target.checked) updateSelectedList = [...updateSelectedList, item];
+    else updateSelectedList.splice(updateSelectedList.indexOf(item), 1);
 
     setSelectedItems(updateSelectedList);
   };
