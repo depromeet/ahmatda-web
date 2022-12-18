@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { m } from 'framer-motion';
 
 import ContainedButton from '@/components/button/ContainedButton';
-import Item from '@/components/item/Item';
 import ButtonSection from '@/components/route-onboard/ButtonSection';
 import TitleSection from '@/components/route-onboard/TitleSection';
 import { staggerOne } from '@/constants/motions';
@@ -38,7 +37,7 @@ const Step2 = () => {
         <TitleSection title={TITLE.daily.title} subTitle={TITLE.daily.subTitle} />
         <form onSubmit={onSubmit}>
           <SelectSection variants={staggerOne} initial="initial" animate="animate" exit="exit">
-            <Item name="item" label="이어폰" emjCode="&#x1F3A7;" labelSize="small" />
+            {/* <Item name="item" label="이어폰" emjCode="&#x1F3A7;" labelSize="small" />
             <Item name="item" label="노트북" emjCode="&#x1F4BB;" labelSize="small" />
             <Item name="item" label="충전기" emjCode="&#x1F50C;" labelSize="small" />
             <Item name="item" label="보조배터리" emjCode="&#x1F50B;" labelSize="small" />
@@ -55,7 +54,7 @@ const Step2 = () => {
             <Item name="item" label="양치도구" emjCode="&#x1FAA5;" labelSize="small" />
             <Item name="item" label="우산" emjCode="&#x1F302;" labelSize="small" />
             <Item name="item" label="텀블러" emjCode="&#x1F964;" labelSize="small" />
-            <Item name="item" label="휴지" emjCode="&#x1F9FB;" labelSize="small" />
+            <Item name="item" label="휴지" emjCode="&#x1F9FB;" labelSize="small" /> */}
           </SelectSection>
           <ButtonSection>
             <ContainedButton type="submit" size="large">

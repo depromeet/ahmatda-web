@@ -1,6 +1,8 @@
 import { ChangeEvent, useState } from 'react';
 import styled from '@emotion/styled';
 
+import ContainedButton from '../button/ContainedButton';
+
 import Checkbox from './Checkbox';
 import CheckboxWithText from './CheckboxWithText';
 
@@ -13,9 +15,11 @@ interface Option {
 export interface CheckboxGroupProps {
   title: string;
   options: Option[];
+  submitBtnTitle?: string;
+  onSubmit?: VoidFunction;
 }
 
-const CheckboxGroup = ({ title, options }: CheckboxGroupProps) => {
+const CheckboxGroup = ({ title, options, submitBtnTitle, onSubmit }: CheckboxGroupProps) => {
   const [checkStatus, setCheckStatus] = useState<boolean[]>(new Array(options.length).fill(false));
 
   const toggleSingleCheckbox = (clikedIdx: number) => {
@@ -27,7 +31,7 @@ const CheckboxGroup = ({ title, options }: CheckboxGroupProps) => {
   };
 
   return (
-    <>
+    <Wrapper>
       <StyledHeader>
         <Title>{title}</Title>
         <Checkbox
@@ -52,11 +56,18 @@ const CheckboxGroup = ({ title, options }: CheckboxGroupProps) => {
           </CheckboxWithText>
         ))}
       </CheckboxList>
-    </>
+      {onSubmit && submitBtnTitle && <ContainedButton onClick={onSubmit}>{submitBtnTitle}</ContainedButton>}
+    </Wrapper>
   );
 };
 
 export default CheckboxGroup;
+
+const Wrapper = styled.div`
+  border-radius: 16px;
+  background-color: ${({ theme }) => theme.colors.white};
+  padding: 20px 20px 16px 20px;
+`;
 
 const StyledHeader = styled.header`
   display: flex;

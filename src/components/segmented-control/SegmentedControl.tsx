@@ -70,6 +70,8 @@ const StyledHiddenInput = styled.input`
 const StyledLabel = styled.label`
   ${({ theme }) => ({ ...theme.typographies.button2 })}
   position: relative;
+  display: inline-block;
+  width: 100%;
   z-index: 2;
   color: ${({ theme }) => theme.colors.gray3};
 `;

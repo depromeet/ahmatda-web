@@ -2,24 +2,36 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import Chip from '../chip/Chip';
+import Graphic from '../graphic/Graphic';
+
+import { Category } from '@/hooks/api/category/type';
 
 interface Props {
   defaultColor?: 'gray';
+  options: Category[];
+  selectedCategory: Category | null;
+  onCategoryClick: (selectedCategory: Category) => void;
 }
 
-const CategorySection = ({ defaultColor }: Props) => {
+const CategorySection = ({ options, defaultColor, selectedCategory, onCategoryClick }: Props) => {
   return (
     <Wrapper>
-      {CATEGORY_DUMMY.map((name) => (
-        <Chip label={name} key={name} color={defaultColor} />
+      {options.map((item) => (
+        <Chip
+          label={item.name}
+          key={item.id}
+          onClick={() => {
+            onCategoryClick(item);
+          }}
+          color={selectedCategory?.id === item.id ? 'black' : defaultColor}
+          icon={<Graphic type={item.emoji} />}
+        />
       ))}
     </Wrapper>
   );
 };
 
 export default CategorySection;
-
-const CATEGORY_DUMMY = ['물놀이', '디프만', '호캉스', '일상', '운동', '유럽여행'];
 
 const Wrapper = styled.div`
   display: flex;
