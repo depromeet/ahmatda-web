@@ -1,46 +1,34 @@
-import { cloneElement } from 'react';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import { m } from 'framer-motion';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import ContainedButton from '@/components/button/ContainedButton';
-import GraphicCamera from '@/components/graphic/GraphicCamera';
-import GraphicGym from '@/components/graphic/GraphicGym';
-import GraphicWork from '@/components/graphic/GraphicWork';
-import { GraphicProps } from '@/components/graphic/type';
+import Graphic from '@/components/graphic/Graphic';
 import Item from '@/components/item/Item';
 import ButtonSection from '@/components/route-onboard/ButtonSection';
 import TitleSection from '@/components/route-onboard/TitleSection';
 import { staggerOne } from '@/constants/motions';
+import { ONBOARD_CATEGORY } from '@/constants/route-onboard/onboardConstants';
+import { Category } from '@/hooks/api/category/type';
+import useDidMount from '@/hooks/life-cycle/useDidMount';
 import { post } from '@/lib/api';
 import userTokenState from '@/store/localStorage/userToken';
 import selectedOnboardCategory from '@/store/route-onboard/selectedOnboardCategory';
+import selectedOnboardItems from '@/store/route-onboard/selectedOnboardItems';
 import { WhiteBackgroundGlobalStyles } from '@/styles/GlobalStyles';
-
-const CATEGORY_DATA = [
-  {
-    value: 'DAILY',
-    label: '일상',
-    emjCode: <GraphicWork />,
-  },
-  {
-    value: 'EXERCISE',
-    label: '운동',
-    emjCode: <GraphicGym />,
-  },
-  {
-    value: 'TRAVEL',
-    label: '여행',
-    emjCode: <GraphicCamera />,
-  },
-];
 
 const Step1 = () => {
   const [selectedCategory, setSelectedCategory] = useRecoilState(selectedOnboardCategory);
+  const setSelectedItems = useSetRecoilState(selectedOnboardItems);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedCategory(e.target.value);
+  useDidMount(() => {
+    // step2에서 back시 선택된 소지품 초기화
+    setSelectedItems([]);
+  });
+
+  const onChange = (category: Category) => {
+    setSelectedCategory(category);
   };
 
   const onSubmit = (e: React.FormEvent) => {
@@ -86,17 +74,17 @@ const Step1 = () => {
 
         <form onSubmit={onSubmit}>
           <SelectSection variants={staggerOne} initial="initial" animate="animate" exit="exit">
-            {CATEGORY_DATA.map(({ value, label, emjCode }) => (
+            {ONBOARD_CATEGORY.map((category) => (
               <Item
-                key={value}
+                key={category.id}
                 type="radio"
                 name="category"
-                value={value}
-                label={label}
-                emjCode={cloneElement<GraphicProps>(emjCode, { isAct: value === selectedCategory })}
+                value={category.type}
+                label={category.name}
+                emjCode={<Graphic type={category.emoji} isAct={category.type === selectedCategory.type} />}
                 labelSize="large"
-                defaultChecked={value === selectedCategory}
-                onChange={(e) => onChange(e)}
+                defaultChecked={category.type === selectedCategory.type}
+                onChange={() => onChange(category)}
               />
             ))}
           </SelectSection>
