@@ -1,20 +1,51 @@
+import { cloneElement } from 'react';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import { m } from 'framer-motion';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import ContainedButton from '@/components/button/ContainedButton';
+import GraphicCamera from '@/components/graphic/GraphicCamera';
+import GraphicGym from '@/components/graphic/GraphicGym';
+import GraphicWork from '@/components/graphic/GraphicWork';
+import { GraphicProps } from '@/components/graphic/type';
 import Item from '@/components/item/Item';
 import ButtonSection from '@/components/route-onboard/ButtonSection';
 import TitleSection from '@/components/route-onboard/TitleSection';
 import { staggerOne } from '@/constants/motions';
 import { post } from '@/lib/api';
 import userTokenState from '@/store/localStorage/userToken';
+import selectedOnboardCategory from '@/store/route-onboard/selectedOnboardCategory';
 import { WhiteBackgroundGlobalStyles } from '@/styles/GlobalStyles';
 
+const CATEGORY_DATA = [
+  {
+    value: 'DAILY',
+    label: '일상',
+    emjCode: <GraphicWork />,
+  },
+  {
+    value: 'EXERCISE',
+    label: '운동',
+    emjCode: <GraphicGym />,
+  },
+  {
+    value: 'TRAVEL',
+    label: '여행',
+    emjCode: <GraphicCamera />,
+  },
+];
+
 const Step1 = () => {
+  const [selectedCategory, setSelectedCategory] = useRecoilState(selectedOnboardCategory);
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedCategory(e.target.value);
+  };
+
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    router.push('/onboard/step2');
   };
 
   // TODO: 온보딩 마지막 로직 개발 이후에 삭제 필요
@@ -55,17 +86,19 @@ const Step1 = () => {
 
         <form onSubmit={onSubmit}>
           <SelectSection variants={staggerOne} initial="initial" animate="animate" exit="exit">
-            <Item
-              type="radio"
-              name="category"
-              value="daily"
-              label="일상"
-              emjCode="&#x1F4BC;"
-              labelSize="large"
-              defaultChecked
-            />
-            <Item type="radio" name="category" value="exercise" label="운동" emjCode="&#x1F4AA;" labelSize="large" />
-            <Item type="radio" name="category" value="traval" label="여행" emjCode="&#x2708;" labelSize="large" />
+            {CATEGORY_DATA.map(({ value, label, emjCode }) => (
+              <Item
+                key={value}
+                type="radio"
+                name="category"
+                value={value}
+                label={label}
+                emjCode={cloneElement<GraphicProps>(emjCode, { isAct: value === selectedCategory })}
+                labelSize="large"
+                defaultChecked={value === selectedCategory}
+                onChange={(e) => onChange(e)}
+              />
+            ))}
           </SelectSection>
           <ButtonSection>
             <ContainedButton type="submit" size="large">
