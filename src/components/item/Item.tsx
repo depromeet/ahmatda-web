@@ -32,6 +32,7 @@ const ItemLabel = styled.label<ItemProps>(
     borderRadius: '8px',
   },
   ({ theme, labelSize }) => ({
+    color: theme.colors.gray4,
     backgroundColor: theme.colors.gray1,
 
     ...(labelSize === 'large' && {
