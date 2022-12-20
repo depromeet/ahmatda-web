@@ -11,5 +11,7 @@ export type ItemType = {
 };
 
 export type ItemsType = {
-  [index: string]: ItemType[];
+  DAILY: ItemType[];
+  TRAVEL: ItemType[];
+  EXERCISE: ItemType[];
 };
