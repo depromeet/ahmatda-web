@@ -11,18 +11,14 @@ import CategorySection from '@/components/route-home/category/CategorySection';
 import EmptyCard from '@/components/route-home/EmptyCard';
 import RecommendSection from '@/components/route-home/RecommendSection';
 import useGetUserTemplate from '@/hooks/api/template/useGetUserTemplate';
-import useGetFCMTokenFromApp from '@/hooks/pushAlarm/useGetFCMTokenFromApp';
 
 const HomePage: NextPageWithLayout = () => {
   const [carouselWrapper, setCarouselWrapper] = useState<HTMLDivElement | null>(null);
   const { data, isLoading } = useGetUserTemplate();
 
-  useGetFCMTokenFromApp();
-
   return (
     <>
       <CategorySection />
-
       <LoadingHandler fallback={<>loading...</>} isLoading={isLoading}>
         <Carousel.Wrapper ref={setCarouselWrapper}>
           {data?.map(({ id, templateName, items }) => (
