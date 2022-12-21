@@ -12,6 +12,7 @@ import { RecoilRoot } from 'recoil';
 import ToastWrapper from '@/components/portal/ToastWrapper';
 import RouteGuard from '@/components/route-guard/RouteGuard';
 import useTrackPageView from '@/hooks/analytics/useTrackPageView';
+import useGetFCMTokenFromApp from '@/hooks/pushAlarm/useGetFCMTokenFromApp';
 import GlobalStyles from '@/styles/GlobalStyles';
 import lightTheme from '@/styles/theme';
 
@@ -39,6 +40,7 @@ const MyApp = ({ Component: AppComponent, pageProps }: AppPropsWithLayout) => {
   );
 
   useTrackPageView();
+  useGetFCMTokenFromApp();
 
   return (
     <QueryClientProvider client={queryClient}>
