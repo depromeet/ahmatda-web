@@ -1,4 +1,4 @@
-export type LISTENLING_WEBVIEW_MESSAGE_KEY = 'foo' | 'bar';
+export type LISTENLING_WEBVIEW_MESSAGE_KEY = 'FCM_TOKEN';
 
 export type POST_WEBVIEW_MESSAGE_KEY = 'baz';
 
