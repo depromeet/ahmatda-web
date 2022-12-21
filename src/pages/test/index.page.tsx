@@ -208,16 +208,16 @@ const Test = () => {
         <Heading>item</Heading>
 
         <LargeDiv>
-          <Item type="radio" name="category" label="일상" emjCode="&#x1F4BC;" labelSize="large" defaultChecked />
-          <Item type="radio" name="category" label="운동" emjCode="&#x1F4AA;" labelSize="large" />
-          <Item type="radio" name="category" label="여행" emjCode="&#x2708;" labelSize="large" />
+          <Item type="radio" name="category" label="일상" emjCode={<GraphicWork />} labelSize="large" defaultChecked />
+          <Item type="radio" name="category" label="운동" emjCode={<GraphicWork />} labelSize="large" />
+          <Item type="radio" name="category" label="여행" emjCode={<GraphicWork />} labelSize="large" />
         </LargeDiv>
         <SmallDiv>
-          <Item type="checkbox" name="category" label="이어폰" emjCode="&#x1F3A7;" labelSize="small" />
-          <Item type="checkbox" name="category" label="노트북" emjCode="&#x1F4BB;" labelSize="small" />
-          <Item type="checkbox" name="category" label="충전기" emjCode="&#x1F50C;" labelSize="small" />
-          <Item type="checkbox" name="category" label="보조배터리" emjCode="&#x1F50B;" labelSize="small" />
-          <Item type="checkbox" name="category" label="시계" emjCode="&#x231A;" labelSize="small" />
+          <Item type="checkbox" name="category" label="이어폰" emjCode={<GraphicWork />} labelSize="small" />
+          <Item type="checkbox" name="category" label="노트북" emjCode={<GraphicWork />} labelSize="small" />
+          <Item type="checkbox" name="category" label="충전기" emjCode={<GraphicWork />} labelSize="small" />
+          <Item type="checkbox" name="category" label="보조배터리" emjCode={<GraphicWork />} labelSize="small" />
+          <Item type="checkbox" name="category" label="시계" emjCode={<GraphicWork />} labelSize="small" />
           <Item type="checkbox" name="category" label="이모지없는" labelSize="small" />
         </SmallDiv>
       </ItemBackground>

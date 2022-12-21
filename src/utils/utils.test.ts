@@ -1,4 +1,4 @@
-import { checkEmpty, checkNull, checkNumNull, convertToNumber, emptyAThenB, isIn, isProd } from './utils';
+import { checkEmpty, checkNull, checkNumNull, convertToNumber, emptyAThenB, isIn, isProd, objectKeys } from './utils';
 
 describe('checkNull', () => {
   context('value가 null일 경우', () => {
@@ -137,5 +137,15 @@ describe('isIn', () => {
 
       expect(result).toBeFalsy();
     });
+  });
+});
+
+describe('objectKeys', () => {
+  it('Object의 key들을 반환해야 한다', () => {
+    const obj = { foo: 'foo', bar: 'bar' };
+    const result = objectKeys(obj);
+
+    expect(result).toContain('foo');
+    expect(result).toContain('bar');
   });
 });

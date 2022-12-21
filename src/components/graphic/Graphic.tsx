@@ -3,7 +3,6 @@ import { createElement, FC } from 'react';
 import GraphicBowling from './GraphicBowling';
 import GraphicBus from './GraphicBus';
 import GraphicCamera from './GraphicCamera';
-import GraphicEmptyCard from './GraphicEmptyCard';
 import GraphicEtc from './GraphicEtc';
 import GraphicFriends from './GraphicFriends';
 import GraphicGym from './GraphicGym';
@@ -23,8 +22,6 @@ const graphicElement = (type: Graphic) => {
       return GraphicBus;
     case 'CAMERA':
       return GraphicCamera;
-    case 'EMPTYCARD':
-      return GraphicEmptyCard;
     case 'ETC':
       return GraphicEtc;
     case 'FRIENDS':

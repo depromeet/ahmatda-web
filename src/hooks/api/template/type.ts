@@ -18,7 +18,6 @@ export interface UserTemplate {
   items: UserItem[];
   pin: boolean;
 }
-
-export interface RecTemplate extends Pick<UserTemplate, 'id' | 'categoryId'> {
+export interface RecTemplate extends Pick<UserTemplate, 'id' | 'categoryId' | 'templateName'> {
   items: RecItem[];
 }

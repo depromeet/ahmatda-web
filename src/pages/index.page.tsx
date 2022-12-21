@@ -37,7 +37,6 @@ const HomePage: NextPageWithLayout = () => {
             <EmptyCard />
           </Carousel.Item>
         </Carousel.Wrapper>
-
         <Carousel.Indicator carouselWrapper={carouselWrapper} onIndexChange={onCarouselIndexChange} />
       </LoadingHandler>
 
