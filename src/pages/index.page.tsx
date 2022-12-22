@@ -1,4 +1,5 @@
 import { ReactElement, useState } from 'react';
+import { useRecoilState } from 'recoil';
 
 import { NextPageWithLayout } from './_app.page';
 
@@ -11,14 +12,31 @@ import CategorySection from '@/components/route-home/category/CategorySection';
 import EmptyCard from '@/components/route-home/EmptyCard';
 import RecommendSection from '@/components/route-home/RecommendSection';
 import useGetUserTemplate from '@/hooks/api/template/useGetUserTemplate';
+import useListeningAppMessage from '@/hooks/bridge/useListeningAppMessage';
+import fcmTokenState from '@/store/pushAlarm/fcmToken';
 
 const HomePage: NextPageWithLayout = () => {
   const [carouselWrapper, setCarouselWrapper] = useState<HTMLDivElement | null>(null);
   const { data, isLoading } = useGetUserTemplate();
 
+  const [fcmToken, setFcmToken] = useState<string>('no token');
+  const [globalFcmToken, setGlobalFcmToken] = useRecoilState(fcmTokenState);
+
+  useListeningAppMessage({
+    targetType: 'FCM_TOKEN',
+    handler: ({ data: token }) => {
+      // eslint-disable-next-line no-console
+      console.log('FCM token from app', token);
+      setFcmToken(token as string);
+      setGlobalFcmToken(token as string);
+    },
+  });
+
   return (
     <>
       <CategorySection />
+      <div>{`received token ➡️ ${fcmToken}`}</div>
+      <div>{`token in atom ➡️ ${globalFcmToken}`}</div>
       <LoadingHandler fallback={<>loading...</>} isLoading={isLoading}>
         <Carousel.Wrapper ref={setCarouselWrapper}>
           {data?.map(({ id, templateName, items }) => (

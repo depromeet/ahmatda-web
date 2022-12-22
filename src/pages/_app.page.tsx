@@ -12,7 +12,6 @@ import { RecoilRoot } from 'recoil';
 import ToastWrapper from '@/components/portal/ToastWrapper';
 import RouteGuard from '@/components/route-guard/RouteGuard';
 import useTrackPageView from '@/hooks/analytics/useTrackPageView';
-import useListeningAppMessage from '@/hooks/bridge/useListeningAppMessage';
 import GlobalStyles from '@/styles/GlobalStyles';
 import lightTheme from '@/styles/theme';
 
@@ -41,17 +40,6 @@ const MyApp = ({ Component: AppComponent, pageProps }: AppPropsWithLayout) => {
 
   useTrackPageView();
 
-  const [token, setToken] = useState<string>('no token');
-
-  useListeningAppMessage({
-    targetType: 'FCM_TOKEN',
-    handler: ({ data }) => {
-      // eslint-disable-next-line no-console
-      console.log('FCM token from app', data);
-      setToken(data as string);
-    },
-  });
-
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
@@ -61,7 +49,6 @@ const MyApp = ({ Component: AppComponent, pageProps }: AppPropsWithLayout) => {
               <DefaultLayout>
                 <Head />
                 <GlobalStyles />
-                {token}
                 <RouteGuard>{getLayout(<AppComponent {...pageProps} />)}</RouteGuard>
                 <ToastWrapper />
               </DefaultLayout>
