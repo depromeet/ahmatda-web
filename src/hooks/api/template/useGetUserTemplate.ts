@@ -8,13 +8,13 @@ import { UserTemplate } from './type';
 import { get } from '@/lib/api';
 import currentCategoryState from '@/store/route-home/currentCategory';
 
-interface Response {
+export interface Response {
   result: UserTemplate[];
 }
 
 const getUserTemplate = (categoryId: number) => get<Response>(`/template/user?category=${categoryId}`);
 
-const USER_TEMPLATE_QUERY_KEY = 'user_template';
+export const USER_TEMPLATE_QUERY_KEY = 'user_template';
 
 const useGetUserTemplate = () => {
   const currentCategory = useRecoilValue(currentCategoryState);
