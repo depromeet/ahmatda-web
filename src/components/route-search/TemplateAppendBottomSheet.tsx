@@ -1,77 +1,119 @@
-import { ComponentProps, useState } from 'react';
+import { ComponentProps, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
 
 import LabelButton from '../button/LabelButton';
 import IconAdd from '../icon/IconAdd';
+import LoadingHandler from '../loading/LoadingHandler';
 import AppBar from '../navigation/AppBar';
 import BottomSheet from '../portal/BottomSheet';
 
 import CategorySection from './CategorySection';
 
 import { Category } from '@/hooks/api/category/type';
+import useGetUserCategories from '@/hooks/api/category/useGetUserCategories';
+import { UserTemplate } from '@/hooks/api/template/type';
+import { get } from '@/lib/api';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
 const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
-  const initialState = {
-    categories: MOCK_USER_CATEGORIES.result[0],
-    templateId: null,
-  };
+  const { userCategories, isUserCategoriesLoading, selectedUserCategory, setSelectedUserCategory } =
+    useUserCategories();
 
-  const [selectedUserCategory, setSelectedUserCategory] = useState<Category>(initialState.categories);
-  const [selectedUserTemplateId, setSelectedUserTemplateId] = useState<number | null>(initialState.templateId);
-
-  const resetState = () => {
-    setSelectedUserCategory(initialState.categories);
-    setSelectedUserTemplateId(initialState.templateId);
-  };
+  const { userTemplates, isUserTemplatesLoading, selectedUserTemplate, setSelectedUserTemplate } =
+    useUserTemplates(selectedUserCategory);
 
   return (
-    <BottomSheet
-      isShowing={isShowing}
-      setToClose={() => {
-        setToClose();
-        resetState();
-      }}
-    >
-      <AppBar
-        backButtonType="cancel"
-        title="추가하기"
-        rightElement={<LabelButton size="large">완료</LabelButton>}
-        onClickBackButton={setToClose}
-      />
-      <div style={{ marginTop: 8 }}>
-        <CategorySection
-          defaultColor="gray"
-          options={MOCK_USER_CATEGORIES.result}
-          selectedCategory={selectedUserCategory}
-          onCategoryClick={(clickedCategory) => {
-            setSelectedUserCategory(clickedCategory);
-          }}
+    <LoadingHandler fallback={<>loading...</>} isLoading={isUserCategoriesLoading || isUserTemplatesLoading}>
+      <BottomSheet
+        isShowing={isShowing}
+        setToClose={() => {
+          setToClose();
+        }}
+      >
+        <AppBar
+          backButtonType="cancel"
+          title="추가하기"
+          rightElement={<LabelButton size="large">완료</LabelButton>}
+          onClickBackButton={setToClose}
         />
-      </div>
-      <List>
-        {MOCK_USER_TEMPLATES.result.map((item) => (
-          <ListItem
-            key={item.id}
-            onClick={() => {
-              setSelectedUserTemplateId(item.id);
+        <div style={{ marginTop: 8 }}>
+          <CategorySection
+            defaultColor="gray"
+            options={userCategories}
+            selectedCategory={selectedUserCategory}
+            onCategoryClick={(clickedCategoryId) => {
+              setSelectedUserCategory(clickedCategoryId);
             }}
-            selected={selectedUserTemplateId === item.id}
-          >
-            {item.templateName}
+          />
+        </div>
+        <List>
+          {userTemplates?.map((item) => (
+            <ListItem
+              key={item.id}
+              onClick={() => {
+                setSelectedUserTemplate(item);
+              }}
+              selected={selectedUserTemplate?.id === item.id}
+            >
+              {item.templateName}
+            </ListItem>
+          ))}
+          <ListItem newItem>
+            <IconAdd />
+            디프만 UT 준비물로 리스트 추가
           </ListItem>
-        ))}
-        <ListItem newItem>
-          <IconAdd />
-          디프만 UT 준비물로 리스트 추가
-        </ListItem>
-      </List>
-    </BottomSheet>
+        </List>
+      </BottomSheet>
+    </LoadingHandler>
   );
 };
 
 export default TemplateAppendBottomSheet;
+
+const useUserCategories = () => {
+  const [selectedUserCategory, setSelectedUserCategory] = useState<Category | null>(null);
+  const { data: userCategories, isLoading: isUserCategoriesLoading } = useGetUserCategories();
+
+  useEffect(() => {
+    if (!userCategories) {
+      return;
+    }
+    if (selectedUserCategory !== null) {
+      return;
+    }
+    setSelectedUserCategory(userCategories[0]);
+  }, [userCategories]);
+
+  return { userCategories, isUserCategoriesLoading, selectedUserCategory, setSelectedUserCategory };
+};
+
+const useGetUserTemplates = (selectedUserCategory: Category | null) => {
+  interface Response {
+    result: UserTemplate[];
+  }
+
+  const selectedUserCategoryId = selectedUserCategory?.id;
+
+  const getUserTemplate = () => get<Response>(`/template/user?category=${selectedUserCategoryId}`);
+  const USER_TEMPLATE_QUERY_KEY = 'search_tab_user_template';
+
+  const query = useQuery({
+    queryKey: [USER_TEMPLATE_QUERY_KEY, selectedUserCategory],
+    queryFn: () => getUserTemplate(),
+    enabled: Boolean(selectedUserCategoryId),
+  });
+
+  return { ...query, data: query.data?.result };
+};
+
+const useUserTemplates = (selectedUserCategory: Category | null) => {
+  const [selectedUserTemplate, setSelectedUserTemplate] = useState<UserTemplate | null>(null);
+  const { data: userTemplates, isLoading: isUserTemplatesLoading } = useGetUserTemplates(selectedUserCategory);
+
+  return { userTemplates, isUserTemplatesLoading, selectedUserTemplate, setSelectedUserTemplate };
+};
 
 const List = styled.ul`
   list-style: none;
@@ -102,42 +144,3 @@ const ListItem = styled('li')<ListItemProps>(
       backgroundColor: props.theme.colors.gray1,
     },
 );
-
-const MOCK_USER_CATEGORIES: {
-  result: Category[];
-  error: null;
-} = {
-  result: [
-    {
-      id: 1,
-      name: '일상',
-      type: 'DAILY',
-      emoji: 'PLANE',
-    },
-    {
-      id: 2,
-      name: '운동',
-      type: 'EXERCISE',
-      emoji: 'GYM',
-    },
-  ],
-  error: null,
-};
-
-const MOCK_USER_TEMPLATES = {
-  result: [
-    {
-      id: 100,
-      userToken: 'FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F0',
-      templateName: '일상에서 중요한거',
-      categoryId: 1,
-    },
-    {
-      id: 101,
-      userToken: 'FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F0',
-      templateName: '운동에서 중요한거',
-      categoryId: 1,
-    },
-  ],
-  error: null,
-};
