@@ -120,6 +120,7 @@ module.exports = {
       'warn',
       { html: 'ignore', exceptions: ['Button', 'AppComponent', 'Input', 'Svg'] },
     ],
+    'react/jsx-no-useless-fragment': ['error', { allowExpressions: true }],
     'import/order': 'off',
     'consistent-return': 'off',
     'jsx-a11y/label-has-associated-control': [

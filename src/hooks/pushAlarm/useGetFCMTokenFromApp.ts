@@ -2,17 +2,14 @@ import { useSetRecoilState } from 'recoil';
 
 import useListeningAppMessage from '../bridge/useListeningAppMessage';
 
-import fcmTokenState from '@/store/pushAlarm/fcmToken';
+import fcmTokenState from '@/store/push-notification/fcmToken';
 
 const useGetFCMTokenFromApp = () => {
-  const setFCMToken = useSetRecoilState(fcmTokenState);
-
+  const setFcmToken = useSetRecoilState(fcmTokenState);
   useListeningAppMessage({
     targetType: 'FCM_TOKEN',
     handler: ({ data }) => {
-      setFCMToken(data as string);
-      // eslint-disable-next-line no-console
-      console.log('FCM token from app', data);
+      setFcmToken(data as string);
     },
   });
 };
