@@ -34,7 +34,7 @@ const Template: NextPageWithLayout = () => {
         }}
       />
       <CardsWrapper>
-        {templates.map((templateInfo) => (
+        {templates?.map((templateInfo) => (
           <RecommendationTemplateCard
             key={`rec-template-${templateInfo.id}`}
             data={templateInfo}
@@ -90,6 +90,9 @@ const useRecCategories = () => {
   const query = useGetRecCategories();
 
   useEffect(() => {
+    if (!query.data) {
+      return;
+    }
     setCurrentRecCategory(query.data[0]);
   }, [query.data]);
 
