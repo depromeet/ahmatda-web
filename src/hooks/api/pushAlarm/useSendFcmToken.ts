@@ -3,17 +3,17 @@ import { useMutation } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
 
 import { post } from '@/lib/api';
-import fcmTokenState from '@/store/localStorage/fcmToken';
+import userTokenState from '@/store/localStorage/userToken';
+import fcmTokenState from '@/store/push-notification/fcmToken';
 
 interface sendFcmTokenRequest {
-  fcmToken: string;
+  fcmToken: string | null;
 }
 
 const useSendFcmToken = () => {
   const fcmToken = useRecoilValue(fcmTokenState);
-  if (!fcmToken) {
-    throw new Error('fcm token reception failed');
-  }
+  const userToken = useRecoilValue(userTokenState);
+
   const requestData: sendFcmTokenRequest = {
     fcmToken,
   };
@@ -25,8 +25,10 @@ const useSendFcmToken = () => {
   const { mutate } = sendCardItemMutation;
 
   useEffect(() => {
-    mutate();
-  }, [mutate]);
+    if (fcmToken && userToken) {
+      mutate();
+    }
+  }, [mutate, fcmToken, userToken]);
 };
 
 export default useSendFcmToken;

@@ -10,7 +10,6 @@ import Card from '@/components/route-home/Card';
 import CategorySection from '@/components/route-home/category/CategorySection';
 import EmptyCard from '@/components/route-home/EmptyCard';
 import RecommendSection from '@/components/route-home/RecommendSection';
-import useSendFcmToken from '@/hooks/api/pushAlarm/useSendFcmToken';
 import useGetUserTemplate from '@/hooks/api/template/useGetUserTemplate';
 import useCurrentUserTemplate from '@/hooks/route-home/useCurrentUserTemplate';
 
@@ -18,8 +17,6 @@ const HomePage: NextPageWithLayout = () => {
   const [carouselWrapper, setCarouselWrapper] = useState<HTMLDivElement | null>(null);
   const { data, isLoading } = useGetUserTemplate();
   const { onCarouselIndexChange } = useCurrentUserTemplate();
-
-  useSendFcmToken();
 
   return (
     <>
