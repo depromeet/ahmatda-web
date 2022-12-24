@@ -1,12 +1,14 @@
 import { render, screen } from '@testing-library/react';
 
+import GraphicWork from '../graphic/GraphicWork';
+
 import Item from './Item';
 
 import theme from '@/styles/theme';
 import MockTheme from '@/test/MockTheme';
 
 const ITEM_LABEL = 'label';
-const ITEM_EMOJI = '&#x1F4BC;';
+const ITEM_EMOJI = <GraphicWork />;
 
 describe('Item', () => {
   const renderItem = () =>
@@ -28,12 +30,12 @@ describe('Item', () => {
 
   describe('emjCode', () => {
     context('emjCode가 있으면', () => {
-      given('emjCode', () => ITEM_EMOJI);
+      given('emjCode', () => <div data-testid="item-emoji">{ITEM_EMOJI}</div>);
 
       it('이모지가 들어간다.', () => {
         renderItem();
 
-        expect(screen.getByTestId('item-emoji')).toBeInTheDocument();
+        expect(screen.queryByTestId('item-emoji')).toBeInTheDocument();
       });
     });
 

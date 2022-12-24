@@ -10,6 +10,7 @@ import { domMax, LazyMotion } from 'framer-motion';
 import { RecoilRoot } from 'recoil';
 
 import ToastWrapper from '@/components/portal/ToastWrapper';
+import FcmTokenHandler from '@/components/push-notification/FcmTokenHandler';
 import RouteGuard from '@/components/route-guard/RouteGuard';
 import useTrackPageView from '@/hooks/analytics/useTrackPageView';
 import GlobalStyles from '@/styles/GlobalStyles';
@@ -46,12 +47,14 @@ const MyApp = ({ Component: AppComponent, pageProps }: AppPropsWithLayout) => {
         <RecoilRoot>
           <ThemeProvider theme={lightTheme}>
             <LazyMotion features={domMax}>
-              <DefaultLayout>
-                <Head />
-                <GlobalStyles />
-                <RouteGuard>{getLayout(<AppComponent {...pageProps} />)}</RouteGuard>
-                <ToastWrapper />
-              </DefaultLayout>
+              <FcmTokenHandler>
+                <DefaultLayout>
+                  <Head />
+                  <GlobalStyles />
+                  <RouteGuard>{getLayout(<AppComponent {...pageProps} />)}</RouteGuard>
+                  <ToastWrapper />
+                </DefaultLayout>
+              </FcmTokenHandler>
             </LazyMotion>
           </ThemeProvider>
         </RecoilRoot>

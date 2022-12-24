@@ -13,6 +13,7 @@ import { UserTemplate } from '@/hooks/api/template/type';
 import useToggle from '@/hooks/common/useToggle';
 
 const ListSettingBottomSheet = dynamic(() => import('./ListSettingBottomSheet'));
+const CardItemAppendBottomSheet = dynamic(() => import('./CardItemAppendBottomSheet'));
 
 export interface Props extends UserTemplate {
   alarmCycle: string;
@@ -20,6 +21,7 @@ export interface Props extends UserTemplate {
 
 const Card = ({ id, templateName, alarmCycle, items, pin }: Props) => {
   const [isListSettingShowing, _, toggleListSettingShowing] = useToggle(false);
+  const [isCardItemAppendShowing, __, toggleCardItemAppendShowing] = useToggle(false);
 
   return (
     <>
@@ -31,7 +33,7 @@ const Card = ({ id, templateName, alarmCycle, items, pin }: Props) => {
         </PinButton>
 
         <ItemWrapper>
-          <LabelButton size="large" withIcon>
+          <LabelButton size="large" withIcon onClick={toggleCardItemAppendShowing}>
             <IconAdd />
             추가하기
           </LabelButton>
@@ -58,6 +60,7 @@ const Card = ({ id, templateName, alarmCycle, items, pin }: Props) => {
         setToClose={toggleListSettingShowing}
         isShowing={isListSettingShowing}
       />
+      <CardItemAppendBottomSheet setToClose={toggleCardItemAppendShowing} isShowing={isCardItemAppendShowing} />
     </>
   );
 };

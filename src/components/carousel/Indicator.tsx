@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import throttle from 'lodash/throttle';
 
+import useDidUpdate from '@/hooks/life-cycle/useDidUpdate';
+
 interface Props {
   /**
    * # 이 컴포넌트는 단독으로 사용하지 못해요
@@ -17,13 +19,17 @@ interface Props {
    * ```
    */
   carouselWrapper: HTMLDivElement | null;
+  /**
+   * 스크롤을 통해 인덱스가 바뀔 때 실행되는 Callback 이에요.
+   */
+  onIndexChange?: (index: number) => void;
 }
 
-const Indicator = ({ carouselWrapper }: Props) => {
+const Indicator = ({ carouselWrapper, onIndexChange }: Props) => {
   const childrenLength = carouselWrapper ? carouselWrapper.childNodes.length : 0;
   const childrenIds = useMemo(() => Array.from(Array(childrenLength).keys()), [childrenLength]);
 
-  const { currentIndex } = useIndicator({ carouselWrapper });
+  const { currentIndex } = useIndicator({ carouselWrapper, onIndexChange });
 
   return (
     <Wrapper>
@@ -55,7 +61,7 @@ const Dot = styled.span<{ isSelected: boolean }>(
 
 export default Indicator;
 
-const useIndicator = ({ carouselWrapper }: Pick<Props, 'carouselWrapper'>) => {
+const useIndicator = ({ carouselWrapper, onIndexChange }: Pick<Props, 'carouselWrapper' | 'onIndexChange'>) => {
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
 
   const throttledOnScroll = useMemo(
@@ -68,6 +74,11 @@ const useIndicator = ({ carouselWrapper }: Pick<Props, 'carouselWrapper'>) => {
       }, 300),
     [carouselWrapper],
   );
+
+  useDidUpdate(() => {
+    if (currentIndex === null) return;
+    onIndexChange?.(currentIndex);
+  }, [currentIndex]);
 
   useEffect(() => {
     if (!carouselWrapper) return;

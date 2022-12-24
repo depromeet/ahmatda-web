@@ -1,21 +1,21 @@
 import styled from '@emotion/styled';
 import { m } from 'framer-motion';
 
-import { defaultFadeInVariants } from '@/constants/motions';
+import { defaultFadeInUpVariants } from '@/constants/motions';
 
 interface ItemProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: 'radio' | 'checkbox';
   label?: string;
-  emjCode?: string;
+  emjCode?: React.ReactElement;
   labelSize?: 'small' | 'large';
 }
 
 const Item = ({ type = 'checkbox', label, emjCode, labelSize = 'small', ...rest }: ItemProps) => {
   return (
-    <m.div variants={defaultFadeInVariants}>
+    <m.div variants={defaultFadeInUpVariants}>
       <ItemInput type={type} id={label} emjCode={emjCode} {...rest} data-testid="item-input" />
       <ItemLabel htmlFor={label} labelSize={labelSize} data-testid="item-label">
-        {emjCode && <span data-testid="item-emoji">{emjCode}</span>}
+        {emjCode && emjCode}
         <LabelText>{label}</LabelText>
       </ItemLabel>
     </m.div>
@@ -26,11 +26,13 @@ export default Item;
 
 const ItemLabel = styled.label<ItemProps>(
   {
-    display: 'inline-block',
+    display: 'inline-flex',
+    alignItems: 'center',
     padding: '8px 16px',
     borderRadius: '8px',
   },
   ({ theme, labelSize }) => ({
+    color: theme.colors.gray4,
     backgroundColor: theme.colors.gray1,
 
     ...(labelSize === 'large' && {
@@ -55,6 +57,7 @@ const ItemInput = styled.input<ItemProps>(
     '&:checked + label': {
       color: theme.colors.white,
       backgroundColor: emjCode ? theme.colors.black : theme.colors.gray4,
+      transition: '0.3s',
     },
   }),
 );

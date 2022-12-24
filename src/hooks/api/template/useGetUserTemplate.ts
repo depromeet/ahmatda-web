@@ -8,7 +8,7 @@ import { UserTemplate } from './type';
 import { get } from '@/lib/api';
 import currentCategoryState from '@/store/route-home/currentCategory';
 
-interface Response {
+export interface Response {
   result: UserTemplate[];
 }
 

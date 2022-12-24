@@ -1,20 +1,39 @@
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import { m } from 'framer-motion';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import ContainedButton from '@/components/button/ContainedButton';
+import Graphic from '@/components/graphic/Graphic';
 import Item from '@/components/item/Item';
 import ButtonSection from '@/components/route-onboard/ButtonSection';
 import TitleSection from '@/components/route-onboard/TitleSection';
 import { staggerOne } from '@/constants/motions';
+import { ONBOARD_CATEGORY } from '@/constants/route-onboard/onboardConstants';
+import { Category } from '@/hooks/api/category/type';
+import useDidMount from '@/hooks/life-cycle/useDidMount';
 import { post } from '@/lib/api';
 import userTokenState from '@/store/localStorage/userToken';
+import selectedOnboardCategory from '@/store/route-onboard/selectedOnboardCategory';
+import selectedOnboardItems from '@/store/route-onboard/selectedOnboardItems';
 import { WhiteBackgroundGlobalStyles } from '@/styles/GlobalStyles';
 
 const Step1 = () => {
+  const [selectedCategory, setSelectedCategory] = useRecoilState(selectedOnboardCategory);
+  const setSelectedItems = useSetRecoilState(selectedOnboardItems);
+
+  useDidMount(() => {
+    // step2에서 back시 선택된 소지품 초기화
+    setSelectedItems([]);
+  });
+
+  const onChange = (category: Category) => {
+    setSelectedCategory(category);
+  };
+
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    router.push('/onboard/step2');
   };
 
   // TODO: 온보딩 마지막 로직 개발 이후에 삭제 필요
@@ -55,17 +74,19 @@ const Step1 = () => {
 
         <form onSubmit={onSubmit}>
           <SelectSection variants={staggerOne} initial="initial" animate="animate" exit="exit">
-            <Item
-              type="radio"
-              name="category"
-              value="daily"
-              label="일상"
-              emjCode="&#x1F4BC;"
-              labelSize="large"
-              defaultChecked
-            />
-            <Item type="radio" name="category" value="exercise" label="운동" emjCode="&#x1F4AA;" labelSize="large" />
-            <Item type="radio" name="category" value="traval" label="여행" emjCode="&#x2708;" labelSize="large" />
+            {ONBOARD_CATEGORY.map((category) => (
+              <Item
+                key={category.id}
+                type="radio"
+                name="category"
+                value={category.type}
+                label={category.name}
+                emjCode={<Graphic type={category.emoji} isAct={category.type === selectedCategory.type} />}
+                labelSize="large"
+                defaultChecked={category.type === selectedCategory.type}
+                onChange={() => onChange(category)}
+              />
+            ))}
           </SelectSection>
           <ButtonSection>
             <ContainedButton type="submit" size="large">

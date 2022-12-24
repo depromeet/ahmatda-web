@@ -1,4 +1,5 @@
 import { ReactElement, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
 import { NextPageWithLayout } from './_app.page';
 
@@ -11,15 +12,31 @@ import CategorySection from '@/components/route-home/category/CategorySection';
 import EmptyCard from '@/components/route-home/EmptyCard';
 import RecommendSection from '@/components/route-home/RecommendSection';
 import useGetUserTemplate from '@/hooks/api/template/useGetUserTemplate';
+import useCurrentUserTemplate from '@/hooks/route-home/useCurrentUserTemplate';
+import { get } from '@/lib/api';
+import fcmTokenState from '@/store/push-notification/fcmToken';
 
 const HomePage: NextPageWithLayout = () => {
   const [carouselWrapper, setCarouselWrapper] = useState<HTMLDivElement | null>(null);
-
   const { data, isLoading } = useGetUserTemplate();
+  const { onCarouselIndexChange } = useCurrentUserTemplate();
+  const fcmToken = useRecoilValue(fcmTokenState);
+
+  const sendFcmToken = () => {
+    get(`/alarm?token=${fcmToken}`);
+  };
 
   return (
     <>
       <CategorySection />
+      <button
+        type="button"
+        onClick={() => {
+          sendFcmToken();
+        }}
+      >
+        FCM 토큰 전송 🧚‍♀️
+      </button>
 
       <LoadingHandler fallback={<>loading...</>} isLoading={isLoading}>
         <Carousel.Wrapper ref={setCarouselWrapper}>
@@ -43,7 +60,7 @@ const HomePage: NextPageWithLayout = () => {
           </Carousel.Item>
         </Carousel.Wrapper>
 
-        <Carousel.Indicator carouselWrapper={carouselWrapper} />
+        <Carousel.Indicator carouselWrapper={carouselWrapper} onIndexChange={onCarouselIndexChange} />
       </LoadingHandler>
 
       <RecommendSection />

@@ -101,7 +101,7 @@ const Option = styled('li')<OptionProps>(
       border: 0,
     },
   },
-  ({ theme }) => ({ ...theme.typographies.body1, ...theme.divider }),
+  ({ theme }) => ({ ...theme.typographies.body1, ...theme.divider, color: theme.colors.gray6 }),
   (props) => props.isDeleteOption && { color: props.theme.colors.danger },
 );
 
