@@ -37,12 +37,21 @@ const HomePage: NextPageWithLayout = () => {
       >
         FCM 토큰 전송 🧚‍♀️
       </button>
+
       <LoadingHandler fallback={<>loading...</>} isLoading={isLoading}>
         <Carousel.Wrapper ref={setCarouselWrapper}>
-          {data?.map(({ id, templateName, items }) => (
-            <Carousel.Item key={id}>
+          {data?.map((userTemplate) => (
+            <Carousel.Item key={userTemplate.id}>
               {/* TODO: 알림 관련 API 수정 이후 대응 */}
-              <Card id={id} title={templateName} alarmCycle="매주 화 오후 6:00" items={items} />
+              <Card
+                id={userTemplate.id}
+                templateName={userTemplate.templateName}
+                alarmCycle="매주 화 오후 6:00"
+                items={userTemplate.items}
+                userToken={userTemplate.userToken}
+                categoryId={userTemplate.categoryId}
+                pin={userTemplate.pin}
+              />
             </Carousel.Item>
           ))}
 
@@ -50,6 +59,7 @@ const HomePage: NextPageWithLayout = () => {
             <EmptyCard />
           </Carousel.Item>
         </Carousel.Wrapper>
+
         <Carousel.Indicator carouselWrapper={carouselWrapper} onIndexChange={onCarouselIndexChange} />
       </LoadingHandler>
 
