@@ -39,7 +39,7 @@ const Card = ({ id, templateName, alarmCycle, items, pin }: Props) => {
           </LabelButton>
 
           {items.map((item) => (
-            <CardItem key={item.id} id={item.id} take={item.take} important={item.important} name={item.name} />
+            <CardItem key={item.id} itemId={item.id} take={item.take} important={item.important} name={item.name} />
           ))}
         </ItemWrapper>
 
