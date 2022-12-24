@@ -1,6 +1,7 @@
 import { ComponentProps, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
+import { useRecoilValue } from 'recoil';
 
 import LabelButton from '../button/LabelButton';
 import IconAdd from '../icon/IconAdd';
@@ -14,6 +15,8 @@ import { Category } from '@/hooks/api/category/type';
 import useGetUserCategories from '@/hooks/api/category/useGetUserCategories';
 import { UserTemplate } from '@/hooks/api/template/type';
 import { get } from '@/lib/api';
+import currentRecCategoryState from '@/store/route-search/currentRecCategory';
+import selectedRecTemplateState from '@/store/route-search/selectedRecTemplate';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
@@ -23,6 +26,9 @@ const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
 
   const { userTemplates, isUserTemplatesLoading, selectedUserTemplate, setSelectedUserTemplate } =
     useUserTemplates(selectedUserCategory);
+
+  const currentRecCategory = useRecoilValue(currentRecCategoryState);
+  const selectedRecTemplate = useRecoilValue(selectedRecTemplateState);
 
   return (
     <LoadingHandler fallback={<>loading...</>} isLoading={isUserCategoriesLoading || isUserTemplatesLoading}>
@@ -41,7 +47,7 @@ const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
         <div style={{ marginTop: 8 }}>
           <CategorySection
             defaultColor="gray"
-            options={userCategories}
+            options={userCategories?.concat(currentRecCategory!)}
             selectedCategory={selectedUserCategory}
             onCategoryClick={(clickedCategoryId) => {
               setSelectedUserCategory(clickedCategoryId);
@@ -62,7 +68,9 @@ const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
           ))}
           <ListItem newItem>
             <IconAdd />
-            디프만 UT 준비물로 리스트 추가
+            {'{{'}
+            {selectedRecTemplate?.templateName}
+            {'}}'}로 리스트 추가
           </ListItem>
         </List>
       </BottomSheet>

@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { RecTemplate } from './type';
 
 import { get } from '@/lib/api';
-import { currentRecCategoryInfo } from '@/store/route-search/currentRecCategory';
+import currentRecCategoryState from '@/store/route-search/currentRecCategory';
 
 interface Response {
   result: RecTemplate[];
@@ -15,7 +15,8 @@ const getRecTemplates = (categoryId?: number) => get<Response>(`/recommend/templ
 const REC_TEMPLATES_QUERY_KEY = 'rec_templates';
 
 const useGetRecTemplates = () => {
-  const { currentRecCategoryId } = useRecoilValue(currentRecCategoryInfo);
+  const currentRecCategory = useRecoilValue(currentRecCategoryState);
+  const currentRecCategoryId = currentRecCategory?.id;
   const query = useQuery({
     queryKey: [REC_TEMPLATES_QUERY_KEY, currentRecCategoryId],
     queryFn: () => getRecTemplates(currentRecCategoryId),
