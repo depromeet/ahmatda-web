@@ -39,8 +39,6 @@ const TemplateItemSettingBottomSheet = ({ isShowing, setToClose, itemId, name, i
   };
 
   const onClickDelete = () => {
-    console.log(itemId);
-
     deleteCardItemMutation.mutate(
       { itemId },
       {
