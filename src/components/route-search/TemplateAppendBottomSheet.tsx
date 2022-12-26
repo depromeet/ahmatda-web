@@ -18,7 +18,7 @@ import useAppendToMyTemplate from '@/hooks/api/template/useAppendToMyTemplate';
 import { get } from '@/lib/api';
 import selectedCategoryState from '@/store/route-search/bottomSheet/selectedCategory';
 import selectedTemplateState from '@/store/route-search/bottomSheet/selectedTemplate';
-import currentRecCategoryState from '@/store/route-search/currentRecCategory';
+import { currentRecCategoryWithFlag } from '@/store/route-search/currentRecCategory';
 import selectedRecTemplateState from '@/store/route-search/selectedRecTemplate';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
@@ -30,7 +30,7 @@ const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
   const { userCategories, isUserCategoriesLoading } = useUserCategories();
   const { userTemplates, isUserTemplatesLoading } = useUserTemplates(selectedCategory);
 
-  const currentRecCategory = useRecoilValue(currentRecCategoryState);
+  const currentRecCategory = useRecoilValue(currentRecCategoryWithFlag);
   const selectedRecTemplate = useRecoilValue(selectedRecTemplateState);
 
   useEffect(() => {
@@ -68,10 +68,11 @@ const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
         <div style={{ marginTop: 8 }}>
           <CategorySection
             defaultColor="gray"
-            options={userCategories?.concat(currentRecCategory!)}
+            options={userCategories?.concat(currentRecCategory)}
             selectedCategory={selectedCategory}
             onCategoryClick={(clickedCategory) => {
               setSelectedCategory(clickedCategory);
+              setSelectedTemplate(null);
             }}
           />
         </div>
@@ -87,7 +88,13 @@ const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
               {item.templateName}
             </ListItem>
           ))}
-          <ListItem newItem>
+          <ListItem
+            newItem
+            onClick={() => {
+              setSelectedTemplate(selectedRecTemplate);
+            }}
+            selected={Boolean(selectedTemplate && !('userToken' in selectedTemplate))}
+          >
             <IconAdd />
             {'{{'}
             {selectedRecTemplate?.templateName}
@@ -106,20 +113,23 @@ const useUserCategories = () => {
   return { userCategories, isUserCategoriesLoading };
 };
 
-const useGetUserTemplates = (selectedUserCategory: Category | null) => {
+const useGetUserTemplates = (selectedCategory: Category | null) => {
   interface Response {
     result: UserTemplate[];
   }
 
-  const selectedUserCategoryId = selectedUserCategory?.id;
-
-  const getUserTemplate = () => get<Response>(`/template/user?category=${selectedUserCategoryId}`);
+  const getUserTemplate = () => {
+    if (selectedCategory?.isRecCategory) {
+      return;
+    }
+    return get<Response>(`/template/user?category=${selectedCategory?.id}`);
+  };
   const USER_TEMPLATE_QUERY_KEY = 'search_tab_user_template';
 
   const query = useQuery({
-    queryKey: [USER_TEMPLATE_QUERY_KEY, selectedUserCategory],
+    queryKey: [USER_TEMPLATE_QUERY_KEY, selectedCategory],
     queryFn: () => getUserTemplate(),
-    enabled: Boolean(selectedUserCategoryId),
+    enabled: Boolean(selectedCategory?.id),
   });
 
   return { ...query, data: query.data?.result };

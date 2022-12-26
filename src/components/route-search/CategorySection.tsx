@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 
 import Chip from '../chip/Chip';
 import Graphic from '../graphic/Graphic';
+import IconAdd from '../icon/IconAdd';
 
 import { Category } from '@/hooks/api/category/type';
 
@@ -24,7 +25,7 @@ const CategorySection = ({ options, defaultColor, selectedCategory, onCategoryCl
             onCategoryClick(item);
           }}
           color={selectedCategory?.id === item.id ? 'black' : defaultColor}
-          icon={<Graphic type={item.emoji} />}
+          icon={item.isRecCategory ? <IconAdd /> : <Graphic type={item.emoji} />}
         />
       ))}
     </Wrapper>

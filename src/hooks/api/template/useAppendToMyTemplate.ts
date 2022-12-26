@@ -95,7 +95,11 @@ const recTemplateToNewCategoryData = (
 
   return {
     createAllRequest: {
-      categoryRequest: selectedCategory,
+      categoryRequest: {
+        name: selectedCategory.name,
+        type: selectedCategory.type,
+        emoji: selectedCategory.emoji,
+      },
       createTemplateRequest: {
         templateName: selectedTemplate.templateName,
         items: selectedItems,
