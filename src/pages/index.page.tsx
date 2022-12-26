@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { NextPageWithLayout } from './_app.page';
 
 import Carousel from '@/components/carousel/Carousel';
+import FixedSpinner from '@/components/loading/FixedSpinner';
 import LoadingHandler from '@/components/loading/LoadingHandler';
 import BottomNavigation from '@/components/navigation/BottomNavigation';
 import DefaultAppBar from '@/components/navigation/DefaultAppBar';
@@ -38,7 +39,7 @@ const HomePage: NextPageWithLayout = () => {
         FCM 토큰 전송 🧚‍♀️
       </button>
 
-      <LoadingHandler fallback={<>loading...</>} isLoading={isLoading}>
+      <LoadingHandler fallback={<FixedSpinner />} isLoading={isLoading}>
         <Carousel.Wrapper ref={setCarouselWrapper}>
           {data?.map((userTemplate) => (
             <Carousel.Item key={userTemplate.id}>
