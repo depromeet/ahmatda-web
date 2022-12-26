@@ -10,10 +10,14 @@ import useToggle from '@/hooks/common/useToggle';
 
 const CardItemSettingBottomSheet = dynamic(() => import('./CardItemSettingBottomSheet'));
 
-// TODO: interface 선언 위치 변경 후 대응
-type Props = Pick<UserItem, 'id' | 'name' | 'take' | 'important'>;
+interface Props {
+  itemId: UserItem['id'];
+  name: UserItem['name'];
+  take: UserItem['take'];
+  important: UserItem['important'];
+}
 
-const CardItem = ({ name, take, important }: Props) => {
+const CardItem = ({ name, take, important, itemId }: Props) => {
   const id = useId();
   // TODO: API 대응
   const [isCurrentChecked, _, toggleCurrentChecked] = useToggle(take);
@@ -38,7 +42,13 @@ const CardItem = ({ name, take, important }: Props) => {
         </NameButton>
       </Wrapper>
 
-      <CardItemSettingBottomSheet setToClose={toggleIsCardItemSettingShowing} isShowing={isCardItemSettingShowing} />
+      <CardItemSettingBottomSheet
+        itemId={itemId}
+        name={name}
+        important={important}
+        setToClose={toggleIsCardItemSettingShowing}
+        isShowing={isCardItemSettingShowing}
+      />
     </>
   );
 };
