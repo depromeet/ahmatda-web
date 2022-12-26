@@ -8,7 +8,7 @@ import { Category } from '@/hooks/api/category/type';
 
 interface Props {
   defaultColor?: 'gray';
-  options: Category[];
+  options?: Category[];
   selectedCategory: Category | null;
   onCategoryClick: (selectedCategory: Category) => void;
 }
@@ -16,7 +16,7 @@ interface Props {
 const CategorySection = ({ options, defaultColor, selectedCategory, onCategoryClick }: Props) => {
   return (
     <Wrapper>
-      {options.map((item) => (
+      {options?.map((item) => (
         <Chip
           label={item.name}
           key={item.id}

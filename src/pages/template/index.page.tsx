@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { NextPageWithLayout } from '../_app.page';
 
@@ -13,11 +13,15 @@ import TemplateAppendBottomSheet from '@/components/route-search/TemplateAppendB
 import useGetRecCategories from '@/hooks/api/category/useGetRecCategories';
 import useGetRecTemplates from '@/hooks/api/template/useGetRecTemplates';
 import currentRecCategoryState from '@/store/route-search/currentRecCategory';
+import selectedRecTemplateState from '@/store/route-search/selectedRecTemplate';
 
 const Template: NextPageWithLayout = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+
   const { data: categories, currentRecCategory, setCurrentRecCategory } = useRecCategories();
+
   const { data: templates } = useGetRecTemplates();
+  const setSelectedRecTemplate = useSetRecoilState(selectedRecTemplateState);
 
   return (
     <Wrapper>
@@ -34,12 +38,13 @@ const Template: NextPageWithLayout = () => {
         }}
       />
       <CardsWrapper>
-        {templates.map((templateInfo) => (
+        {templates?.map((templateInfo) => (
           <RecommendationTemplateCard
             key={`rec-template-${templateInfo.id}`}
             data={templateInfo}
             submitBtnTitle="내 리스트에 추가하기"
             onSubmit={() => {
+              setSelectedRecTemplate(templateInfo);
               setIsBottomSheetOpen(true);
             }}
           />
@@ -90,7 +95,9 @@ const useRecCategories = () => {
   const query = useGetRecCategories();
 
   useEffect(() => {
-    setCurrentRecCategory(query.data[0]);
+    if (query.data && currentRecCategory === null) {
+      setCurrentRecCategory(query.data[0]);
+    }
   }, [query.data]);
 
   return { ...query, currentRecCategory, setCurrentRecCategory };
