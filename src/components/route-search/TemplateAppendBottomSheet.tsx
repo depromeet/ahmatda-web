@@ -58,7 +58,7 @@ const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
         backButtonType="cancel"
         title="추가하기"
         rightElement={
-          <LabelButton onClick={onComplete} size="large">
+          <LabelButton onClick={onComplete} disabled={!selectedCategory || !selectedTemplate} size="large">
             완료
           </LabelButton>
         }
