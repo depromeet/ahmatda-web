@@ -1,7 +1,7 @@
-import { ComponentProps, useEffect, useState } from 'react';
+import { ComponentProps, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import LabelButton from '../button/LabelButton';
 import IconAdd from '../icon/IconAdd';
@@ -14,43 +14,64 @@ import CategorySection from './CategorySection';
 import { Category } from '@/hooks/api/category/type';
 import useGetUserCategories from '@/hooks/api/category/useGetUserCategories';
 import { UserTemplate } from '@/hooks/api/template/type';
+import useAppendToMyTemplate from '@/hooks/api/template/useAppendToMyTemplate';
 import { get } from '@/lib/api';
+import selectedCategoryState from '@/store/route-search/bottomSheet/selectedCategory';
+import selectedTemplateState from '@/store/route-search/bottomSheet/selectedTemplate';
 import currentRecCategoryState from '@/store/route-search/currentRecCategory';
 import selectedRecTemplateState from '@/store/route-search/selectedRecTemplate';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
 const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
-  const { userCategories, isUserCategoriesLoading, selectedUserCategory, setSelectedUserCategory } =
-    useUserCategories();
+  const [selectedCategory, setSelectedCategory] = useRecoilState(selectedCategoryState);
+  const [selectedTemplate, setSelectedTemplate] = useRecoilState(selectedTemplateState);
 
-  const { userTemplates, isUserTemplatesLoading, selectedUserTemplate, setSelectedUserTemplate } =
-    useUserTemplates(selectedUserCategory);
+  const { userCategories, isUserCategoriesLoading } = useUserCategories();
+  const { userTemplates, isUserTemplatesLoading } = useUserTemplates(selectedCategory);
 
   const currentRecCategory = useRecoilValue(currentRecCategoryState);
   const selectedRecTemplate = useRecoilValue(selectedRecTemplateState);
 
+  useEffect(() => {
+    if (userCategories && selectedCategory === null) {
+      setSelectedCategory(userCategories[0]);
+    }
+  }, [userCategories]);
+
+  const { appendToMyTemplateMutation } = useAppendToMyTemplate();
+  const { mutate } = appendToMyTemplateMutation;
+
+  const onComplete = () => {
+    mutate();
+    setToClose();
+  };
+
   return (
-    <LoadingHandler fallback={<>loading...</>} isLoading={isUserCategoriesLoading || isUserTemplatesLoading}>
-      <BottomSheet
-        isShowing={isShowing}
-        setToClose={() => {
-          setToClose();
-        }}
-      >
-        <AppBar
-          backButtonType="cancel"
-          title="추가하기"
-          rightElement={<LabelButton size="large">완료</LabelButton>}
-          onClickBackButton={setToClose}
-        />
+    <BottomSheet
+      isShowing={isShowing}
+      setToClose={() => {
+        setToClose();
+      }}
+    >
+      <AppBar
+        backButtonType="cancel"
+        title="추가하기"
+        rightElement={
+          <LabelButton onClick={onComplete} size="large">
+            완료
+          </LabelButton>
+        }
+        onClickBackButton={setToClose}
+      />
+      <LoadingHandler fallback={<>loading...</>} isLoading={isUserCategoriesLoading || isUserTemplatesLoading}>
         <div style={{ marginTop: 8 }}>
           <CategorySection
             defaultColor="gray"
             options={userCategories?.concat(currentRecCategory!)}
-            selectedCategory={selectedUserCategory}
-            onCategoryClick={(clickedCategoryId) => {
-              setSelectedUserCategory(clickedCategoryId);
+            selectedCategory={selectedCategory}
+            onCategoryClick={(clickedCategory) => {
+              setSelectedCategory(clickedCategory);
             }}
           />
         </div>
@@ -59,9 +80,9 @@ const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
             <ListItem
               key={item.id}
               onClick={() => {
-                setSelectedUserTemplate(item);
+                setSelectedTemplate(item);
               }}
-              selected={selectedUserTemplate?.id === item.id}
+              selected={selectedTemplate?.id === item.id}
             >
               {item.templateName}
             </ListItem>
@@ -73,28 +94,16 @@ const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
             {'}}'}로 리스트 추가
           </ListItem>
         </List>
-      </BottomSheet>
-    </LoadingHandler>
+      </LoadingHandler>
+    </BottomSheet>
   );
 };
 
 export default TemplateAppendBottomSheet;
 
 const useUserCategories = () => {
-  const [selectedUserCategory, setSelectedUserCategory] = useState<Category | null>(null);
   const { data: userCategories, isLoading: isUserCategoriesLoading } = useGetUserCategories();
-
-  useEffect(() => {
-    if (!userCategories) {
-      return;
-    }
-    if (selectedUserCategory !== null) {
-      return;
-    }
-    setSelectedUserCategory(userCategories[0]);
-  }, [userCategories]);
-
-  return { userCategories, isUserCategoriesLoading, selectedUserCategory, setSelectedUserCategory };
+  return { userCategories, isUserCategoriesLoading };
 };
 
 const useGetUserTemplates = (selectedUserCategory: Category | null) => {
@@ -117,10 +126,8 @@ const useGetUserTemplates = (selectedUserCategory: Category | null) => {
 };
 
 const useUserTemplates = (selectedUserCategory: Category | null) => {
-  const [selectedUserTemplate, setSelectedUserTemplate] = useState<UserTemplate | null>(null);
   const { data: userTemplates, isLoading: isUserTemplatesLoading } = useGetUserTemplates(selectedUserCategory);
-
-  return { userTemplates, isUserTemplatesLoading, selectedUserTemplate, setSelectedUserTemplate };
+  return { userTemplates, isUserTemplatesLoading };
 };
 
 const List = styled.ul`
