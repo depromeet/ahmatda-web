@@ -1,16 +1,12 @@
 import styled from '@emotion/styled';
 
 import Checkbox from '@/components/checkbox/Checkbox';
-
-type Option = {
-  id: string;
-  name: string;
-};
+import { ItemType } from '@/constants/route-onboard/type';
 
 type CheckboxPropsWithoutSomething = Omit<React.ComponentProps<typeof Checkbox>, 'something'>;
 interface Props extends CheckboxPropsWithoutSomething {
   title: string;
-  options: Option[];
+  options: ItemType[];
 }
 
 const ListCard = ({ title, options, ...rest }: Props) => {
@@ -22,8 +18,8 @@ const ListCard = ({ title, options, ...rest }: Props) => {
       </StyledHeader>
       <Counter>{options.length}개</Counter>
       <ItemList>
-        {options.map(({ id, name }) => (
-          <ItemText key={id}>{name}</ItemText>
+        {options.map(({ name }) => (
+          <ItemText key={name}>{name}</ItemText>
         ))}
       </ItemList>
     </Wrapper>
