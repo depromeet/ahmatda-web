@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import { Category } from '../category/type';
 import { USER_CATEGORY_QUERY_KEY } from '../category/useGetUserCategories';
@@ -12,9 +12,9 @@ import selectedTemplateState from '@/store/route-search/bottomSheet/selectedTemp
 import selectedRecItemsState from '@/store/route-search/selectedRecItems';
 
 const useAppendToMyTemplate = () => {
-  const [selectedItems, setSelectedItems] = useRecoilState(selectedRecItemsState);
-  const [selectedCategory, setSelectedCategory] = useRecoilState(selectedCategoryState);
-  const [selectedTemplate, setSelectedTemplate] = useRecoilState(selectedTemplateState);
+  const selectedItems = useRecoilValue(selectedRecItemsState);
+  const selectedCategory = useRecoilValue(selectedCategoryState);
+  const selectedTemplate = useRecoilValue(selectedTemplateState);
 
   const queryClient = useQueryClient();
 
@@ -34,10 +34,7 @@ const useAppendToMyTemplate = () => {
 
   const appendToMyTemplateMutation = useMutation(appendToMyTemplate, {
     onSuccess: () => {
-      setSelectedCategory(null);
-      setSelectedTemplate(null);
-      setSelectedItems(null);
-      queryClient.resetQueries([USER_CATEGORY_QUERY_KEY]);
+      queryClient.invalidateQueries([USER_CATEGORY_QUERY_KEY]);
     },
   });
 

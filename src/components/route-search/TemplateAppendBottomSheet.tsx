@@ -37,23 +37,28 @@ const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
     if (userCategories && selectedCategory === null) {
       setSelectedCategory(userCategories[0]);
     }
-  }, [userCategories]);
+  }, [userCategories, isShowing]);
 
   const { appendToMyTemplateMutation } = useAppendToMyTemplate();
   const { mutate } = appendToMyTemplateMutation;
 
+  const resetBottomSheetState = () => {
+    setSelectedCategory(null);
+    setSelectedTemplate(null);
+  };
+
+  const onCloseBottomSheet = () => {
+    setToClose();
+    resetBottomSheetState();
+  };
+
   const onComplete = () => {
     mutate();
-    setToClose();
+    onCloseBottomSheet();
   };
 
   return (
-    <BottomSheet
-      isShowing={isShowing}
-      setToClose={() => {
-        setToClose();
-      }}
-    >
+    <BottomSheet isShowing={isShowing} setToClose={onCloseBottomSheet}>
       <AppBar
         backButtonType="cancel"
         title="추가하기"
@@ -62,7 +67,7 @@ const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
             완료
           </LabelButton>
         }
-        onClickBackButton={setToClose}
+        onClickBackButton={onCloseBottomSheet}
       />
       <LoadingHandler fallback={<>loading...</>} isLoading={isUserCategoriesLoading || isUserTemplatesLoading}>
         <div style={{ marginTop: 8 }}>
