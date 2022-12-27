@@ -1,49 +1,55 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import { m } from 'framer-motion';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import ContainedButton from '@/components/button/ContainedButton';
 import AppBar from '@/components/navigation/AppBar';
 import ButtonSection from '@/components/route-onboard/ButtonSection';
 import ListCard from '@/components/route-onboard/ListCard';
 import TitleSection from '@/components/route-onboard/TitleSection';
-import { mockCheckboxGroupOptions } from '@/fixtures/checkboxGroup.mock';
+import { ONBOARD_LISTCARD } from '@/constants/route-onboard/onboardConstants';
+import { ListCardType } from '@/constants/route-onboard/type';
+import selectedOnboardCategory from '@/store/route-onboard/selectedOnboardCategory';
+import selectedOnboardItems from '@/store/route-onboard/selectedOnboardItems';
+import selectedOnboardTemplate from '@/store/route-onboard/selectedOnboardTemplate';
 import { WhiteBackgroundGlobalStyles } from '@/styles/GlobalStyles';
-
-const LIST_CARD = {
-  daily: [
-    {
-      title: '출근할 때 필수품',
-      option: mockCheckboxGroupOptions,
-    },
-    {
-      title: '등교할 때 필수품',
-      option: mockCheckboxGroupOptions,
-    },
-  ],
-  exercise: [
-    {
-      title: '운동할 때 필수품',
-      option: mockCheckboxGroupOptions,
-    },
-  ],
-  travel: [
-    {
-      title: '여행갈 때 필수품',
-      option: mockCheckboxGroupOptions,
-    },
-  ],
-};
 
 const Step3 = () => {
   const router = useRouter();
 
-  const [checkStatus, setCheckStatus] = useState<boolean[]>(new Array(LIST_CARD.daily.length).fill(false));
+  const selectedCategory = useRecoilValue(selectedOnboardCategory);
+  const selectedItems = useRecoilValue(selectedOnboardItems);
+  const setSelectedTemplate = useSetRecoilState(selectedOnboardTemplate);
+
+  const [cardList, setCardList] = useState<ListCardType[]>(ONBOARD_LISTCARD[selectedCategory.type]);
+  const [checkStatus, setCheckStatus] = useState<boolean[]>(
+    new Array(ONBOARD_LISTCARD[selectedCategory.type].length).fill(false),
+  );
   const isCheckAny = checkStatus.indexOf(true) !== -1;
 
-  const toggleSingleCheckbox = (clikedIdx: number) => {
+  useEffect(() => {
+    // 중복 아이템 제거
+    const deduplicateArr = cardList.map((list) => {
+      return {
+        title: list.title,
+        option: [
+          ...list.option.filter((item) => {
+            return !selectedItems.some((other) => other.name === item.name);
+          }),
+          ...selectedItems,
+        ],
+      };
+    });
+    setCardList(deduplicateArr);
+  }, []);
+
+  const toggleSingleCheckbox = (e: React.ChangeEvent<HTMLInputElement>, clikedIdx: number, option: ListCardType) => {
     setCheckStatus((prev) => prev.map((checked, idx) => checkedOneOrNot(checked, clikedIdx, idx)));
+
+    if (e.target.checked) setSelectedTemplate(option);
+    else setSelectedTemplate(null);
   };
 
   // 템플릿은 하나만 선택하거나 or 모두 선택하지 않거나
@@ -54,6 +60,7 @@ const Step3 = () => {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    router.push('/onboard/step4');
   };
 
   return (
@@ -78,13 +85,13 @@ const Step3 = () => {
         />
         <form onSubmit={onSubmit}>
           <CardsWrapper>
-            {LIST_CARD.daily.map((list, idx) => (
+            {cardList.map((list, idx) => (
               <ListCard
                 key={list.title}
                 title={list.title}
                 options={list.option}
-                onToggle={() => {
-                  toggleSingleCheckbox(idx);
+                onToggle={(e) => {
+                  toggleSingleCheckbox(e, idx, list);
                 }}
                 checked={checkStatus[idx]}
               />
