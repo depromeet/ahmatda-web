@@ -12,7 +12,7 @@ interface Response {
 
 const getRecTemplates = (categoryId?: number) => get<Response>(`/recommend/templates?category=${categoryId}`);
 
-const REC_TEMPLATES_QUERY_KEY = 'rec_templates';
+export const REC_TEMPLATES_QUERY_KEY = 'rec_templates';
 
 const useGetRecTemplates = () => {
   const currentRecCategory = useRecoilValue(currentRecCategoryState);

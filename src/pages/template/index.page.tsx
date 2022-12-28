@@ -20,7 +20,7 @@ const Template: NextPageWithLayout = () => {
 
   const { data: categories, currentRecCategory, setCurrentRecCategory } = useRecCategories();
 
-  const { data: templates } = useGetRecTemplates();
+  const { data: templates, isRefetching: isRefetchingRecTemplates } = useGetRecTemplates();
   const setSelectedRecTemplate = useSetRecoilState(selectedRecTemplateState);
 
   return (
@@ -42,6 +42,7 @@ const Template: NextPageWithLayout = () => {
           <RecommendationTemplateCard
             key={`rec-template-${templateInfo.id}`}
             data={templateInfo}
+            isRefetchingTemplateData={isRefetchingRecTemplates}
             submitBtnTitle="내 리스트에 추가하기"
             onSubmit={() => {
               setSelectedRecTemplate(templateInfo);

@@ -1,6 +1,6 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import ContainedButton from '../button/ContainedButton';
 import Checkbox from '../checkbox/Checkbox';
@@ -14,9 +14,10 @@ export interface Props {
   data: RecTemplate;
   submitBtnTitle?: string;
   onSubmit?: VoidFunction;
+  isRefetchingTemplateData: boolean;
 }
 
-const RecommendationTemplateCard = ({ data, submitBtnTitle, onSubmit }: Props) => {
+const RecommendationTemplateCard = ({ data, submitBtnTitle, onSubmit, isRefetchingTemplateData }: Props) => {
   const { id: templateId, templateName, items } = data;
   const [checkedId, setCheckedId] = useState(new Set());
 
@@ -45,7 +46,11 @@ const RecommendationTemplateCard = ({ data, submitBtnTitle, onSubmit }: Props) =
     return items.filter(({ id }) => checkedId.has(id)).map(({ name }) => name);
   };
 
-  const setSelectedTemplate = useSetRecoilState(selectedRecTemplateState);
+  const resetCheckedId = () => {
+    setCheckedId(new Set());
+  };
+
+  const [selectedTemplate, setSelectedTemplate] = useRecoilState(selectedRecTemplateState);
   const setSelectedItems = useSetRecoilState(selectedRecItemsState);
 
   const onSubmitBtnClick = () => {
@@ -56,6 +61,12 @@ const RecommendationTemplateCard = ({ data, submitBtnTitle, onSubmit }: Props) =
     const checkedItemsNames = computeCheckedItemsNames();
     setSelectedItems(checkedItemsNames);
   };
+
+  useEffect(() => {
+    if (selectedTemplate?.id === templateId) {
+      resetCheckedId();
+    }
+  }, [isRefetchingTemplateData]);
 
   return (
     <Wrapper>

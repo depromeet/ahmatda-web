@@ -5,6 +5,7 @@ import { Category } from '../category/type';
 import { USER_CATEGORY_QUERY_KEY } from '../category/useGetUserCategories';
 
 import { RecTemplate, UserTemplate } from './type';
+import { REC_TEMPLATES_QUERY_KEY } from './useGetRecTemplates';
 
 import { post } from '@/lib/api';
 import selectedCategoryState from '@/store/route-search/bottomSheet/selectedCategory';
@@ -35,6 +36,7 @@ const useAppendToMyTemplate = () => {
   const appendToMyTemplateMutation = useMutation(appendToMyTemplate, {
     onSuccess: () => {
       queryClient.invalidateQueries([USER_CATEGORY_QUERY_KEY]);
+      queryClient.refetchQueries([REC_TEMPLATES_QUERY_KEY]);
     },
   });
 
