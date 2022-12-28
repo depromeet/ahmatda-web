@@ -46,6 +46,7 @@ const CardItem = ({ name, take, important, itemId }: Props) => {
         itemId={itemId}
         name={name}
         important={important}
+        take={take}
         setToClose={toggleIsCardItemSettingShowing}
         isShowing={isCardItemSettingShowing}
       />

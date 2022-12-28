@@ -11,6 +11,7 @@ import ToggleSwitch from '../toggle/ToggleSwitch';
 import { UserItem } from '@/hooks/api/template/type';
 import useCardItemMutation from '@/hooks/api/template/useCardItemMutation';
 import useInput from '@/hooks/common/useInput';
+import useToggle from '@/hooks/common/useToggle';
 
 type BottomSheetProps = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
@@ -18,23 +19,26 @@ interface Props extends BottomSheetProps {
   itemId: UserItem['id'];
   name: UserItem['name'];
   important: UserItem['important'];
+  take: UserItem['take'];
 }
 
-const TemplateItemSettingBottomSheet = ({ isShowing, setToClose, itemId, name, important }: Props) => {
+const TemplateItemSettingBottomSheet = ({ isShowing, setToClose, itemId, name, important, take }: Props) => {
   const {
     value: itemName,
     onChange: onChangeItemName,
     debouncedValue: debouncedItemName,
   } = useInput({ initialValue: name, useDebounce: true });
 
+  const [isImportant, _, toggleIsImportant] = useToggle(important);
+
   const [isDialogShowing, setIsDialogShowing] = useState(false);
 
   const isSubmitDisabled = debouncedItemName.length === 0 || debouncedItemName.length >= 30;
 
-  const { deleteCardItemMutation } = useCardItemMutation();
+  const { editCardItemMutation, deleteCardItemMutation } = useCardItemMutation();
 
   const handleTemplateItemSettingComplete = () => {
-    // TODO: 소지품 설정 완료 시 실행할 로직 추가
+    editCardItemMutation.mutate({ itemId, modifiedItemName: debouncedItemName, isTake: take, important: isImportant });
     setToClose();
   };
 
@@ -71,7 +75,7 @@ const TemplateItemSettingBottomSheet = ({ isShowing, setToClose, itemId, name, i
       <SettingOptionList>
         <Option>
           <span>중요 소지품</span>
-          <ToggleSwitch defaultChecked={important} />
+          <ToggleSwitch checked={isImportant} onChange={toggleIsImportant} />
         </Option>
         <Option
           isDeleteOption
