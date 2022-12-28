@@ -1,7 +1,7 @@
-import { ComponentProps, useEffect, useState } from 'react';
+import { ComponentProps, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import LabelButton from '../button/LabelButton';
 import IconAdd from '../icon/IconAdd';
@@ -14,43 +14,70 @@ import CategorySection from './CategorySection';
 import { Category } from '@/hooks/api/category/type';
 import useGetUserCategories from '@/hooks/api/category/useGetUserCategories';
 import { UserTemplate } from '@/hooks/api/template/type';
+import useAppendToMyTemplate from '@/hooks/api/template/useAppendToMyTemplate';
 import { get } from '@/lib/api';
-import currentRecCategoryState from '@/store/route-search/currentRecCategory';
+import selectedCategoryState from '@/store/route-search/bottomSheet/selectedCategory';
+import selectedTemplateState from '@/store/route-search/bottomSheet/selectedTemplate';
+import { currentRecCategoryWithFlag } from '@/store/route-search/currentRecCategory';
 import selectedRecTemplateState from '@/store/route-search/selectedRecTemplate';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
 const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
-  const { userCategories, isUserCategoriesLoading, selectedUserCategory, setSelectedUserCategory } =
-    useUserCategories();
+  const [selectedCategory, setSelectedCategory] = useRecoilState(selectedCategoryState);
+  const [selectedTemplate, setSelectedTemplate] = useRecoilState(selectedTemplateState);
 
-  const { userTemplates, isUserTemplatesLoading, selectedUserTemplate, setSelectedUserTemplate } =
-    useUserTemplates(selectedUserCategory);
+  const { userCategories, isUserCategoriesLoading } = useUserCategories();
+  const { userTemplates, isUserTemplatesLoading } = useUserTemplates(selectedCategory);
 
-  const currentRecCategory = useRecoilValue(currentRecCategoryState);
+  const currentRecCategory = useRecoilValue(currentRecCategoryWithFlag);
   const selectedRecTemplate = useRecoilValue(selectedRecTemplateState);
 
+  useEffect(() => {
+    if (userCategories && selectedCategory === null) {
+      setSelectedCategory(userCategories[0]);
+    }
+  }, [userCategories, isShowing]);
+
+  const { appendToMyTemplateMutation } = useAppendToMyTemplate();
+  const { mutate } = appendToMyTemplateMutation;
+
+  const resetBottomSheetState = () => {
+    setSelectedCategory(null);
+    setSelectedTemplate(null);
+  };
+
+  const onCloseBottomSheet = () => {
+    setToClose();
+    resetBottomSheetState();
+  };
+
+  const onComplete = () => {
+    mutate();
+    onCloseBottomSheet();
+  };
+
   return (
-    <LoadingHandler fallback={<>loading...</>} isLoading={isUserCategoriesLoading || isUserTemplatesLoading}>
-      <BottomSheet
-        isShowing={isShowing}
-        setToClose={() => {
-          setToClose();
-        }}
-      >
-        <AppBar
-          backButtonType="cancel"
-          title="추가하기"
-          rightElement={<LabelButton size="large">완료</LabelButton>}
-          onClickBackButton={setToClose}
-        />
+    <BottomSheet isShowing={isShowing} setToClose={onCloseBottomSheet}>
+      <AppBar
+        backButtonType="cancel"
+        title="추가하기"
+        rightElement={
+          <LabelButton onClick={onComplete} disabled={!selectedCategory || !selectedTemplate} size="large">
+            완료
+          </LabelButton>
+        }
+        onClickBackButton={onCloseBottomSheet}
+      />
+      <LoadingHandler fallback={<>loading...</>} isLoading={isUserCategoriesLoading || isUserTemplatesLoading}>
         <div style={{ marginTop: 8 }}>
           <CategorySection
             defaultColor="gray"
-            options={userCategories?.concat(currentRecCategory!)}
-            selectedCategory={selectedUserCategory}
-            onCategoryClick={(clickedCategoryId) => {
-              setSelectedUserCategory(clickedCategoryId);
+            options={userCategories?.concat(currentRecCategory)}
+            selectedCategory={selectedCategory}
+            onCategoryClick={(clickedCategory) => {
+              setSelectedCategory(clickedCategory);
+              setSelectedTemplate(null);
             }}
           />
         </div>
@@ -59,68 +86,63 @@ const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
             <ListItem
               key={item.id}
               onClick={() => {
-                setSelectedUserTemplate(item);
+                setSelectedTemplate(item);
               }}
-              selected={selectedUserTemplate?.id === item.id}
+              selected={selectedTemplate?.id === item.id}
             >
               {item.templateName}
             </ListItem>
           ))}
-          <ListItem newItem>
+          <ListItem
+            newItem
+            onClick={() => {
+              setSelectedTemplate(selectedRecTemplate);
+            }}
+            selected={Boolean(selectedTemplate && !('userToken' in selectedTemplate))}
+          >
             <IconAdd />
             {'{{'}
             {selectedRecTemplate?.templateName}
             {'}}'}로 리스트 추가
           </ListItem>
         </List>
-      </BottomSheet>
-    </LoadingHandler>
+      </LoadingHandler>
+    </BottomSheet>
   );
 };
 
 export default TemplateAppendBottomSheet;
 
 const useUserCategories = () => {
-  const [selectedUserCategory, setSelectedUserCategory] = useState<Category | null>(null);
   const { data: userCategories, isLoading: isUserCategoriesLoading } = useGetUserCategories();
-
-  useEffect(() => {
-    if (!userCategories) {
-      return;
-    }
-    if (selectedUserCategory !== null) {
-      return;
-    }
-    setSelectedUserCategory(userCategories[0]);
-  }, [userCategories]);
-
-  return { userCategories, isUserCategoriesLoading, selectedUserCategory, setSelectedUserCategory };
+  return { userCategories, isUserCategoriesLoading };
 };
 
-const useGetUserTemplates = (selectedUserCategory: Category | null) => {
+const useGetUserTemplates = (selectedCategory: Category | null) => {
   interface Response {
     result: UserTemplate[];
   }
 
-  const selectedUserCategoryId = selectedUserCategory?.id;
-
-  const getUserTemplate = () => get<Response>(`/template/user?category=${selectedUserCategoryId}`);
+  const getUserTemplate = () => {
+    if (selectedCategory?.isRecCategory) {
+      return;
+    }
+    return get<Response>(`/template/user?category=${selectedCategory?.id}`);
+  };
   const USER_TEMPLATE_QUERY_KEY = 'search_tab_user_template';
 
   const query = useQuery({
-    queryKey: [USER_TEMPLATE_QUERY_KEY, selectedUserCategory],
+    queryKey: [USER_TEMPLATE_QUERY_KEY, selectedCategory],
     queryFn: () => getUserTemplate(),
-    enabled: Boolean(selectedUserCategoryId),
+    enabled: Boolean(selectedCategory?.id),
   });
 
   return { ...query, data: query.data?.result };
 };
 
 const useUserTemplates = (selectedUserCategory: Category | null) => {
-  const [selectedUserTemplate, setSelectedUserTemplate] = useState<UserTemplate | null>(null);
   const { data: userTemplates, isLoading: isUserTemplatesLoading } = useGetUserTemplates(selectedUserCategory);
-
-  return { userTemplates, isUserTemplatesLoading, selectedUserTemplate, setSelectedUserTemplate };
+  return { userTemplates, isUserTemplatesLoading };
 };
 
 const List = styled.ul`

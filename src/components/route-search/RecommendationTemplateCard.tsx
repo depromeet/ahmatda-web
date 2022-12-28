@@ -78,7 +78,11 @@ const RecommendationTemplateCard = ({ data, submitBtnTitle, onSubmit }: Props) =
           </CheckboxWithText>
         ))}
       </CheckboxList>
-      {onSubmit && submitBtnTitle && <ContainedButton onClick={onSubmitBtnClick}>{submitBtnTitle}</ContainedButton>}
+      {onSubmit && submitBtnTitle && (
+        <ContainedButton onClick={onSubmitBtnClick} disabled={checkedId.size === 0}>
+          {submitBtnTitle}
+        </ContainedButton>
+      )}
     </Wrapper>
   );
 };

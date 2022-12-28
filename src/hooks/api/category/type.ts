@@ -5,6 +5,7 @@ export interface Category {
   name: string;
   type: CategoryKind;
   emoji: Graphic;
+  isRecCategory?: boolean;
 }
 
 export const CATEGORY_KIND = {
