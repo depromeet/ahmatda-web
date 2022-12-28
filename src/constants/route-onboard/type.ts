@@ -5,7 +5,6 @@ export type TitleType = {
 };
 
 export type ItemType = {
-  id: number;
   name: string;
   emoji: Graphic;
 };
@@ -14,4 +13,15 @@ export type ItemsType = {
   DAILY: ItemType[];
   TRAVEL: ItemType[];
   EXERCISE: ItemType[];
+};
+
+export type ListCardType = {
+  title: string;
+  option: ItemType[];
+};
+
+export type ListCardsType = {
+  DAILY: ListCardType[];
+  TRAVEL: ListCardType[];
+  EXERCISE: ListCardType[];
 };
