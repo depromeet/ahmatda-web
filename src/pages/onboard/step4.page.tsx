@@ -24,6 +24,9 @@ const defaultOptions = {
   },
 };
 
+const FIRST_DURATION = 3000;
+const SECOND_DURATION = 1500;
+
 const Step4 = () => {
   const router = useRouter();
 
@@ -42,7 +45,7 @@ const Step4 = () => {
         ? selectedTemplate.option.map((item) => item.name)
         : selectedItems.map((item) => item.name),
     });
-    const timer = setTimeout(() => setTemp(true), 3000);
+    const timer = setTimeout(() => setTemp(true), FIRST_DURATION);
 
     return () => {
       clearTimeout(timer);
@@ -51,7 +54,7 @@ const Step4 = () => {
 
   useEffect(() => {
     if (!temp) return;
-    const timer = setTimeout(() => router.push('/'), 1500);
+    const timer = setTimeout(() => router.replace('/'), SECOND_DURATION);
 
     return () => {
       clearTimeout(timer);
@@ -88,7 +91,7 @@ const Step4 = () => {
                       );
                     })}
                   {selectedTemplate.option.length > 5 && (
-                    <Item key="외n개" label={`외 ${selectedTemplate.option.length - 5}개`} labelSize="small" disabled />
+                    <Item label={`외 ${selectedTemplate.option.length - 5}개`} labelSize="small" disabled />
                   )}
                 </SelectedOption>
                 <SelectedOption variants={defaultFadeInUpVariants}>
@@ -112,7 +115,7 @@ const Step4 = () => {
                     );
                   })}
                 {selectedItems.length > 5 && (
-                  <Item key="외n개" label={`외 ${selectedItems.length - 5}개`} labelSize="small" disabled />
+                  <Item label={`외 ${selectedItems.length - 5}개`} labelSize="small" disabled />
                 )}
               </SelectedOption>
             )}
@@ -127,7 +130,7 @@ const Step4 = () => {
         )}
       </TextSection>
       <AnimationSection>
-        <Lottie options={defaultOptions} height={375} width={375} />
+        <Lottie options={defaultOptions} height={375} width={325} />
       </AnimationSection>
       <WhiteBackgroundGlobalStyles key={router.asPath} />
     </Wrapper>
@@ -165,7 +168,7 @@ const Text = styled.span`
 `;
 
 const AnimationSection = styled.div`
-  width: 375px;
+  width: 325px;
   height: 375px;
   margin-bottom: 50px;
 `;

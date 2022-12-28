@@ -16,7 +16,7 @@ interface UserOnboardingRequest {
 
 interface UserOnboardingResponse {
   result: string;
-  error: string;
+  error: string | null;
 }
 
 const useUserOnboardMutaion = () => {
