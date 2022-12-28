@@ -98,13 +98,9 @@ const Step3 = () => {
             ))}
           </CardsWrapper>
           <ButtonSection>
-            {isCheckAny ? (
-              <ContainedButton type="submit" size="large">
-                다음
-              </ContainedButton>
-            ) : (
-              <ContainedButton size="large">리스트가 없어도 괜찮아요</ContainedButton>
-            )}
+            <ContainedButton type="submit" size="large">
+              {isCheckAny ? '다음' : '리스트가 없어도 괜찮아요'}
+            </ContainedButton>
           </ButtonSection>
         </form>
       </Wrapper>
