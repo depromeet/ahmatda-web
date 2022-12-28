@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
 
-import { USER_TEMPLATE_QUERY_KEY } from './useGetUserTemplate';
+import { Response as UserTemplateResponse, USER_TEMPLATE_QUERY_KEY } from './useGetUserTemplate';
 
-import { del, post } from '@/lib/api';
+import { del, patch, post } from '@/lib/api';
 import currentCategoryState from '@/store/route-home/currentCategory';
 import currentUserTemplateState from '@/store/route-home/currentUserTemplate';
 
@@ -14,6 +14,17 @@ interface createCardItemProps {
 
 interface createCardItemRequest extends createCardItemProps {
   categoryId: number;
+  templateId: number;
+}
+
+interface editCardItemProps {
+  itemId: number;
+  modifiedItemName: string;
+  isTake: boolean;
+  important: boolean;
+}
+
+interface editCardItemRequest extends editCardItemProps {
   templateId: number;
 }
 
@@ -56,6 +67,49 @@ const useCardItemMutation = () => {
     },
   );
 
+  const editCardItemMutation = useMutation({
+    mutationFn: (editedCardItem: editCardItemProps) => {
+      if (!currentTemplate) throw new Error('');
+
+      const requestData: editCardItemRequest = {
+        ...editedCardItem,
+        templateId: currentTemplate.id,
+      };
+
+      return patch('/template/item', requestData);
+    },
+    onMutate: async (editedCardItem) => {
+      await queryClient.cancelQueries([USER_TEMPLATE_QUERY_KEY, currentCategory?.id]);
+
+      const prevUserTemplate = queryClient.getQueryData([USER_TEMPLATE_QUERY_KEY, currentCategory?.id]);
+
+      queryClient.setQueryData<UserTemplateResponse>([USER_TEMPLATE_QUERY_KEY, currentCategory?.id], (old) => {
+        if (typeof old === 'undefined') return undefined;
+
+        const eachTemplates = old.result;
+        const updatedTemplates = eachTemplates.map((template) => {
+          const updatedItems = template.items.map((item) => {
+            if (item.id === editedCardItem.itemId)
+              return {
+                ...item,
+                name: editedCardItem.modifiedItemName,
+                take: editedCardItem.isTake,
+                important: editedCardItem.important,
+              };
+            return item;
+          });
+
+          return { ...template, items: updatedItems };
+        });
+
+        return { result: [...updatedTemplates] };
+      });
+
+      return prevUserTemplate;
+    },
+    onSettled: () => invalidateCurrentUserTemplate(),
+  });
+
   const deleteCardItemMutation = useMutation(
     ({ itemId }: deleteCardItemProps) => {
       if (!currentTemplate) throw new Error('');
@@ -74,7 +128,7 @@ const useCardItemMutation = () => {
     },
   );
 
-  return { createCardItemMutation, deleteCardItemMutation };
+  return { createCardItemMutation, editCardItemMutation, deleteCardItemMutation };
 };
 
 export default useCardItemMutation;
