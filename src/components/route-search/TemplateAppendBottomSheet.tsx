@@ -1,3 +1,4 @@
+
 import { ComponentProps, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
@@ -14,16 +15,19 @@ import CategorySection from './CategorySection';
 import { Category } from '@/hooks/api/category/type';
 import useGetUserCategories from '@/hooks/api/category/useGetUserCategories';
 import { UserTemplate } from '@/hooks/api/template/type';
+
 import useAppendToMyTemplate from '@/hooks/api/template/useAppendToMyTemplate';
 import { get } from '@/lib/api';
 import selectedCategoryState from '@/store/route-search/bottomSheet/selectedCategory';
 import selectedTemplateState from '@/store/route-search/bottomSheet/selectedTemplate';
 import { currentRecCategoryWithFlag } from '@/store/route-search/currentRecCategory';
+
 import selectedRecTemplateState from '@/store/route-search/selectedRecTemplate';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
 const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
+
   const [selectedCategory, setSelectedCategory] = useRecoilState(selectedCategoryState);
   const [selectedTemplate, setSelectedTemplate] = useRecoilState(selectedTemplateState);
 
@@ -135,6 +139,7 @@ const useGetUserTemplates = (selectedCategory: Category | null) => {
     queryKey: [USER_TEMPLATE_QUERY_KEY, selectedCategory],
     queryFn: () => getUserTemplate(),
     enabled: Boolean(selectedCategory?.id),
+
   });
 
   return { ...query, data: query.data?.result };

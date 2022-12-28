@@ -27,7 +27,14 @@ const CardItemAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
   const { createCardItemMutation } = useCardItemMutation();
 
   const onSubmit = () => {
-    createCardItemMutation.mutate({ itemName: debouncedItemName, important: isImportant });
+    createCardItemMutation.mutate(
+      { itemName: debouncedItemName, important: isImportant },
+      {
+        onSuccess: () => {
+          setToClose();
+        },
+      },
+    );
   };
 
   return (

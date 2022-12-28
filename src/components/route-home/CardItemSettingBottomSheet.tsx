@@ -8,23 +8,45 @@ import Dialog from '../portal/Dialog';
 import TextField from '../text-field/TextField';
 import ToggleSwitch from '../toggle/ToggleSwitch';
 
+import { UserItem } from '@/hooks/api/template/type';
+import useCardItemMutation from '@/hooks/api/template/useCardItemMutation';
 import useInput from '@/hooks/common/useInput';
 
-type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
+type BottomSheetProps = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
-const TemplateItemSettingBottomSheet = ({ isShowing, setToClose }: Props) => {
+interface Props extends BottomSheetProps {
+  itemId: UserItem['id'];
+  name: UserItem['name'];
+  important: UserItem['important'];
+}
+
+const TemplateItemSettingBottomSheet = ({ isShowing, setToClose, itemId, name, important }: Props) => {
   const {
     value: itemName,
     onChange: onChangeItemName,
     debouncedValue: debouncedItemName,
-  } = useInput({ initialValue: '', useDebounce: true });
+  } = useInput({ initialValue: name, useDebounce: true });
+
   const [isDialogShowing, setIsDialogShowing] = useState(false);
 
   const isSubmitDisabled = debouncedItemName.length === 0 || debouncedItemName.length >= 30;
 
+  const { deleteCardItemMutation } = useCardItemMutation();
+
   const handleTemplateItemSettingComplete = () => {
     // TODO: 소지품 설정 완료 시 실행할 로직 추가
     setToClose();
+  };
+
+  const onClickDelete = () => {
+    deleteCardItemMutation.mutate(
+      { itemId },
+      {
+        onSuccess: () => {
+          setToClose();
+        },
+      },
+    );
   };
 
   return (
@@ -49,7 +71,7 @@ const TemplateItemSettingBottomSheet = ({ isShowing, setToClose }: Props) => {
       <SettingOptionList>
         <Option>
           <span>중요 소지품</span>
-          <ToggleSwitch />
+          <ToggleSwitch defaultChecked={important} />
         </Option>
         <Option
           isDeleteOption
@@ -75,7 +97,7 @@ const TemplateItemSettingBottomSheet = ({ isShowing, setToClose }: Props) => {
             아니요
           </Dialog.Button>
         }
-        rightButton={<Dialog.WarningButton>삭제하기</Dialog.WarningButton>}
+        rightButton={<Dialog.WarningButton onClick={onClickDelete}>삭제하기</Dialog.WarningButton>}
       />
     </BottomSheet>
   );

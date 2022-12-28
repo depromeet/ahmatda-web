@@ -1,6 +1,7 @@
 import { FC, PropsWithChildren, useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
+import FixedSpinner from '../loading/FixedSpinner';
 import LoadingHandler from '../loading/LoadingHandler';
 
 import useCheckUserToken from './useCheckUserToken';
@@ -46,9 +47,8 @@ const RouteGuard: FC<PropsWithChildren> = ({ children }) => {
     };
   });
 
-  // TODO: 로딩 컴포넌트 디자인 > 개발 완료되면 적용
   return (
-    <LoadingHandler isLoading={!isRouteGuardPassed} fallback={<div>loading...</div>}>
+    <LoadingHandler isLoading={!isRouteGuardPassed} fallback={<FixedSpinner />}>
       {children}
     </LoadingHandler>
   );

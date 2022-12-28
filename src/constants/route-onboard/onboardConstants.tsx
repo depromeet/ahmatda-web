@@ -1,4 +1,4 @@
-import { ItemsType, TitleType } from './type';
+import { ItemsType, ListCardsType, TitleType } from './type';
 
 import GraphicCamera from '@/components/graphic/GraphicCamera';
 import GraphicGym from '@/components/graphic/GraphicGym';
@@ -57,278 +57,331 @@ export const ONBOARD_TITLE: TitleType = {
 export const ONBOARD_ITEMS: ItemsType = {
   DAILY: [
     {
-      id: 0,
       name: '이어폰',
-      emoji: 'CAMERA',
+      emoji: 'AIRPODS',
     },
     {
-      id: 1,
       name: '노트북',
-      emoji: 'CAMERA',
+      emoji: 'PC',
     },
     {
-      id: 2,
       name: '충전기',
-      emoji: 'CAMERA',
+      emoji: 'CHARGER',
     },
     {
-      id: 3,
       name: '보조배터리',
-      emoji: 'CAMERA',
+      emoji: 'BATTERY',
     },
     {
-      id: 4,
       name: '시계',
-      emoji: 'CAMERA',
+      emoji: 'APPLEWATCH',
     },
     {
-      id: 5,
       name: '지갑',
-      emoji: 'CAMERA',
+      emoji: 'WALLET',
     },
     {
-      id: 6,
       name: '카드',
-      emoji: 'CAMERA',
+      emoji: 'CARD',
     },
     {
-      id: 7,
       name: '열쇠',
-      emoji: 'CAMERA',
+      emoji: 'KEY',
     },
     {
-      id: 8,
       name: '마스크',
-      emoji: 'CAMERA',
+      emoji: 'MASK',
     },
     {
-      id: 9,
       name: '안경',
-      emoji: 'CAMERA',
+      emoji: 'GLASSES',
     },
     {
-      id: 10,
       name: '향수',
-      emoji: 'CAMERA',
+      emoji: 'PERFUME',
     },
     {
-      id: 11,
       name: '파우치',
-      emoji: 'CAMERA',
+      emoji: 'POUCH',
     },
     {
-      id: 12,
       name: '인공눈물',
-      emoji: 'CAMERA',
+      emoji: 'EYEDROPS',
     },
     {
-      id: 13,
       name: '약',
-      emoji: 'CAMERA',
+      emoji: 'PILL',
     },
     {
-      id: 14,
       name: '양치도구',
-      emoji: 'CAMERA',
+      emoji: 'TEETH',
     },
     {
-      id: 15,
       name: '우산',
       emoji: 'CAMERA',
     },
     {
-      id: 16,
       name: '텀블러',
-      emoji: 'CAMERA',
+      emoji: 'TUMBLER',
     },
     {
-      id: 17,
       name: '휴지',
-      emoji: 'CAMERA',
+      emoji: 'TISSUE',
     },
   ],
   EXERCISE: [
     {
-      id: 0,
       name: '이어폰',
-      emoji: 'CAMERA',
+      emoji: 'AIRPODS',
     },
     {
-      id: 1,
       name: '충전기',
-      emoji: 'CAMERA',
+      emoji: 'CHARGER',
     },
     {
-      id: 2,
       name: '운동화',
-      emoji: 'CAMERA',
+      emoji: 'RUN',
     },
     {
-      id: 3,
       name: '가방',
-      emoji: 'CAMERA',
+      emoji: 'SCHOOL',
     },
     {
-      id: 4,
       name: '양치도구',
-      emoji: 'CAMERA',
+      emoji: 'TEETH',
     },
     {
-      id: 5,
       name: '텀블러',
-      emoji: 'CAMERA',
+      emoji: 'TUMBLER',
     },
     {
-      id: 6,
       name: '수건',
-      emoji: 'CAMERA',
+      emoji: 'TOWEL',
     },
     {
-      id: 7,
       name: '보조배터리',
-      emoji: 'CAMERA',
+      emoji: 'BATTERY',
     },
     {
-      id: 8,
       name: '마스크',
-      emoji: 'CAMERA',
+      emoji: 'MASK',
     },
     {
-      id: 9,
       name: '세면도구',
       emoji: 'CAMERA',
     },
     {
-      id: 10,
       name: '매트',
-      emoji: 'CAMERA',
+      emoji: 'MAT',
     },
     {
-      id: 11,
       name: '운동복',
-      emoji: 'CAMERA',
+      emoji: 'SPORTSWEAR',
     },
     {
-      id: 12,
       name: '헤어밴드',
-      emoji: 'CAMERA',
+      emoji: 'HEADBAND',
     },
     {
-      id: 13,
       name: '스트랩',
-      emoji: 'CAMERA',
+      emoji: 'STRAP',
     },
     {
-      id: 14,
       name: '토삭스',
-      emoji: 'CAMERA',
+      emoji: 'TOESCOKS',
     },
     {
-      id: 15,
       name: '속옷',
-      emoji: 'CAMERA',
+      emoji: 'UNDERWEAR',
     },
     {
-      id: 16,
       name: '쉐이크',
-      emoji: 'CAMERA',
+      emoji: 'SHAKE',
     },
     {
-      id: 17,
       name: '단백질',
-      emoji: 'CAMERA',
+      emoji: 'PROTEIN',
     },
   ],
   TRAVEL: [
     {
-      id: 0,
       name: '이어폰',
-      emoji: 'CAMERA',
+      emoji: 'AIRPODS',
     },
     {
-      id: 1,
       name: '충전기',
-      emoji: 'CAMERA',
+      emoji: 'CHARGER',
     },
     {
-      id: 2,
       name: '보조배터리',
-      emoji: 'CAMERA',
+      emoji: 'BATTERY',
     },
     {
-      id: 3,
       name: '여권',
-      emoji: 'CAMERA',
+      emoji: 'PASSPORT',
     },
     {
-      id: 4,
       name: '속옷',
-      emoji: 'CAMERA',
+      emoji: 'UNDERWEAR',
     },
     {
-      id: 5,
       name: '양치도구',
-      emoji: 'CAMERA',
+      emoji: 'TEETH',
     },
     {
-      id: 6,
       name: '카드',
-      emoji: 'CAMERA',
+      emoji: 'CARD',
     },
     {
-      id: 7,
       name: '로밍',
-      emoji: 'CAMERA',
+      emoji: 'ROAMING',
     },
     {
-      id: 8,
       name: '마스크',
-      emoji: 'CAMERA',
+      emoji: 'MASK',
     },
     {
-      id: 9,
       name: '지갑',
-      emoji: 'CAMERA',
+      emoji: 'WALLET',
     },
     {
-      id: 10,
       name: '돼지코',
-      emoji: 'CAMERA',
+      emoji: 'SOCKET',
     },
     {
-      id: 11,
       name: '카메라',
       emoji: 'CAMERA',
     },
     {
-      id: 12,
       name: '신분증',
-      emoji: 'CAMERA',
+      emoji: 'IDCARD',
     },
     {
-      id: 13,
       name: '약',
-      emoji: 'CAMERA',
+      emoji: 'PILL',
     },
     {
-      id: 14,
       name: '선글라스',
-      emoji: 'CAMERA',
+      emoji: 'SUNGLASSES',
     },
     {
-      id: 15,
       name: '캐리어',
-      emoji: 'CAMERA',
+      emoji: 'CARRIER',
     },
     {
-      id: 16,
       name: '고데기',
-      emoji: 'CAMERA',
+      emoji: 'CURLINGIRON',
     },
     {
-      id: 17,
       name: '휴지',
-      emoji: 'CAMERA',
+      emoji: 'TISSUE',
+    },
+  ],
+};
+
+export const ONBOARD_LISTCARD: ListCardsType = {
+  DAILY: [
+    {
+      title: '출근할 때 필수품',
+      option: [
+        {
+          name: '지갑',
+          emoji: 'WALLET',
+        },
+        {
+          name: '카드',
+          emoji: 'CARD',
+        },
+        {
+          name: '열쇠',
+          emoji: 'KEY',
+        },
+        {
+          name: '마스크',
+          emoji: 'MASK',
+        },
+        {
+          name: '안경',
+          emoji: 'GLASSES',
+        },
+        {
+          name: '이어폰',
+          emoji: 'AIRPODS',
+        },
+      ],
+    },
+    {
+      title: '등교할 때 필수품',
+      option: [
+        {
+          name: '노트북',
+          emoji: 'PC',
+        },
+        {
+          name: '충전기',
+          emoji: 'CHARGER',
+        },
+        {
+          name: '보조배터리',
+          emoji: 'BATTERY',
+        },
+        {
+          name: '시계',
+          emoji: 'APPLEWATCH',
+        },
+      ],
+    },
+  ],
+  EXERCISE: [
+    {
+      title: '운동할 때 필수품',
+      option: [
+        {
+          name: '세면도구',
+          emoji: 'CAMERA',
+        },
+        {
+          name: '텀블러',
+          emoji: 'TUMBLER',
+        },
+        {
+          name: '수건',
+          emoji: 'TOWEL',
+        },
+        {
+          name: '운동복',
+          emoji: 'SPORTSWEAR',
+        },
+      ],
+    },
+  ],
+  TRAVEL: [
+    {
+      title: '여행갈 때 필수품',
+      option: [
+        {
+          name: '신분증',
+          emoji: 'IDCARD',
+        },
+
+        {
+          name: '선글라스',
+          emoji: 'SUNGLASSES',
+        },
+        {
+          name: '캐리어',
+          emoji: 'CARRIER',
+        },
+
+        {
+          name: '충전기',
+          emoji: 'CHARGER',
+        },
+        {
+          name: '보조배터리',
+          emoji: 'BATTERY',
+        },
+      ],
     },
   ],
 };

@@ -9,28 +9,24 @@ import IconSetting from '../icon/IconSetting';
 
 import CardItem from './CardItem';
 
-import { UserItem } from '@/hooks/api/template/type';
+import { UserTemplate } from '@/hooks/api/template/type';
 import useToggle from '@/hooks/common/useToggle';
 
 const ListSettingBottomSheet = dynamic(() => import('./ListSettingBottomSheet'));
 const CardItemAppendBottomSheet = dynamic(() => import('./CardItemAppendBottomSheet'));
 
-export interface Props {
-  // eslint-disable-next-line react/no-unused-prop-types
-  id: number;
-  title: string;
+export interface Props extends UserTemplate {
   alarmCycle: string;
-  items: UserItem[];
 }
 
-const Card = ({ title, alarmCycle, items }: Props) => {
+const Card = ({ id, templateName, alarmCycle, items, pin }: Props) => {
   const [isListSettingShowing, _, toggleListSettingShowing] = useToggle(false);
   const [isCardItemAppendShowing, __, toggleCardItemAppendShowing] = useToggle(false);
 
   return (
     <>
       <Wrapper>
-        <TitleHeading>{title}</TitleHeading>
+        <TitleHeading>{templateName}</TitleHeading>
         <AlarmCycleSpan>{alarmCycle}</AlarmCycleSpan>
         <PinButton type="button">
           <IconPin />
@@ -42,8 +38,8 @@ const Card = ({ title, alarmCycle, items }: Props) => {
             추가하기
           </LabelButton>
 
-          {items.map(({ id, take, important, name }) => (
-            <CardItem key={id} id={id} take={take} important={important} name={name} />
+          {items.map((item) => (
+            <CardItem key={item.id} itemId={item.id} take={item.take} important={item.important} name={item.name} />
           ))}
         </ItemWrapper>
 
@@ -57,7 +53,13 @@ const Card = ({ title, alarmCycle, items }: Props) => {
         </BottomButtonWrapper>
       </Wrapper>
 
-      <ListSettingBottomSheet setToClose={toggleListSettingShowing} isShowing={isListSettingShowing} />
+      <ListSettingBottomSheet
+        id={id}
+        templateName={templateName}
+        pin={pin}
+        setToClose={toggleListSettingShowing}
+        isShowing={isListSettingShowing}
+      />
       <CardItemAppendBottomSheet setToClose={toggleCardItemAppendShowing} isShowing={isCardItemAppendShowing} />
     </>
   );

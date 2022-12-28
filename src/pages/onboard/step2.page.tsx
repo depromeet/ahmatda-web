@@ -55,7 +55,7 @@ const Step2 = () => {
           <SelectSection variants={staggerHalf} initial="initial" animate="animate" exit="exit">
             {ONBOARD_ITEMS[selectedCategory.type].map((item) => (
               <Item
-                key={item.id}
+                key={item.name}
                 name="items"
                 value={item.name}
                 label={item.name}

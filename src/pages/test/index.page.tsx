@@ -11,17 +11,54 @@ import Carousel from '@/components/carousel/Carousel';
 import Checkbox from '@/components/checkbox/Checkbox';
 import CheckboxWithText from '@/components/checkbox/CheckboxWithText';
 import Chip from '@/components/chip/Chip';
+import Graphic10Kg from '@/components/graphic/Graphic10Kg';
+import GraphicAirpods from '@/components/graphic/GraphicAirpods';
+import GraphicAppleWatch from '@/components/graphic/GraphicAppleWatch';
+import GraphicBattery from '@/components/graphic/GraphicBattery';
 import GraphicBowling from '@/components/graphic/GraphicBowling';
 import GraphicBus from '@/components/graphic/GraphicBus';
 import GraphicCamera from '@/components/graphic/GraphicCamera';
+import GraphicCard from '@/components/graphic/GraphicCard';
+import GraphicCarrier from '@/components/graphic/GraphicCarrier';
+import GraphicCharger from '@/components/graphic/GraphicCharger';
+import GraphicCurlingIron from '@/components/graphic/GraphicCurlingIron';
 import GraphicEtc from '@/components/graphic/GraphicEtc';
+import GraphicEyeDrops from '@/components/graphic/GraphicEyeDrops';
 import GraphicFriends from '@/components/graphic/GraphicFriends';
+import GraphicGlasses from '@/components/graphic/GraphicGlasses';
 import GraphicGym from '@/components/graphic/GraphicGym';
+import GraphicHandBag from '@/components/graphic/GraphicHandbag';
+import GraphicHeadband from '@/components/graphic/GraphicHeadband';
+import GraphicHeadphones from '@/components/graphic/GraphicHeadphones';
+import GraphicKey from '@/components/graphic/GraphicKey';
+import GraphicLipbalm from '@/components/graphic/GraphicLipbalm';
+import GraphicMask from '@/components/graphic/GraphicMask';
+import GraphicMat from '@/components/graphic/GraphicMat';
+import GraphicPassport from '@/components/graphic/GraphicPassport';
+import GraphicPC from '@/components/graphic/GraphicPC';
+import GraphicPerfume from '@/components/graphic/GraphicPerfume';
+import GraphicPill from '@/components/graphic/GraphicPill';
 import GraphicPlane from '@/components/graphic/GraphicPlane';
+import GraphicPouch from '@/components/graphic/GraphicPouch';
+import GraphicProtein from '@/components/graphic/GraphicProtein';
+import GraphicRoaming from '@/components/graphic/GraphicRoaming';
 import GraphicRun from '@/components/graphic/GraphicRun';
 import GraphicSchool from '@/components/graphic/GraphicSchool';
+import GraphicSocket from '@/components/graphic/GraphicSocket';
+import GraphicSportSwear from '@/components/graphic/GraphicSportSwear';
+import GraphicStrap from '@/components/graphic/GraphicStrap';
+import GraphicSunglasses from '@/components/graphic/GraphicSunglasses';
 import GraphicSwim from '@/components/graphic/GraphicSwim';
+import GraphicTeeth from '@/components/graphic/GraphicTeeth';
+import GraphicTissue from '@/components/graphic/GraphicTissue';
+import GraphicToescoks from '@/components/graphic/GraphicToescoks';
+import GraphicToiletries from '@/components/graphic/GraphicToiletries';
+import GraphicTowel from '@/components/graphic/GraphicTowel';
 import GraphicTube from '@/components/graphic/GraphicTube';
+import GraphicTumbler from '@/components/graphic/GraphicTumbler';
+import GraphicUmbrella from '@/components/graphic/GraphicUmbrella';
+import GraphicUnderwear from '@/components/graphic/GraphicUnderwear';
+import GraphicWallet from '@/components/graphic/GraphicWallet';
 import GraphicWork from '@/components/graphic/GraphicWork';
 import IconAdd from '@/components/icon/IconAdd';
 import IconAlarm from '@/components/icon/IconAlarm';
@@ -163,6 +200,82 @@ const Test = () => {
         <GraphicSwim isAct />
         <GraphicTube />
         <GraphicTube isAct />
+        <Graphic10Kg />
+        <Graphic10Kg isAct />
+        <GraphicAirpods />
+        <GraphicAirpods isAct />
+        <GraphicAppleWatch />
+        <GraphicAppleWatch isAct />
+        <GraphicBattery />
+        <GraphicBattery isAct />
+        <GraphicCard />
+        <GraphicCard isAct />
+        <GraphicCarrier />
+        <GraphicCarrier isAct />
+        <GraphicCharger />
+        <GraphicCharger isAct />
+        <GraphicCurlingIron />
+        <GraphicCurlingIron isAct />
+        <GraphicEyeDrops />
+        <GraphicEyeDrops isAct />
+        <GraphicGlasses />
+        <GraphicGlasses isAct />
+        <GraphicHandBag />
+        <GraphicHandBag isAct />
+        <GraphicHeadband />
+        <GraphicHeadband isAct />
+        <GraphicHeadphones />
+        <GraphicHeadphones isAct />
+        <GraphicCard />
+        <GraphicCard isAct />
+        <GraphicKey />
+        <GraphicKey isAct />
+        <GraphicLipbalm />
+        <GraphicLipbalm isAct />
+        <GraphicMask />
+        <GraphicMask isAct />
+        <GraphicMat />
+        <GraphicMat isAct />
+        <GraphicPassport />
+        <GraphicPassport isAct />
+        <GraphicPC />
+        <GraphicPC isAct />
+        <GraphicPerfume />
+        <GraphicPerfume isAct />
+        <GraphicPill />
+        <GraphicPill isAct />
+        <GraphicPouch />
+        <GraphicPouch isAct />
+        <GraphicProtein />
+        <GraphicProtein isAct />
+        <GraphicRoaming />
+        <GraphicRoaming isAct />
+        <GraphicSocket />
+        <GraphicSocket isAct />
+        <GraphicSportSwear />
+        <GraphicSportSwear isAct />
+        <GraphicStrap />
+        <GraphicStrap isAct />
+        <GraphicSunglasses />
+        <GraphicSunglasses isAct />
+        <GraphicTeeth />
+        <GraphicTeeth isAct />
+        <GraphicTissue />
+        <GraphicTissue isAct />
+        <GraphicToescoks />
+        <GraphicToescoks isAct />
+        <GraphicToiletries />
+        <GraphicToiletries isAct />
+        <GraphicTowel />
+        <GraphicTowel isAct />
+        <GraphicTumbler />
+        <GraphicTumbler isAct />
+        <GraphicUmbrella />
+        <GraphicUmbrella isAct />
+        <GraphicUnderwear />
+        <GraphicUnderwear isAct />
+        <GraphicWallet />
+        <GraphicWallet isAct />
       </div>
 
       <div>
