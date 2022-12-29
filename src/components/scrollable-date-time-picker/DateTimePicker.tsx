@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import ScrollBox from './ScrollBox';
 
 interface Props {
-  initialDate: number;
+  initialDate?: number;
   onChange?: (value: number) => void;
 }
 interface DateTimeState {
@@ -16,7 +16,7 @@ interface DateTimeState {
   ampm: 'AM' | 'PM';
 }
 
-const DateTimePicker: FC<Props> = ({ initialDate, onChange }) => {
+const DateTimePicker: FC<Props> = ({ initialDate = Date.now(), onChange }) => {
   const [dateTime, setDateTime] = useState<DateTimeState>({
     date: dayjs(initialDate).format('YYYY-MM-DD'),
     hour: dayjs(initialDate).hour() % 12 || 12,
@@ -31,7 +31,7 @@ const DateTimePicker: FC<Props> = ({ initialDate, onChange }) => {
     onChange?.(timestamp);
   }, [dateTime]);
 
-  const formattedDate = (date: string) => {
+  const transformDateText = (date: string) => {
     const weekday = dayjs(date).weekday();
     const dateText = dayjs(date).format('M월 D일');
     return `${dateText} (${['일', '월', '화', '수', '목', '금', '토'][weekday]})`;
@@ -39,21 +39,16 @@ const DateTimePicker: FC<Props> = ({ initialDate, onChange }) => {
 
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
-  const transformDates = months
-    .flatMap((month) =>
-      days.map((day) => {
-        const year = new Date().getFullYear();
-        return dayjs(`${year}-${month}-${day}`).format('YYYY-MM-DD');
-      }),
-    )
-    .map(formattedDate);
-  const dates = [...new Set(transformDates)];
+  const datesOfTheYear = months
+    .flatMap((month) => days.map((day) => dayjs(`${new Date().getFullYear()}-${month}-${day}`).format('YYYY-MM-DD')))
+    .map(transformDateText);
+  const dates = [...new Set(datesOfTheYear)];
 
   const hours = Array.from({ length: 12 }, (_, i) => i + 1);
   const minutes = Array.from({ length: 60 }, (_, i) => `0${i}`.slice(-2));
   const ampm = ['오전', '오후'];
 
-  const changeTime = (key: keyof typeof dateTime) => (value: number | string) => {
+  const handleChange = (key: keyof DateTimeState) => (value: number | string) => {
     if (key === 'date' && typeof value === 'string') {
       const year = new Date().getFullYear();
       const [month, day] = value.split(' ').map((item) => item.slice(0, -1));
@@ -78,11 +73,11 @@ const DateTimePicker: FC<Props> = ({ initialDate, onChange }) => {
   return (
     <div style={{ width: '100%' }}>
       <Container>
-        <ScrollBox items={dates} onChange={changeTime('date')} width={135} align="right" />
-        <ScrollBox items={ampm} onChange={changeTime('ampm')} width={60} align="right" />
-        <ScrollBox items={hours} onChange={changeTime('hour')} width={40} align="right" />
+        <ScrollBox items={dates} onChange={handleChange('date')} width={135} align="right" />
+        <ScrollBox items={ampm} onChange={handleChange('ampm')} width={60} align="right" />
+        <ScrollBox items={hours} onChange={handleChange('hour')} width={40} align="right" />
         <Colon />
-        <ScrollBox items={minutes} onChange={changeTime('minute')} width={40} align="left" />
+        <ScrollBox items={minutes} onChange={handleChange('minute')} width={40} align="left" />
         <PickedBackground />
       </Container>
     </div>
