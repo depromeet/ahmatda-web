@@ -1,9 +1,24 @@
 import { Dispatch, FC, Fragment, MouseEvent, SetStateAction, useId } from 'react';
 import styled from '@emotion/styled';
 
-import { Graphic as GraphicType, graphics } from '../../graphic/type';
+import { Graphic as GraphicType } from '../../graphic/type';
 
 import Graphic from '@/components/graphic/Graphic';
+
+const categoryGraphics: GraphicType[] = [
+  'WORK',
+  'SCHOOL',
+  'FRIENDS',
+  'CAMERA',
+  'TUBE',
+  'BUS',
+  'PLANE',
+  'RUN',
+  'GYM',
+  'BOWLING',
+  'SWIM',
+  'ETC',
+];
 
 interface Props {
   currentValue: GraphicType | null;
@@ -21,7 +36,7 @@ const CategoryIconRadioGroup: FC<Props> = ({ currentValue, setCurrentValue }) =>
     <fieldset>
       <Legend>아이콘 *</Legend>
       <Wrapper>
-        {graphics.map((type) => (
+        {categoryGraphics.map((type) => (
           <Fragment key={type}>
             <HidedInput type="radio" id={`${type}-${id}`} value={type} onClick={onClick} />
             <GraphicLabel htmlFor={`${type}-${id}`}>
