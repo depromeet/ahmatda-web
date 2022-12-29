@@ -1,4 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
+import { RecoilRoot } from 'recoil';
 
 import RecommendationTemplateCard from './RecommendationTemplateCard';
 
@@ -7,7 +8,11 @@ import customRender from '@/test/customRender';
 
 describe('추천 템플릿 카드', () => {
   it('추천 템플릿 카드가 올바르게 작동한다.', () => {
-    customRender(<RecommendationTemplateCard data={MOCK} />);
+    customRender(
+      <RecoilRoot>
+        <RecommendationTemplateCard data={MOCK} isRefetchingTemplateData={false} />
+      </RecoilRoot>,
+    );
     const checkAllBtn = screen.getByLabelText('전체 선택');
     const checkBtns = screen.getAllByTestId('single-check-btn');
 

@@ -6,6 +6,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import LabelButton from '../button/LabelButton';
 import IconAdd from '../icon/IconAdd';
 import LoadingHandler from '../loading/LoadingHandler';
+import Spinner from '../loading/Spinner';
 import AppBar from '../navigation/AppBar';
 import BottomSheet from '../portal/BottomSheet';
 
@@ -69,7 +70,7 @@ const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
         }
         onClickBackButton={onCloseBottomSheet}
       />
-      <LoadingHandler fallback={<>loading...</>} isLoading={isUserCategoriesLoading || isUserTemplatesLoading}>
+      <LoadingHandler fallback={<Spinner />} isLoading={isUserCategoriesLoading || isUserTemplatesLoading}>
         <div style={{ marginTop: 8 }}>
           <CategorySection
             defaultColor="gray"
