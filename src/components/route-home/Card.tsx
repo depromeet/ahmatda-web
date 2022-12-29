@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
 
+import AlarmBottomSheet from '../alarm/bottom-sheet/AlarmBottomSheet';
 import LabelButton from '../button/LabelButton';
 import IconAdd from '../icon/IconAdd';
 import IconAlarmAdd from '../icon/IconAlarmAdd';
@@ -22,6 +23,7 @@ export interface Props extends UserTemplate {
 const Card = ({ id, templateName, alarmCycle, items, pin }: Props) => {
   const [isListSettingShowing, _, toggleListSettingShowing] = useToggle(false);
   const [isCardItemAppendShowing, __, toggleCardItemAppendShowing] = useToggle(false);
+  const [isAlarmSettingShowing, ___, toggleAlarmSettingShowing] = useToggle(false);
 
   return (
     <>
@@ -44,7 +46,7 @@ const Card = ({ id, templateName, alarmCycle, items, pin }: Props) => {
         </ItemWrapper>
 
         <BottomButtonWrapper>
-          <BottomButton type="button">
+          <BottomButton type="button" onClick={toggleAlarmSettingShowing}>
             <IconAlarmAdd /> 알림
           </BottomButton>
           <BottomButton type="button" onClick={toggleListSettingShowing}>
@@ -61,6 +63,7 @@ const Card = ({ id, templateName, alarmCycle, items, pin }: Props) => {
         isShowing={isListSettingShowing}
       />
       <CardItemAppendBottomSheet setToClose={toggleCardItemAppendShowing} isShowing={isCardItemAppendShowing} />
+      <AlarmBottomSheet setToClose={toggleAlarmSettingShowing} isShowing={isAlarmSettingShowing} />
     </>
   );
 };

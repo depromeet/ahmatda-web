@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import Picker from './Picker';
 import SelectItem from './SelectItem';
 
-import TimePicker from '@/components/scrollable-date-time-picker/TimePicker';
+import TimePicker from '@/components/scrollable-date-time-picker/DateTimePicker';
 import { dayPairs, weekdayPairs } from '@/models/alarm';
 
 const AlarmDayController = () => {

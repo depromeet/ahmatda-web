@@ -1,21 +1,23 @@
 import { ComponentProps, FC, useState } from 'react';
 import styled from '@emotion/styled';
+import { useResetRecoilState } from 'recoil';
 
 import LabelButton from '../../button/LabelButton';
 import AppBar from '../../navigation/AppBar';
 import BottomSheet from '../../portal/BottomSheet';
 
-import AlarmDateController from './AlarmDateController';
-import AlarmDayController from './AlarmDayController';
+import AlarmController from './AlarmController';
 
 import SegmentedControl from '@/components/segmented-control/SegmentedControl';
 import ToggleSwitch from '@/components/toggle/ToggleSwitch';
 import { AlarmType, alarmTypePairs } from '@/models/alarm';
+import dateState from '@/store/alarm-config/date';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
 const AlarmBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
-  const [alarmType, setAlarmType] = useState<AlarmType>('Day');
+  const resetDateConfig = useResetRecoilState(dateState);
+  const [alarmType, setAlarmType] = useState<AlarmType>('Date');
 
   const alarmTypeOptions = alarmTypePairs.map((pair) => pair.value);
   const alarmTypeValue = alarmTypePairs.find((pair) => pair.key === alarmType)?.value;
@@ -28,13 +30,22 @@ const AlarmBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
     setAlarmType(alarmTypeKey);
   };
 
+  const onClose = () => {
+    resetDateConfig();
+    setToClose();
+  };
+
   return (
-    <BottomSheet isShowing={isShowing} setToClose={setToClose}>
+    <BottomSheet isShowing={isShowing} setToClose={onClose}>
       <AppBar
         backButtonType="cancel"
         title="알림 설정"
-        onClickBackButton={setToClose}
-        rightElement={<LabelButton size="large">완료</LabelButton>}
+        onClickBackButton={onClose}
+        rightElement={
+          <LabelButton size="large" onClick={onClose}>
+            완료
+          </LabelButton>
+        }
       />
       <Wrapper>
         <Form>
@@ -43,7 +54,7 @@ const AlarmBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
             <ToggleSwitch name="alarm" />
           </Row>
           <SegmentedControl options={alarmTypeOptions} initialValue={alarmTypeValue} onChange={handleChangeAlarmType} />
-          {alarmType === 'Day' ? <AlarmDayController /> : <AlarmDateController />}
+          <AlarmController alarmType={alarmType} />
         </Form>
       </Wrapper>
     </BottomSheet>

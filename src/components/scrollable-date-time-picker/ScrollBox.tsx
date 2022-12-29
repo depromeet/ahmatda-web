@@ -7,9 +7,10 @@ interface Props {
   items: string[] | number[];
   onChange: (value: string | number) => void;
   align?: 'left' | 'center' | 'right';
+  width?: number;
 }
 
-const ScrollBox: FC<Props> = ({ items, onChange, align = 'center' }) => {
+const ScrollBox: FC<Props> = ({ items, onChange, align = 'center', width = 80 }) => {
   const [selectedItem, setSelectedItem] = useState(items[0]);
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const ScrollBox: FC<Props> = ({ items, onChange, align = 'center' }) => {
   };
 
   return (
-    <Wrapper onScroll={handleScroll}>
+    <Wrapper onScroll={handleScroll} width={width}>
       <InnerScrollBox>
         {['start-empty', ...items, 'end-empty'].map((item) => (
           <ScrollItem key={item} item={item} align={align} selectedItem={selectedItem} height={BUTTON_HEIGHT} />
@@ -44,14 +45,18 @@ export default ScrollBox;
 const BUTTON_HEIGHT = 40;
 const SCROLL_HEIGHT = BUTTON_HEIGHT * 3;
 
-const Wrapper = styled.div({
-  height: SCROLL_HEIGHT,
-  width: '80px',
-  overflowY: 'scroll',
-  scrollSnapType: 'y mandatory',
-  scrollSnapAlign: 'center',
-  overscrollBehavior: 'none',
-});
+const Wrapper = styled.div<{ width: number }>(
+  {
+    height: SCROLL_HEIGHT,
+    overflowY: 'scroll',
+    scrollSnapType: 'y mandatory',
+    scrollSnapAlign: 'center',
+    overscrollBehavior: 'none',
+  },
+  ({ width }) => ({
+    width: `${width}px`,
+  }),
+);
 
 const InnerScrollBox = styled.div({
   display: 'flex',
