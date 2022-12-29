@@ -4,10 +4,15 @@ import styled from '@emotion/styled';
 interface Props {
   text: string;
   active?: boolean;
+  onClick?: () => void;
 }
 
-const SelectItem: FC<Props> = ({ text, active = false }) => {
-  return <Wrapper active={active}>{text}</Wrapper>;
+const SelectItem: FC<Props> = ({ text, onClick, active = false }) => {
+  return (
+    <Wrapper active={active} onClick={onClick}>
+      {text}
+    </Wrapper>
+  );
 };
 
 export default SelectItem;

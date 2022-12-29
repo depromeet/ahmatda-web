@@ -6,8 +6,12 @@ import { ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import dayjs from 'dayjs';
+import weekday from 'dayjs/plugin/weekday';
 import { domMax, LazyMotion } from 'framer-motion';
 import { RecoilRoot } from 'recoil';
+
+import 'dayjs/locale/ko';
 
 import ToastWrapper from '@/components/portal/ToastWrapper';
 import FcmTokenHandler from '@/components/push-notification/FcmTokenHandler';
@@ -89,3 +93,6 @@ const Head = () => {
     </NextHead>
   );
 };
+
+dayjs.extend(weekday);
+dayjs.locale('ko');

@@ -65,6 +65,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/parser", "virtual:b9d917903453d0a258c7281474233dfb80f738232e5b3585426957ce162dad03053fc993f9d4c02e31e5b55a327e2d0b4c492dfa6ce4386506f9e3f620c701b4#npm:5.33.0"],\
             ["axios", "npm:0.27.2"],\
             ["cypress", "npm:10.4.0"],\
+            ["dayjs", "npm:1.11.7"],\
             ["emotion-normalize", "virtual:b9d917903453d0a258c7281474233dfb80f738232e5b3585426957ce162dad03053fc993f9d4c02e31e5b55a327e2d0b4c492dfa6ce4386506f9e3f620c701b4#npm:11.0.1"],\
             ["eslint", "npm:8.21.0"],\
             ["eslint-config-airbnb", "virtual:b9d917903453d0a258c7281474233dfb80f738232e5b3585426957ce162dad03053fc993f9d4c02e31e5b55a327e2d0b4c492dfa6ce4386506f9e3f620c701b4#npm:19.0.4"],\
@@ -5605,6 +5606,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/parser", "virtual:b9d917903453d0a258c7281474233dfb80f738232e5b3585426957ce162dad03053fc993f9d4c02e31e5b55a327e2d0b4c492dfa6ce4386506f9e3f620c701b4#npm:5.33.0"],\
             ["axios", "npm:0.27.2"],\
             ["cypress", "npm:10.4.0"],\
+            ["dayjs", "npm:1.11.7"],\
             ["emotion-normalize", "virtual:b9d917903453d0a258c7281474233dfb80f738232e5b3585426957ce162dad03053fc993f9d4c02e31e5b55a327e2d0b4c492dfa6ce4386506f9e3f620c701b4#npm:11.0.1"],\
             ["eslint", "npm:8.21.0"],\
             ["eslint-config-airbnb", "virtual:b9d917903453d0a258c7281474233dfb80f738232e5b3585426957ce162dad03053fc993f9d4c02e31e5b55a327e2d0b4c492dfa6ce4386506f9e3f620c701b4#npm:19.0.4"],\
@@ -7238,6 +7240,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/dayjs-npm-1.11.4-97921cd375-478c8a2db9.zip/node_modules/dayjs/",\
           "packageDependencies": [\
             ["dayjs", "npm:1.11.4"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:1.11.7", {\
+          "packageLocation": "./.yarn/cache/dayjs-npm-1.11.7-d5cd5b2919-5003a7c1dd.zip/node_modules/dayjs/",\
+          "packageDependencies": [\
+            ["dayjs", "npm:1.11.7"]\
           ],\
           "linkType": "HARD"\
         }]\
