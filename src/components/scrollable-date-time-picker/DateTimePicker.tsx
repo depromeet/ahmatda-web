@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import ScrollBox from './ScrollBox';
 
 interface Props {
+  initialDate: number;
   onChange?: (value: number) => void;
 }
 interface DateTimeState {
@@ -15,12 +16,12 @@ interface DateTimeState {
   ampm: 'AM' | 'PM';
 }
 
-const DateTimePicker: FC<Props> = ({ onChange }) => {
+const DateTimePicker: FC<Props> = ({ initialDate, onChange }) => {
   const [dateTime, setDateTime] = useState<DateTimeState>({
-    date: dayjs().format('YYYY-MM-DD'),
-    hour: 0,
-    minute: 0,
-    ampm: 'AM',
+    date: dayjs(initialDate).format('YYYY-MM-DD'),
+    hour: dayjs(initialDate).hour() % 12 || 12,
+    minute: dayjs(initialDate).minute(),
+    ampm: dayjs(initialDate).hour() < 12 ? 'AM' : 'PM',
   });
 
   useEffect(() => {
@@ -29,6 +30,12 @@ const DateTimePicker: FC<Props> = ({ onChange }) => {
     const timestamp = dayjs(formattedDate).valueOf();
     onChange?.(timestamp);
   }, [dateTime]);
+
+  const formattedDate = (date: string) => {
+    const weekday = dayjs(date).weekday();
+    const dateText = dayjs(date).format('M월 D일');
+    return `${dateText} (${['일', '월', '화', '수', '목', '금', '토'][weekday]})`;
+  };
 
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
@@ -39,11 +46,7 @@ const DateTimePicker: FC<Props> = ({ onChange }) => {
         return dayjs(`${year}-${month}-${day}`).format('YYYY-MM-DD');
       }),
     )
-    .map((date) => {
-      const weekday = dayjs(date).weekday();
-      const dateText = dayjs(date).format('M월 D일');
-      return `${dateText} (${['일', '월', '화', '수', '목', '금', '토'][weekday]})`;
-    });
+    .map(formattedDate);
   const dates = [...new Set(transformDates)];
 
   const hours = Array.from({ length: 12 }, (_, i) => i + 1);

@@ -9,7 +9,7 @@ import dateState from '@/store/alarm-config/date';
 
 const ConfigPicker = () => {
   const [dateInfo, setDateInfo] = useRecoilState(dateState);
-  const { minutesAgo, activePicker } = dateInfo;
+  const { date, minutesAgo, activePicker } = dateInfo;
 
   if (activePicker === 'date') {
     const handleChange = (changedDate: number) => setDateInfo((prev) => ({ ...prev, date: changedDate }));
@@ -17,7 +17,7 @@ const ConfigPicker = () => {
       <Row>
         <div>외출 날짜 및 시간</div>
         <Row>
-          <DateTimePicker onChange={handleChange} />;
+          <DateTimePicker initialDate={date} onChange={handleChange} />;
         </Row>
       </Row>
     );
