@@ -102,7 +102,7 @@ const useCategories = () => {
 
   const onClickCategory = (category: Category) => () => {
     setCurrentCategory(category);
-    recordEvent({ action: '카테고리 변경', value: category.name });
+    recordEvent({ action: '사용자 카테고리 변경', value: category.name });
   };
 
   return { ...query, currentCategory, onClickCategory };
