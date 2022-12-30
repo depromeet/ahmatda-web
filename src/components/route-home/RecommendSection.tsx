@@ -2,9 +2,11 @@ import { useRef } from 'react';
 import styled from '@emotion/styled';
 import { AnimatePresence, DragHandlers, m, useAnimationControls } from 'framer-motion';
 
+import LoadingHandler from '../loading/LoadingHandler';
 import Tag from '../tag/Tag';
 
 import { defaultEasing } from '@/constants/motions';
+import useGetRecommendItem from '@/hooks/api/recommend-item/useGetRecommendItem';
 import useToggle from '@/hooks/common/useToggle';
 import useDidUpdate from '@/hooks/life-cycle/useDidUpdate';
 
@@ -12,6 +14,8 @@ const HIDE_BOTTOM_POS = 84;
 
 const RecommendSection = () => {
   const { onDragStart, onDragEnd, onClickToggleButton, animationControls } = useSectionVisible();
+
+  const { data, isLoading } = useGetRecommendItem();
 
   // TODO: API 부착 이후 대응
   const testFn = () => {
@@ -34,12 +38,15 @@ const RecommendSection = () => {
           <DragHandlerSpan />
         </DragHandlerButton>
 
-        <SuggestionText>날씨가 부쩍 추워졌어요. 이런 건 어때요?</SuggestionText>
+        <LoadingHandler isLoading={isLoading} fallback={undefined}>
+          <SuggestionText>이런 건 어때요?</SuggestionText>
 
-        <ItemWrapper>
-          <Tag value="핫팩" onClickCancel={testFn} />
-          <Tag value="겉옷" onClickCancel={testFn} />
-        </ItemWrapper>
+          <ItemWrapper>
+            {data?.items.map((item) => (
+              <StyledTag key={item} value={item} onClickCancel={testFn} />
+            ))}
+          </ItemWrapper>
+        </LoadingHandler>
       </Wrapper>
     </AnimatePresence>
   );
@@ -94,7 +101,20 @@ const SuggestionText = styled.p({ marginBottom: '8px' }, ({ theme }) => ({
   color: theme.colors.gray4,
 }));
 
-const ItemWrapper = styled.div({ display: 'flex', gap: '8px', marginBottom: '22px' });
+const ItemWrapper = styled.div({
+  display: 'flex',
+  flexShrink: 0,
+  gap: '8px',
+  marginBottom: '22px',
+  flexWrap: 'nowrap',
+  overflowX: 'scroll',
+  overflowY: 'hidden',
+});
+
+const StyledTag = styled(Tag)({
+  flex: '0 0 auto',
+  height: '38px',
+});
 
 const useSectionVisible = () => {
   const animationControls = useAnimationControls();
