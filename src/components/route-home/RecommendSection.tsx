@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { AnimatePresence, DragHandlers, m, useAnimationControls } from 'framer-motion';
 
@@ -15,13 +15,7 @@ const HIDE_BOTTOM_POS = 84;
 const RecommendSection = () => {
   const { onDragStart, onDragEnd, onClickToggleButton, animationControls } = useSectionVisible();
 
-  const { data, isLoading } = useGetRecommendItem();
-
-  // TODO: API 부착 이후 대응
-  const testFn = () => {
-    // eslint-disable-next-line no-console
-    console.log('clicked');
-  };
+  const { items, isLoading, onClickDelete } = useRecommendItem();
 
   return (
     <AnimatePresence mode="wait">
@@ -42,8 +36,8 @@ const RecommendSection = () => {
           <SuggestionText>이런 건 어때요?</SuggestionText>
 
           <ItemWrapper>
-            {data?.items.map((item) => (
-              <StyledTag key={item} value={item} onClickCancel={testFn} />
+            {items.map((item) => (
+              <StyledTag key={item.id} value={item.name} onClickCancel={onClickDelete(item.id)} />
             ))}
           </ItemWrapper>
         </LoadingHandler>
@@ -164,4 +158,26 @@ const visibleMotion = {
 const hideMotion = {
   y: HIDE_BOTTOM_POS,
   transition: { duration: 0.5, ease: defaultEasing },
+};
+
+interface RecommendItem {
+  id: number;
+  name: string;
+}
+
+const useRecommendItem = () => {
+  const { data, isLoading } = useGetRecommendItem();
+
+  const [items, setItems] = useState<RecommendItem[]>([]);
+
+  useEffect(() => {
+    if (!data) return;
+    setItems(data.items.map((item, index) => ({ id: index, name: item })));
+  }, [data]);
+
+  const onClickDelete = (itemId: RecommendItem['id']) => () => {
+    setItems((prev) => prev.filter((item) => item.id !== itemId));
+  };
+
+  return { items, isLoading, onClickDelete };
 };
