@@ -5,7 +5,6 @@ import AlarmBottomSheet from '../alarm/bottom-sheet/AlarmBottomSheet';
 import LabelButton from '../button/LabelButton';
 import IconAdd from '../icon/IconAdd';
 import IconAlarmAdd from '../icon/IconAlarmAdd';
-import IconPin from '../icon/IconPin';
 import IconSetting from '../icon/IconSetting';
 
 import CardItem from './CardItem';
@@ -30,9 +29,9 @@ const Card = ({ id, templateName, alarmCycle, items, pin }: Props) => {
       <Wrapper>
         <TitleHeading>{templateName}</TitleHeading>
         <AlarmCycleSpan>{alarmCycle}</AlarmCycleSpan>
-        <PinButton type="button">
+        {/* <PinButton type="button">
           <IconPin />
-        </PinButton>
+        </PinButton> */}
 
         <ItemWrapper>
           <LabelButton size="large" withIcon onClick={toggleCardItemAppendShowing}>
@@ -101,18 +100,18 @@ const AlarmCycleSpan = styled.span({ display: 'inline-block', marginBottom: '24p
   color: theme.colors.gray4,
 }));
 
-const PinButton = styled.button({
-  all: 'unset',
-  cursor: 'pointer',
-  position: 'absolute',
-  top: '11px',
-  right: '8px',
-  width: '48px',
-  height: '48px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-});
+// const PinButton = styled.button({
+//   all: 'unset',
+//   cursor: 'pointer',
+//   position: 'absolute',
+//   top: '11px',
+//   right: '8px',
+//   width: '48px',
+//   height: '48px',
+//   display: 'flex',
+//   justifyContent: 'center',
+//   alignItems: 'center',
+// });
 
 const ItemWrapper = styled.div({
   flexGrow: '1',
