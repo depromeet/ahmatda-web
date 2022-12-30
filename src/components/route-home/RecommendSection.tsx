@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { MouseEvent, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { AnimatePresence, DragHandlers, m, useAnimationControls } from 'framer-motion';
 
@@ -7,6 +7,7 @@ import Tag from '../tag/Tag';
 
 import { defaultEasing } from '@/constants/motions';
 import useGetRecommendItem from '@/hooks/api/recommend-item/useGetRecommendItem';
+import useCardItemMutation from '@/hooks/api/template/useCardItemMutation';
 import useToggle from '@/hooks/common/useToggle';
 import useDidUpdate from '@/hooks/life-cycle/useDidUpdate';
 
@@ -15,7 +16,7 @@ const HIDE_BOTTOM_POS = 84;
 const RecommendSection = () => {
   const { onDragStart, onDragEnd, onClickToggleButton, animationControls } = useSectionVisible();
 
-  const { items, isLoading, onClickDelete } = useRecommendItem();
+  const { items, isLoading, appendToCard, removeFromItems } = useRecommendItem();
 
   return (
     <AnimatePresence mode="wait">
@@ -37,7 +38,12 @@ const RecommendSection = () => {
 
           <ItemWrapper>
             {items.map((item) => (
-              <StyledTag key={item.id} value={item.name} onClickCancel={onClickDelete(item.id)} />
+              <StyledTag
+                key={item.id}
+                value={item.name}
+                onClick={appendToCard(item)}
+                onClickCancel={removeFromItems(item.id)}
+              />
             ))}
           </ItemWrapper>
         </LoadingHandler>
@@ -170,14 +176,22 @@ const useRecommendItem = () => {
 
   const [items, setItems] = useState<RecommendItem[]>([]);
 
+  const { createCardItemMutation } = useCardItemMutation();
+
   useEffect(() => {
     if (!data) return;
     setItems(data.items.map((item, index) => ({ id: index, name: item })));
   }, [data]);
 
-  const onClickDelete = (itemId: RecommendItem['id']) => () => {
+  const removeFromItems = (itemId: RecommendItem['id']) => (e: MouseEvent<SVGSVGElement>) => {
+    e.stopPropagation();
     setItems((prev) => prev.filter((item) => item.id !== itemId));
   };
 
-  return { items, isLoading, onClickDelete };
+  const appendToCard = (item: RecommendItem) => () => {
+    createCardItemMutation.mutate({ itemName: item.name, important: false });
+    removeFromItems(item.id);
+  };
+
+  return { items, isLoading, appendToCard, removeFromItems };
 };

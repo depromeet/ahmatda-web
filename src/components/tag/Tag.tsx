@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, forwardRef, Ref } from 'react';
+import { ComponentPropsWithoutRef, forwardRef, MouseEventHandler, Ref } from 'react';
 import styled from '@emotion/styled';
 
 import IconCancelSmall from '../icon/IconCancelSmall';
@@ -7,7 +7,7 @@ type ButtonPropsWithoutChildrenAndRef = Omit<ComponentPropsWithoutRef<'button'>,
 
 interface Props extends ButtonPropsWithoutChildrenAndRef {
   value: string;
-  onClickCancel?: VoidFunction;
+  onClickCancel?: MouseEventHandler<SVGSVGElement>;
 }
 
 const Tag = forwardRef(function Tag(
