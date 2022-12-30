@@ -17,7 +17,7 @@ const ConfigPicker = () => {
       <Row>
         <div>외출 날짜 및 시간</div>
         <Row>
-          <DateTimePicker initialDate={date} onChange={handleChange} />;
+          <DateTimePicker initialValue={date} onChange={handleChange} />
         </Row>
       </Row>
     );
