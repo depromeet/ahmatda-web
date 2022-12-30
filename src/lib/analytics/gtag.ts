@@ -4,7 +4,7 @@ type GTagEvent = {
   action: string;
   category?: string;
   label?: string;
-  value?: number;
+  value?: unknown;
 };
 
 export const gaPageview = (url: URL) => {
