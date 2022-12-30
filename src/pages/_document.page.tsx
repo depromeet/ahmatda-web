@@ -1,8 +1,8 @@
 import React from 'react';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
-import { GA_TRACKING_ID } from '@/lib/gtag';
-import { MIXPANEL_TOKEN } from '@/lib/mixpanel';
+import { GA_TRACKING_ID } from '@/lib/analytics/gtag';
+import { MIXPANEL_TOKEN } from '@/lib/analytics/mixpanel';
 import { isProd } from '@/utils/utils';
 
 class MyDocument extends Document {
