@@ -13,7 +13,9 @@ const Information = () => {
         <Ul>
           {INFORMATION.map(({ title, link }) => (
             <Li key={title}>
-              <a href={link}>{title}</a>
+              <a href={link} target="_blank" rel="noopener noreferrer">
+                {title}
+              </a>
             </Li>
           ))}
         </Ul>
@@ -40,9 +42,8 @@ const Li = styled.li(
   }),
 );
 
-// TODO: 정보별 링크 추가
 const INFORMATION = [
-  { title: '이용약관', link: '' },
-  { title: '개인정보 정책', link: '' },
-  { title: '오픈소스', link: '' },
+  { title: '이용약관', link: 'https://ahmatda.notion.site/bc42621887b94bf2bce7f7c4f8c6700c' },
+  { title: '개인정보 정책', link: 'https://ahmatda.notion.site/5855ebbc00394df182d254b1e8f3a3ea' },
+  { title: '오픈소스', link: 'https://github.com/depromeet/ahmatda-web' },
 ];
