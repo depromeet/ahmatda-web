@@ -7,14 +7,13 @@ import { get } from '@/lib/api';
 import currentCategoryState from '@/store/route-home/currentCategory';
 
 interface Response {
-  result: {
-    items: string[];
-  };
+  items: string[];
 }
 
 const HOME_RECOMMEND_ITEM_QUERY_KEY = 'home_recommend_item';
 
-const getRecommendItem = (categoryId: Category['id']) => get<Response>(`/recommend/items?category=${categoryId}`);
+const getRecommendItem = (categoryId: Category['id']) =>
+  get<ApiResponse<Response>>(`/recommend/items?category=${categoryId}`);
 
 const useGetRecommendItem = () => {
   const currentCategory = useRecoilValue(currentCategoryState);
