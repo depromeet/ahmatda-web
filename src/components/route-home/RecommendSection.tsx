@@ -1,10 +1,13 @@
-import { useRef } from 'react';
+import { MouseEvent, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { AnimatePresence, DragHandlers, m, useAnimationControls } from 'framer-motion';
 
+import LoadingHandler from '../loading/LoadingHandler';
 import Tag from '../tag/Tag';
 
 import { defaultEasing } from '@/constants/motions';
+import useGetRecommendItem from '@/hooks/api/recommend-item/useGetRecommendItem';
+import useCardItemMutation from '@/hooks/api/template/useCardItemMutation';
 import useToggle from '@/hooks/common/useToggle';
 import useDidUpdate from '@/hooks/life-cycle/useDidUpdate';
 
@@ -13,11 +16,7 @@ const HIDE_BOTTOM_POS = 84;
 const RecommendSection = () => {
   const { onDragStart, onDragEnd, onClickToggleButton, animationControls } = useSectionVisible();
 
-  // TODO: API 부착 이후 대응
-  const testFn = () => {
-    // eslint-disable-next-line no-console
-    console.log('clicked');
-  };
+  const { items, isLoading, appendToCard, removeFromItems } = useRecommendItem();
 
   return (
     <AnimatePresence mode="wait">
@@ -34,12 +33,20 @@ const RecommendSection = () => {
           <DragHandlerSpan />
         </DragHandlerButton>
 
-        <SuggestionText>날씨가 부쩍 추워졌어요. 이런 건 어때요?</SuggestionText>
+        <LoadingHandler isLoading={isLoading} fallback={undefined}>
+          <SuggestionText>이런 건 어때요?</SuggestionText>
 
-        <ItemWrapper>
-          <Tag value="핫팩" onClickCancel={testFn} />
-          <Tag value="겉옷" onClickCancel={testFn} />
-        </ItemWrapper>
+          <ItemWrapper>
+            {items.map((item) => (
+              <StyledTag
+                key={item.id}
+                value={item.name}
+                onClick={appendToCard(item)}
+                onClickCancel={removeFromItems(item.id)}
+              />
+            ))}
+          </ItemWrapper>
+        </LoadingHandler>
       </Wrapper>
     </AnimatePresence>
   );
@@ -94,7 +101,20 @@ const SuggestionText = styled.p({ marginBottom: '8px' }, ({ theme }) => ({
   color: theme.colors.gray4,
 }));
 
-const ItemWrapper = styled.div({ display: 'flex', gap: '8px', marginBottom: '22px' });
+const ItemWrapper = styled.div({
+  display: 'flex',
+  flexShrink: 0,
+  gap: '8px',
+  marginBottom: '22px',
+  flexWrap: 'nowrap',
+  overflowX: 'scroll',
+  overflowY: 'hidden',
+});
+
+const StyledTag = styled(Tag)({
+  flex: '0 0 auto',
+  height: '38px',
+});
 
 const useSectionVisible = () => {
   const animationControls = useAnimationControls();
@@ -144,4 +164,34 @@ const visibleMotion = {
 const hideMotion = {
   y: HIDE_BOTTOM_POS,
   transition: { duration: 0.5, ease: defaultEasing },
+};
+
+interface RecommendItem {
+  id: number;
+  name: string;
+}
+
+const useRecommendItem = () => {
+  const { data, isLoading } = useGetRecommendItem();
+
+  const [items, setItems] = useState<RecommendItem[]>([]);
+
+  const { createCardItemMutation } = useCardItemMutation();
+
+  useEffect(() => {
+    if (!data) return;
+    setItems(data.items.map((item, index) => ({ id: index, name: item })));
+  }, [data]);
+
+  const removeFromItems = (itemId: RecommendItem['id']) => (e: MouseEvent<SVGSVGElement>) => {
+    e.stopPropagation();
+    setItems((prev) => prev.filter((item) => item.id !== itemId));
+  };
+
+  const appendToCard = (item: RecommendItem) => () => {
+    createCardItemMutation.mutate({ itemName: item.name, important: false });
+    removeFromItems(item.id);
+  };
+
+  return { items, isLoading, appendToCard, removeFromItems };
 };
