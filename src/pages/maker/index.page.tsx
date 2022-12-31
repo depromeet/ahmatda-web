@@ -27,20 +27,20 @@ interface Makers {
 
 const MAKERS: Makers = {
   'Frontend Dev': [
-    { name: '오혜성', icon: <Graphic10Kg isAct />, link: 'https://www.hyesungoh.xyz/' },
-    { name: '구민규', icon: <GraphicCard isAct />, link: null },
-    { name: '이은지', icon: <GraphicPC isAct />, link: null },
-    { name: '박한솔', icon: <GraphicAirpods isAct />, link: null },
+    { name: '오혜성', icon: <Graphic10Kg isAct size={40} />, link: 'https://www.hyesungoh.xyz/' },
+    { name: '구민규', icon: <GraphicCard isAct size={40} />, link: null },
+    { name: '이은지', icon: <GraphicPC isAct size={40} />, link: null },
+    { name: '박한솔', icon: <GraphicAirpods isAct size={40} />, link: null },
   ],
   'Backend Dev': [
-    { name: '김민걸', icon: <GraphicCharger isAct />, link: null },
-    { name: '명수찬', icon: <GraphicLipbalm isAct />, link: null },
-    { name: '조성민', icon: <GraphicHeadphones isAct />, link: 'https://github.com/sungmin69355' },
+    { name: '김민걸', icon: <GraphicCharger isAct size={40} />, link: null },
+    { name: '명수찬', icon: <GraphicLipbalm isAct size={40} />, link: null },
+    { name: '조성민', icon: <GraphicHeadphones isAct size={40} />, link: 'https://github.com/sungmin69355' },
   ],
   Designer: [
-    { name: '이영희', icon: <GraphicEyeDrops isAct />, link: 'https://www.behance.net/altns684700d5' },
-    { name: '윤가빈', icon: <GraphicAppleWatch isAct />, link: 'https://www.behance.net/gabinyun' },
-    { name: '이종원', icon: <GraphicHandBag isAct />, link: null },
+    { name: '이영희', icon: <GraphicEyeDrops isAct size={40} />, link: 'https://www.behance.net/altns684700d5' },
+    { name: '윤가빈', icon: <GraphicAppleWatch isAct size={40} />, link: 'https://www.behance.net/gabinyun' },
+    { name: '이종원', icon: <GraphicHandBag isAct size={40} />, link: null },
   ],
 };
 
@@ -76,7 +76,7 @@ const Information = () => {
 
 export default Information;
 
-const Grid = ({ title }: { title: 'Frontend Dev' | 'Backend Dev' | 'Designer' }) => {
+const Grid = ({ title }: { title: keyof typeof MAKERS }) => {
   const theme = useTheme();
 
   return (
