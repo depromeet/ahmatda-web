@@ -13,6 +13,7 @@ import { Graphic } from '@/components/graphic/type';
 import { CategoryKind } from '@/hooks/api/category/type';
 import useUserCategoryMutation from '@/hooks/api/category/useUserCategoryMutation';
 import useInput from '@/hooks/common/useInput';
+import recordEvent from '@/lib/analytics/record';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
@@ -47,6 +48,10 @@ const CategoryAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
         onSuccess: () => {
           setToClose();
           clearInputs();
+          recordEvent({
+            action: '사용자 카테고리 추가',
+            value: { name: categoryName, type: currentCategory, icon: currentIcon },
+          });
         },
       },
     );

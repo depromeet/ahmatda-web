@@ -7,15 +7,17 @@ import IconButton from '@/components/button/IconButton';
 import Chip from '@/components/chip/Chip';
 import Graphic from '@/components/graphic/Graphic';
 import IconOverflow from '@/components/icon/IconOverflow';
+import { Category } from '@/hooks/api/category/type';
 import useGetUserCategories from '@/hooks/api/category/useGetUserCategories';
 import useToggle from '@/hooks/common/useToggle';
+import recordEvent from '@/lib/analytics/record';
 import currentCategoryState from '@/store/route-home/currentCategory';
 
 const CategorySettingBottomSheet = dynamic(() => import('./CategorySettingBottomSheet'));
 
 const CategorySection = () => {
   const [isCategorySettingShowing, setCategorySettingShowing, toggleCategorySettingShowing] = useToggle(false);
-  const { data, currentCategory, setCurrentCategory } = useCategories();
+  const { data, currentCategory, onClickCategory } = useCategories();
 
   return (
     <>
@@ -29,7 +31,7 @@ const CategorySection = () => {
                 key={eachCategory.id}
                 label={eachCategory.name}
                 color={isCurrentCategory ? 'black' : 'default'}
-                onClick={() => setCurrentCategory(eachCategory)}
+                onClick={onClickCategory(eachCategory)}
                 icon={<Graphic type={eachCategory.emoji} isAct={isCurrentCategory} />}
               />
             );
@@ -98,5 +100,10 @@ const useCategories = () => {
     setCurrentCategory(query.data[0]);
   }, [query.data]);
 
-  return { ...query, currentCategory, setCurrentCategory };
+  const onClickCategory = (category: Category) => () => {
+    setCurrentCategory(category);
+    recordEvent({ action: '사용자 카테고리 변경', value: category.name });
+  };
+
+  return { ...query, currentCategory, onClickCategory };
 };

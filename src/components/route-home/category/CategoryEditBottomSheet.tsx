@@ -14,6 +14,7 @@ import { CategoryKind } from '@/hooks/api/category/type';
 import useUserCategoryMutation from '@/hooks/api/category/useUserCategoryMutation';
 import useInput from '@/hooks/common/useInput';
 import useToggle from '@/hooks/common/useToggle';
+import recordEvent from '@/lib/analytics/record';
 
 interface Props extends Omit<ComponentProps<typeof BottomSheet>, 'children'> {
   id: number;
@@ -48,6 +49,9 @@ const CategoryEditBottomSheet: FC<Props> = ({ isShowing, setToClose, id, name, c
       {
         onSuccess: () => {
           setToClose();
+          recordEvent({
+            action: '사용자 카테고리 변경',
+          });
         },
       },
     );
@@ -133,6 +137,7 @@ const useDeleteDialog = ({ categoryId, setToCloseBottomSheet }: DeleteDialogProp
       onSuccess: () => {
         toggleIsShowingDeleteDialog();
         setToCloseBottomSheet();
+        recordEvent({ action: '사용자 카테고리 삭제' });
       },
     });
   };
