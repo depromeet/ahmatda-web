@@ -23,10 +23,10 @@ const CardItem = ({ name, take, important, itemId }: Props) => {
 
   const [isCardItemSettingShowing, __, toggleIsCardItemSettingShowing] = useToggle(false);
 
-  const { editCardItemMutation } = useCardItemMutation();
+  const { editCardItemTakeMutation } = useCardItemMutation();
 
   const onChangeTakeCheckbox: ChangeEventHandler<HTMLInputElement> = (e) => {
-    editCardItemMutation.mutate({ itemId, modifiedItemName: name, important, isTake: e.target.checked });
+    editCardItemTakeMutation.mutate({ itemId, isTake: e.target.checked });
   };
 
   return (
@@ -46,7 +46,6 @@ const CardItem = ({ name, take, important, itemId }: Props) => {
         itemId={itemId}
         name={name}
         important={important}
-        take={take}
         setToClose={toggleIsCardItemSettingShowing}
         isShowing={isCardItemSettingShowing}
       />

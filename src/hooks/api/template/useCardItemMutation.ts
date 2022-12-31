@@ -20,11 +20,19 @@ interface createCardItemRequest extends createCardItemProps {
 interface editCardItemProps {
   itemId: number;
   modifiedItemName: string;
-  isTake: boolean;
   important: boolean;
 }
 
 interface editCardItemRequest extends editCardItemProps {
+  templateId: number;
+}
+
+interface editCardItemTakeProps {
+  itemId: number;
+  isTake: boolean;
+}
+
+interface editCardItemTakeRequest extends editCardItemTakeProps {
   templateId: number;
 }
 
@@ -78,6 +86,22 @@ const useCardItemMutation = () => {
 
       return patch('/template/item', requestData);
     },
+    onSuccess: () => {
+      invalidateCurrentUserTemplate();
+    },
+  });
+
+  const editCardItemTakeMutation = useMutation({
+    mutationFn: (toggledCardItem: editCardItemTakeProps) => {
+      if (!currentTemplate) throw new Error('');
+
+      const requestData: editCardItemTakeRequest = {
+        ...toggledCardItem,
+        templateId: currentTemplate.id,
+      };
+
+      return patch('/template/item', requestData);
+    },
     onMutate: async (editedCardItem) => {
       await queryClient.cancelQueries([USER_TEMPLATE_QUERY_KEY, currentCategory?.id]);
 
@@ -92,9 +116,7 @@ const useCardItemMutation = () => {
             if (item.id === editedCardItem.itemId)
               return {
                 ...item,
-                name: editedCardItem.modifiedItemName,
                 take: editedCardItem.isTake,
-                important: editedCardItem.important,
               };
             return item;
           });
@@ -107,7 +129,6 @@ const useCardItemMutation = () => {
 
       return prevUserTemplate;
     },
-    onSettled: () => invalidateCurrentUserTemplate(),
   });
 
   const deleteCardItemMutation = useMutation(
@@ -128,7 +149,7 @@ const useCardItemMutation = () => {
     },
   );
 
-  return { createCardItemMutation, editCardItemMutation, deleteCardItemMutation };
+  return { createCardItemMutation, editCardItemMutation, editCardItemTakeMutation, deleteCardItemMutation };
 };
 
 export default useCardItemMutation;

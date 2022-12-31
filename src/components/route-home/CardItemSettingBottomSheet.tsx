@@ -19,10 +19,9 @@ interface Props extends BottomSheetProps {
   itemId: UserItem['id'];
   name: UserItem['name'];
   important: UserItem['important'];
-  take: UserItem['take'];
 }
 
-const TemplateItemSettingBottomSheet = ({ isShowing, setToClose, itemId, name, important, take }: Props) => {
+const TemplateItemSettingBottomSheet = ({ isShowing, setToClose, itemId, name, important }: Props) => {
   const {
     value: itemName,
     onChange: onChangeItemName,
@@ -38,7 +37,7 @@ const TemplateItemSettingBottomSheet = ({ isShowing, setToClose, itemId, name, i
   const { editCardItemMutation, deleteCardItemMutation } = useCardItemMutation();
 
   const handleTemplateItemSettingComplete = () => {
-    editCardItemMutation.mutate({ itemId, modifiedItemName: debouncedItemName, isTake: take, important: isImportant });
+    editCardItemMutation.mutate({ itemId, modifiedItemName: debouncedItemName, important: isImportant });
     setToClose();
   };
 
