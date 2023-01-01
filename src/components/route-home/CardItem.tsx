@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { ChangeEventHandler, useId } from 'react';
 import dynamic from 'next/dynamic';
 import { css, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import IconCardItemCheck from './IconCardItemCheck';
 
 import { UserItem } from '@/hooks/api/template/type';
+import useCardItemMutation from '@/hooks/api/template/useCardItemMutation';
 import useToggle from '@/hooks/common/useToggle';
 
 const CardItemSettingBottomSheet = dynamic(() => import('./CardItemSettingBottomSheet'));
@@ -19,25 +20,24 @@ interface Props {
 
 const CardItem = ({ name, take, important, itemId }: Props) => {
   const id = useId();
-  // TODO: API 대응
-  const [isCurrentChecked, _, toggleCurrentChecked] = useToggle(take);
 
   const [isCardItemSettingShowing, __, toggleIsCardItemSettingShowing] = useToggle(false);
 
+  const { editCardItemTakeMutation } = useCardItemMutation();
+
+  const onChangeTakeCheckbox: ChangeEventHandler<HTMLInputElement> = (e) => {
+    editCardItemTakeMutation.mutate({ itemId, isTake: e.target.checked });
+  };
+
   return (
     <>
-      <Wrapper isChecked={isCurrentChecked} isImportant={important}>
-        <HidedInput id={id} type="checkbox" checked={isCurrentChecked} onChange={toggleCurrentChecked} />
+      <Wrapper isChecked={take} isImportant={important}>
+        <HidedInput id={id} type="checkbox" checked={take} onChange={onChangeTakeCheckbox} />
         <IconLabel htmlFor={id}>
-          <IconCardItemCheck isChecked={isCurrentChecked} isImportant={important} />
+          <IconCardItemCheck isChecked={take} isImportant={important} />
         </IconLabel>
 
-        <NameButton
-          type="button"
-          onClick={toggleIsCardItemSettingShowing}
-          isChecked={isCurrentChecked}
-          isImportant={important}
-        >
+        <NameButton type="button" onClick={toggleIsCardItemSettingShowing} isChecked={take} isImportant={important}>
           {name}
         </NameButton>
       </Wrapper>
