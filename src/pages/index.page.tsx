@@ -38,6 +38,7 @@ const HomePage: NextPageWithLayout = () => {
       >
         FCM 토큰 전송 🧚‍♀️
       </button>
+      <div>{fcmToken}</div>
 
       <LoadingHandler fallback={<FixedSpinner />} isLoading={isLoading}>
         <Carousel.Wrapper ref={setCarouselWrapper}>
