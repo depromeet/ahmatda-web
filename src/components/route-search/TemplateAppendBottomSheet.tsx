@@ -1,6 +1,5 @@
 import { ComponentProps, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { useQuery } from '@tanstack/react-query';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import LabelButton from '../button/LabelButton';
@@ -12,11 +11,9 @@ import BottomSheet from '../portal/BottomSheet';
 
 import CategorySection from './CategorySection';
 
-import { Category } from '@/hooks/api/category/type';
 import useGetUserCategories from '@/hooks/api/category/useGetUserCategories';
-import { UserTemplate } from '@/hooks/api/template/type';
 import useAppendToMyTemplate from '@/hooks/api/template/useAppendToMyTemplate';
-import { get } from '@/lib/api';
+import useGetUserTemplatesInSearchTab from '@/hooks/api/template/useGetUserTemplatesInSearchTab';
 import selectedCategoryState from '@/store/route-search/bottomSheet/selectedCategory';
 import selectedTemplateState from '@/store/route-search/bottomSheet/selectedTemplate';
 import { currentRecCategoryWithFlag } from '@/store/route-search/currentRecCategory';
@@ -29,7 +26,7 @@ const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
   const [selectedTemplate, setSelectedTemplate] = useRecoilState(selectedTemplateState);
 
   const { userCategories, isUserCategoriesLoading } = useUserCategories();
-  const { userTemplates, isUserTemplatesLoading } = useUserTemplates(selectedCategory);
+  const { userTemplates, isUserTemplatesLoading } = useUserTemplates();
 
   const currentRecCategory = useRecoilValue(currentRecCategoryWithFlag);
   const selectedRecTemplate = useRecoilValue(selectedRecTemplateState);
@@ -119,30 +116,8 @@ const useUserCategories = () => {
   return { userCategories, isUserCategoriesLoading };
 };
 
-const useGetUserTemplates = (selectedCategory: Category | null) => {
-  interface Response {
-    result: UserTemplate[];
-  }
-
-  const getUserTemplate = () => {
-    if (selectedCategory?.isRecCategory) {
-      return;
-    }
-    return get<Response>(`/template/user?category=${selectedCategory?.id}`);
-  };
-  const USER_TEMPLATE_QUERY_KEY = 'search_tab_user_template';
-
-  const query = useQuery({
-    queryKey: [USER_TEMPLATE_QUERY_KEY, selectedCategory],
-    queryFn: () => getUserTemplate(),
-    enabled: Boolean(selectedCategory?.id),
-  });
-
-  return { ...query, data: query.data?.result };
-};
-
-const useUserTemplates = (selectedUserCategory: Category | null) => {
-  const { data: userTemplates, isLoading: isUserTemplatesLoading } = useGetUserTemplates(selectedUserCategory);
+const useUserTemplates = () => {
+  const { data: userTemplates, isLoading: isUserTemplatesLoading } = useGetUserTemplatesInSearchTab();
   return { userTemplates, isUserTemplatesLoading };
 };
 
