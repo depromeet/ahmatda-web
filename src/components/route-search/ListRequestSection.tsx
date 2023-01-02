@@ -10,7 +10,7 @@ const ListRequestSection = () => {
       <MainTitle>찾으시는 리스트가 없나요?</MainTitle>
       <SubTitle>필요한 상황의 리스트를 말씀해 주세요.</SubTitle>
       <StyledButton>
-        <StyledAnchor href="https://tally.so/r/w5Xqyd" target="_blank">
+        <StyledAnchor href="https://tally.so/r/w5Xqyd" target="_blank" rel="noreferrer">
           <div>
             <Emoji role="img" aria-label="writing hand">
               ✍
