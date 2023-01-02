@@ -10,13 +10,24 @@ import selectedCategoryState from '@/store/route-search/bottomSheet/selectedCate
 
 interface Response {
   result: UserTemplate[];
+  error?: {
+    code: string;
+    message: string;
+    detail: string | null;
+  };
 }
 
-const getUserTemplate = (selectedCategory: Category | null) => {
+const getUserTemplate = async (selectedCategory: Category | null) => {
   if ('isRecCategory' in selectedCategory!) {
     return Promise.resolve(null);
   }
-  return get<Response>(`/template/user?category=${selectedCategory?.id}`);
+
+  const res = await get<Response>(`/template/user?category=${selectedCategory?.id}`);
+  if (res.error !== null && res.error?.code !== 'TEMPLATE_NOT_FOUND') {
+    throw new Error('');
+  }
+
+  return res;
 };
 
 const USER_TEMPLATE_QUERY_KEY = 'search_tab_user_template';
