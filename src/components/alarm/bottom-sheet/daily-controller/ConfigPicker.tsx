@@ -4,33 +4,33 @@ import { useRecoilState } from 'recoil';
 import SelectItem from '../SelectItem';
 
 import DateTimePicker from '@/components/scrollable-date-time-picker/DateTimePicker';
-import { MinutesAgo, minutesAgoPairs } from '@/models/alarm';
-import dateState from '@/store/alarm-config/date';
+import { AlarmTimeOption, alarmTimeOptionPairs } from '@/models/alarm';
+import dailyState from '@/store/alarm-config/daily';
 
 const ConfigPicker = () => {
-  const [dateInfo, setDateInfo] = useRecoilState(dateState);
-  const { date, minutesAgo, activePicker } = dateInfo;
+  const [dateInfo, setDateInfo] = useRecoilState(dailyState);
+  const { alarmDateTime, alarmTimeOption, activePicker } = dateInfo;
 
-  if (activePicker === 'date') {
+  if (activePicker === 'dateTime') {
     const handleChange = (changedDate: number) => setDateInfo((prev) => ({ ...prev, date: changedDate }));
     return (
       <Row>
         <div>외출 날짜 및 시간</div>
         <Row>
-          <DateTimePicker initialValue={date} onChange={handleChange} />
+          <DateTimePicker initialValue={alarmDateTime} onChange={handleChange} />
         </Row>
       </Row>
     );
   }
 
-  if (activePicker === 'minutesAgo') {
-    const handleClick = (key: MinutesAgo) => setDateInfo((prev) => ({ ...prev, minutesAgo: key }));
+  if (activePicker === 'timeOption') {
+    const handleClick = (key: AlarmTimeOption) => setDateInfo((prev) => ({ ...prev, minutesAgo: key }));
     return (
       <Row>
         <div>알림 희망 시간</div>
         <Row>
-          {minutesAgoPairs.map(({ key, value }) => (
-            <SelectItem key={key} text={value} active={key === minutesAgo} onClick={() => handleClick(key)} />
+          {alarmTimeOptionPairs.map(({ key, value }) => (
+            <SelectItem key={key} text={value} active={key === alarmTimeOption} onClick={() => handleClick(key)} />
           ))}
         </Row>
       </Row>

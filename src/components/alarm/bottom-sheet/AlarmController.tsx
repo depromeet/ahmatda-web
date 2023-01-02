@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import AlarmDateController from './date-controller/AlarmDateController';
-import AlarmDayController from './AlarmDayController';
+import AlarmDailyController from './daily-controller/AlarmDailyController';
+import AlarmWeeklyController from './weekly-controller/AlarmWeeklyController';
 
 import { AlarmType } from '@/models/alarm';
 
@@ -10,11 +10,11 @@ interface Props {
 }
 
 const AlarmController: FC<Props> = ({ alarmType }) => {
-  if (alarmType === 'Day') {
-    return <AlarmDayController />;
+  if (alarmType === 'WEEKLY') {
+    return <AlarmWeeklyController />;
   }
 
-  return <AlarmDateController />;
+  return <AlarmDailyController />;
 };
 
 export default AlarmController;

@@ -1,6 +1,6 @@
 import { Pair } from '.';
 
-export type AlarmType = 'Day' | 'Date';
+export type AlarmType = 'WEEKLY' | 'DAILY';
 
 export type Weekday = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
 export type Day = 'everyday' | 'weekdays' | 'weekends';
@@ -21,24 +21,32 @@ export const dayPairs: Pair<Day, string>[] = [
   { key: 'weekends', value: '주말' },
 ];
 
-export type MinutesAgo = 0 | 10 | 30 | 60 | 120 | 1440 | 2880 | 10080;
+export type AlarmTimeOption =
+  | 'ONTIME'
+  | 'TEN_MINUTES'
+  | 'THIRTY_MINUTES'
+  | 'ONE_HOUR'
+  | 'TWO_HOURS'
+  | 'ONE_DAY'
+  | 'TWO_DAYS'
+  | 'ONE_WEEK';
 export type AlarmRepeat = 'ThisWeek' | 'EveryWeek';
 
-export const minutesAgoPairs: Pair<MinutesAgo, string>[] = [
-  { key: 0, value: '정시' },
-  { key: 10, value: '10분 전' },
-  { key: 30, value: '30분 전' },
-  { key: 60, value: '1시간 전' },
-  { key: 120, value: '2시간 전' },
-  { key: 1440, value: '하루 전' },
-  { key: 2880, value: '2일 전' },
-  { key: 10080, value: '일주일 전' },
+export const alarmTimeOptionPairs: Pair<AlarmTimeOption, string>[] = [
+  { key: 'ONTIME', value: '정시' },
+  { key: 'TEN_MINUTES', value: '10분 전' },
+  { key: 'THIRTY_MINUTES', value: '30분 전' },
+  { key: 'ONE_HOUR', value: '1시간 전' },
+  { key: 'TWO_HOURS', value: '2시간 전' },
+  { key: 'ONE_DAY', value: '하루 전' },
+  { key: 'TWO_DAYS', value: '2일 전' },
+  { key: 'ONE_WEEK', value: '일주일 전' },
 ];
 export const alarmRepeatPairs: Pair<AlarmRepeat, string>[] = [
   { key: 'ThisWeek', value: '이번 주' },
   { key: 'EveryWeek', value: '매주' },
 ];
 export const alarmTypePairs: Pair<AlarmType, string>[] = [
-  { key: 'Day', value: '요일별' },
-  { key: 'Date', value: '날짜별' },
+  { key: 'WEEKLY', value: '요일별' },
+  { key: 'DAILY', value: '날짜별' },
 ];

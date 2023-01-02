@@ -4,29 +4,29 @@ import { useRecoilState } from 'recoil';
 
 import Picker from '../Picker';
 
-import { minutesAgoPairs } from '@/models/alarm';
-import dateState from '@/store/alarm-config/date';
+import { alarmTimeOptionPairs } from '@/models/alarm';
+import dailyState from '@/store/alarm-config/daily';
 
 const Header = () => {
-  const [dateInfo, setDateInfo] = useRecoilState(dateState);
-  const { date, minutesAgo, activePicker } = dateInfo;
+  const [dateInfo, setDateInfo] = useRecoilState(dailyState);
+  const { alarmDateTime, alarmTimeOption, activePicker } = dateInfo;
 
-  const dateText = dayjs(date).format('M월 D일 A h:mm');
-  const minutesAgoText = minutesAgoPairs.find(({ key }) => key === minutesAgo)?.value ?? '';
+  const dateText = dayjs(alarmDateTime).format('M월 D일 A h:mm');
+  const minutesAgoText = alarmTimeOptionPairs.find(({ key }) => key === alarmTimeOption)?.value ?? '';
 
-  const handleClickPicker = (picker: 'date' | 'minutesAgo') => () =>
+  const handleClickPicker = (picker: 'dateTime' | 'timeOption') => () =>
     setDateInfo((prev) => ({ ...prev, activePicker: picker }));
 
   return (
     <Row>
       <Row>
-        <Picker text={dateText} active={activePicker === 'date'} onClick={handleClickPicker('date')} />
+        <Picker text={dateText} active={activePicker === 'dateTime'} onClick={handleClickPicker('dateTime')} />
       </Row>
       <Row>
         <Picker
           text={minutesAgoText}
-          active={activePicker === 'minutesAgo'}
-          onClick={handleClickPicker('minutesAgo')}
+          active={activePicker === 'timeOption'}
+          onClick={handleClickPicker('timeOption')}
         />
         <span>에</span>
         <span>챙겨드릴께요!</span>

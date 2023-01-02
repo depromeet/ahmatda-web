@@ -1,6 +1,6 @@
-import { ComponentProps, FC, useState } from 'react';
+import { ComponentProps, FC } from 'react';
 import styled from '@emotion/styled';
-import { useResetRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 
 import LabelButton from '../../button/LabelButton';
 import AppBar from '../../navigation/AppBar';
@@ -10,14 +10,15 @@ import AlarmController from './AlarmController';
 
 import SegmentedControl from '@/components/segmented-control/SegmentedControl';
 import ToggleSwitch from '@/components/toggle/ToggleSwitch';
-import { AlarmType, alarmTypePairs } from '@/models/alarm';
-import dateState from '@/store/alarm-config/date';
+import { alarmTypePairs } from '@/models/alarm';
+import configState from '@/store/alarm-config/config';
+import dailyState from '@/store/alarm-config/daily';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
 const AlarmBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
-  const resetDateConfig = useResetRecoilState(dateState);
-  const [alarmType, setAlarmType] = useState<AlarmType>('Date');
+  const resetDateConfig = useResetRecoilState(dailyState);
+  const [{ alarmType, isActivated }, setAlarmConfig] = useRecoilState(configState);
 
   const alarmTypeOptions = alarmTypePairs.map((pair) => pair.value);
   const alarmTypeValue = alarmTypePairs.find((pair) => pair.key === alarmType)?.value;
@@ -27,12 +28,16 @@ const AlarmBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
 
     if (!alarmTypeKey) return;
 
-    setAlarmType(alarmTypeKey);
+    setAlarmConfig((prev) => ({ ...prev, alarmType: alarmTypeKey }));
   };
 
   const onClose = () => {
     resetDateConfig();
     setToClose();
+  };
+
+  const onChangeAlarmActivateToggle = () => {
+    setAlarmConfig((prev) => ({ ...prev, isActivated: !prev.isActivated }));
   };
 
   return (
@@ -51,7 +56,7 @@ const AlarmBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
         <Form>
           <Row spaceBetween>
             <div>알림</div>
-            <ToggleSwitch name="alarm" />
+            <ToggleSwitch name="alarm" checked={isActivated} onChange={onChangeAlarmActivateToggle} />
           </Row>
           <SegmentedControl options={alarmTypeOptions} initialValue={alarmTypeValue} onChange={handleChangeAlarmType} />
           <AlarmController alarmType={alarmType} />
