@@ -1,6 +1,5 @@
 import { ComponentProps, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { useQuery } from '@tanstack/react-query';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import LabelButton from '../button/LabelButton';
@@ -12,11 +11,9 @@ import BottomSheet from '../portal/BottomSheet';
 
 import CategorySection from './CategorySection';
 
-import { Category } from '@/hooks/api/category/type';
 import useGetUserCategories from '@/hooks/api/category/useGetUserCategories';
-import { UserTemplate } from '@/hooks/api/template/type';
 import useAppendToMyTemplate from '@/hooks/api/template/useAppendToMyTemplate';
-import { get } from '@/lib/api';
+import useGetUserTemplatesInSearchTab from '@/hooks/api/template/useGetUserTemplatesInSearchTab';
 import selectedCategoryState from '@/store/route-search/bottomSheet/selectedCategory';
 import selectedTemplateState from '@/store/route-search/bottomSheet/selectedTemplate';
 import { currentRecCategoryWithFlag } from '@/store/route-search/currentRecCategory';
@@ -119,32 +116,8 @@ const useUserCategories = () => {
   return { userCategories, isUserCategoriesLoading };
 };
 
-const useGetUserTemplates = () => {
-  interface Response {
-    result: UserTemplate[];
-  }
-
-  const selectedCategory = useRecoilValue(selectedCategoryState);
-
-  const getUserTemplate = (selectedCategory: Category | null) => {
-    if ('isRecCategory' in selectedCategory!) {
-      return Promise.resolve(null);
-    }
-    return get<Response>(`/template/user?category=${selectedCategory?.id}`);
-  };
-  const USER_TEMPLATE_QUERY_KEY = 'search_tab_user_template';
-
-  const query = useQuery({
-    queryKey: [USER_TEMPLATE_QUERY_KEY, selectedCategory],
-    queryFn: () => getUserTemplate(selectedCategory),
-    enabled: Boolean(selectedCategory),
-  });
-
-  return { ...query, data: query.data?.result };
-};
-
 const useUserTemplates = () => {
-  const { data: userTemplates, isLoading: isUserTemplatesLoading } = useGetUserTemplates();
+  const { data: userTemplates, isLoading: isUserTemplatesLoading } = useGetUserTemplatesInSearchTab();
   return { userTemplates, isUserTemplatesLoading };
 };
 
