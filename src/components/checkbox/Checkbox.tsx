@@ -50,6 +50,7 @@ const StyledInput = styled.input`
 const StyledLabel = styled.label`
   display: flex;
   align-items: center;
+  white-space: nowrap;
 `;
 
 const TextLabel = styled.span`
