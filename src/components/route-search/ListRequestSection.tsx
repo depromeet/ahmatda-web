@@ -10,13 +10,15 @@ const ListRequestSection = () => {
       <MainTitle>찾으시는 리스트가 없나요?</MainTitle>
       <SubTitle>필요한 상황의 리스트를 말씀해 주세요.</SubTitle>
       <StyledButton>
-        <div>
-          <Emoji role="img" aria-label="writing hand">
-            ✍
-          </Emoji>
-          리스트 요청하기
-        </div>
-        <IconChevron24pxRightLeft />
+        <StyledAnchor href="https://tally.so/r/w5Xqyd" target="_blank">
+          <div>
+            <Emoji role="img" aria-label="writing hand">
+              ✍
+            </Emoji>
+            리스트 요청하기
+          </div>
+          <IconChevron24pxRightLeft />
+        </StyledAnchor>
       </StyledButton>
     </div>
   );
@@ -33,14 +35,17 @@ const SubTitle = styled.p`
   margin-bottom: 16px;
 `;
 
-const StyledButton = styled(ContainedButton)`
-  // TODO: 클릭 시 디자인 적용
-  ${({ theme }) => ({ color: theme.colors.black, backgroundColor: theme.colors.white })}
+const StyledAnchor = styled.a`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-block: 12px;
+  padding-inline: 20px;
+`;
+
+const StyledButton = styled(ContainedButton)`
+  ${({ theme }) => ({ color: theme.colors.black, backgroundColor: theme.colors.white })}
   width: 100%;
-  padding: 20px;
 `;
 
 const Emoji = styled.span`
