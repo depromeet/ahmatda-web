@@ -22,7 +22,7 @@ const CategoryRadioFieldset: FC<Props> = ({ currentCategory, setCurrentCategory 
 
   return (
     <fieldset>
-      <Legend>아이콘 *</Legend>
+      <Legend>카테고리 *</Legend>
       <div style={{ width: '100%', display: 'flex', gap: '8px' }}>
         {objectKeys(CATEGORY_KIND).map((category) => (
           <RadioItem
