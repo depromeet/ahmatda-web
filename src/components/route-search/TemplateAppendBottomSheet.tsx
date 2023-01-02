@@ -29,7 +29,7 @@ const TemplateAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
   const [selectedTemplate, setSelectedTemplate] = useRecoilState(selectedTemplateState);
 
   const { userCategories, isUserCategoriesLoading } = useUserCategories();
-  const { userTemplates, isUserTemplatesLoading } = useUserTemplates(selectedCategory);
+  const { userTemplates, isUserTemplatesLoading } = useUserTemplates();
 
   const currentRecCategory = useRecoilValue(currentRecCategoryWithFlag);
   const selectedRecTemplate = useRecoilValue(selectedRecTemplateState);
@@ -119,14 +119,16 @@ const useUserCategories = () => {
   return { userCategories, isUserCategoriesLoading };
 };
 
-const useGetUserTemplates = (selectedCategory: Category | null) => {
+const useGetUserTemplates = () => {
   interface Response {
     result: UserTemplate[];
   }
 
-  const getUserTemplate = () => {
-    if (selectedCategory?.isRecCategory) {
-      return;
+  const selectedCategory = useRecoilValue(selectedCategoryState);
+
+  const getUserTemplate = (selectedCategory: Category | null) => {
+    if ('isRecCategory' in selectedCategory!) {
+      return Promise.resolve(null);
     }
     return get<Response>(`/template/user?category=${selectedCategory?.id}`);
   };
@@ -134,15 +136,15 @@ const useGetUserTemplates = (selectedCategory: Category | null) => {
 
   const query = useQuery({
     queryKey: [USER_TEMPLATE_QUERY_KEY, selectedCategory],
-    queryFn: () => getUserTemplate(),
-    enabled: Boolean(selectedCategory?.id),
+    queryFn: () => getUserTemplate(selectedCategory),
+    enabled: Boolean(selectedCategory),
   });
 
   return { ...query, data: query.data?.result };
 };
 
-const useUserTemplates = (selectedUserCategory: Category | null) => {
-  const { data: userTemplates, isLoading: isUserTemplatesLoading } = useGetUserTemplates(selectedUserCategory);
+const useUserTemplates = () => {
+  const { data: userTemplates, isLoading: isUserTemplatesLoading } = useGetUserTemplates();
   return { userTemplates, isUserTemplatesLoading };
 };
 
