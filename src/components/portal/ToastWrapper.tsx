@@ -12,7 +12,7 @@ const ToastWrapper = () => {
       <AnimatePresence mode="wait">
         {toast && (
           <MotionToastMessage
-            key={toast.content}
+            key={toast.content ?? 'toast'}
             variants={defaultFadeInUpVariants}
             initial="initial"
             animate="animate"

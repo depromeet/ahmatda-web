@@ -21,6 +21,7 @@ const RecommendSection = () => {
   return (
     <AnimatePresence mode="wait">
       <Wrapper
+        key="recommend-section"
         animate={animationControls}
         drag="y"
         dragElastic={0}
