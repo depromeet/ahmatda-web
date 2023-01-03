@@ -15,11 +15,9 @@ import useToggle from '@/hooks/common/useToggle';
 const ListSettingBottomSheet = dynamic(() => import('./ListSettingBottomSheet'));
 const CardItemAppendBottomSheet = dynamic(() => import('./CardItemAppendBottomSheet'));
 
-export interface Props extends UserTemplate {
-  alarmCycle: string;
-}
+export type Props = UserTemplate;
 
-const Card = ({ id, templateName, alarmCycle, items, pin }: Props) => {
+const Card = ({ id, templateName, alarmInfo, items, pin }: Props) => {
   const [isListSettingShowing, _, toggleListSettingShowing] = useToggle(false);
   const [isCardItemAppendShowing, __, toggleCardItemAppendShowing] = useToggle(false);
   const [isAlarmSettingShowing, ___, toggleAlarmSettingShowing] = useToggle(false);
@@ -28,7 +26,7 @@ const Card = ({ id, templateName, alarmCycle, items, pin }: Props) => {
     <>
       <Wrapper>
         <TitleHeading>{templateName}</TitleHeading>
-        <AlarmCycleSpan>{alarmCycle}</AlarmCycleSpan>
+        {alarmInfo && <AlarmCycleSpan>{alarmInfo}</AlarmCycleSpan>}
         {/* <PinButton type="button">
           <IconPin />
         </PinButton> */}

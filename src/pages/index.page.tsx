@@ -44,11 +44,10 @@ const HomePage: NextPageWithLayout = () => {
         <Carousel.Wrapper ref={setCarouselWrapper}>
           {data?.map((userTemplate) => (
             <Carousel.Item key={userTemplate.id}>
-              {/* TODO: 알림 관련 API 수정 이후 대응 */}
               <Card
                 id={userTemplate.id}
                 templateName={userTemplate.templateName}
-                alarmCycle="매주 화 오후 6:00"
+                alarmInfo={userTemplate.alarmInfo}
                 items={userTemplate.items}
                 userToken={userTemplate.userToken}
                 categoryId={userTemplate.categoryId}
