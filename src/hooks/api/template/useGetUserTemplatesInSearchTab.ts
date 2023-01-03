@@ -6,15 +6,12 @@ import { Category } from '../category/type';
 import { UserTemplate } from './type';
 
 import { get } from '@/lib/api';
+import { ApiErrorScheme } from '@/models/api';
 import selectedCategoryState from '@/store/route-search/bottomSheet/selectedCategory';
 
 interface Response {
   result: UserTemplate[];
-  error?: {
-    code: string;
-    message: string;
-    detail: string | null;
-  };
+  error?: ApiErrorScheme;
 }
 
 const getUserTemplate = async (selectedCategory: Category | null) => {
