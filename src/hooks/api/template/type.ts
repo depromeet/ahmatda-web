@@ -14,6 +14,7 @@ export interface UserTemplate {
   id: number;
   userToken: string;
   templateName: string;
+  alarmInfo: string;
   categoryId: number;
   items: UserItem[];
   pin: boolean;
