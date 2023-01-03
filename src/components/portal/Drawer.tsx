@@ -1,4 +1,4 @@
-import { ComponentProps, FC, useState } from 'react';
+import { ComponentProps, FC } from 'react';
 import Link from 'next/link';
 import styled from '@emotion/styled';
 
@@ -9,19 +9,12 @@ import Svg from '../svg/Svg';
 
 import SideMenu from './SideMenu';
 
-import useListeningAppMessage from '@/hooks/bridge/useListeningAppMessage';
+import useAppVersionBridge from '@/hooks/bridge/app-version/useAppVersionBridge';
 
 type Props = Omit<ComponentProps<typeof SideMenu>, 'children'>;
 
 const Drawer: FC<Props> = ({ isShowing, setToClose }) => {
-  const [appVersion, setAppVersion] = useState<string | null>(null);
-
-  useListeningAppMessage({
-    targetType: 'APP_VERSION',
-    handler: ({ data }) => {
-      setAppVersion(data);
-    },
-  });
+  const { appVersion } = useAppVersionBridge();
 
   return (
     <SideMenu isShowing={isShowing} setToClose={setToClose}>
@@ -43,7 +36,6 @@ const Drawer: FC<Props> = ({ isShowing, setToClose }) => {
             <span>만든 사람들</span>
           </StyledNextLink>
         </LinkWrapper>
-
         {appVersion && (
           <VersionWrapper>
             <span>버전 정보</span>
