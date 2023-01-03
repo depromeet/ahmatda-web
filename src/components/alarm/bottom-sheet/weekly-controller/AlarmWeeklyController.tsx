@@ -18,7 +18,7 @@ const AlarmWeeklyController = () => {
           <Picker text="정시" />
           <span>에</span>
           <Picker text="매주" />
-          <span>챙겨드릴께요!</span>
+          <span>챙겨드릴게요!</span>
         </Row>
       </Row>
       <Divider />

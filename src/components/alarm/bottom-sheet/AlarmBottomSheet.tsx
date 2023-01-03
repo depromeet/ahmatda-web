@@ -8,9 +8,7 @@ import BottomSheet from '../../portal/BottomSheet';
 
 import AlarmController from './AlarmController';
 
-import SegmentedControl from '@/components/segmented-control/SegmentedControl';
 import ToggleSwitch from '@/components/toggle/ToggleSwitch';
-import { alarmTypePairs } from '@/models/alarm';
 import configState from '@/store/alarm-config/config';
 import dailyState from '@/store/alarm-config/daily';
 
@@ -20,16 +18,17 @@ const AlarmBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
   const resetDateConfig = useResetRecoilState(dailyState);
   const [{ alarmType, isActivated }, setAlarmConfig] = useRecoilState(configState);
 
-  const alarmTypeOptions = alarmTypePairs.map((pair) => pair.value);
-  const alarmTypeValue = alarmTypePairs.find((pair) => pair.key === alarmType)?.value;
+  // @MEMO: 날짜별 알림을 우선적으로 구현하기 위해 주석처리
+  // const alarmTypeOptions = alarmTypePairs.map((pair) => pair.value);
+  // const alarmTypeValue = alarmTypePairs.find((pair) => pair.key === alarmType)?.value;
 
-  const handleChangeAlarmType = (option: string) => {
-    const alarmTypeKey = alarmTypePairs.find(({ value }) => option === value)?.key;
+  // const handleChangeAlarmType = (option: string) => {
+  //   const alarmTypeKey = alarmTypePairs.find(({ value }) => option === value)?.key;
 
-    if (!alarmTypeKey) return;
+  //   if (!alarmTypeKey) return;
 
-    setAlarmConfig((prev) => ({ ...prev, alarmType: alarmTypeKey }));
-  };
+  //   setAlarmConfig((prev) => ({ ...prev, alarmType: alarmTypeKey }));
+  // };
 
   const onClose = () => {
     resetDateConfig();
@@ -58,7 +57,7 @@ const AlarmBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
             <div>알림</div>
             <ToggleSwitch name="alarm" checked={isActivated} onChange={onChangeAlarmActivateToggle} />
           </Row>
-          <SegmentedControl options={alarmTypeOptions} initialValue={alarmTypeValue} onChange={handleChangeAlarmType} />
+          {/* <SegmentedControl options={alarmTypeOptions} initialValue={alarmTypeValue} onChange={handleChangeAlarmType} /> */}
           <AlarmController alarmType={alarmType} />
         </Form>
       </Wrapper>

@@ -12,7 +12,7 @@ const ConfigPicker = () => {
   const { alarmDateTime, alarmTimeOption, activePicker } = dateInfo;
 
   if (activePicker === 'dateTime') {
-    const handleChange = (changedDate: number) => setDateInfo((prev) => ({ ...prev, date: changedDate }));
+    const handleChange = (changedDate: number) => setDateInfo((prev) => ({ ...prev, alarmDateTime: changedDate }));
     return (
       <Row>
         <div>외출 날짜 및 시간</div>
@@ -24,7 +24,7 @@ const ConfigPicker = () => {
   }
 
   if (activePicker === 'timeOption') {
-    const handleClick = (key: AlarmTimeOption) => setDateInfo((prev) => ({ ...prev, minutesAgo: key }));
+    const handleClick = (key: AlarmTimeOption) => setDateInfo((prev) => ({ ...prev, alarmTimeOption: key }));
     return (
       <Row>
         <div>알림 희망 시간</div>

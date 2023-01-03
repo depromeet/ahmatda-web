@@ -29,7 +29,7 @@ const Header = () => {
           onClick={handleClickPicker('timeOption')}
         />
         <span>에</span>
-        <span>챙겨드릴께요!</span>
+        <span>챙겨드릴게요!</span>
       </Row>
     </Row>
   );
