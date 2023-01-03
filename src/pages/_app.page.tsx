@@ -13,6 +13,7 @@ import { RecoilRoot } from 'recoil';
 
 import 'dayjs/locale/ko';
 
+import ErrorBoundary from '@/components/error-boundary/ErrorBoundary';
 import ToastWrapper from '@/components/portal/ToastWrapper';
 import FcmTokenHandler from '@/components/push-notification/FcmTokenHandler';
 import RouteGuard from '@/components/route-guard/RouteGuard';
@@ -51,14 +52,16 @@ const MyApp = ({ Component: AppComponent, pageProps }: AppPropsWithLayout) => {
         <RecoilRoot>
           <ThemeProvider theme={lightTheme}>
             <LazyMotion features={domMax}>
-              <FcmTokenHandler>
-                <DefaultLayout>
-                  <Head />
-                  <GlobalStyles />
-                  <RouteGuard>{getLayout(<AppComponent {...pageProps} />)}</RouteGuard>
-                  <ToastWrapper />
-                </DefaultLayout>
-              </FcmTokenHandler>
+              <ErrorBoundary>
+                <FcmTokenHandler>
+                  <DefaultLayout>
+                    <Head />
+                    <GlobalStyles />
+                    <RouteGuard>{getLayout(<AppComponent {...pageProps} />)}</RouteGuard>
+                    <ToastWrapper />
+                  </DefaultLayout>
+                </FcmTokenHandler>
+              </ErrorBoundary>
             </LazyMotion>
           </ThemeProvider>
         </RecoilRoot>
