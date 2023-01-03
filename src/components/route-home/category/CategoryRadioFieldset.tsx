@@ -41,7 +41,10 @@ const CategoryRadioFieldset: FC<Props> = ({ currentCategory, setCurrentCategory 
 
 export default CategoryRadioFieldset;
 
-const Legend = styled.legend(({ theme }) => ({ ...theme.typographies.caption1, color: theme.colors.gray6 }));
+const Legend = styled.legend({ marginBottom: '8px' }, ({ theme }) => ({
+  ...theme.typographies.caption1,
+  color: theme.colors.gray6,
+}));
 
 interface RadioItemProps extends InputHTMLAttributes<HTMLInputElement> {
   text: string;
