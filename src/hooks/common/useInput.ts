@@ -37,6 +37,7 @@ type PropsWhenNotString<T> = WithRequired<Props<T>, 'parser'>;
 interface Return<T> {
   value: T;
   setValue: Dispatch<SetStateAction<T>>;
+  resetValue: VoidFunction;
   debouncedValue: T;
   onChange: (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => void;
 }
@@ -53,6 +54,11 @@ function useInput<T extends string | number | boolean>({
 }: Props<T>) {
   const [value, setValue] = useState<T>(initialValue);
   const [debouncedValue, setDebouncedValue] = useState<T>(initialValue);
+
+  const resetValue = useCallback(() => {
+    setValue(initialValue);
+    setDebouncedValue(initialValue);
+  }, []);
 
   const handleDebounceValue = useMemo(
     () =>
@@ -76,7 +82,7 @@ function useInput<T extends string | number | boolean>({
     handleChangedValue(e.target.value as T);
   }, []);
 
-  return { value, setValue, debouncedValue, onChange };
+  return { value, setValue, resetValue, debouncedValue, onChange };
 }
 
 export default useInput;
