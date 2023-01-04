@@ -1,8 +1,6 @@
 import dynamic from 'next/dynamic';
-import NextLink from 'next/link';
 import styled from '@emotion/styled';
 
-import IconAlarm from '../icon/IconAlarm';
 import IconMenu from '../icon/IconMenu';
 
 import useToggle from '@/hooks/common/useToggle';
@@ -16,9 +14,9 @@ const DefaultAppBar = () => {
     <>
       <Wrapper>
         <ButtonWrapper>
-          <StyledLink href="/notice">
+          {/* <StyledLink href="/notice">
             <IconAlarm />
-          </StyledLink>
+          </StyledLink> */}
 
           <Button onClick={toggleDrawerShowing}>
             <IconMenu />
@@ -63,10 +61,10 @@ const Button = styled.button({
   textAlign: 'center',
 });
 
-const StyledLink = styled(NextLink)({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '48px',
-  height: '48px',
-});
+// const StyledLink = styled(NextLink)({
+//   display: 'flex',
+//   justifyContent: 'center',
+//   alignItems: 'center',
+//   width: '48px',
+//   height: '48px',
+// });
