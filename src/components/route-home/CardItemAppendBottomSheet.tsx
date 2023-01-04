@@ -49,6 +49,7 @@ const CardItemAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
             완료
           </LabelButton>
         }
+        onClickBackButton={setToClose}
       />
 
       <div style={{ marginTop: 8 }}>
