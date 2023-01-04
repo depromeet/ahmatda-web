@@ -9,9 +9,13 @@ import Svg from '../svg/Svg';
 
 import SideMenu from './SideMenu';
 
+import useAppVersionBridge from '@/hooks/bridge/app-version/useAppVersionBridge';
+
 type Props = Omit<ComponentProps<typeof SideMenu>, 'children'>;
 
 const Drawer: FC<Props> = ({ isShowing, setToClose }) => {
+  const { appVersion } = useAppVersionBridge();
+
   return (
     <SideMenu isShowing={isShowing} setToClose={setToClose}>
       <Wrapper>
@@ -32,11 +36,13 @@ const Drawer: FC<Props> = ({ isShowing, setToClose }) => {
             <span>만든 사람들</span>
           </StyledNextLink>
         </LinkWrapper>
-        <VersionWrapper>
-          <span>버전 정보</span>
-          {/* TODO: App에서 버전 정보 받아와서 보여주기 */}
-          <span>1.0</span>
-        </VersionWrapper>
+        {appVersion && (
+          <VersionWrapper>
+            <span>버전 정보</span>
+
+            <span>{appVersion}</span>
+          </VersionWrapper>
+        )}
       </Wrapper>
     </SideMenu>
   );
