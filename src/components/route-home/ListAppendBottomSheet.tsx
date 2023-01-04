@@ -108,7 +108,7 @@ const ItemFieldset = styled.fieldset({
   width: '100%',
 });
 
-const Legend = styled.legend({ height: '52px', display: 'flex', alignItems: 'center' }, ({ theme }) => ({
+const Legend = styled.legend({ padding: '14px 0' }, ({ theme }) => ({
   ...theme.typographies.body1,
   color: theme.colors.gray6,
 }));
