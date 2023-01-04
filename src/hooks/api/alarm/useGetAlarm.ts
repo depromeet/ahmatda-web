@@ -24,6 +24,7 @@ const useGetAlarm = (templateId?: number) => {
     queryFn: () => getAlarm(templateId as number),
     enabled: !!templateId,
     onSuccess: (data: Response) => {
+      if (!data.result) return;
       const { alarmType, activated, timeOption, alarmDateTime } = data.result;
 
       setAlarmConfig((prev) => ({ ...prev, alarmType, isActivated: activated }));

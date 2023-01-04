@@ -2,7 +2,6 @@ import { ComponentProps, FC } from 'react';
 import Link from 'next/link';
 import styled from '@emotion/styled';
 
-import IconAlarm from '../icon/IconAlarm';
 import IconCircleCheck from '../icon/IconCircleCheck';
 import IconCircleInfo from '../icon/IconCircleInfo';
 import Svg from '../svg/Svg';
@@ -23,10 +22,10 @@ const Drawer: FC<Props> = ({ isShowing, setToClose }) => {
           <DrawerGraphic />
         </ImgWrapper>
         <LinkWrapper>
-          <StyledNextLink href="/setting/alarm">
+          {/* <StyledNextLink href="/setting/alarm">
             <IconAlarm />
             <span>알림 설정</span>
-          </StyledNextLink>
+          </StyledNextLink> */}
           <StyledNextLink href="/information">
             <IconCircleInfo />
             <span>정보</span>
