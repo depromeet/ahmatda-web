@@ -7,7 +7,6 @@ import AppBar from '../navigation/AppBar';
 import BottomSheet from '../portal/BottomSheet';
 import EditableTag from '../tag/EditableTag';
 import TextField from '../text-field/TextField';
-import ToggleSwitch from '../toggle/ToggleSwitch';
 
 import useUserTemplateMutation from '@/hooks/api/template/useUserTemplateMutation';
 import useInput from '@/hooks/common/useInput';
@@ -55,10 +54,10 @@ const ListAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
         <TextField placeholder="리스트 입력" value={listName} onChange={onListNameChange} />
       </TextFieldWrapper>
 
-      <ToggleWrapper>
+      {/* <ToggleWrapper>
         <span>매일 반복</span>
         <ToggleSwitch defaultChecked />
-      </ToggleWrapper>
+      </ToggleWrapper> */}
 
       <ItemFieldset>
         <Legend>소지품</Legend>
@@ -92,17 +91,17 @@ const TextFieldWrapper = styled.div({
   marginTop: '8px',
 });
 
-const ToggleWrapper = styled.div(
-  {
-    all: 'unset',
-    marginTop: '16px',
-    height: '52px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  ({ theme }) => ({ ...theme.typographies.body1, color: theme.colors.gray6, ...theme.divider }),
-);
+// const ToggleWrapper = styled.div(
+//   {
+//     all: 'unset',
+//     marginTop: '16px',
+//     height: '52px',
+//     display: 'flex',
+//     justifyContent: 'space-between',
+//     alignItems: 'center',
+//   },
+//   ({ theme }) => ({ ...theme.typographies.body1, color: theme.colors.gray6, ...theme.divider }),
+// );
 
 const ItemFieldset = styled.fieldset({
   width: '100%',

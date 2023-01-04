@@ -6,7 +6,6 @@ import AppBar from '../navigation/AppBar';
 import BottomSheet from '../portal/BottomSheet';
 import Dialog from '../portal/Dialog';
 import TextField from '../text-field/TextField';
-import ToggleSwitch from '../toggle/ToggleSwitch';
 
 import { UserTemplate } from '@/hooks/api/template/type';
 import useUserTemplateMutation from '@/hooks/api/template/useUserTemplateMutation';
@@ -67,10 +66,10 @@ const ListSettingBottomSheet = ({ id, templateName, pin, isShowing, setToClose }
         <TextField value={listName} onChange={onChangeListName} />
       </div>
       <SettingOptionList>
-        <Option>
+        {/* <Option>
           <span>매일 반복</span>
           <ToggleSwitch />
-        </Option>
+        </Option> */}
         <Option
           isDeleteOption
           onClick={() => {
