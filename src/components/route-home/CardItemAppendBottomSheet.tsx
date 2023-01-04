@@ -16,6 +16,7 @@ type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 const CardItemAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
   const {
     value: itemName,
+    resetValue: resetItemName,
     onChange: onChangeItemName,
     debouncedValue: debouncedItemName,
   } = useInput({ initialValue: '', useDebounce: true });
@@ -32,6 +33,7 @@ const CardItemAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
       {
         onSuccess: () => {
           setToClose();
+          resetItemName();
         },
       },
     );
