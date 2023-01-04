@@ -1,6 +1,6 @@
-import { ComponentProps, FC, useState } from 'react';
+import { ComponentProps, FC, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { useResetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 
 import LabelButton from '../../button/LabelButton';
 import AppBar from '../../navigation/AppBar';
@@ -8,31 +8,59 @@ import BottomSheet from '../../portal/BottomSheet';
 
 import AlarmController from './AlarmController';
 
-import SegmentedControl from '@/components/segmented-control/SegmentedControl';
 import ToggleSwitch from '@/components/toggle/ToggleSwitch';
-import { AlarmType, alarmTypePairs } from '@/models/alarm';
-import dateState from '@/store/alarm-config/date';
+import CustomException from '@/exceptions/CustomException';
+import useCreateAlarm from '@/hooks/api/alarm/useCreateAlarm';
+import useGetAlarm from '@/hooks/api/alarm/useGetAlarm';
+import configState from '@/store/alarm-config/config';
+import dailyState from '@/store/alarm-config/daily';
+import currentUserTemplateState from '@/store/route-home/currentUserTemplate';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
 const AlarmBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
-  const resetDateConfig = useResetRecoilState(dateState);
-  const [alarmType, setAlarmType] = useState<AlarmType>('Date');
+  const resetAlarmConfig = useResetRecoilState(configState);
+  const resetDailyAlarmConfig = useResetRecoilState(dailyState);
+  const { mutate } = useCreateAlarm();
+  const currentUserTemplate = useRecoilValue(currentUserTemplateState);
+  const { refetch } = useGetAlarm(currentUserTemplate?.id);
+  const [{ alarmType, isActivated }, setAlarmConfig] = useRecoilState(configState);
 
-  const alarmTypeOptions = alarmTypePairs.map((pair) => pair.value);
-  const alarmTypeValue = alarmTypePairs.find((pair) => pair.key === alarmType)?.value;
+  useEffect(() => {
+    if (isShowing) {
+      refetch();
+    }
+  }, [isShowing]);
 
-  const handleChangeAlarmType = (option: string) => {
-    const alarmTypeKey = alarmTypePairs.find(({ value }) => option === value)?.key;
+  // @memo: 날짜별 알림을 우선적으로 구현하기 위해 주석처리
+  // const alarmTypeOptions = alarmTypePairs.map((pair) => pair.value);
+  // const alarmTypeValue = alarmTypePairs.find((pair) => pair.key === alarmType)?.value;
 
-    if (!alarmTypeKey) return;
+  // const handleChangeAlarmType = (option: string) => {
+  //   const alarmTypeKey = alarmTypePairs.find(({ value }) => option === value)?.key;
 
-    setAlarmType(alarmTypeKey);
-  };
+  //   if (!alarmTypeKey) return;
+
+  //   setAlarmConfig((prev) => ({ ...prev, alarmType: alarmTypeKey }));
+  // };
 
   const onClose = () => {
-    resetDateConfig();
+    resetAlarmConfig();
+    resetDailyAlarmConfig();
     setToClose();
+  };
+
+  const onComplete = () => {
+    if (!currentUserTemplate) {
+      throw new CustomException('유저템플릿 정보를 불러올 수 없습니다.', 'UNKNOWN_ERROR');
+    }
+
+    mutate(currentUserTemplate.id);
+    onClose();
+  };
+
+  const onChangeAlarmActivateToggle = () => {
+    setAlarmConfig((prev) => ({ ...prev, isActivated: !prev.isActivated }));
   };
 
   return (
@@ -42,7 +70,7 @@ const AlarmBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
         title="알림 설정"
         onClickBackButton={onClose}
         rightElement={
-          <LabelButton size="large" onClick={onClose}>
+          <LabelButton size="large" onClick={onComplete}>
             완료
           </LabelButton>
         }
@@ -51,9 +79,9 @@ const AlarmBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
         <Form>
           <Row spaceBetween>
             <div>알림</div>
-            <ToggleSwitch name="alarm" />
+            <ToggleSwitch name="alarm" checked={isActivated} onChange={onChangeAlarmActivateToggle} />
           </Row>
-          <SegmentedControl options={alarmTypeOptions} initialValue={alarmTypeValue} onChange={handleChangeAlarmType} />
+          {/* <SegmentedControl options={alarmTypeOptions} initialValue={alarmTypeValue} onChange={handleChangeAlarmType} /> */}
           <AlarmController alarmType={alarmType} />
         </Form>
       </Wrapper>

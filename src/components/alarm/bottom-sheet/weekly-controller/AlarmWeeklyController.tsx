@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 
-import Picker from './Picker';
-import SelectItem from './SelectItem';
+import Picker from '../Picker';
+import SelectItem from '../SelectItem';
 
 import DateTimePicker from '@/components/scrollable-date-time-picker/DateTimePicker';
 import { dayPairs, weekdayPairs } from '@/models/alarm';
 
-const AlarmDayController = () => {
+const AlarmWeeklyController = () => {
   return (
     <>
       <Row>
@@ -18,7 +18,7 @@ const AlarmDayController = () => {
           <Picker text="정시" />
           <span>에</span>
           <Picker text="매주" />
-          <span>챙겨드릴께요!</span>
+          <span>챙겨드릴게요!</span>
         </Row>
       </Row>
       <Divider />
@@ -42,7 +42,7 @@ const AlarmDayController = () => {
   );
 };
 
-export default AlarmDayController;
+export default AlarmWeeklyController;
 
 const Row = styled.div<{ spaceBetween?: boolean }>(
   {

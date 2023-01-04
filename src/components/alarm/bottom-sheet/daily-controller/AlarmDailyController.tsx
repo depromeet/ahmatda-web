@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import ConfigPicker from './ConfigPicker';
 import Header from './Header';
 
-const AlarmDateController = () => {
+const AlarmDailyController = () => {
   return (
     <>
       <Header />
@@ -13,7 +13,7 @@ const AlarmDateController = () => {
   );
 };
 
-export default AlarmDateController;
+export default AlarmDailyController;
 
 const Divider = styled.hr(
   {
