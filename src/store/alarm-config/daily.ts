@@ -4,7 +4,7 @@ import { AlarmTimeOption } from '@/models/alarm';
 
 interface DailyState {
   alarmDateTime: number;
-  alarmTimeOption: AlarmTimeOption;
+  timeOption: AlarmTimeOption;
   activePicker: 'dateTime' | 'timeOption' | null;
 }
 
@@ -12,7 +12,7 @@ const dailyState = atom<DailyState>({
   key: 'alarmConfig/daily',
   default: {
     alarmDateTime: Date.now(),
-    alarmTimeOption: 'ONTIME',
+    timeOption: 'ONTIME',
     activePicker: null,
   },
 });

@@ -11,7 +11,7 @@ import dailyState from '@/store/alarm-config/daily';
 const createAlarm = (data: CreateAlarmRequest) => post(`/alarm/daily`, data);
 
 const useCreateAlarm = () => {
-  const { alarmTimeOption, alarmDateTime } = useRecoilValue(dailyState);
+  const { timeOption, alarmDateTime } = useRecoilValue(dailyState);
   const { isActivated } = useRecoilValue(configState);
 
   const requestDailyAlarmData = (templateId: number): CreateDailyAlarmRequest => ({
@@ -19,7 +19,7 @@ const useCreateAlarm = () => {
     templateId,
     isActivated,
     alarmDateTime: dayjs(alarmDateTime).format('YYYY-MM-DDTHH:mm'),
-    alarmTimeOption,
+    timeOption,
   });
 
   const mutate = useMutation((templateId: number) => createAlarm(requestDailyAlarmData(templateId)));

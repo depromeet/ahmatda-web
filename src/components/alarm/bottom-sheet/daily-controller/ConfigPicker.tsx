@@ -9,7 +9,7 @@ import dailyState from '@/store/alarm-config/daily';
 
 const ConfigPicker = () => {
   const [dateInfo, setDateInfo] = useRecoilState(dailyState);
-  const { alarmDateTime, alarmTimeOption, activePicker } = dateInfo;
+  const { alarmDateTime, timeOption, activePicker } = dateInfo;
 
   if (activePicker === 'dateTime') {
     const handleChange = (changedDate: number) => setDateInfo((prev) => ({ ...prev, alarmDateTime: changedDate }));
@@ -24,13 +24,13 @@ const ConfigPicker = () => {
   }
 
   if (activePicker === 'timeOption') {
-    const handleClick = (key: AlarmTimeOption) => setDateInfo((prev) => ({ ...prev, alarmTimeOption: key }));
+    const handleClick = (key: AlarmTimeOption) => setDateInfo((prev) => ({ ...prev, timeOption: key }));
     return (
       <Row>
         <div>알림 희망 시간</div>
         <Row>
           {alarmTimeOptionPairs.map(({ key, value }) => (
-            <SelectItem key={key} text={value} active={key === alarmTimeOption} onClick={() => handleClick(key)} />
+            <SelectItem key={key} text={value} active={key === timeOption} onClick={() => handleClick(key)} />
           ))}
         </Row>
       </Row>

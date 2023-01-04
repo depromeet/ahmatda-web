@@ -31,7 +31,7 @@ const useGetAlarm = (templateId?: number) => {
       if (alarmType === 'DAILY') {
         setDailyAlarmConfig((prev) => ({
           ...prev,
-          alarmTimeOption: timeOption,
+          timeOption,
           alarmDateTime: new Date(alarmDateTime).getTime(),
         }));
         return;

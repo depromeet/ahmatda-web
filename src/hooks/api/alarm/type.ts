@@ -27,7 +27,7 @@ export interface CreateDailyAlarmRequest {
   templateId: number;
   isActivated: boolean;
   alarmDateTime: string; // yyyy-mm-ddTHH:mm:ss
-  alarmTimeOption: AlarmTimeOption;
+  timeOption: AlarmTimeOption;
 }
 export type CreateWeeklyAlarmRequest = never;
 export type CreateAlarmRequest = CreateDailyAlarmRequest | CreateWeeklyAlarmRequest;

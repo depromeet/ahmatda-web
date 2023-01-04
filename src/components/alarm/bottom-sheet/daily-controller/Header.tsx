@@ -9,10 +9,10 @@ import dailyState from '@/store/alarm-config/daily';
 
 const Header = () => {
   const [dateInfo, setDateInfo] = useRecoilState(dailyState);
-  const { alarmDateTime, alarmTimeOption, activePicker } = dateInfo;
+  const { alarmDateTime, timeOption, activePicker } = dateInfo;
 
   const dateText = dayjs(alarmDateTime).format('M월 D일 A h:mm');
-  const minutesAgoText = alarmTimeOptionPairs.find(({ key }) => key === alarmTimeOption)?.value ?? '';
+  const minutesAgoText = alarmTimeOptionPairs.find(({ key }) => key === timeOption)?.value ?? '';
 
   const handleClickPicker = (picker: 'dateTime' | 'timeOption') => () =>
     setDateInfo((prev) => ({ ...prev, activePicker: picker }));
