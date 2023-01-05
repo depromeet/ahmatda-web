@@ -95,7 +95,7 @@ const useCategories = () => {
 
   useEffect(() => {
     if (!query.data) return;
-    if (currentCategory !== null) return;
+    if (currentCategory) return;
 
     setCurrentCategory(query.data[0]);
   }, [query.data]);
