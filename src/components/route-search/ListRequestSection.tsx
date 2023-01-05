@@ -4,13 +4,19 @@ import styled from '@emotion/styled';
 import ContainedButton from '../button/ContainedButton';
 import IconChevron24pxRightLeft from '../icon/IconChevron24pxRightLeft';
 
+import recordEvent from '@/lib/analytics/record';
+
 const ListRequestSection = () => {
+  const onClickTally = () => {
+    recordEvent({ action: '리스트 요청하기' });
+  };
+
   return (
     <div>
       <MainTitle>찾으시는 리스트가 없나요?</MainTitle>
       <SubTitle>필요한 상황의 리스트를 말씀해 주세요.</SubTitle>
       <StyledButton>
-        <StyledAnchor href="https://tally.so/r/w5Xqyd" target="_blank" rel="noreferrer">
+        <StyledAnchor href="https://tally.so/r/w5Xqyd" target="_blank" rel="noreferrer" onClick={onClickTally}>
           <div>
             <Emoji role="img" aria-label="writing hand">
               ✍

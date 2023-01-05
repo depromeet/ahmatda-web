@@ -17,17 +17,21 @@ interface Props {
 const CategorySection = ({ options, defaultColor, selectedCategory, onCategoryClick }: Props) => {
   return (
     <Wrapper>
-      {options?.map((item) => (
-        <Chip
-          label={item.name}
-          key={item.id}
-          onClick={() => {
-            onCategoryClick(item);
-          }}
-          color={selectedCategory?.id === item.id ? 'black' : defaultColor}
-          icon={item.isRecCategory ? <IconAdd /> : <Graphic type={item.emoji} />}
-        />
-      ))}
+      {options?.map((item) => {
+        const isSelected = selectedCategory?.id === item.id;
+
+        return (
+          <Chip
+            label={item.name}
+            key={item.id}
+            onClick={() => {
+              onCategoryClick(item);
+            }}
+            color={isSelected ? 'black' : defaultColor}
+            icon={item.isRecCategory ? <IconAdd /> : <Graphic type={item.emoji} isAct={isSelected} />}
+          />
+        );
+      })}
     </Wrapper>
   );
 };
