@@ -135,6 +135,9 @@ const useSectionVisible = () => {
   };
 
   const onDragEnd: DragHandlers['onDragEnd'] = (_, info) => {
+    const isScrollHorizontal = Math.abs(info.offset.x) > Math.abs(info.offset.y);
+    if (isScrollHorizontal) return;
+
     const shouldVisible = info.velocity.y < -50 && info.offset.y < 0;
 
     setIsVisible(shouldVisible);
