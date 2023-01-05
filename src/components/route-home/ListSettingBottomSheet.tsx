@@ -23,11 +23,17 @@ const ListSettingBottomSheet = ({ id, templateName, pin, isShowing, setToClose }
   const {
     value: listName,
     onChange: onChangeListName,
+    resetValue: resetListName,
     debouncedValue: debouncedListName,
   } = useInput({ initialValue: templateName, useDebounce: true });
   const [isDialogShowing, setIsDialogShowing] = useState(false);
 
   const isSubmitDisabled = debouncedListName.length === 0;
+
+  const closeWithReset = () => {
+    setToClose();
+    resetListName();
+  };
 
   const { editUserTemplateMutation, deleteUserTemplateMutation } = useUserTemplateMutation();
 
@@ -51,7 +57,7 @@ const ListSettingBottomSheet = ({ id, templateName, pin, isShowing, setToClose }
   };
 
   return (
-    <BottomSheet isShowing={isShowing} setToClose={setToClose}>
+    <BottomSheet isShowing={isShowing} setToClose={closeWithReset}>
       <AppBar
         backButtonType="cancel"
         title="리스트 설정"
@@ -60,7 +66,7 @@ const ListSettingBottomSheet = ({ id, templateName, pin, isShowing, setToClose }
             완료
           </LabelButton>
         }
-        onClickBackButton={setToClose}
+        onClickBackButton={closeWithReset}
       />
       <div style={{ marginTop: 8 }}>
         <TextField value={listName} onChange={onChangeListName} />
