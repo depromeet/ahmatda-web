@@ -25,6 +25,7 @@ const TemplateItemSettingBottomSheet = ({ isShowing, setToClose, itemId, name, i
   const {
     value: itemName,
     onChange: onChangeItemName,
+    resetValue: resetItemName,
     debouncedValue: debouncedItemName,
   } = useInput({ initialValue: name, useDebounce: true });
 
@@ -34,11 +35,22 @@ const TemplateItemSettingBottomSheet = ({ isShowing, setToClose, itemId, name, i
 
   const isSubmitDisabled = debouncedItemName.length === 0 || debouncedItemName.length >= 30;
 
+  const closeWithReset = () => {
+    setToClose();
+    resetItemName();
+  };
+
   const { editCardItemMutation, deleteCardItemMutation } = useCardItemMutation();
 
   const handleTemplateItemSettingComplete = () => {
-    editCardItemMutation.mutate({ itemId, modifiedItemName: debouncedItemName, important: isImportant });
-    setToClose();
+    editCardItemMutation.mutate(
+      { itemId, modifiedItemName: debouncedItemName, important: isImportant },
+      {
+        onSuccess: () => {
+          setToClose();
+        },
+      },
+    );
   };
 
   const onClickDelete = () => {
@@ -53,7 +65,7 @@ const TemplateItemSettingBottomSheet = ({ isShowing, setToClose, itemId, name, i
   };
 
   return (
-    <BottomSheet isShowing={isShowing} setToClose={setToClose}>
+    <BottomSheet isShowing={isShowing} setToClose={closeWithReset}>
       <AppBar
         backButtonType="cancel"
         title="소지품 설정"
@@ -62,7 +74,7 @@ const TemplateItemSettingBottomSheet = ({ isShowing, setToClose, itemId, name, i
             완료
           </LabelButton>
         }
-        onClickBackButton={setToClose}
+        onClickBackButton={closeWithReset}
       />
       <div style={{ marginTop: 8 }}>
         <TextField
