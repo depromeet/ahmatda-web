@@ -11,6 +11,7 @@ import ListCard from '@/components/route-onboard/ListCard';
 import TitleSection from '@/components/route-onboard/TitleSection';
 import { ONBOARD_LISTCARD } from '@/constants/route-onboard/onboardConstants';
 import { ListCardType } from '@/constants/route-onboard/type';
+import recordEvent from '@/lib/analytics/record';
 import selectedOnboardCategory from '@/store/route-onboard/selectedOnboardCategory';
 import selectedOnboardItems from '@/store/route-onboard/selectedOnboardItems';
 import selectedOnboardTemplate from '@/store/route-onboard/selectedOnboardTemplate';
@@ -61,6 +62,7 @@ const Step3 = () => {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     router.push('/onboard/step4');
+    recordEvent({ action: '온보딩 3', value: isCheckAny ? '템플릿 선택' : '템플릿 선택 안함' });
   };
 
   return (

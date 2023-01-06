@@ -12,6 +12,7 @@ import TitleSection from '@/components/route-onboard/TitleSection';
 import { staggerHalf } from '@/constants/motions';
 import { ONBOARD_ITEMS, ONBOARD_TITLE } from '@/constants/route-onboard/onboardConstants';
 import { ItemType } from '@/constants/route-onboard/type';
+import recordEvent from '@/lib/analytics/record';
 import selectedOnboardCategory from '@/store/route-onboard/selectedOnboardCategory';
 import selectedOnboardItems from '@/store/route-onboard/selectedOnboardItems';
 import { WhiteBackgroundGlobalStyles } from '@/styles/GlobalStyles';
@@ -29,6 +30,8 @@ const Step2 = () => {
     else updateSelectedList.splice(updateSelectedList.indexOf(item), 1);
 
     setSelectedItems(updateSelectedList);
+
+    recordEvent({ action: '온보딩 2', value: item.name });
   };
 
   const onSubmit = (e: React.FormEvent) => {

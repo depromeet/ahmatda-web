@@ -12,6 +12,7 @@ import { staggerOne } from '@/constants/motions';
 import { ONBOARD_CATEGORY } from '@/constants/route-onboard/onboardConstants';
 import { Category } from '@/hooks/api/category/type';
 import useDidMount from '@/hooks/life-cycle/useDidMount';
+import recordEvent from '@/lib/analytics/record';
 import selectedOnboardCategory from '@/store/route-onboard/selectedOnboardCategory';
 import selectedOnboardItems from '@/store/route-onboard/selectedOnboardItems';
 import { WhiteBackgroundGlobalStyles } from '@/styles/GlobalStyles';
@@ -34,6 +35,7 @@ const Step1 = () => {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     router.push('/onboard/step2');
+    recordEvent({ action: '온보딩 1', value: selectedCategory });
   };
 
   return (
