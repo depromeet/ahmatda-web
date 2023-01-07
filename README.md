@@ -37,11 +37,11 @@
 
 ## Download
 
-<div align="center">
+<div align="center" float="left">
 
-<a href="https://apps.apple.com/kr/app/%EC%95%84%EB%A7%9E%EB%8B%A4/id1660192508" align="left"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ko-kr?size=250x83&amp;releaseDate=1654300800&h=dd4ccd7fb22c609cf9132f37bf23c390" alt="Download on the App Store" style="border-radius: 13px; width: 250px"></a>
+<a href="https://apps.apple.com/kr/app/%EC%95%84%EB%A7%9E%EB%8B%A4/id1660192508"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ko-kr?size=250x83&amp;releaseDate=1654300800&h=dd4ccd7fb22c609cf9132f37bf23c390" alt="Download on the App Store" style="border-radius: 13px; width: 250px"></a>
 
-<a href='' align="left"><img alt='다운로드하기 Google Play' width='250px' src='https://play.google.com/intl/en_us/badges/static/images/badges/ko_badge_web_generic.png'/></a>
+<a href=''><img alt='다운로드하기 Google Play' width='250px' src='https://play.google.com/intl/en_us/badges/static/images/badges/ko_badge_web_generic.png'/></a>
 
 </div>
 
