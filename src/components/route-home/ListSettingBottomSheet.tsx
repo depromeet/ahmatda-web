@@ -10,6 +10,7 @@ import TextField from '../text-field/TextField';
 import { UserTemplate } from '@/hooks/api/template/type';
 import useUserTemplateMutation from '@/hooks/api/template/useUserTemplateMutation';
 import useInput from '@/hooks/common/useInput';
+import recordEvent from '@/lib/analytics/record';
 
 type BottomSheetProps = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
@@ -38,6 +39,8 @@ const ListSettingBottomSheet = ({ id, templateName, pin, isShowing, setToClose }
   const { editUserTemplateMutation, deleteUserTemplateMutation } = useUserTemplateMutation();
 
   const handleListSettingComplete = () => {
+    recordEvent({ action: '사용자 템플릿 수정' });
+
     editUserTemplateMutation.mutate(
       { templateId: id, templateName: debouncedListName, pin },
       {
@@ -49,6 +52,8 @@ const ListSettingBottomSheet = ({ id, templateName, pin, isShowing, setToClose }
   };
 
   const onClickDelete = () => {
+    recordEvent({ action: '사용자 템플릿 삭제' });
+
     deleteUserTemplateMutation.mutate(id, {
       onSuccess: () => {
         setToClose();

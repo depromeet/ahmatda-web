@@ -12,6 +12,7 @@ import { UserItem } from '@/hooks/api/template/type';
 import useCardItemMutation from '@/hooks/api/template/useCardItemMutation';
 import useInput from '@/hooks/common/useInput';
 import useToggle from '@/hooks/common/useToggle';
+import recordEvent from '@/lib/analytics/record';
 
 type BottomSheetProps = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
@@ -43,6 +44,8 @@ const TemplateItemSettingBottomSheet = ({ isShowing, setToClose, itemId, name, i
   const { editCardItemMutation, deleteCardItemMutation } = useCardItemMutation();
 
   const handleTemplateItemSettingComplete = () => {
+    recordEvent({ action: '소지품 수정' });
+
     editCardItemMutation.mutate(
       { itemId, modifiedItemName: debouncedItemName, important: isImportant },
       {
@@ -54,6 +57,8 @@ const TemplateItemSettingBottomSheet = ({ isShowing, setToClose, itemId, name, i
   };
 
   const onClickDelete = () => {
+    recordEvent({ action: '소지품 삭제' });
+
     deleteCardItemMutation.mutate(
       { itemId },
       {
