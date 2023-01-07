@@ -8,6 +8,7 @@ import IconCardItemCheck from './IconCardItemCheck';
 import { UserItem } from '@/hooks/api/template/type';
 import useCardItemMutation from '@/hooks/api/template/useCardItemMutation';
 import useToggle from '@/hooks/common/useToggle';
+import recordEvent from '@/lib/analytics/record';
 
 const CardItemSettingBottomSheet = dynamic(() => import('./CardItemSettingBottomSheet'));
 
@@ -26,7 +27,15 @@ const CardItem = ({ name, take, important, itemId }: Props) => {
   const { editCardItemTakeMutation } = useCardItemMutation();
 
   const onChangeTakeCheckbox: ChangeEventHandler<HTMLInputElement> = (e) => {
-    editCardItemTakeMutation.mutate({ itemId, isTake: e.target.checked });
+    const { checked } = e.target;
+
+    if (checked) {
+      recordEvent({ action: '소지품 챙김', value: name });
+    } else {
+      recordEvent({ action: '소지품 챙김 해제', value: name });
+    }
+
+    editCardItemTakeMutation.mutate({ itemId, isTake: checked });
   };
 
   return (
