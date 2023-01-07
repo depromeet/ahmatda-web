@@ -61,6 +61,8 @@
 
 <br />
 
+FE 구민규, FE 박한솔, FE 오혜성, FE 이은지, BE 김민걸, BE 명수찬, BE 조성민, Design 윤가빈, Design 이영희, Design 이종원
+
 <br />
 
 ### 💬 아맞다에 하고 싶은 말이 있나요?
