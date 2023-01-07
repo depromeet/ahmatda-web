@@ -27,7 +27,8 @@ const DateTimePicker: FC<Props> = ({ initialValue = Date.now(), onChange }) => {
 
   useEffect(() => {
     const { date, hour, minute, ampm } = dateTime;
-    const formattedDate = dayjs(`${date} ${hour}:${minute} ${ampm}`).format('YYYY-MM-DD HH:mm');
+    const hour24 = ampm === 'AM' ? hour : hour + 12;
+    const formattedDate = dayjs(`${date} ${hour24}:${minute}`).format('YYYY-MM-DD HH:mm');
     const timestamp = dayjs(formattedDate).valueOf();
     onChange?.(timestamp);
   }, [dateTime]);
