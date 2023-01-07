@@ -52,6 +52,8 @@ const ListSettingBottomSheet = ({ id, templateName, pin, isShowing, setToClose }
   };
 
   const onClickDelete = () => {
+    recordEvent({ action: '사용자 템플릿 삭제' });
+
     deleteUserTemplateMutation.mutate(id, {
       onSuccess: () => {
         setToClose();
