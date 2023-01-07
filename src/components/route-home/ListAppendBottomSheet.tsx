@@ -10,6 +10,7 @@ import TextField from '../text-field/TextField';
 
 import useUserTemplateMutation from '@/hooks/api/template/useUserTemplateMutation';
 import useInput from '@/hooks/common/useInput';
+import recordEvent from '@/lib/analytics/record';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
@@ -27,6 +28,8 @@ const ListAppendBottomSheet = ({ isShowing, setToClose }: Props) => {
   const { createUserTemplateMutation } = useUserTemplateMutation();
 
   const onSubmit = () => {
+    recordEvent({ action: '사용자 템플릿 생성', value: `${debouncedListName}에 ${items.length}개 소지품으로 생성` });
+
     createUserTemplateMutation.mutate(
       { templateName: debouncedListName, items },
       {
