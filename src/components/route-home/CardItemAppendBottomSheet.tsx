@@ -10,6 +10,7 @@ import ToggleSwitch from '../toggle/ToggleSwitch';
 import useCardItemMutation from '@/hooks/api/template/useCardItemMutation';
 import useInput from '@/hooks/common/useInput';
 import useToggle from '@/hooks/common/useToggle';
+import recordEvent from '@/lib/analytics/record';
 
 type Props = Omit<ComponentProps<typeof BottomSheet>, 'children'>;
 
@@ -28,6 +29,8 @@ const CardItemAppendBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
   const { createCardItemMutation } = useCardItemMutation();
 
   const onSubmit = () => {
+    recordEvent({ action: '소지품 추가', value: debouncedItemName, label: isImportant.toString() });
+
     createCardItemMutation.mutate(
       { itemName: debouncedItemName, important: isImportant },
       {
