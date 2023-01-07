@@ -13,7 +13,9 @@ import ListRequestSection from '@/components/route-search/ListRequestSection';
 import RecommendationTemplateCard from '@/components/route-search/RecommendationTemplateCard';
 import TemplateAppendBottomSheet from '@/components/route-search/TemplateAppendBottomSheet';
 import useGetRecCategories from '@/hooks/api/category/useGetRecCategories';
+import { RecTemplate } from '@/hooks/api/template/type';
 import useGetRecTemplates from '@/hooks/api/template/useGetRecTemplates';
+import recordEvent from '@/lib/analytics/record';
 import currentRecCategoryState from '@/store/route-search/currentRecCategory';
 import selectedRecTemplateState from '@/store/route-search/selectedRecTemplate';
 
@@ -24,6 +26,16 @@ const Template: NextPageWithLayout = () => {
 
   const { data: templates, isRefetching: isRefetchingRecTemplates, isLoading } = useGetRecTemplates();
   const setSelectedRecTemplate = useSetRecoilState(selectedRecTemplateState);
+
+  const onRecTemplateSubmit = (templateInfo: RecTemplate) => () => {
+    setSelectedRecTemplate(templateInfo);
+    setIsBottomSheetOpen(true);
+    recordEvent({
+      action: '추천 템플릿 추가 시도',
+      category: currentRecCategory?.name,
+      value: templateInfo.templateName,
+    });
+  };
 
   return (
     <LoadingHandler isLoading={isLoading} fallback={<FixedSpinner />}>
@@ -47,10 +59,7 @@ const Template: NextPageWithLayout = () => {
               data={templateInfo}
               isRefetchingTemplateData={isRefetchingRecTemplates}
               submitBtnTitle="내 리스트에 추가하기"
-              onSubmit={() => {
-                setSelectedRecTemplate(templateInfo);
-                setIsBottomSheetOpen(true);
-              }}
+              onSubmit={onRecTemplateSubmit(templateInfo)}
             />
           ))}
         </CardsWrapper>

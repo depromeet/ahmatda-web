@@ -7,6 +7,7 @@ import { USER_CATEGORY_QUERY_KEY } from '../category/useGetUserCategories';
 import { RecTemplate, UserTemplate } from './type';
 import { REC_TEMPLATES_QUERY_KEY } from './useGetRecTemplates';
 
+import recordEvent from '@/lib/analytics/record';
 import { post } from '@/lib/api';
 import selectedCategoryState from '@/store/route-search/bottomSheet/selectedCategory';
 import selectedTemplateState from '@/store/route-search/bottomSheet/selectedTemplate';
@@ -23,10 +24,28 @@ const useAppendToMyTemplate = () => {
     let requestData;
 
     if ('isRecCategory' in selectedCategory!) {
+      // NOTE: 새로운 카테고리, 새로운 템플릿에 추가
+      recordEvent({
+        action: '추천 템플릿 사용',
+        category: '새로운 카테고리, 새로운 템플릿',
+        value: `${selectedCategory.name} ${selectedTemplate?.templateName}`,
+      });
       requestData = recTemplateToNewCategoryData(selectedCategory, selectedTemplate, selectedItems);
     } else if ('userToken' in selectedTemplate!) {
+      // NOTE: 기존 카테고리, 기존 템플릿에 추가
+      recordEvent({
+        action: '추천 템플릿 사용',
+        category: '기존 카테고리, 기존 템플릿',
+        value: selectedTemplate?.templateName,
+      });
       requestData = recItemToUserTemplateData(selectedTemplate, selectedItems);
     } else {
+      // NOTE: 기존 카테고리, 새로운 템플릿에 추가
+      recordEvent({
+        action: '추천 템플릿 사용',
+        category: '기존 카테고리, 새로운 템플릿',
+        value: selectedTemplate?.templateName,
+      });
       requestData = recTemplateToUserCategoryData(selectedCategory, selectedTemplate, selectedItems);
     }
 
