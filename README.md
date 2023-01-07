@@ -14,7 +14,7 @@
 <br />
 <br />
 
-![CONTENT](https://user-images.githubusercontent.com/26461307/211135281-c25693ea-4e96-42c2-a21b-8e7f318afe8f.png)
+![CONTENT](https://user-images.githubusercontent.com/26461307/211135533-179f4d1e-e1e8-4c8f-8a70-a11beaa562d7.png)
 
 👀 따로 찾을 필요없이 추가하고
 
@@ -34,3 +34,15 @@
 
 <br />
 <br />
+
+## Download
+
+<div align="center" style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+
+<a href="https://apps.apple.com/kr/app/%EC%95%84%EB%A7%9E%EB%8B%A4/id1660192508"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ko-kr?size=250x83&amp;releaseDate=1654300800&h=dd4ccd7fb22c609cf9132f37bf23c390" alt="Download on the App Store" style="border-radius: 13px; width: 250px"></a>
+
+<a href=''><img alt='다운로드하기 Google Play' width='250px' src='https://play.google.com/intl/en_us/badges/static/images/badges/ko_badge_web_generic.png'/></a>
+
+</div>
+
+## Owner
