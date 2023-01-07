@@ -39,11 +39,16 @@
 
 <br />
 
+<img width='24%' src="https://user-images.githubusercontent.com/26461307/211139008-442e5550-3171-41bd-a50a-03ed30087cbe.jpg" />
+<img width='24%' src="https://user-images.githubusercontent.com/26461307/211139009-f09e4f02-04d0-43a4-9c3e-df05e71101d4.jpg" />
+<img width='24%' src="https://user-images.githubusercontent.com/26461307/211139011-817f6258-750a-442c-8b36-688a0d2fda85.jpg" />
+<img width='24%' src="https://user-images.githubusercontent.com/26461307/211139012-36ef86b1-c571-4fef-9e6f-2357b75c7974.jpg" />
+
+<br />
+
 <div align="center">
 
 <a href="https://apps.apple.com/kr/app/%EC%95%84%EB%A7%9E%EB%8B%A4/id1660192508"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ko-kr?size=250x83&amp;releaseDate=1654300800&h=dd4ccd7fb22c609cf9132f37bf23c390" alt="Download on the App Store" width='250px'></a>
-
-<br />
 
 <a href=''><img alt='다운로드하기 Google Play' width='250px' src='https://play.google.com/intl/en_us/badges/static/images/badges/ko_badge_web_generic.png'/></a>
 
