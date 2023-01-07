@@ -58,3 +58,12 @@
 <br />
 
 ## Owner
+
+<br />
+
+<br />
+
+### 💬 아맞다에 하고 싶은 말이 있나요?
+
+- [리스트를 요청하고 싶다면](https://tally.so/r/w5Xqyd)
+- [궁금한 점이 있다면](mailto:ahmatda.app@gmail.com)
