@@ -16,9 +16,7 @@ const ConfigPicker = () => {
     return (
       <Row>
         <div>외출 날짜 및 시간</div>
-        <Row>
-          <DateTimePicker initialValue={alarmDateTime} onChange={handleChange} />
-        </Row>
+        <DateTimePicker initialValue={alarmDateTime} onChange={handleChange} />
       </Row>
     );
   }
