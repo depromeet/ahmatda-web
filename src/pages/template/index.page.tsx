@@ -30,7 +30,11 @@ const Template: NextPageWithLayout = () => {
   const onRecTemplateSubmit = (templateInfo: RecTemplate) => () => {
     setSelectedRecTemplate(templateInfo);
     setIsBottomSheetOpen(true);
-    recordEvent({ action: '추천 템플릿 추가 시도', value: templateInfo.templateName });
+    recordEvent({
+      action: '추천 템플릿 추가 시도',
+      category: currentRecCategory?.name,
+      value: templateInfo.templateName,
+    });
   };
 
   return (
