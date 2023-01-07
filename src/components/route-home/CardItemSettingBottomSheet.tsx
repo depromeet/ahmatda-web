@@ -57,6 +57,8 @@ const TemplateItemSettingBottomSheet = ({ isShowing, setToClose, itemId, name, i
   };
 
   const onClickDelete = () => {
+    recordEvent({ action: '소지품 삭제' });
+
     deleteCardItemMutation.mutate(
       { itemId },
       {
