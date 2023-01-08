@@ -108,15 +108,14 @@ jobs:
           echo '${{ secrets.CYPRESS_ENV_JSON }}' > cypress.env.json
 
       - name: Run Cypress with Chrome
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v3.1.0
         with:
           browser: chrome
           record: true
           config-file: cypress.config.js
           command-prefix: yarn dlx
           install-command: yarn install --immutable
-          command: yarn test:e2e --browser chrome
-          # start: yarn dev
+          start: yarn dev
         env:
           GITHUB_TOKEN: ${{ secrets.HYESUNG_GITHUB_TOKEN }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -134,20 +133,20 @@ jobs:
           node-version: ${{ env.DEFAULT_NODE_VERSION }}
 
       - name: Install dependencies
-        run: yarn install --immutable --immutable-cache
+        run: yarn install --immutable
 
       - name: Generate cypress env file
         run: |
           echo '${{ secrets.CYPRESS_ENV_JSON }}' > cypress.env.json
 
       - name: Run Cypress with Chrome
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v3.1.0
         with:
           browser: chrome
           record: true
           config-file: cypress.config.js
           install: false
-          start: yarn dev
+          command: yarn test:e2e
 
         env:
           GITHUB_TOKEN: ${{ secrets.HYESUNG_GITHUB_TOKEN }}
