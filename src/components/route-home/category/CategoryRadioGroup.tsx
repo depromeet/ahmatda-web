@@ -11,7 +11,7 @@ interface Props {
   setCurrentCategory: Dispatch<SetStateAction<CategoryKind>>;
 }
 
-const CategoryRadioFieldset: FC<Props> = ({ currentCategory, setCurrentCategory }) => {
+const CategoryRadioGroup: FC<Props> = ({ currentCategory, setCurrentCategory }) => {
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
 
@@ -21,8 +21,8 @@ const CategoryRadioFieldset: FC<Props> = ({ currentCategory, setCurrentCategory 
   };
 
   return (
-    <fieldset>
-      <Legend>카테고리 *</Legend>
+    <div>
+      <Span>카테고리 *</Span>
       <div style={{ width: '100%', display: 'flex', gap: '8px' }}>
         {objectKeys(CATEGORY_KIND).map((category) => (
           <RadioItem
@@ -35,13 +35,13 @@ const CategoryRadioFieldset: FC<Props> = ({ currentCategory, setCurrentCategory 
           />
         ))}
       </div>
-    </fieldset>
+    </div>
   );
 };
 
-export default CategoryRadioFieldset;
+export default CategoryRadioGroup;
 
-const Legend = styled.legend({ marginBottom: '8px' }, ({ theme }) => ({
+const Span = styled.span({ marginBottom: '8px' }, ({ theme }) => ({
   ...theme.typographies.caption1,
   color: theme.colors.gray6,
 }));

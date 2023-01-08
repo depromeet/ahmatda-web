@@ -1,8 +1,8 @@
 import { ComponentProps, FC, useState } from 'react';
 import styled from '@emotion/styled';
 
-import CategoryIconRadioFieldset from './CategoryIconRadioFieldset';
-import CategoryRadioFieldset from './CategoryRadioFieldset';
+import CategoryIconRadioFieldset from './CategoryIconRadioGroup';
+import CategoryRadioFieldset from './CategoryRadioGroup';
 
 import LabelButton from '@/components/button/LabelButton';
 import { Graphic } from '@/components/graphic/type';
