@@ -45,6 +45,9 @@ export const setGlobalStyles = css`
 
     -webkit-tap-highlight-color: transparent !important;
     -webkit-touch-callout: none !important;
+
+    user-select: none;
+    pointer-events: none;
   }
 `;
 
