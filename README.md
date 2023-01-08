@@ -62,6 +62,7 @@
 <br />
 
 [FE 구민규](https://github.com/kooku0), [FE 박한솔](https://github.com/hansol-FE), [FE 오혜성](https://github.com/hyesungoh), [FE 이은지](https://github.com/eunddodi), [BE 김민걸](https://github.com/cmg1411), [BE 명수찬](https://github.com/suchanmyoung), [BE 조성민](https://github.com/sungmin69355),
+
 [Design 윤가빈](https://www.behance.net/gabinyun), [Design 이영희](https://www.behance.net/altns684700d5), [Design 이종원](https://www.behance.net/093fec2d/appreciated)
 
 <br />
