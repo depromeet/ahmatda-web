@@ -113,9 +113,11 @@ jobs:
           browser: chrome
           record: true
           config-file: cypress.config.js
-          command-prefix: yarn dlx
-          install-command: yarn install --immutable
-          start: yarn dev
+          # command-prefix: yarn dlx
+          # start: yarn dev
+          install-command: yarn install --immutable --immutable-cache
+          command: yarn test:e2e --browser chrome
+
         env:
           GITHUB_TOKEN: ${{ secrets.HYESUNG_GITHUB_TOKEN }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
