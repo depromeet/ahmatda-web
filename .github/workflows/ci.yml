@@ -122,6 +122,39 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.HYESUNG_GITHUB_TOKEN }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
+  job_e2e:
+    runs-on: ubuntu-latest
+    name: Run E2E test
+    steps:
+      - name: Check out current commit (${{ github.sha }})
+        uses: actions/checkout@v2
+
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.DEFAULT_NODE_VERSION }}
+
+      - name: Install dependencies
+        run: yarn install --immutable --immutable-cache
+
+      - name: Generate cypress env file
+        run: |
+          echo '${{ secrets.CYPRESS_ENV_JSON }}' > cypress.env.json
+
+      - name: Run Cypress with Chrome
+        uses: cypress-io/github-action@v5
+        with:
+          browser: chrome
+          record: true
+          config-file: cypress.config.js
+          install: false
+          command: yarn test:e2e --browser chrome
+          # command-prefix: yarn dlx
+          # start: yarn dev
+        env:
+          GITHUB_TOKEN: ${{ secrets.HYESUNG_GITHUB_TOKEN }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+
   job_codecov_test_coverage:
     name: Set codecov unit test coverage
     runs-on: ubuntu-latest
