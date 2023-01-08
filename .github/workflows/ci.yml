@@ -103,18 +103,21 @@ jobs:
         if: github.event_name != 'push'
         run: yarn test:unit
 
-      # - name: Run Cypress with Chrome
-      #   uses: cypress-io/github-action@v3.1.0
-      #   with:
-      #     browser: chrome
-      #     record: true
-      #     config-file: cypress.config.js
-      #     install-command: yarn install --immutable
-      #     command-prefix: yarn dlx
-      #     start: yarn dev
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+      - name: Generate cypress env file
+        run: |
+          echo '${{ secrets.CYPRESS_ENV_JSON }}' > cypress.env.json
+
+      - name: Run Cypress with Chrome
+        uses: cypress-io/github-action@v4
+        with:
+          browser: chrome
+          record: true
+          config-file: cypress.config.js
+          install: false
+          start: yarn dev
+        env:
+          GITHUB_TOKEN: ${{ secrets.HYESUNG_GITHUB_TOKEN }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
   job_codecov_test_coverage:
     name: Set codecov unit test coverage
