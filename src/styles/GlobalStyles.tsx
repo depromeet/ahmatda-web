@@ -47,7 +47,6 @@ export const setGlobalStyles = css`
     -webkit-touch-callout: none !important;
 
     user-select: none;
-    pointer-events: none;
   }
 `;
 
