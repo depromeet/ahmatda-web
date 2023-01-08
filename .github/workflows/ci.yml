@@ -108,13 +108,14 @@ jobs:
           echo '${{ secrets.CYPRESS_ENV_JSON }}' > cypress.env.json
 
       - name: Run Cypress with Chrome
-        uses: cypress-io/github-action@v3.1.0
+        uses: cypress-io/github-action@v5
         with:
           browser: chrome
           record: true
-          install: false
           config-file: cypress.config.js
-          command: yarn test:e2e
+          command-prefix: yarn dlx
+          install-command: yarn install --immutable
+          start: yarn dev
         env:
           GITHUB_TOKEN: ${{ secrets.HYESUNG_GITHUB_TOKEN }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
