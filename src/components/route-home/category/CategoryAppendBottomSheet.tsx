@@ -6,8 +6,8 @@ import AppBar from '../../navigation/AppBar';
 import BottomSheet from '../../portal/BottomSheet';
 import TextField from '../../text-field/TextField';
 
-import CategoryIconRadioFieldset from './CategoryIconRadioFieldset';
-import CategoryRadioFieldset from './CategoryRadioFieldset';
+import CategoryIconRadioFieldset from './CategoryIconRadioGroup';
+import CategoryRadioFieldset from './CategoryRadioGroup';
 
 import { Graphic } from '@/components/graphic/type';
 import { CategoryKind } from '@/hooks/api/category/type';

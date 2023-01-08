@@ -33,8 +33,8 @@ const CategoryIconRadioGroup: FC<Props> = ({ currentValue, setCurrentValue }) =>
   };
 
   return (
-    <fieldset>
-      <Legend>아이콘 *</Legend>
+    <div>
+      <Span>아이콘 *</Span>
       <Wrapper>
         {categoryGraphics.map((type) => (
           <Fragment key={type}>
@@ -45,13 +45,16 @@ const CategoryIconRadioGroup: FC<Props> = ({ currentValue, setCurrentValue }) =>
           </Fragment>
         ))}
       </Wrapper>
-    </fieldset>
+    </div>
   );
 };
 
 export default CategoryIconRadioGroup;
 
-const Legend = styled.legend(({ theme }) => ({ ...theme.typographies.caption1, color: theme.colors.gray6 }));
+const Span = styled.span(({ theme }) => ({
+  ...theme.typographies.caption1,
+  color: theme.colors.gray6,
+}));
 
 const Wrapper = styled.div({
   display: 'flex',
