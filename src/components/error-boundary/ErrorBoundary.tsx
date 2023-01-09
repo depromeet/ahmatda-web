@@ -38,7 +38,7 @@ class ErrorBoundary extends Component<PropsWithChildren<ErrorBoundaryProps>, Err
         <LayoutWrapper>
           <Wrapper>
             <Heading>알 수 없는 에러가 발생했어요.</Heading>
-            <ErrorMsg>{errorMsg}asdf asdf adsf adsf </ErrorMsg>
+            <ErrorMsg>{errorMsg}</ErrorMsg>
           </Wrapper>
 
           <Wrapper>
