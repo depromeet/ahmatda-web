@@ -52,11 +52,11 @@ const MyApp = ({ Component: AppComponent, pageProps }: AppPropsWithLayout) => {
         <RecoilRoot>
           <ThemeProvider theme={lightTheme}>
             <LazyMotion features={domMax}>
+              <GlobalStyles />
               <ErrorBoundary>
                 <FcmTokenHandler>
                   <DefaultLayout>
                     <Head />
-                    <GlobalStyles />
                     <RouteGuard>{getLayout(<AppComponent {...pageProps} />)}</RouteGuard>
                     <ToastWrapper />
                   </DefaultLayout>
