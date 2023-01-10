@@ -16,7 +16,7 @@ const HIDE_BOTTOM_POS = 84;
 const RecommendSection = () => {
   const { onDragStart, onDragEnd, onClickToggleButton, animationControls } = useSectionVisible();
 
-  const { items, isLoading, appendToCard, removeFromItems } = useRecommendItem();
+  const { comment, items, isLoading, appendToCard, removeFromItems } = useRecommendItem();
 
   return (
     <AnimatePresence mode="wait">
@@ -35,7 +35,7 @@ const RecommendSection = () => {
         </DragHandlerButton>
 
         <LoadingHandler isLoading={isLoading} fallback={undefined}>
-          <SuggestionText>이런 건 어때요?</SuggestionText>
+          <SuggestionText>{comment}</SuggestionText>
 
           <ItemWrapper>
             {items.map((item) => (
@@ -197,5 +197,5 @@ const useRecommendItem = () => {
     removeFromItems(item.id);
   };
 
-  return { items, isLoading, appendToCard, removeFromItems };
+  return { comment: data?.comment, items, isLoading, appendToCard, removeFromItems };
 };
