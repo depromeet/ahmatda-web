@@ -7,6 +7,7 @@ import { get } from '@/lib/api';
 import currentCategoryState from '@/store/route-home/currentCategory';
 
 interface Response {
+  comment: string;
   items: string[];
 }
 
@@ -22,6 +23,7 @@ const useGetRecommendItem = () => {
     queryKey: [HOME_RECOMMEND_ITEM_QUERY_KEY, currentCategory?.id],
     queryFn: () => getRecommendItem((currentCategory as Category).id),
     enabled: Boolean(currentCategory),
+    cacheTime: 0,
   });
 
   return { ...query, data: query.data?.result };
