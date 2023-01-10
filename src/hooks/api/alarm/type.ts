@@ -1,3 +1,4 @@
+import { Graphic } from '@/components/graphic/type';
 import { AlarmTimeOption, AlarmType } from '@/models/alarm';
 
 export interface GetDailyAlarmResponse {
@@ -31,3 +32,9 @@ export interface CreateDailyAlarmRequest {
 }
 export type CreateWeeklyAlarmRequest = never;
 export type CreateAlarmRequest = CreateDailyAlarmRequest | CreateWeeklyAlarmRequest;
+
+export interface AlarmHistory {
+  ahmatdaEmoji: Graphic | null;
+  message: string;
+  elapsedSentTime: string;
+}
