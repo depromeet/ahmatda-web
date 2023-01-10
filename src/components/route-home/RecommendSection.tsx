@@ -176,7 +176,7 @@ interface RecommendItem {
 }
 
 const useRecommendItem = () => {
-  const { data, isLoading } = useGetRecommendItem();
+  const { data, ...query } = useGetRecommendItem();
 
   const [items, setItems] = useState<RecommendItem[]>([]);
 
@@ -197,5 +197,5 @@ const useRecommendItem = () => {
     removeFromItems(item.id);
   };
 
-  return { comment: data?.comment, items, isLoading, appendToCard, removeFromItems };
+  return { comment: data?.comment, items, appendToCard, removeFromItems, ...query };
 };
