@@ -7,6 +7,7 @@ import { get } from '@/lib/api';
 import currentCategoryState from '@/store/route-home/currentCategory';
 
 interface Response {
+  comment: string;
   items: string[];
 }
 
