@@ -30,12 +30,12 @@ const MAKERS: Makers = {
   'Frontend Dev': [
     { name: '오혜성', icon: <Graphic10Kg isAct size={40} />, link: 'https://www.hyesungoh.xyz/' },
     { name: '구민규', icon: <GraphicCard isAct size={40} />, link: null },
-    { name: '이은지', icon: <GraphicPC isAct size={40} />, link: null },
+    { name: '이은지', icon: <GraphicPC isAct size={40} />, link: 'https://github.com/eunddodi' },
     { name: '박한솔', icon: <GraphicAirpods isAct size={40} />, link: null },
   ],
   'Backend Dev': [
     { name: '김민걸', icon: <GraphicCharger isAct size={40} />, link: null },
-    { name: '명수찬', icon: <GraphicLipbalm isAct size={40} />, link: null },
+    { name: '명수찬', icon: <GraphicLipbalm isAct size={40} />, link: 'https://github.com/suchanmyoung' },
     { name: '조성민', icon: <GraphicHeadphones isAct size={40} />, link: 'https://github.com/sungmin69355' },
   ],
   Designer: [
@@ -123,14 +123,14 @@ const GraphicLogo = () => {
   return (
     <svg width="231" height="258" viewBox="0 0 231 258" fill="none" xmlns="http://www.w3.org/2000/svg">
       <m.path
-        animate={{
-          y: [0, 6.5, -1.5, 4.5, -2.5, 0],
-          scale: [1, 0.99, 1.01, 0.99, 1.01, 1],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-        }}
+        // animate={{
+        //   y: [0, 6.5, -1.5, 4.5, -2.5, 0],
+        //   scale: [1, 0.99, 1.01, 0.99, 1.01, 1],
+        // }}
+        // transition={{
+        //   duration: 4,
+        //   repeat: Infinity,
+        // }}
         fillRule="evenodd"
         clipRule="evenodd"
         d="M50.4639 50.0382C16.9803 65.514 2.38217 105.203 17.858 138.687L25.0315 154.208C33.3498 172.205 48.6636 184.746 66.2491 190.094L60.0267 138.093C58.8956 128.641 65.6416 120.061 75.0943 118.93L167.059 107.925C166.093 102.203 164.359 96.5125 161.807 90.9912L154.633 75.4706C139.157 41.9871 99.468 27.3889 65.9845 42.8647L50.4639 50.0382Z"
