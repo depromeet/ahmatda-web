@@ -19,7 +19,7 @@ const TitleSection = ({ title, subTitle }: OnboardTitleProps) => {
 
 export default TitleSection;
 
-const MainTitle = styled(m.p)`
+const MainTitle = styled(m.h2)`
   ${({ theme }) => ({ ...theme.typographies.text1 })};
   color: ${({ theme }) => theme.colors.gray6};
   padding-bottom: 16px;
