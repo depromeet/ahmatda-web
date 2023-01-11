@@ -7,7 +7,7 @@
 
 # 아맞다 !
 
-[![CI](https://github.com/depromeet/ahmatda-web/actions/workflows/ci.yml/badge.svg)](https://github.com/depromeet/ahmatda-web/actions/workflows/ci.yml) [![CodeQL](https://github.com/depromeet/ahmatda-web/actions/workflows/codeql.yml/badge.svg)](https://github.com/depromeet/ahmatda-web/actions/workflows/codeql.yml) [![Pull Request Labeler](https://github.com/depromeet/ahmatda-web/actions/workflows/labeler.yml/badge.svg)](https://github.com/depromeet/ahmatda-web/actions/workflows/labeler.yml) [![codecov](https://codecov.io/gh/depromeet/ahmatda-web/branch/main/graph/badge.svg?token=UJVINTEVQ1)](https://codecov.io/gh/depromeet/ahmatda-web)
+[![CI](https://github.com/depromeet/ahmatda-web/actions/workflows/ci.yml/badge.svg)](https://github.com/depromeet/ahmatda-web/actions/workflows/ci.yml) [![CodeQL](https://github.com/depromeet/ahmatda-web/actions/workflows/codeql.yml/badge.svg)](https://github.com/depromeet/ahmatda-web/actions/workflows/codeql.yml) [![Pull Request Labeler](https://github.com/depromeet/ahmatda-web/actions/workflows/labeler.yml/badge.svg)](https://github.com/depromeet/ahmatda-web/actions/workflows/labeler.yml) [![codecov](https://codecov.io/gh/depromeet/ahmatda-web/branch/main/graph/badge.svg?token=UJVINTEVQ1)](https://codecov.io/gh/depromeet/ahmatda-web) [![ahmatda-web](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/simple/vapgkn&style=flat&logo=cypress)](https://cloud.cypress.io/projects/vapgkn/runs)
 
 오늘도 소지품을 깜빡하셨나요? 이젠 까먹지 말고 챙겨요!
 
