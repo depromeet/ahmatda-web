@@ -33,14 +33,6 @@ const nextConfig = {
   sentry: {
     autoInstrumentServerFunctions: false,
   },
-  async rewrites() {
-    return [
-      {
-        source: '/:path*',
-        destination: 'https://ahmatda.com/api/:path*',
-      },
-    ];
-  },
 };
 
 const sentryWebpackPluginOptions = {
