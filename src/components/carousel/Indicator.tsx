@@ -69,7 +69,7 @@ const useIndicator = ({ carouselWrapper, onIndexChange }: Pick<Props, 'carouselW
       throttle(() => {
         if (!carouselWrapper) return;
         const { offsetWidth, scrollLeft } = carouselWrapper;
-        const tempIndex = Math.round(scrollLeft / offsetWidth);
+        const tempIndex = Math.floor(scrollLeft / offsetWidth);
         setCurrentIndex(tempIndex);
       }, 300),
     [carouselWrapper],
