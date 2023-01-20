@@ -4,10 +4,9 @@ import { errorMessage } from '@/constants/message';
 import ApiException from '@/exceptions/ApiException';
 import CustomException from '@/exceptions/CustomException';
 import { ApiErrorScheme } from '@/models/api';
-import { isProd } from '@/utils/utils';
 
 const instance = axios.create({
-  baseURL: isProd(process.env.NODE_ENV) ? process.env.NEXT_PUBLIC_API_HOST : '',
+  baseURL: process.env.NEXT_PUBLIC_API_HOST,
 });
 
 export const replaceUserTokenToInstance = (userToken: string) => {
