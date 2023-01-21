@@ -13,6 +13,9 @@
     "test:unit": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "yarn test:unit --coverage",
+    "test:e2e": "playwright test",
+    "playwright:codegen": "playwright codegen",
+    "playwright:report": "playwright show-report",
     "prepare": "husky install"
   },
   "dependencies": {
