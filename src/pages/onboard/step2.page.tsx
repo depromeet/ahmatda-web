@@ -34,15 +34,14 @@ const Step2 = () => {
     recordEvent({ action: '온보딩 2', value: item.name });
   };
 
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    router.push('/onboard/step3');
+  const onClickNext = () => {
+    router.replace('/onboard/step3');
   };
 
   return (
     <>
       <WhiteBackgroundGlobalStyles />
-      <AppBar onClickBackButton={() => router.push('/onboard/step1')} />
+      <AppBar onClickBackButton={() => router.replace('/onboard/step1')} />
       <Wrapper>
         <TitleSection
           title={ONBOARD_TITLE[selectedCategory.type].title}
@@ -54,27 +53,26 @@ const Step2 = () => {
             </>
           }
         />
-        <form onSubmit={onSubmit}>
-          <SelectSection variants={staggerHalf} initial="initial" animate="animate" exit="exit">
-            {ONBOARD_ITEMS[selectedCategory.type].map((item) => (
-              <Item
-                key={item.name}
-                name="items"
-                value={item.name}
-                label={item.name}
-                emjCode={<Graphic type={item.emoji} isAct={selectedItems.indexOf(item) !== -1} />}
-                labelSize="small"
-                onChange={(e) => onChange(e, item)}
-                checked={selectedItems.indexOf(item) !== -1}
-              />
-            ))}
-          </SelectSection>
-          <ButtonSection>
-            <ContainedButton type="submit" size="large" disabled={isCheckAny}>
-              다음
-            </ContainedButton>
-          </ButtonSection>
-        </form>
+
+        <SelectSection variants={staggerHalf} initial="initial" animate="animate" exit="exit">
+          {ONBOARD_ITEMS[selectedCategory.type].map((item) => (
+            <Item
+              key={item.name}
+              name="items"
+              value={item.name}
+              label={item.name}
+              emjCode={<Graphic type={item.emoji} isAct={selectedItems.indexOf(item) !== -1} />}
+              labelSize="small"
+              onChange={(e) => onChange(e, item)}
+              checked={selectedItems.indexOf(item) !== -1}
+            />
+          ))}
+        </SelectSection>
+        <ButtonSection>
+          <ContainedButton type="button" size="large" disabled={isCheckAny} onClick={onClickNext}>
+            다음
+          </ContainedButton>
+        </ButtonSection>
       </Wrapper>
     </>
   );
