@@ -9,7 +9,7 @@ const customJestConfig = {
     // add setup files
   ],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  testPathIgnorePatterns: ['node_modules', '<rootDir>.*/public', '<rootDir>/.next/', 'cypress'],
+  testPathIgnorePatterns: ['node_modules', '<rootDir>.*/public', '<rootDir>/.next/', 'e2e'],
   moduleDirectories: ['node_modules', '<rootDir>/'],
   testEnvironment: 'jest-environment-jsdom',
   coveragePathIgnorePatterns: ['<rootDir>/src/test/*'],

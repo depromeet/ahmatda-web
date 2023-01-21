@@ -2371,6 +2371,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@playwright/test@npm:^1.29.2":
+  version: 1.29.2
+  resolution: "@playwright/test@npm:1.29.2"
+  dependencies:
+    "@types/node": "*"
+    playwright-core: 1.29.2
+  bin:
+    playwright: cli.js
+  checksum: 614cd4ed3baa4e41a6c7865f3c49733caef2c9d5a1aae5832b3d145ffdb0be2dd9d30136c0cb8aed5f9d452782baf2f380e5b12092958bf9fa7578a6d5fa61bf
+  languageName: node
+  linkType: hard
+
 "@rollup/plugin-sucrase@npm:4.0.4":
   version: 4.0.4
   resolution: "@rollup/plugin-sucrase@npm:4.0.4"
@@ -3525,6 +3537,7 @@ __metadata:
     "@emotion/react": ^11.9.3
     "@emotion/styled": ^11.9.3
     "@next/eslint-plugin-next": ^13.0.2
+    "@playwright/test": ^1.29.2
     "@sentry/nextjs": ^7.17.4
     "@svgr/webpack": ^6.3.1
     "@tanstack/react-query": ^4.0.10
@@ -8498,6 +8511,15 @@ __metadata:
   dependencies:
     find-up: ^4.0.0
   checksum: 9863e3f35132bf99ae1636d31ff1e1e3501251d480336edb1c211133c8d58906bed80f154a1d723652df1fda91e01c7442c2eeaf9dc83157c7ae89087e43c8d6
+  languageName: node
+  linkType: hard
+
+"playwright-core@npm:1.29.2":
+  version: 1.29.2
+  resolution: "playwright-core@npm:1.29.2"
+  bin:
+    playwright: cli.js
+  checksum: 19e00e162a24eb99878408518930346c1d2c8ce83bb02993e3dd890c99df4530240cfebe4ec4e5aca01656462695b6328fb8f913cf2e229c2c73941623ac524e
   languageName: node
   linkType: hard
 

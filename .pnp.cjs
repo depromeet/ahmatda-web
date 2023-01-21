@@ -40,6 +40,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/react", "virtual:b9d917903453d0a258c7281474233dfb80f738232e5b3585426957ce162dad03053fc993f9d4c02e31e5b55a327e2d0b4c492dfa6ce4386506f9e3f620c701b4#npm:11.10.0"],\
             ["@emotion/styled", "virtual:b9d917903453d0a258c7281474233dfb80f738232e5b3585426957ce162dad03053fc993f9d4c02e31e5b55a327e2d0b4c492dfa6ce4386506f9e3f620c701b4#npm:11.10.0"],\
             ["@next/eslint-plugin-next", "npm:13.0.2"],\
+            ["@playwright/test", "npm:1.29.2"],\
             ["@sentry/nextjs", "virtual:b9d917903453d0a258c7281474233dfb80f738232e5b3585426957ce162dad03053fc993f9d4c02e31e5b55a327e2d0b4c492dfa6ce4386506f9e3f620c701b4#npm:7.17.4"],\
             ["@svgr/webpack", "npm:6.3.1"],\
             ["@tanstack/react-query", "virtual:b9d917903453d0a258c7281474233dfb80f738232e5b3585426957ce162dad03053fc993f9d4c02e31e5b55a327e2d0b4c492dfa6ce4386506f9e3f620c701b4#npm:4.1.0"],\
@@ -3860,6 +3861,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@playwright/test", [\
+        ["npm:1.29.2", {\
+          "packageLocation": "./.yarn/cache/@playwright-test-npm-1.29.2-bdaeeb606e-614cd4ed3b.zip/node_modules/@playwright/test/",\
+          "packageDependencies": [\
+            ["@playwright/test", "npm:1.29.2"],\
+            ["@types/node", "npm:18.7.1"],\
+            ["playwright-core", "npm:1.29.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@rollup/plugin-sucrase", [\
         ["npm:4.0.4", {\
           "packageLocation": "./.yarn/cache/@rollup-plugin-sucrase-npm-4.0.4-11cf77c62a-ccb01d7eb3.zip/node_modules/@rollup/plugin-sucrase/",\
@@ -5449,6 +5461,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/react", "virtual:b9d917903453d0a258c7281474233dfb80f738232e5b3585426957ce162dad03053fc993f9d4c02e31e5b55a327e2d0b4c492dfa6ce4386506f9e3f620c701b4#npm:11.10.0"],\
             ["@emotion/styled", "virtual:b9d917903453d0a258c7281474233dfb80f738232e5b3585426957ce162dad03053fc993f9d4c02e31e5b55a327e2d0b4c492dfa6ce4386506f9e3f620c701b4#npm:11.10.0"],\
             ["@next/eslint-plugin-next", "npm:13.0.2"],\
+            ["@playwright/test", "npm:1.29.2"],\
             ["@sentry/nextjs", "virtual:b9d917903453d0a258c7281474233dfb80f738232e5b3585426957ce162dad03053fc993f9d4c02e31e5b55a327e2d0b4c492dfa6ce4386506f9e3f620c701b4#npm:7.17.4"],\
             ["@svgr/webpack", "npm:6.3.1"],\
             ["@tanstack/react-query", "virtual:b9d917903453d0a258c7281474233dfb80f738232e5b3585426957ce162dad03053fc993f9d4c02e31e5b55a327e2d0b4c492dfa6ce4386506f9e3f620c701b4#npm:4.1.0"],\
@@ -11525,6 +11538,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["pkg-dir", "npm:4.2.0"],\
             ["find-up", "npm:4.1.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["playwright-core", [\
+        ["npm:1.29.2", {\
+          "packageLocation": "./.yarn/unplugged/playwright-core-npm-1.29.2-cb2a84a9e6/node_modules/playwright-core/",\
+          "packageDependencies": [\
+            ["playwright-core", "npm:1.29.2"]\
           ],\
           "linkType": "HARD"\
         }]\
