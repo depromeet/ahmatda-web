@@ -34,7 +34,7 @@ const Step1 = () => {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push('/onboard/step2');
+    router.replace('/onboard/step2');
     recordEvent({ action: '온보딩 1', value: selectedCategory });
   };
 

@@ -61,14 +61,14 @@ const Step3 = () => {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push('/onboard/step4');
+    router.replace('/onboard/step4');
     recordEvent({ action: '온보딩 3', value: isCheckAny ? '템플릿 선택' : '템플릿 선택 안함' });
   };
 
   return (
     <>
       <WhiteBackgroundGlobalStyles />
-      <AppBar onClickBackButton={() => router.push('/onboard/step2')} />
+      <AppBar onClickBackButton={() => router.replace('/onboard/step2')} />
       <Wrapper>
         <TitleSection
           title={
