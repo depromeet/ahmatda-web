@@ -9,6 +9,8 @@ interface Props {
   backButtonType?: 'chevron' | 'cancel';
   /**
    * 가운데에 표시될 텍스트
+   *
+   * @default 'chevron'
    */
   title?: string;
   /**
@@ -23,9 +25,21 @@ interface Props {
    * 값을 주입하지 않을 시 `router.back()`이 실행됩니다
    */
   onClickBackButton?: VoidFunction;
+  /**
+   * 배경 색상
+   *
+   * @default 'white'
+   */
+  backgroundColorType?: 'white' | 'gray';
 }
 
-const AppBar: FC<Props> = ({ backButtonType = 'chevron', title, rightElement, onClickBackButton }) => {
+const AppBar: FC<Props> = ({
+  backButtonType = 'chevron',
+  title,
+  rightElement,
+  onClickBackButton,
+  backgroundColorType = 'white',
+}) => {
   const router = useRouter();
 
   const handleBackButton = () => {
@@ -37,7 +51,7 @@ const AppBar: FC<Props> = ({ backButtonType = 'chevron', title, rightElement, on
   };
 
   return (
-    <Wrapper>
+    <Wrapper backgroundColorType={backgroundColorType}>
       <BackButton onClick={handleBackButton}>
         {backButtonType === 'chevron' ? <IconChevron24pxRightLeft direction="left" /> : <IconCancel />}
       </BackButton>
@@ -51,7 +65,7 @@ export default AppBar;
 
 const APP_BAR_HEIGHT = '48px';
 
-const Wrapper = styled.section(
+const Wrapper = styled.section<{ backgroundColorType: Props['backgroundColorType'] }>(
   {
     position: 'sticky',
     left: '0',
@@ -64,7 +78,9 @@ const Wrapper = styled.section(
     alignItems: 'center',
     zIndex: '900',
   },
-  ({ theme }) => ({ backgroundColor: theme.colors.white }),
+  ({ theme, backgroundColorType }) => ({
+    backgroundColor: backgroundColorType === 'white' ? theme.colors.white : theme.colors.gray1,
+  }),
 );
 
 const BackButton = styled.button({

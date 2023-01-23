@@ -49,7 +49,7 @@ const Information = () => {
   const theme = useTheme();
   return (
     <>
-      <AppBar title="만든 사람들" />
+      <AppBar title="만든 사람들" backgroundColorType="gray" />
       <div style={{ padding: '12px 0 24px 0' }}>
         <div style={{ textAlign: 'center' }}>
           <GraphicLogo />
