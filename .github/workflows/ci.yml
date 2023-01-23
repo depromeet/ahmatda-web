@@ -103,37 +103,6 @@ jobs:
         if: github.event_name != 'push'
         run: yarn test:unit
 
-  job_e2e:
-    runs-on: ubuntu-latest
-    name: Check e2e test
-    needs: [job_install_dependencies]
-    steps:
-      - name: Check out current commit (${{ github.sha }})
-        uses: actions/checkout@v2
-      - name: Set up Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.DEFAULT_NODE_VERSION }}
-
-      - name: Check dependency cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ env.CACHED_DEPENDENCY_PATHS }}
-          key: ${{ needs.job_install_dependencies.outputs.dependency_cache_key }}
-
-      - name: Install Playwright Browsers
-        run: yarn playwright install --with-deps
-
-      - name: Run dev server and Playwright tests
-        run: yarn dev & yarn playwright test
-
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
-
   job_codecov_test_coverage:
     name: Set codecov unit test coverage
     runs-on: ubuntu-latest
