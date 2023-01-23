@@ -9,8 +9,8 @@ style:
   - src/styles/**/*
 
 'test: e2e':
-  - cypress/e2e/*
-  - cypress/e2e/**/*
+  - e2e/*
+  - e2e/**/*
 
 'test: unit':
   - src/**/*.test.{js,jsx,ts,tsx}

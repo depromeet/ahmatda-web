@@ -14,11 +14,6 @@ module.exports = {
   extends: ['airbnb', 'plugin:react/recommended', 'plugin:jsx-a11y/recommended', 'plugin:prettier/recommended'],
   overrides: [
     {
-      extends: ['plugin:cypress/recommended'],
-      files: ['cypress/**/*.ts'],
-      rules: {},
-    },
-    {
       files: ['*.ts', '*.tsx'],
       extends: ['plugin:@typescript-eslint/eslint-recommended', 'plugin:@typescript-eslint/recommended'],
       rules: {},

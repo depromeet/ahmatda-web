@@ -13,9 +13,9 @@
     "test:unit": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "yarn test:unit --coverage",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
-    "test:e2e": "start-server-and-test dev http://localhost:3000 cypress:run",
+    "test:e2e": "playwright test",
+    "playwright:codegen": "playwright codegen",
+    "playwright:report": "playwright show-report",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -46,6 +46,7 @@
     "@commitlint/config-conventional": "^17.0.3",
     "@emotion/eslint-plugin": "^11.7.0",
     "@next/eslint-plugin-next": "^13.0.2",
+    "@playwright/test": "^1.29.2",
     "@svgr/webpack": "^6.3.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
@@ -65,13 +66,11 @@
     "@types/testing-library__jest-dom": "^5.14.5",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
-    "cypress": "^10.2.0",
     "eslint": "^8.18.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "^13.0.2",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^2.7.1",
-    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-flowtype": "^8.0.3",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.5.3",
@@ -89,7 +88,6 @@
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "react-test-renderer": "^18.2.0",
-    "start-server-and-test": "^1.14.0",
     "typescript": "4.7.4"
   },
   "packageManager": "yarn@3.2.3"
