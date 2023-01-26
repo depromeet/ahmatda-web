@@ -1,4 +1,5 @@
 import { ReactElement, useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
@@ -11,13 +12,14 @@ import DefaultAppBar from '@/components/navigation/DefaultAppBar';
 import CategorySection from '@/components/route-search/CategorySection';
 import ListRequestSection from '@/components/route-search/ListRequestSection';
 import RecommendationTemplateCard from '@/components/route-search/RecommendationTemplateCard';
-import TemplateAppendBottomSheet from '@/components/route-search/TemplateAppendBottomSheet';
 import useGetRecCategories from '@/hooks/api/category/useGetRecCategories';
 import { RecTemplate } from '@/hooks/api/template/type';
 import useGetRecTemplates from '@/hooks/api/template/useGetRecTemplates';
 import recordEvent from '@/lib/analytics/record';
 import currentRecCategoryState from '@/store/route-search/currentRecCategory';
 import selectedRecTemplateState from '@/store/route-search/selectedRecTemplate';
+
+const TemplateAppendBottomSheet = dynamic(() => import('@/components/route-search/TemplateAppendBottomSheet'));
 
 const Template: NextPageWithLayout = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
@@ -38,40 +40,43 @@ const Template: NextPageWithLayout = () => {
   };
 
   return (
-    <LoadingHandler isLoading={isLoading} fallback={<FixedSpinner />}>
-      <Wrapper>
-        <Title>
-          상황에 맞는
-          <br />
-          소지품을 추천해 드릴게요
-        </Title>
-        <CategorySection
-          options={categories}
-          selectedCategory={currentRecCategory}
-          onCategoryClick={(clickedCategory) => {
-            setCurrentRecCategory(clickedCategory);
-          }}
-        />
-        <CardsWrapper>
-          {templates?.map((templateInfo) => (
-            <RecommendationTemplateCard
-              key={`rec-template-${templateInfo.id}`}
-              data={templateInfo}
-              isRefetchingTemplateData={isRefetchingRecTemplates}
-              submitBtnTitle="내 리스트에 추가하기"
-              onSubmit={onRecTemplateSubmit(templateInfo)}
-            />
-          ))}
-        </CardsWrapper>
-        <ListRequestSection />
-        <TemplateAppendBottomSheet
-          isShowing={isBottomSheetOpen}
-          setToClose={() => {
-            setIsBottomSheetOpen(false);
-          }}
-        />
-      </Wrapper>
-    </LoadingHandler>
+    <>
+      <LoadingHandler isLoading={isLoading} fallback={<FixedSpinner />}>
+        <Wrapper>
+          <Title>
+            상황에 맞는
+            <br />
+            소지품을 추천해 드릴게요
+          </Title>
+          <CategorySection
+            options={categories}
+            selectedCategory={currentRecCategory}
+            onCategoryClick={(clickedCategory) => {
+              setCurrentRecCategory(clickedCategory);
+            }}
+          />
+          <CardsWrapper>
+            {templates?.map((templateInfo) => (
+              <RecommendationTemplateCard
+                key={`rec-template-${templateInfo.id}`}
+                data={templateInfo}
+                isRefetchingTemplateData={isRefetchingRecTemplates}
+                submitBtnTitle="내 리스트에 추가하기"
+                onSubmit={onRecTemplateSubmit(templateInfo)}
+              />
+            ))}
+          </CardsWrapper>
+          <ListRequestSection />
+        </Wrapper>
+      </LoadingHandler>
+
+      <TemplateAppendBottomSheet
+        isShowing={isBottomSheetOpen}
+        setToClose={() => {
+          setIsBottomSheetOpen(false);
+        }}
+      />
+    </>
   );
 };
 

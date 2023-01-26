@@ -8,6 +8,7 @@ type Props = Omit<ComponentProps<typeof Checkbox>, 'textLabel'>;
 const CheckboxWithText = ({ children, ...rest }: Props) => {
   return (
     <Wrapper>
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <Checkbox {...rest} />
       <TextWrapper>{children}</TextWrapper>
     </Wrapper>

@@ -41,6 +41,8 @@ const CheckboxWrapper = styled.div`
 const StyledInput = styled.input`
   overflow: hidden;
   position: absolute;
+  top: 0;
+  left: 0;
   width: 1px;
   height: 1px;
   margin: -1px;
