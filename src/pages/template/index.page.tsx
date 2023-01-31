@@ -5,7 +5,6 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { NextPageWithLayout } from '../_app.page';
 
-import FixedSpinner from '@/components/loading/FixedSpinner';
 import LoadingHandler from '@/components/loading/LoadingHandler';
 import BottomNavigation from '@/components/navigation/BottomNavigation';
 import DefaultAppBar from '@/components/navigation/DefaultAppBar';
@@ -24,9 +23,18 @@ const TemplateAppendBottomSheet = dynamic(() => import('@/components/route-searc
 const Template: NextPageWithLayout = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
-  const { data: categories, currentRecCategory, setCurrentRecCategory } = useRecCategories();
+  const {
+    data: categories,
+    currentRecCategory,
+    setCurrentRecCategory,
+    isLoading: isRecCategoryLoading,
+  } = useRecCategories();
 
-  const { data: templates, isRefetching: isRefetchingRecTemplates, isLoading } = useGetRecTemplates();
+  const {
+    data: templates,
+    isRefetching: isRefetchingRecTemplates,
+    isLoading: isRecTemplatesLoading,
+  } = useGetRecTemplates();
   const setSelectedRecTemplate = useSetRecoilState(selectedRecTemplateState);
 
   const onRecTemplateSubmit = (templateInfo: RecTemplate) => () => {
@@ -41,13 +49,13 @@ const Template: NextPageWithLayout = () => {
 
   return (
     <>
-      <LoadingHandler isLoading={isLoading} fallback={<FixedSpinner />}>
-        <Wrapper>
-          <Title>
-            상황에 맞는
-            <br />
-            소지품을 추천해 드릴게요
-          </Title>
+      <Wrapper>
+        <Title>
+          상황에 맞는
+          <br />
+          소지품을 추천해 드릴게요
+        </Title>
+        <LoadingHandler isLoading={isRecCategoryLoading} fallback={null}>
           <CategorySection
             options={categories}
             selectedCategory={currentRecCategory}
@@ -55,6 +63,9 @@ const Template: NextPageWithLayout = () => {
               setCurrentRecCategory(clickedCategory);
             }}
           />
+        </LoadingHandler>
+
+        <LoadingHandler isLoading={isRecTemplatesLoading} fallback={null}>
           <CardsWrapper>
             {templates?.map((templateInfo) => (
               <RecommendationTemplateCard
@@ -66,9 +77,10 @@ const Template: NextPageWithLayout = () => {
               />
             ))}
           </CardsWrapper>
-          <ListRequestSection />
-        </Wrapper>
-      </LoadingHandler>
+        </LoadingHandler>
+
+        <ListRequestSection />
+      </Wrapper>
 
       <TemplateAppendBottomSheet
         isShowing={isBottomSheetOpen}
