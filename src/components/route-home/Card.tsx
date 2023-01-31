@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
+import { m } from 'framer-motion';
 
 import AlarmBottomSheet from '../alarm/bottom-sheet/AlarmBottomSheet';
 import LabelButton from '../button/LabelButton';
@@ -9,6 +10,7 @@ import IconSetting from '../icon/IconSetting';
 
 import CardItem from './CardItem';
 
+import { homeCardVariants } from '@/constants/motions';
 import { UserTemplate } from '@/hooks/api/template/type';
 import useToggle from '@/hooks/common/useToggle';
 
@@ -24,7 +26,7 @@ const Card = ({ id, templateName, alarmInfo, items, pin }: Props) => {
 
   return (
     <>
-      <Wrapper>
+      <Wrapper variants={homeCardVariants} initial="initial" animate="animate" exit="exit">
         <TitleHeading>{templateName}</TitleHeading>
         {alarmInfo && <AlarmCycleSpan>{alarmInfo}</AlarmCycleSpan>}
         {/* <PinButton type="button">
@@ -67,7 +69,7 @@ const Card = ({ id, templateName, alarmInfo, items, pin }: Props) => {
 
 export default Card;
 
-const Wrapper = styled.div(
+const Wrapper = styled(m.div)(
   {
     position: 'relative',
     width: '100%',

@@ -1,10 +1,10 @@
 import { ReactElement, useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import { useRecoilValue } from 'recoil';
 
 import { NextPageWithLayout } from './_app.page';
 
 import Carousel from '@/components/carousel/Carousel';
-import FixedSpinner from '@/components/loading/FixedSpinner';
-import LoadingHandler from '@/components/loading/LoadingHandler';
 import BottomNavigation from '@/components/navigation/BottomNavigation';
 import DefaultAppBar from '@/components/navigation/DefaultAppBar';
 import Card from '@/components/route-home/Card';
@@ -13,21 +13,24 @@ import EmptyCard from '@/components/route-home/EmptyCard';
 import RecommendSection from '@/components/route-home/RecommendSection';
 import useGetUserTemplate from '@/hooks/api/template/useGetUserTemplate';
 import useCurrentUserTemplate from '@/hooks/route-home/useCurrentUserTemplate';
+import currentCategoryState from '@/store/route-home/currentCategory';
 
 const HomePage: NextPageWithLayout = () => {
   const [carouselWrapper, setCarouselWrapper] = useState<HTMLDivElement | null>(null);
-  const { data, isLoading } = useGetUserTemplate();
+  const { data } = useGetUserTemplate();
   const { onCarouselIndexChange } = useCurrentUserTemplate();
+  const currentCategory = useRecoilValue(currentCategoryState);
 
   return (
     <>
       <CategorySection />
 
-      <LoadingHandler fallback={<FixedSpinner />} isLoading={isLoading}>
-        <Carousel.Wrapper ref={setCarouselWrapper}>
+      <AnimatePresence mode="wait">
+        <Carousel.Wrapper key={currentCategory?.id} ref={setCarouselWrapper}>
           {data?.map((userTemplate) => (
             <Carousel.Item key={userTemplate.id}>
               <Card
+                key={userTemplate.id}
                 id={userTemplate.id}
                 templateName={userTemplate.templateName}
                 alarmInfo={userTemplate.alarmInfo}
@@ -43,9 +46,9 @@ const HomePage: NextPageWithLayout = () => {
             <EmptyCard />
           </Carousel.Item>
         </Carousel.Wrapper>
+      </AnimatePresence>
 
-        <Carousel.Indicator carouselWrapper={carouselWrapper} onIndexChange={onCarouselIndexChange} />
-      </LoadingHandler>
+      <Carousel.Indicator carouselWrapper={carouselWrapper} onIndexChange={onCarouselIndexChange} />
 
       <RecommendSection />
     </>

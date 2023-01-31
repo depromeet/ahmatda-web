@@ -1,10 +1,12 @@
 import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
+import { m } from 'framer-motion';
 
 import LabelButton from '../button/LabelButton';
 import GraphicEmptyCard from '../graphic/GraphicEmptyCard';
 import IconAdd from '../icon/IconAdd';
 
+import { homeCardVariants } from '@/constants/motions';
 import useToggle from '@/hooks/common/useToggle';
 
 const ListAppendBottomSheet = dynamic(() => import('./ListAppendBottomSheet'));
@@ -14,7 +16,7 @@ const EmptyCard = () => {
 
   return (
     <>
-      <Wrapper>
+      <Wrapper variants={homeCardVariants} initial="initial" animate="animate" exit="exit">
         <GraphicWrapper>
           <GraphicEmptyCard />
         </GraphicWrapper>
@@ -32,7 +34,7 @@ const EmptyCard = () => {
 
 export default EmptyCard;
 
-const Wrapper = styled.div({
+const Wrapper = styled(m.div)({
   width: '100%',
   minHeight: '410px',
   height: '100%',
