@@ -48,3 +48,23 @@ export const defaultFadeInUpVariants: Variants = {
     willChange: 'opacity, transform',
   },
 };
+
+export const homeCardVariants: Variants = {
+  initial: {
+    opacity: 0,
+    y: 10,
+    transition: { duration: 0.5, ease: defaultEasing },
+    willChange: 'opacity, transform',
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: defaultEasing },
+    willChange: 'opacity, transform',
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.5, ease: defaultEasing },
+    willChange: 'opacity, transform',
+  },
+};
