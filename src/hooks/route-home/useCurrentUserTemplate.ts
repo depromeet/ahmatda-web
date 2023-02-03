@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
@@ -19,6 +20,12 @@ const useCurrentUserTemplate = () => {
 
     setCurrentUserTemplate(userTemplates.result[index] ?? null);
   };
+
+  useEffect(() => {
+    if (!userTemplates) return;
+
+    setCurrentUserTemplate(userTemplates.result[0]);
+  }, [userTemplates]);
 
   return { onCarouselIndexChange };
 };
