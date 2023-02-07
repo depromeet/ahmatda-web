@@ -1,11 +1,13 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import { m } from 'framer-motion';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import ContainedButton from '../button/ContainedButton';
 import Checkbox from '../checkbox/Checkbox';
 import CheckboxWithText from '../checkbox/CheckboxWithText';
 
+import { homeCardVariants } from '@/constants/motions';
 import { RecTemplate } from '@/hooks/api/template/type';
 import selectedRecItemsState from '@/store/route-search/selectedRecItems';
 import selectedRecTemplateState from '@/store/route-search/selectedRecTemplate';
@@ -69,7 +71,7 @@ const RecommendationTemplateCard = ({ data, submitBtnTitle, onSubmit, isRefetchi
   }, [isRefetchingTemplateData]);
 
   return (
-    <Wrapper>
+    <Wrapper variants={homeCardVariants}>
       <StyledHeader>
         <Title>{templateName}</Title>
         <Checkbox textLabel="전체 선택" onToggle={toggleCheckAllBtn} checked={numCheckedItems === items.length} />
@@ -100,7 +102,7 @@ const RecommendationTemplateCard = ({ data, submitBtnTitle, onSubmit, isRefetchi
 
 export default RecommendationTemplateCard;
 
-const Wrapper = styled.div`
+const Wrapper = styled(m.div)`
   border-radius: 16px;
   background-color: ${({ theme }) => theme.colors.white};
   padding: 20px 20px 16px 20px;
