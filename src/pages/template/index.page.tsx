@@ -1,6 +1,7 @@
 import { ReactElement, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
+import { AnimatePresence, m } from 'framer-motion';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { NextPageWithLayout } from '../_app.page';
@@ -11,6 +12,7 @@ import DefaultAppBar from '@/components/navigation/DefaultAppBar';
 import CategorySection from '@/components/route-search/CategorySection';
 import ListRequestSection from '@/components/route-search/ListRequestSection';
 import RecommendationTemplateCard from '@/components/route-search/RecommendationTemplateCard';
+import { staggerOne } from '@/constants/motions';
 import useGetRecCategories from '@/hooks/api/category/useGetRecCategories';
 import { RecTemplate } from '@/hooks/api/template/type';
 import useGetRecTemplates from '@/hooks/api/template/useGetRecTemplates';
@@ -30,11 +32,7 @@ const Template: NextPageWithLayout = () => {
     isLoading: isRecCategoryLoading,
   } = useRecCategories();
 
-  const {
-    data: templates,
-    isRefetching: isRefetchingRecTemplates,
-    isLoading: isRecTemplatesLoading,
-  } = useGetRecTemplates();
+  const { data: templates, isRefetching: isRefetchingRecTemplates } = useGetRecTemplates();
   const setSelectedRecTemplate = useSetRecoilState(selectedRecTemplateState);
 
   const onRecTemplateSubmit = (templateInfo: RecTemplate) => () => {
@@ -65,8 +63,14 @@ const Template: NextPageWithLayout = () => {
           />
         </LoadingHandler>
 
-        <LoadingHandler isLoading={isRecTemplatesLoading} fallback={null}>
-          <CardsWrapper>
+        <AnimatePresence mode="wait">
+          <CardsWrapper
+            key={currentRecCategory?.id}
+            variants={staggerOne}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          >
             {templates?.map((templateInfo) => (
               <RecommendationTemplateCard
                 key={`rec-template-${templateInfo.id}`}
@@ -77,7 +81,7 @@ const Template: NextPageWithLayout = () => {
               />
             ))}
           </CardsWrapper>
-        </LoadingHandler>
+        </AnimatePresence>
 
         <ListRequestSection />
       </Wrapper>
@@ -114,7 +118,7 @@ const Title = styled.p`
   margin-bottom: 24px;
 `;
 
-const CardsWrapper = styled.div`
+const CardsWrapper = styled(m.div)`
   display: flex;
   flex-direction: column;
   row-gap: 16px;
