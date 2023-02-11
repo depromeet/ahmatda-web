@@ -12,6 +12,7 @@ import ToggleSwitch from '@/components/toggle/ToggleSwitch';
 import CustomException from '@/exceptions/CustomException';
 import useCreateAlarm from '@/hooks/api/alarm/useCreateAlarm';
 import useGetAlarm from '@/hooks/api/alarm/useGetAlarm';
+import recordEvent from '@/lib/analytics/record';
 import configState from '@/store/alarm-config/config';
 import dailyState from '@/store/alarm-config/daily';
 import currentUserTemplateState from '@/store/route-home/currentUserTemplate';
@@ -56,6 +57,7 @@ const AlarmBottomSheet: FC<Props> = ({ isShowing, setToClose }) => {
     }
 
     mutate(currentUserTemplate.id);
+    recordEvent({ action: '알림 설정', value: `소지품 수 : ${currentUserTemplate.items.length}` });
     onClose();
   };
 
