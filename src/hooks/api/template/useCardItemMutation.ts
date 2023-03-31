@@ -62,6 +62,11 @@ const useCardItemMutation = () => {
       if (!currentCategory) throw new Error('카테고리를 생성해 주세요.');
       if (!currentTemplate) throw new Error('템플릿을 생성해 주세요.');
 
+      if (currentTemplate.items.find((item) => item.name === itemName)) {
+        fireToast({ content: '이미 존재하는 아이템입니다.' });
+        return Promise.resolve(undefined);
+      }
+
       const requestData: createCardItemRequest = {
         itemName,
         important,
