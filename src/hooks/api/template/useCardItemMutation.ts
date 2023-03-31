@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil';
 
 import { Response as UserTemplateResponse, USER_TEMPLATE_QUERY_KEY } from './useGetUserTemplate';
 
+import recordEvent from '@/lib/analytics/record';
 import { del, patch, post } from '@/lib/api';
 import currentCategoryState from '@/store/route-home/currentCategory';
 import currentUserTemplateState from '@/store/route-home/currentUserTemplate';
@@ -61,6 +62,11 @@ const useCardItemMutation = () => {
     ({ itemName, important }) => {
       if (!currentCategory) throw new Error('카테고리를 생성해 주세요.');
       if (!currentTemplate) throw new Error('템플릿을 생성해 주세요.');
+
+      if (currentTemplate.items.find((item) => item.name === itemName)) {
+        recordEvent({ action: '중복 소지품 추가', value: itemName });
+        throw new Error('이미 존재하는 아이템입니다.');
+      }
 
       const requestData: createCardItemRequest = {
         itemName,
