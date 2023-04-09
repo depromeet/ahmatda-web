@@ -50,5 +50,5 @@ const MotionToastMessage = styled(m.div)(
     borderRadius: '8px',
     textAlign: 'center',
   },
-  ({ theme }) => ({ ...theme.typographies.caption1, backgroundColor: theme.colors.gray5, color: theme.colors.white }),
+  ({ theme }) => ({ ...theme.typographies.caption1, backgroundColor: theme.colors.black, color: theme.colors.white }),
 );
