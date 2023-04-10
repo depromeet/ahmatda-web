@@ -6,18 +6,21 @@ import useToast from '@/store/toast/useToast';
 
 const ToastWrapper = () => {
   const { toast } = useToast();
+  const isHaveIcon = Boolean(toast?.iconElement);
 
   return (
     <Wrapper>
       <AnimatePresence mode="wait">
         {toast && (
           <MotionToastMessage
-            key={toast.content ?? 'toast'}
+            key={toast.content}
             variants={defaultFadeInUpVariants}
             initial="initial"
             animate="animate"
             exit="exit"
+            isHaveIcon={isHaveIcon}
           >
+            {isHaveIcon && toast.iconElement}
             {toast.content}
           </MotionToastMessage>
         )}
@@ -42,13 +45,14 @@ const Wrapper = styled.div(
   ({ theme }) => ({ maxWidth: theme.size.maxWidth, padding: theme.size.layoutPadding }),
 );
 
-const MotionToastMessage = styled(m.div)(
+const MotionToastMessage = styled(m.div)<{ isHaveIcon: boolean }>(
   {
     width: '100%',
-    height: '48px',
-    padding: '12px 38px',
+    minHeight: '48px',
     borderRadius: '8px',
-    textAlign: 'center',
+    display: 'flex',
+    gap: '8px',
   },
   ({ theme }) => ({ ...theme.typographies.caption1, backgroundColor: theme.colors.black, color: theme.colors.white }),
+  ({ isHaveIcon }) => ({ padding: isHaveIcon ? '12px 16px' : '12px 18px' }),
 );
