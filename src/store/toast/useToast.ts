@@ -1,10 +1,9 @@
 import { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 
-import toastState from './toastState';
+import toastState, { ToastWithoutId } from './toastState';
 
-interface FireToast {
-  content: string;
+interface FireToast extends ToastWithoutId {
   duration?: number;
 }
 
@@ -21,9 +20,9 @@ const useToast = () => {
     });
   }, []);
 
-  const fireToast = useCallback(({ content, duration = DEFAULT_DURATION }: FireToast) => {
+  const fireToast = useCallback(({ content, duration = DEFAULT_DURATION, iconElement }: FireToast) => {
     const id = new Date().getTime().toString();
-    setToast({ id, content });
+    setToast({ id, content, iconElement });
     setTimeout(() => removeToast(id), duration);
   }, []);
 
