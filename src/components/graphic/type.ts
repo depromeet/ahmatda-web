@@ -57,6 +57,7 @@ export const graphics = [
   'TOWEL',
   'TUMBLER',
   'UNDERWEAR',
+  'UMBRELLA',
   'WALLET',
 ] as const;
 
