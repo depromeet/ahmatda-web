@@ -53,7 +53,6 @@ export const ONBOARD_TITLE: TitleType = {
   },
 };
 
-// TODO: Graphic 수정
 export const ONBOARD_ITEMS: ItemsType = {
   DAILY: [
     {
@@ -118,7 +117,7 @@ export const ONBOARD_ITEMS: ItemsType = {
     },
     {
       name: '우산',
-      emoji: 'CAMERA',
+      emoji: 'UMBRELLA',
     },
     {
       name: '텀블러',

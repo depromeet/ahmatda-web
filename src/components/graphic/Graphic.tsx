@@ -47,6 +47,7 @@ import GraphicToiletries from './GraphicToiletries';
 import GraphicTowel from './GraphicTowel';
 import GraphicTube from './GraphicTube';
 import GraphicTumbler from './GraphicTumbler';
+import GraphicUmbrella from './GraphicUmbrella';
 import GraphicUnderwear from './GraphicUnderwear';
 import GraphicWallet from './GraphicWallet';
 import GraphicWork from './GraphicWork';
@@ -152,6 +153,8 @@ const graphicElement = (type: Graphic) => {
       return GraphicTumbler;
     case 'UNDERWEAR':
       return GraphicUnderwear;
+    case 'UMBRELLA':
+      return GraphicUmbrella;
     case 'WALLET':
       return GraphicWallet;
 
